@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class DatabaseSchemaTest extends TestCase
+class TableSchemaTest extends TestCase
 {
     use RefreshDatabase;
 
