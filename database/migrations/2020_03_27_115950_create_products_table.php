@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('code');
             $table->float('price', 10, 4, true);
             $table->integer('quantity', false, true);
+
+            $table->foreign('attribute_set_id')->references('id')->on('attribute_sets')->onDelete('set null');
         });
     }
 
