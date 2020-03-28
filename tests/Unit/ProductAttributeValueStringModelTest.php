@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ProductAttributeValueStringTest extends TestCase
+class ProductAttributeValueStringModelTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

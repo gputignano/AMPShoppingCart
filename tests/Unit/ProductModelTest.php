@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 
-class ProductTest extends TestCase
+class ProductModelTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

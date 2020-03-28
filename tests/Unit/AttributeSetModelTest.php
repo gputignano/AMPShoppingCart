@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AttributeSetTest extends TestCase
+class AttributeSetModelTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
