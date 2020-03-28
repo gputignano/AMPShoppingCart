@@ -20,6 +20,8 @@ class CreateOrderDetailsTable extends Migration
             $table->string('name');
             $table->float('price', 10, 4, true);
             $table->integer('quantity', false, true);
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 
