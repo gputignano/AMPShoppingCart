@@ -18,9 +18,9 @@ class CreateRewritesTable extends Migration
             $table->string('slug');
             $table->string('title');
             $table->text('description');
-            $table->text('robots');
+            $table->text('robots')->nullable();
             $table->string('template');
-            $table->boolean('enabled');
+            $table->boolean('enabled')->default(false);
             $table->morphs('rewritable');
         });
     }
