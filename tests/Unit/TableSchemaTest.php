@@ -13,10 +13,12 @@ class TableSchemaTest extends TestCase
     /** @test */
     public function users_table_has_expected_columns()
     {
+        $this->assertCount(7, Schema::getColumnListing('users'));
+
         $this->assertTrue(
             Schema::hasColumns('users', [
                 'id',
-                'name',
+                // 'name',
                 'email',
                 'email_verified_at',
                 'password',

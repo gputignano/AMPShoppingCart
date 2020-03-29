@@ -30,12 +30,12 @@ class UserModelTest extends TestCase
         $user = factory(User::class)->create();
 
         $user->update([
-            'name' => $name = $this->faker->name,
+            // 'name' => $name = $this->faker->name,
             'email' => $email = $this->faker->unique()->safeEmail,
             'password' => bcrypt($password = Str::random(10)),
         ]);
 
-        $this->assertEquals($name, $user->name);
+        // $this->assertEquals($name, $user->name);
         $this->assertEquals($email, $user->email);
         $this->assertTrue(Hash::check($password, $user->password));
     }
