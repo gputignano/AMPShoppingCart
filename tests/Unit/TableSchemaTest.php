@@ -74,7 +74,6 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('product_attribute_value_strings', $fields = [
                 'id',
-                'attribute_id',
                 'value',
             ])
         );
@@ -88,7 +87,7 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('products', $fields = [
                 'id',
-                'parent_id',
+                'product_id',
                 'attribute_set_id',
                 'name',
                 'code',
@@ -106,7 +105,7 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('pages', $fields = [
                 'id',
-                'parent_id',
+                'page_id',
                 'name',
             ])
         );
@@ -120,7 +119,7 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('categories', $fields = [
                 'id',
-                'parent_id',
+                'category_id',
                 'name',
             ])
         );

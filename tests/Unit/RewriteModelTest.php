@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Product;
 use App\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -57,5 +58,21 @@ class RewriteModelTest extends TestCase
         $rewrite->delete();
 
         $this->assertCount(0, Rewrite::all());
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function rewrite_has_rewritable_relation()
+    {
+        $product = factory(Product::class)->create();
+        $rewrite = factory(Rewrite::class)->create([
+            'rewritable_type' => Product::class,
+            'rewritable_id' => $product->id,
+        ]);
+
+        $this->assertInstanceOf(Product::class, $rewrite->rewritable);
     }
 }

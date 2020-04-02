@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Order;
+use App\OrderDetail;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -43,5 +44,30 @@ class OrderModelTest extends TestCase
         $order->delete();
 
         $this->assertCount(0, Order::all());
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function order_has_user_relation()
+    {
+        $user = factory(User::class)->create();
+
+        $order = factory(Order::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->assertInstanceOf(User::class, $order->user);
+    }
+
+    /** @test */
+    public function order_has_order_details_telation()
+    {
+        $order = factory(Order::class)->create();
+        $order->orderDetails()->save(factory(OrderDetail::class)->make());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $order->orderDetails);
     }
 }

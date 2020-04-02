@@ -11,4 +11,9 @@ class Rewrite extends Model
     ];
 
     public $timestamps = false;
+
+    public function rewritable()
+    {
+        return $this->morphTo();
+    }
 }

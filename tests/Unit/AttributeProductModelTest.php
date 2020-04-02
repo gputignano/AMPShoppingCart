@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Attribute;
 use App\AttributeProduct;
 use App\Product;
+use App\ProductAttributeValueString;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -51,4 +52,36 @@ class AttributeProductModelTest extends TestCase
 
         $this->assertCount(0, AttributeProduct::all());
     }
+
+    /**
+     * RELATIONS
+     */
+
+     /** @test */
+     public function attribute_product_has_product_relation()
+     {
+         $attributeProduct = factory(AttributeProduct::class)->create();
+
+         $this->assertInstanceOf(Product::class, $attributeProduct->product);
+     }
+
+     /** @test */
+     public function attribute_product_has_attribute_relation()
+     {
+         $attributeProduct = factory(AttributeProduct::class)->create();
+
+         $this->assertInstanceOf(Attribute::class, $attributeProduct->attribute);
+     }
+
+     /** @test */
+     public function attribute_product_has_valuable_relation()
+     {
+         $productAttributeValueString = factory(ProductAttributeValueString::class)->create();
+         $attributeProduct = factory(AttributeProduct::class)->create([
+             'valuable_type' => ProductAttributeValueString::class,
+             'valuable_id' => $productAttributeValueString->id,
+         ]);
+
+         $this->assertInstanceOf(ProductAttributeValueString::class, $attributeProduct->valuable);
+     }
 }

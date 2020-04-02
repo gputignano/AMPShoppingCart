@@ -2,7 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Attribute;
 use App\AttributeSet;
+use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -42,5 +44,29 @@ class AttributeSetModelTest extends TestCase
         $attributeSet->delete();
 
         $this->assertCount(0, AttributeSet::all());
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function attribute_set_has_attribute_relation()
+    {
+        $attributeSet = factory(AttributeSet::class)->create();
+
+        $attributeSet->attributes()->saveMany(factory(Attribute::class, 2)->make());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $attributeSet->attributes);
+    }
+
+    /** @test */
+    public function attribute_set_has_products_relation()
+    {
+        $attributeSet = factory(AttributeSet::class)->create();
+
+        $attributeSet->products()->saveMany(factory(Product::class, 2)->make());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $attributeSet->products);
     }
 }

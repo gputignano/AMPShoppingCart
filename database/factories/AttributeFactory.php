@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Attribute::class, function (Faker $faker) {
     return [
-        'label' => $this->faker->word,
-        'type' => $this->faker->word,
+        'label' => $faker->word,
+        'type' => $faker->word,
     ];
 });

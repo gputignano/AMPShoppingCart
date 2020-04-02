@@ -2,8 +2,13 @@
 
 namespace Tests\Unit;
 
+use App\Attribute;
+use App\AttributeProduct;
 use App\AttributeSet;
+use App\Category;
 use App\Product;
+use App\ProductAttributeValueString;
+use App\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -30,7 +35,7 @@ class ProductModelTest extends TestCase
         $product = factory(Product::class)->create();
 
         $product->update([
-            'parent_id' => $productId = factory(Product::class)->create()->id,
+            'product_id' => $productId = factory(Product::class)->create()->id,
             'attribute_set_id' => $attributeSetId = factory(AttributeSet::class)->create()->id,
             'name' => $name = $this->faker->name,
             'code' => $code = Str::random(5),
@@ -38,7 +43,7 @@ class ProductModelTest extends TestCase
             'quantity' => $quantity = $this->faker->numberBetween(0, 100),
         ]);
 
-        $this->assertEquals($productId, $product->parent_id);
+        $this->assertEquals($productId, $product->product_id);
         $this->assertEquals($attributeSetId, $product->attribute_set_id);
         $this->assertEquals($name, $product->name);
         $this->assertEquals($code, $product->code);
@@ -54,5 +59,93 @@ class ProductModelTest extends TestCase
         $product->delete();
 
         $this->assertCount(0, Product::all());
+    }
+
+    /** @test */
+    public function when_a_parent_product_is_deleted_all_children_products_are_deleted()
+    {
+        $product = factory(Product::class)->create();
+
+        $product->children()->saveMany(factory(Product::class, 2)->make());
+
+        $this->assertCount(3, Product::all());
+
+        $product->delete();
+
+        $this->assertCount(0, Product::all());
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function product_has_parent_relation()
+    {
+        // Many to One
+        $children = factory(Product::class)->create([
+            'product_id' => factory(Product::class)->create(),
+        ]);
+
+        $this->assertCount(2, Product::all());
+        $this->assertInstanceOf(Product::class, $children->parent);
+    }
+
+    /** @test */
+    public function product_has_children_relation()
+    {
+        // One to Many
+        $product = factory(Product::class)->create()->children()->save(factory(Product::class)->make());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->children);
+    }
+
+    /** @test */
+    public function product_has_attribute_set_relation()
+    {
+        // Many to One
+        $attributeSet = factory(AttributeSet::class)->create();
+
+        $product = factory(Product::class)->create([
+            'attribute_set_id' => $attributeSet->id,
+        ]);
+
+        $this->assertInstanceOf(AttributeSet::class, $product->attribute_set);
+    }
+
+    /** @test */
+    public function product_has_attributes_relatuion()
+    {
+        // Many to Many
+        $product = factory(Product::class)->create();
+        $attribute = factory(Attribute::class)->create();
+
+        $product->attributes()->attach($attribute, [
+            'valuable_type' => ProductAttributeValueString::class,
+            'valuable_id' => 1,
+        ]);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
+        $this->assertCount(1, AttributeProduct::all());
+    }
+
+    /** @test */
+    public function product_has_categories_relation()
+    {
+        // Many to Many
+        $product = factory(Product::class)->create();
+        $product->categories()->save(factory(Category::class)->make());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->categories);
+    }
+
+    /** @test */
+    public function product_has_rewrite_relation()
+    {
+        // One to One Polymorphic
+        $product = factory(Product::class)->create();
+        $product->rewrite()->save(factory(Rewrite::class)->make());
+
+        $this->assertInstanceOf(Rewrite::class, $product->rewrite);
     }
 }

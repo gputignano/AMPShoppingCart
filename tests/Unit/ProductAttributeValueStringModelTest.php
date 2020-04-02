@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Attribute;
 use App\ProductAttributeValueString;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -29,11 +28,9 @@ class ProductAttributeValueStringModelTest extends TestCase
         $productAttributeValueString = factory(ProductAttributeValueString::class)->create();
 
         $productAttributeValueString->update([
-            'attribute_id' => $attributeId = factory(Attribute::class)->create()->id,
             'value' => $value = $this->faker->word,
         ]);
 
-        $this->assertEquals($attributeId, $productAttributeValueString->attribute_id);
         $this->assertEquals($value, $productAttributeValueString->value);
     }
 
@@ -45,5 +42,17 @@ class ProductAttributeValueStringModelTest extends TestCase
         $productAttributeValueString->delete();
 
         $this->assertCount(0, ProductAttributeValueString::all());
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function product_attribute_value_string_has_attribute_product_relation()
+    {
+        $productAttributeValueString = factory(ProductAttributeValueString::class)->create();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $productAttributeValueString->attribute_products);
     }
 }

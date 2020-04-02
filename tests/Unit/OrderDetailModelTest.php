@@ -53,4 +53,19 @@ class OrderDetailModelTest extends TestCase
 
         $this->assertCount(0, OrderDetail::all());
     }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function order_detail_has_order_relation()
+    {
+        $order = factory(Order::class)->create();
+        $orderDetail = factory(OrderDetail::class)->create([
+            'order_id' => $order->id,
+        ]);
+
+        $this->assertInstanceOf(Order::class, $orderDetail->order);
+    }
 }

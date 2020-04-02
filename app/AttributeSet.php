@@ -11,4 +11,14 @@ class AttributeSet extends Model
     ];
 
     public $timestamps = false;
+
+    public function attributes()
+    {
+        return $this->belongsToMany(Attribute::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

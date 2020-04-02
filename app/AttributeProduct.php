@@ -13,4 +13,19 @@ class AttributeProduct extends Model
     ];
 
     public $timestamps = false;
+
+    public function valuable()
+    {
+        return $this->morphTo();
+    }
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

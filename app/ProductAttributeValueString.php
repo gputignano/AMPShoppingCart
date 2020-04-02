@@ -11,4 +11,14 @@ class ProductAttributeValueString extends Model
     ];
 
     public $timestamps = false;
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
+
+    public function attribute_products()
+    {
+        return $this->morphMany(AttributeProduct::class, 'valuable');
+    }
 }

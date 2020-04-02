@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Order;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -30,12 +31,10 @@ class UserModelTest extends TestCase
         $user = factory(User::class)->create();
 
         $user->update([
-            // 'name' => $name = $this->faker->name,
             'email' => $email = $this->faker->unique()->safeEmail,
             'password' => bcrypt($password = Str::random(10)),
         ]);
 
-        // $this->assertEquals($name, $user->name);
         $this->assertEquals($email, $user->email);
         $this->assertTrue(Hash::check($password, $user->password));
     }
@@ -48,5 +47,19 @@ class UserModelTest extends TestCase
         $user->delete();
 
         $this->assertCount(0, User::all());
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function user_has_orders_relation()
+    {
+        $user = factory(User::class)->create();
+
+        $user->orders()->save(factory(Order::class)->make());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $user->orders);
     }
 }
