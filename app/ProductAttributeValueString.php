@@ -19,6 +19,6 @@ class ProductAttributeValueString extends Model
 
     public function attribute_products()
     {
-        return $this->morphMany(AttributeProduct::class, 'valuable');
+        return $this->morphMany(EAV::class, 'valuable');
     }
 }

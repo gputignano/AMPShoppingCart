@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AttributeProduct extends Model
+class EAV extends Model
 {
-    public $table = 'attribute_product';
+    public $table = 'eavs';
 
     protected $fillable = [
         'attribute_id', 'product_id', 'valuable_type', 'valuable_id',

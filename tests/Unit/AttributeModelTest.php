@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Attribute;
-use App\AttributeProduct;
+use App\EAV;
 use App\AttributeSet;
 use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -64,10 +64,10 @@ class AttributeModelTest extends TestCase
          $this->assertCount(1, $attribute->attribute_sets()->get());
      }
 
-     /** @test */
-     public function attribute_has_products_relation()
-     {
-         // Many to Many
+    /** @test */
+    public function attribute_has_products_relation()
+    {
+        // Many to Many
         $attribute = factory(Attribute::class)->create();
         $product = factory(Product::class)->create();
 
@@ -77,6 +77,6 @@ class AttributeModelTest extends TestCase
         ]);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
-        $this->assertCount(1, AttributeProduct::all());
-     }
+        $this->assertCount(1, EAV::all());
+    }
 }

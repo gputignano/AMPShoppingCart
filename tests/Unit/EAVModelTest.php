@@ -3,14 +3,14 @@
 namespace Tests\Unit;
 
 use App\Attribute;
-use App\AttributeProduct;
+use App\EAV;
 use App\Product;
 use App\ProductAttributeValueString;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AttributeProductModelTest extends TestCase
+class EAVModelTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -18,17 +18,17 @@ class AttributeProductModelTest extends TestCase
     /** @test */
     public function an_attribute_product_can_be_created()
     {
-        $this->assertCount(0, AttributeProduct::all());
+        $this->assertCount(0, EAV::all());
 
-        factory(AttributeProduct::class)->create();
+        factory(EAV::class)->create();
 
-        $this->assertCount(1, AttributeProduct::all());
+        $this->assertCount(1, EAV::all());
     }
 
     /** @test */
     public function an_attribute_product_can_be_updated()
     {
-        $attributeProduct = factory(AttributeProduct::class)->create();
+        $attributeProduct = factory(EAV::class)->create();
 
         $attributeProduct->update([
             'attribute_id' => $attributeId = factory(Attribute::class)->create()->id,
@@ -46,11 +46,11 @@ class AttributeProductModelTest extends TestCase
     /** @test */
     public function an_attribute_product_can_be_deleted()
     {
-        $attributeProduct = factory(AttributeProduct::class)->create();
+        $attributeProduct = factory(EAV::class)->create();
 
         $attributeProduct->delete();
 
-        $this->assertCount(0, AttributeProduct::all());
+        $this->assertCount(0, EAV::all());
     }
 
     /**
@@ -60,7 +60,7 @@ class AttributeProductModelTest extends TestCase
      /** @test */
      public function attribute_product_has_product_relation()
      {
-         $attributeProduct = factory(AttributeProduct::class)->create();
+         $attributeProduct = factory(EAV::class)->create();
 
          $this->assertInstanceOf(Product::class, $attributeProduct->product);
      }
@@ -68,7 +68,7 @@ class AttributeProductModelTest extends TestCase
      /** @test */
      public function attribute_product_has_attribute_relation()
      {
-         $attributeProduct = factory(AttributeProduct::class)->create();
+         $attributeProduct = factory(EAV::class)->create();
 
          $this->assertInstanceOf(Attribute::class, $attributeProduct->attribute);
      }
@@ -77,7 +77,7 @@ class AttributeProductModelTest extends TestCase
      public function attribute_product_has_valuable_relation()
      {
          $productAttributeValueString = factory(ProductAttributeValueString::class)->create();
-         $attributeProduct = factory(AttributeProduct::class)->create([
+         $attributeProduct = factory(EAV::class)->create([
              'valuable_type' => ProductAttributeValueString::class,
              'valuable_id' => $productAttributeValueString->id,
          ]);

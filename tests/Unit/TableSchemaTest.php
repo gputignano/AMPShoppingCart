@@ -148,7 +148,7 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function category_product_has_expected_columns()
+    public function category_product_table_has_expected_columns()
     {
         $this->assertTrue(
             Schema::hasColumns('category_product', $fields = [
@@ -161,10 +161,10 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function attribute_product_has_expected_columns()
+    public function eavs_table_has_expected_columns()
     {
         $this->assertTrue(
-            Schema::hasColumns('attribute_product', $fields = [
+            Schema::hasColumns('eavs', $fields = [
                 'id',
                 'attribute_id',
                 'product_id',
@@ -173,7 +173,7 @@ class TableSchemaTest extends TestCase
             ])
         );
 
-        $this->assertCount(count($fields), Schema::getColumnListing('attribute_product'));
+        $this->assertCount(count($fields), Schema::getColumnListing('eavs'));
     }
 
     /** @test */

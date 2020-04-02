@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\Attribute;
-use App\AttributeProduct;
 use App\AttributeSet;
 use App\Category;
+use App\EAV;
 use App\Product;
 use App\ProductAttributeValueString;
 use App\Rewrite;
@@ -126,7 +126,7 @@ class ProductModelTest extends TestCase
         ]);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
-        $this->assertCount(1, AttributeProduct::all());
+        $this->assertCount(1, EAV::all());
     }
 
     /** @test */
