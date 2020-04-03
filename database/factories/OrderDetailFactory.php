@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 $factory->define(OrderDetail::class, function (Faker $faker) {
     return [
-        'order_id' => factory(Order::class)->create()->id,
+        'order_id' => factory(Order::class)->create(),
         'code' => Str::random(5),
         'name' => $faker->name,
         'price' => $faker->randomFloat(null, 10, 4),

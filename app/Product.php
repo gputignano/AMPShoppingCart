@@ -26,12 +26,12 @@ class Product extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo($this, 'product_id');
     }
 
     public function children()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany($this);
     }
 
     public function attribute_set()
@@ -51,6 +51,6 @@ class Product extends Model
 
     public function eavs()
     {
-        return $this->hasMany(EAV::class);
+        return $this->morphMany(EAV::class, 'entity_eavable');
     }
 }

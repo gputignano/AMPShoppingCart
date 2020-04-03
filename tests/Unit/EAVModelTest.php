@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Attribute;
 use App\EAV;
-use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -30,16 +29,22 @@ class EAVModelTest extends TestCase
         $eav = factory(EAV::class)->create();
 
         $eav->update([
+            'entity_eavable_type' => $entitableType = $this->faker->word,
+            'entity_eavable_id' => $entitableId = 1,
+
             'attribute_id' => $attributeId = factory(Attribute::class)->create()->id,
-            'product_id' => $productId = factory(Product::class)->create()->id,
-            'valuable_type' => $valuableType = $this->faker->word,
-            'valuable_id' => $valuableId = $this->faker->numberBetween(101, 200),
+
+            'value_eavable_type' => $valuableType = $this->faker->word,
+            'value_eavable_id' => $valuableId = 1,
         ]);
 
+        $this->assertEquals($entitableType, $eav->entity_eavable_type);
+        $this->assertEquals($entitableId, $eav->entity_eavable_id);
+
         $this->assertEquals($attributeId, $eav->attribute_id);
-        $this->assertEquals($productId, $eav->product_id);
-        $this->assertEquals($valuableType, $eav->valuable_type);
-        $this->assertEquals($valuableId, $eav->valuable_id);
+
+        $this->assertEquals($valuableType, $eav->value_eavable_type);
+        $this->assertEquals($valuableId, $eav->value_eavable_id);
     }
 
     /** @test */
@@ -57,11 +62,11 @@ class EAVModelTest extends TestCase
      */
 
      /** @test */
-     public function eav_has_product_relation()
+     public function eav_has_entity_eavable_relation()
      {
          $eav = factory(EAV::class)->create();
 
-         $this->assertInstanceOf(Product::class, $eav->product);
+         $this->assertInstanceOf($eav->entity_eavable_type, $eav->entity_eavable);
      }
 
      /** @test */
@@ -73,10 +78,10 @@ class EAVModelTest extends TestCase
      }
 
      /** @test */
-     public function eav_has_valuable_relation()
+     public function eav_has_value_eavable_relation()
      {
         $eav = factory(EAV::class)->create();
 
-         $this->assertInstanceOf($eav->valuable_type, $eav->valuable);
+         $this->assertInstanceOf($eav->value_eavable_type, $eav->value_eavable);
      }
 }

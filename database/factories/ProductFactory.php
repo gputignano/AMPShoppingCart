@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'product_id' => 0,
-        'attribute_set_id' => factory(AttributeSet::class)->create()->id,
+        'attribute_set_id' => factory(AttributeSet::class)->create(),
         'name' => $faker->name,
         'code' => Str::random(5),
         'price' => $faker->randomFloat(null, 10, 4),

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EAVString extends Model
 {
     protected $fillable = [
-        'attribute_id', 'value',
+        'value',
     ];
 
     public $timestamps = false;
@@ -16,6 +16,6 @@ class EAVString extends Model
 
     public function eavs()
     {
-        return $this->morphMany(EAV::class, 'valuable');
+        return $this->morphMany(EAV::class, 'value_eavable');
     }
 }

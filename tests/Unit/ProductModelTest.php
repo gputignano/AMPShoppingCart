@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\AttributeSet;
 use App\Category;
-use App\EAV;
 use App\Product;
 use App\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -113,36 +112,12 @@ class ProductModelTest extends TestCase
 
     /** @test */
     public function product_has_eavs_relation()
-    {
-        // One to Many
-        $eav = factory(EAV::class)->create();
-        $product = Product::find($eav->product_id);
+    { 
+        // One to Many Polymorphic
+        $product = factory(Product::class)->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->eavs);
     }
-
-    /** @test */
-    // public function product_has_attributes_relatuion()
-    // {
-    //     // I'm not sure this relation is really useful
-    //     // Many to Many
-    //     $eav = factory(EAV::class)->create();
-    //     $product = Product::find($eav->product_id);
-
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
-    //     $this->assertCount(1, EAV::all());
-    // }
-
-    /** @test */
-    // public function product_has_valuable_relation()
-    // {
-    //     // I'm not sure this relation is really useful
-    //     // Many to Many
-    //     $eav = factory(EAV::class)->create();
-    //     $product = Product::find($eav->product_id);
-
-    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->valuable);
-    // }
 
     /** @test */
     public function product_has_categories_relation()

@@ -8,6 +8,8 @@ use Faker\Generator as Faker;
 $factory->define(Attribute::class, function (Faker $faker) {
     return [
         'label' => $faker->word,
-        'type' => $faker->word,
+        'type' => $faker->randomElement([
+            \App\EAVString::class,
+        ]),
     ];
 });

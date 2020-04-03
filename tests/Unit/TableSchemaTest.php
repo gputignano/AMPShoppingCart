@@ -166,10 +166,11 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('eavs', $fields = [
                 'id',
+                'entity_eavable_type',
+                'entity_eavable_id',
                 'attribute_id',
-                'product_id',
-                'valuable_type',
-                'valuable_id',
+                'value_eavable_type',
+                'value_eavable_id',
             ])
         );
 

@@ -51,7 +51,7 @@ class EAVStringModelTest extends TestCase
     /** @test */
     public function eav_string_has_eavs_relation()
     {
-        // Many to One
+        // One to Many Polymorphic
         $eavString = factory(EAVString::class)->create();
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $eavString->eavs);
