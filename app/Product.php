@@ -39,11 +39,6 @@ class Product extends Model
         return $this->belongsTo(AttributeSet::class);
     }
 
-    public function attributes()
-    {
-        return $this->belongsToMany(Attribute::class, 'eavs');
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -52,5 +47,10 @@ class Product extends Model
     public function rewrite()
     {
         return $this->morphOne(Rewrite::class, 'rewritable');
+    }
+
+    public function eavs()
+    {
+        return $this->hasMany(EAV::class);
     }
 }

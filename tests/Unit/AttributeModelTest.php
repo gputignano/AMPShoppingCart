@@ -65,18 +65,22 @@ class AttributeModelTest extends TestCase
      }
 
     /** @test */
-    public function attribute_has_products_relation()
+    public function attribute_has_eavs_relation()
     {
-        // Many to Many
-        $attribute = factory(Attribute::class)->create();
-        $product = factory(Product::class)->create();
+        $eav = factory(EAV::class)->create();
+        $attribute = Attribute::find($eav->attribute_id);
 
-        $attribute->products()->attach($product, [
-            'valuable_type' => ObjectType::class,
-            'valuable_id' => 1,
-        ]);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
-        $this->assertCount(1, EAV::all());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $attribute->eavs);
     }
+
+    /** @test */
+    // public function attribute_has_products_relation()
+    // {
+    //     // I'm not sure this relation is really useful
+    //     $eav = factory(EAV::class)->create();
+    //     $attribute = Attribute::find($eav->attribute_id);
+
+    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $attribute->products);
+    //     $this->assertCount(1, EAV::all());
+    // }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductAttributeValueString extends Model
+class EAVString extends Model
 {
     protected $fillable = [
         'attribute_id', 'value',
@@ -12,12 +12,9 @@ class ProductAttributeValueString extends Model
 
     public $timestamps = false;
 
-    public function attribute()
-    {
-        return $this->belongsTo(Attribute::class);
-    }
+    public $table = 'eav_strings';
 
-    public function attribute_products()
+    public function eavs()
     {
         return $this->morphMany(EAV::class, 'valuable');
     }

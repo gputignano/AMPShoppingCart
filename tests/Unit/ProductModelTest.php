@@ -2,12 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Attribute;
 use App\AttributeSet;
 use App\Category;
 use App\EAV;
 use App\Product;
-use App\ProductAttributeValueString;
 use App\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -114,20 +112,37 @@ class ProductModelTest extends TestCase
     }
 
     /** @test */
-    public function product_has_attributes_relatuion()
+    public function product_has_eavs_relation()
     {
-        // Many to Many
-        $product = factory(Product::class)->create();
-        $attribute = factory(Attribute::class)->create();
+        // One to Many
+        $eav = factory(EAV::class)->create();
+        $product = Product::find($eav->product_id);
 
-        $product->attributes()->attach($attribute, [
-            'valuable_type' => ProductAttributeValueString::class,
-            'valuable_id' => 1,
-        ]);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
-        $this->assertCount(1, EAV::all());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->eavs);
     }
+
+    /** @test */
+    // public function product_has_attributes_relatuion()
+    // {
+    //     // I'm not sure this relation is really useful
+    //     // Many to Many
+    //     $eav = factory(EAV::class)->create();
+    //     $product = Product::find($eav->product_id);
+
+    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->attributes);
+    //     $this->assertCount(1, EAV::all());
+    // }
+
+    /** @test */
+    // public function product_has_valuable_relation()
+    // {
+    //     // I'm not sure this relation is really useful
+    //     // Many to Many
+    //     $eav = factory(EAV::class)->create();
+    //     $product = Product::find($eav->product_id);
+
+    //     $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->valuable);
+    // }
 
     /** @test */
     public function product_has_categories_relation()

@@ -69,16 +69,16 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function product_attribute_value_strings_table_has_expected_columns()
+    public function eav_strings_table_has_expected_columns()
     {
         $this->assertTrue(
-            Schema::hasColumns('product_attribute_value_strings', $fields = [
+            Schema::hasColumns('eav_strings', $fields = [
                 'id',
                 'value',
             ])
         );
 
-        $this->assertCount(count($fields), Schema::getColumnListing('product_attribute_value_strings'));
+        $this->assertCount(count($fields), Schema::getColumnListing('eav_strings'));
     }
 
     /** @test */

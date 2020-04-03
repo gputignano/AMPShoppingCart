@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductAttributeValueStringsTable extends Migration
+class CreateEAVStringsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProductAttributeValueStringsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_attribute_value_strings', function (Blueprint $table) {
+        Schema::create('eav_strings', function (Blueprint $table) {
             $table->id();
             $table->string('value');
         });
@@ -26,6 +26,6 @@ class CreateProductAttributeValueStringsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_attribute_value_strings');
+        Schema::dropIfExists('eav_strings');
     }
 }

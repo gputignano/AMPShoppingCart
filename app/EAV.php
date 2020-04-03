@@ -14,9 +14,9 @@ class EAV extends Model
 
     public $timestamps = false;
 
-    public function valuable()
+    public function product()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Product::class);
     }
 
     public function attribute()
@@ -24,8 +24,8 @@ class EAV extends Model
         return $this->belongsTo(Attribute::class);
     }
 
-    public function product()
+    public function valuable()
     {
-        return $this->belongsTo(Product::class);
+        return $this->morphTo();
     }
 }

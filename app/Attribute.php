@@ -17,13 +17,8 @@ class Attribute extends Model
         return $this->belongsToMany(AttributeSet::class);
     }
 
-    public function productAttributeValueStrings()
+    public function eavs()
     {
-        return $this->hasMany(ProductAttributeValueString::class);
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'eavs');
+        return $this->hasMany(EAV::class);
     }
 }
