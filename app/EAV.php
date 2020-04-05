@@ -9,7 +9,7 @@ class EAV extends Model
     public $table = 'eavs';
 
     protected $fillable = [
-        'entity_eavable_type', 'entity_eavable_id', 'attribute_id', 'value_eavable_type', 'valuae_eavble_id',
+        'entity_eavable_type', 'entity_eavable_id', 'attribute_id', 'value_eavable_type', 'value_eavable_id',
     ];
 
     public $timestamps = false;

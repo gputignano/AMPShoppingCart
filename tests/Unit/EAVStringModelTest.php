@@ -12,36 +12,38 @@ class EAVStringModelTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $eavString;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eavString = factory(EAVString::class)->create();
+    }
+
     /** @test */
     public function an_eav_string_can_be_created()
     {
-        $this->assertCount(0, EAVString::all());
-
-        $eavString = factory(EAVString::class)->create();
-
         $this->assertCount(1, EAVString::all());
+        $this->assertInstanceOf(EAVString::class, $this->eavString);
     }
 
     /** @test */
     public function an_eav_string_can_be_updated()
     {
-        $eavString = factory(EAVString::class)->create();
-
-        $eavString->update([
+        $this->eavString->update([
             'value' => $value = $this->faker->word,
         ]);
 
-        $this->assertEquals($value, $eavString->value);
+        $this->assertEquals($value, $this->eavString->value);
     }
 
     /** @test */
     public function an_eav_string_can_be_deleted()
     {
-        $eavString = factory(EAVString::class)->create();
+        $this->eavString->delete();
 
-        $eavString->delete();
-
-        $this->assertCount(0, EAVString::all());
+        $this->assertDeleted($this->eavString);
     }
 
     /**
@@ -52,8 +54,6 @@ class EAVStringModelTest extends TestCase
     public function eav_string_has_eavs_relation()
     {
         // One to Many Polymorphic
-        $eavString = factory(EAVString::class)->create();
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $eavString->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavString->eavs());
     }
 }

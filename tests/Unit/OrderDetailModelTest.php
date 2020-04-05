@@ -14,44 +14,53 @@ class OrderDetailModelTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $orderDetail;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->orderDetail = factory(OrderDetail::class)->create();
+    }
+
     /** @test */
     public function an_order_detail_can_be_created()
     {
-        $this->assertCount(0, OrderDetail::all());
-
-        factory(OrderDetail::class)->create();
-
         $this->assertCount(1, OrderDetail::all());
+        $this->assertInstanceOf(OrderDetail::class, $this->orderDetail);
     }
 
     /** @test */
     public function an_order_detail_can_be_updated()
     {
-        $orderDetail = factory(OrderDetail::class)->create();
+        $orderId = factory(Order::class)->create()->id;
+        $code = Str::random(5);
+        $name = $this->faker->word;
+        $price = $this->faker->randomFloat(null, 10, 4);
+        $quantity = $this->faker->numberBetween(1, 10);
 
-        $orderDetail->update([
-            'order_id' => $orderId = factory(Order::class)->create()->id,
-            'code' => $code = Str::random(5),
-            'name' => $name = $this->faker->word,
-            'price' => $price = $this->faker->randomFloat(null, 10, 4),
-            'quantity' => $quantity = $this->faker->numberBetween(1, 10),
+        $updated = $this->orderDetail->update([
+            'order_id' => $orderId,
+            'code' => $code,
+            'name' => $name,
+            'price' => $price,
+            'quantity' => $quantity,
         ]);
 
-        $this->assertEquals($orderId, $orderDetail->order_id);
-        $this->assertEquals($code, $orderDetail->code);
-        $this->assertEquals($name, $orderDetail->name);
-        $this->assertEquals($price, $orderDetail->price);
-        $this->assertEquals($quantity, $orderDetail->quantity);
+        $this->assertTrue($updated);
+        $this->assertEquals($orderId, $this->orderDetail->order_id);
+        $this->assertEquals($code, $this->orderDetail->code);
+        $this->assertEquals($name, $this->orderDetail->name);
+        $this->assertEquals($price, $this->orderDetail->price);
+        $this->assertEquals($quantity, $this->orderDetail->quantity);
     }
 
     /** @test */
     public function an_order_detail_can_be_deleted()
     {
-        $orderDetail = factory(OrderDetail::class)->create();
+        $this->orderDetail->delete();
 
-        $orderDetail->delete();
-
-        $this->assertCount(0, OrderDetail::all());
+        $this->assertDeleted($this->orderDetail);
     }
 
     /**
@@ -61,11 +70,7 @@ class OrderDetailModelTest extends TestCase
     /** @test */
     public function order_detail_has_order_relation()
     {
-        $order = factory(Order::class)->create();
-        $orderDetail = factory(OrderDetail::class)->create([
-            'order_id' => $order->id,
-        ]);
-
-        $this->assertInstanceOf(Order::class, $orderDetail->order);
+        // Many to One
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->orderDetail->order());
     }
 }

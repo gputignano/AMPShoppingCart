@@ -3,8 +3,6 @@
 namespace Tests\Unit;
 
 use App\Category;
-use App\Product;
-use App\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,37 +12,40 @@ class CategoryModelTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $category;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->category = factory(Category::class)->create();
+    }
+
     /** @test */
     public function a_category_can_be_created()
     {
-        $this->assertCount(0, Category::all());
-
-        $category = factory(Category::class)->create();
-
         $this->assertCount(1, Category::all());
+        $this->assertInstanceOf(Category::class, $this->category);
     }
 
     /** @test */
     public function a_category_can_be_updated()
     {
-        $category = factory(Category::class)->create();
-
-        $category->update([
-            'category_id' => factory(Category::class)->create(),
+        $update = $this->category->update([
+            'parent_id' => factory(Category::class)->create(),
             'name' => $name = $this->faker->word,
         ]);
 
-        $this->assertEquals($name, $category->name);
+        $this->assertTrue($update);
+        $this->assertEquals($name, $this->category->name);
     }
 
     /** @test */
     public function a_category_can_be_deleted()
     {
-        $category = factory(Category::class)->create();
+        $this->category->delete();
 
-        $category->delete();
-
-        $this->assertCount(0, Category::all());
+        $this->assertDeleted($this->category);
     }
 
     /**
@@ -55,39 +56,27 @@ class CategoryModelTest extends TestCase
     public function category_has_parent_relation()
     {
         // Many to One
-        $children = factory(Category::class)->create([
-            'category_id' => factory(Category::class)->create(),
-        ]);
-
-        $this->assertCount(2, Category::all());
-        $this->assertInstanceOf(Category::class, $children->parent);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->category->parent());
     }
 
     /** @test */
     public function category_has_children_relation()
     {
         // One to Many
-        $product = factory(Category::class)->create()->children()->save(factory(Category::class)->make());
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $product->children);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->children());
     }
 
     /** @test */
     public function category_has_products_relation()
     {
         // Many to Many
-        $category = factory(Category::class)->create();
-        $category->products()->save(factory(Product::class)->make());
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $category->products);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->category->products());
     }
 
     /** @test */
     public function category_has_rewrite_relation()
     {
-        $page = factory(Category::class)->create();
-        $page->rewrite()->save(factory(Rewrite::class)->make());
-
-        $this->assertInstanceOf(Rewrite::class, $page->rewrite);
+        // One to One Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->category->rewrite());
     }
 }

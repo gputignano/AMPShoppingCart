@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Attribute;
 use App\EAV;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,75 +12,67 @@ class EAVModelTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $eav;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eav = factory(EAV::class)->create();
+    }
+
     /** @test */
     public function an_eav_can_be_created()
     {
-        $this->assertCount(0, EAV::all());
-
-        factory(EAV::class)->create();
-
         $this->assertCount(1, EAV::all());
+        $this->assertInstanceOf(EAV::class, $this->eav);
     }
 
     /** @test */
     public function an_eav_can_be_updated()
     {
-        $eav = factory(EAV::class)->create();
+        $valuable = factory($this->eav->value_eavable_type)->create();
 
-        $eav->update([
-            'entity_eavable_type' => $entitableType = $this->faker->word,
-            'entity_eavable_id' => $entitableId = 1,
-
-            'attribute_id' => $attributeId = factory(Attribute::class)->create()->id,
-
-            'value_eavable_type' => $valuableType = $this->faker->word,
-            'value_eavable_id' => $valuableId = 1,
+        // Can be updated only the id, the type doesn't change
+        $updated = $this->eav->update([
+            'value_eavable_id' => $valuable->id,
         ]);
 
-        $this->assertEquals($entitableType, $eav->entity_eavable_type);
-        $this->assertEquals($entitableId, $eav->entity_eavable_id);
+        $this->asserttrue($updated);
 
-        $this->assertEquals($attributeId, $eav->attribute_id);
-
-        $this->assertEquals($valuableType, $eav->value_eavable_type);
-        $this->assertEquals($valuableId, $eav->value_eavable_id);
+        $this->assertEquals($valuable->id, $this->eav->value_eavable_id);
     }
 
     /** @test */
     public function an_eav_can_be_deleted()
     {
-        $eav = factory(EAV::class)->create();
+        $this->eav->delete();
 
-        $eav->delete();
-
-        $this->assertCount(0, EAV::all());
+        $this->assertDeleted($this->eav);
     }
 
     /**
      * RELATIONS
      */
 
-     /** @test */
-     public function eav_has_entity_eavable_relation()
-     {
-         $eav = factory(EAV::class)->create();
+    /** @test */
+    public function eav_has_entity_eavable_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->entity_eavable());
+    }
 
-         $this->assertInstanceOf($eav->entity_eavable_type, $eav->entity_eavable);
-     }
+    /** @test */
+    public function eav_has_attribute_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->eav->attribute());
+    }
 
-     /** @test */
-     public function eav_has_attribute_relation()
-     {
-         $eav = factory(EAV::class)->create();
-
-         $this->assertInstanceOf(Attribute::class, $eav->attribute);
-     }
-
-     /** @test */
-     public function eav_has_value_eavable_relation()
-     {
-        $eav = factory(EAV::class)->create();
-
-         $this->assertInstanceOf($eav->value_eavable_type, $eav->value_eavable);
-     }
+    /** @test */
+    public function eav_has_value_eavable_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->value_eavable());
+    }
 }

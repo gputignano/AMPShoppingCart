@@ -7,7 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Page::class, function (Faker $faker) {
     return [
-        'page_id' => 0,
+        'parent_id' => 0,
         'name' => $faker->name,
+        'type' => 'page',
     ];
 });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePagesTable extends Migration
+class CreateEntitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('entities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('parent_id')->default(0);
             $table->string('name');
+            $table->string('type')->index();
         });
     }
 
@@ -27,6 +28,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('entities');
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Attribute;
 use App\AttributeSet;
-use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,36 +12,39 @@ class AttributeSetModelTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $attributeSet;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->attributeSet = factory(AttributeSet::class)->create();
+    }
+
     /** @test */
     public function an_attribute_set_can_be_created()
     {
-        $this->assertCount(0, AttributeSet::all());
-
-        $attributeSet = factory(AttributeSet::class)->create();
-
         $this->assertCount(1, AttributeSet::all());
+        $this->assertInstanceOf(AttributeSet::class, $this->attributeSet);
     }
 
     /** @test */
     public function an_attribute_set_can_be_updated()
     {
-        $attributeSet = factory(AttributeSet::class)->create();
-
-        $attributeSet->update([
+        $update = $this->attributeSet->update([
             'label' => $label = $this->faker->word,
         ]);
 
-        $this->assertEquals($label, $attributeSet->label);
+        $this->assertTrue($update);
+        $this->assertEquals($label, $this->attributeSet->label);
     }
 
     /** @test */
     public function an_attribute_set_can_be_deleted()
     {
-        $attributeSet = factory(AttributeSet::class)->create();
+        $this->attributeSet->delete();
 
-        $attributeSet->delete();
-
-        $this->assertCount(0, AttributeSet::all());
+        $this->assertDeleted($this->attributeSet);
     }
 
     /**
@@ -53,20 +54,14 @@ class AttributeSetModelTest extends TestCase
     /** @test */
     public function attribute_set_has_attribute_relation()
     {
-        $attributeSet = factory(AttributeSet::class)->create();
-
-        $attributeSet->attributes()->saveMany(factory(Attribute::class, 2)->make());
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $attributeSet->attributes);
+        // Many to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attributeSet->attributes());
     }
 
     /** @test */
     public function attribute_set_has_products_relation()
     {
-        $attributeSet = factory(AttributeSet::class)->create();
-
-        $attributeSet->products()->saveMany(factory(Product::class, 2)->make());
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $attributeSet->products);
+        // Many to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attributeSet->products());
     }
 }

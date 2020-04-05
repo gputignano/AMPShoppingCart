@@ -2,41 +2,23 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
-class Product extends Model
+class Product extends EntityAbstract
 {
-    protected $fillable = [
-        'product_id', 'attribute_set_id', 'name', 'code', 'price', 'quantity',
-    ];
-
-    public $timestamps = false;
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::deleting(function ($product) {
-            $product->children()->delete();
-        });
-    }
-
     public function parent()
     {
-        return $this->belongsTo($this, 'product_id');
+        return $this->belongsTo($this, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany($this);
+        return $this->hasMany($this, 'parent_id');
     }
 
-    public function attribute_set()
+    public function attribute_sets()
     {
-        return $this->belongsTo(AttributeSet::class);
+        return $this->belongsToMany(AttributeSet::class);
     }
 
     public function categories()
@@ -52,5 +34,29 @@ class Product extends Model
     public function eavs()
     {
         return $this->morphMany(EAV::class, 'entity_eavable');
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::creating(function ($entity) {
+            $entity->forceFill([
+                'type' => 'product',
+            ]);
+        });
+
+        static::deleting(function ($product) {
+            $product->children()->delete();
+        });
+
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where('type', 'product');
+        });
     }
 }

@@ -82,49 +82,31 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function products_table_has_expected_columns()
+    public function entities_table_has_expected_columns()
     {
         $this->assertTrue(
-            Schema::hasColumns('products', $fields = [
+            Schema::hasColumns('entities', $fields = [
                 'id',
-                'product_id',
+                'parent_id',
+                'name',
+                'type',
+            ])
+        );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('entities'));
+    }
+
+    /** @test */
+    public function attribute_set_product_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('attribute_set_product', $fields = [
                 'attribute_set_id',
-                'name',
-                'code',
-                'price',
-                'quantity',
+                'product_id',
             ])
         );
 
-        $this->assertCount(count($fields), Schema::getColumnListing('products'));
-    }
-
-    /** @test */
-    public function pages_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('pages', $fields = [
-                'id',
-                'page_id',
-                'name',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('pages'));
-    }
-
-    /** @test */
-    public function categories_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('categories', $fields = [
-                'id',
-                'category_id',
-                'name',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('categories'));
+        $this->assertCount(count($fields), Schema::getColumnListing('attribute_set_product'));
     }
 
     /** @test */
