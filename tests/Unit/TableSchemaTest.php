@@ -95,6 +95,19 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
+    public function eav_texts_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('eav_texts', $fields = [
+                'id',
+                'value',
+            ])
+        );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('eav_texts'));
+    }
+
+    /** @test */
     public function entities_table_has_expected_columns()
     {
         $this->assertTrue(
