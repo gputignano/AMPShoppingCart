@@ -16,6 +16,9 @@ class CreateAttributeAttributeSetTable extends Migration
         Schema::create('attribute_attribute_set', function (Blueprint $table) {
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('attribute_set_id');
+
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('attribute_set_id')->references('id')->on('attribute_sets')->onDelete('cascade');
         });
     }
 
