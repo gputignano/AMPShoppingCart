@@ -82,6 +82,19 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
+    public function eav_decimals_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('eav_decimals', $fields = [
+                'id',
+                'value',
+            ])
+        );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('eav_decimals'));
+    }
+
+    /** @test */
     public function eav_integers_table_has_expected_columns()
     {
         $this->assertTrue(
