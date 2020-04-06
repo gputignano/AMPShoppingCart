@@ -35,7 +35,7 @@ class UserModelTest extends TestCase
     {
         $updated = $this->user->update([
             'email' => $email = $this->faker->unique()->safeEmail,
-            'password' => bcrypt($password = Str::random(10)),
+            'password' => $password = Str::random(10), // password is encrypted bu mutator in User model
         ]);
 
         $this->assertTrue($updated);
