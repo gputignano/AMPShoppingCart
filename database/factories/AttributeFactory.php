@@ -10,6 +10,8 @@ $factory->define(Attribute::class, function (Faker $faker) {
         'label' => $faker->word,
         'type' => $faker->randomElement([
             \App\EAVBoolean::class,
+            \App\EAVDecimal::class,
+            \App\EAVInteger::class,
             \App\EAVString::class,
             \App\EAVText::class,
         ]),
