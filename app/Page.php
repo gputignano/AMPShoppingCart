@@ -21,6 +21,11 @@ class Page extends EntityAbstract
         return $this->morphOne(Rewrite::class, 'rewritable');
     }
 
+    public function eavs()
+    {
+        return $this->morphMany(EAV::class, 'entity');
+    }
+
     protected static function booted()
     {
         parent::booted();

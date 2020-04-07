@@ -67,6 +67,13 @@ class PageModelTest extends TestCase
     }
 
     /** @test */
+    public function page_has_eavs_relation()
+    { 
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->page->eavs());
+    }
+
+    /** @test */
     public function page_has_rewrite_relation()
     {
         // One to One Polymorphic
