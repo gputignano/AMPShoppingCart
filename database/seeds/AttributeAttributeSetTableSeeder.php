@@ -19,6 +19,7 @@ class AttributeAttributeSetTableSeeder extends Seeder
             Attribute::find(3)->id,
             Attribute::find(4)->id,
             Attribute::find(5)->id,
+            Attribute::find(8)->id,
         ]);
 
         AttributeSet::find(2)->attributes()->attach([
@@ -27,6 +28,7 @@ class AttributeAttributeSetTableSeeder extends Seeder
             Attribute::find(3)->id,
             Attribute::find(4)->id,
             Attribute::find(6)->id,
+            Attribute::find(8)->id,
         ]);
 
         AttributeSet::find(3)->attributes()->attach([
@@ -35,6 +37,7 @@ class AttributeAttributeSetTableSeeder extends Seeder
             Attribute::find(3)->id,
             Attribute::find(4)->id,
             Attribute::find(7)->id,
+            Attribute::find(8)->id,
         ]);
     }
 }
