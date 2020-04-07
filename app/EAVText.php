@@ -16,6 +16,6 @@ class EAVText extends Model
 
     public function eavs()
     {
-        return $this->morphMany(EAV::class, 'value_eavable');
+        return $this->morphMany(EAV::class, 'value');
     }
 }

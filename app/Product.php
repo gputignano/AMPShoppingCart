@@ -33,7 +33,7 @@ class Product extends EntityAbstract
 
     public function eavs()
     {
-        return $this->morphMany(EAV::class, 'entity_eavable');
+        return $this->morphMany(EAV::class, 'entity');
     }
 
     /**

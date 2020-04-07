@@ -9,12 +9,12 @@ class EAV extends Model
     public $table = 'eavs';
 
     protected $fillable = [
-        'entity_eavable_type', 'entity_eavable_id', 'attribute_id', 'value_eavable_type', 'value_eavable_id',
+        'entity_type', 'entity_id', 'attribute_id', 'value_type', 'value_id',
     ];
 
     public $timestamps = false;
 
-    public function entity_eavable()
+    public function entity()
     {
         return $this->morphTo();
     }
@@ -24,7 +24,7 @@ class EAV extends Model
         return $this->belongsTo(Attribute::class);
     }
 
-    public function value_eavable()
+    public function value()
     {
         return $this->morphTo();
     }

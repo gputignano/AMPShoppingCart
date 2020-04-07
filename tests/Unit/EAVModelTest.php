@@ -31,16 +31,16 @@ class EAVModelTest extends TestCase
     /** @test */
     public function an_eav_can_be_updated()
     {
-        $valuable = factory($this->eav->value_eavable_type)->create();
+        $valuable = factory($this->eav->value_type)->create();
 
         // Can be updated only the id, the type doesn't change
         $updated = $this->eav->update([
-            'value_eavable_id' => $valuable->id,
+            'value_id' => $valuable->id,
         ]);
 
         $this->asserttrue($updated);
 
-        $this->assertEquals($valuable->id, $this->eav->value_eavable_id);
+        $this->assertEquals($valuable->id, $this->eav->value_id);
     }
 
     /** @test */
@@ -56,10 +56,10 @@ class EAVModelTest extends TestCase
      */
 
     /** @test */
-    public function eav_has_entity_eavable_relation()
+    public function eav_has_entity_relation()
     {
         // One to One Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->entity_eavable());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->entity());
     }
 
     /** @test */
@@ -70,9 +70,9 @@ class EAVModelTest extends TestCase
     }
 
     /** @test */
-    public function eav_has_value_eavable_relation()
+    public function eav_has_value_relation()
     {
         // One to One Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->value_eavable());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->value());
     }
 }

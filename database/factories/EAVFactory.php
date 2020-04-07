@@ -21,12 +21,12 @@ $factory->define(EAV::class, function (Faker $faker) {
     $valuable = factory($attribute->type)->create();
 
     return [
-        'entity_eavable_type' => get_class($entitable),
-        'entity_eavable_id' => $entitable->id,
+        'entity_type' => get_class($entitable),
+        'entity_id' => $entitable->id,
 
         'attribute_id' => $attribute,
 
-        'value_eavable_type' => get_class($valuable),
-        'value_eavable_id' => $valuable->id,
+        'value_type' => get_class($valuable),
+        'value_id' => $valuable->id,
     ];
 });

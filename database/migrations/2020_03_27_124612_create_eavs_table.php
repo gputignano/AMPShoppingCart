@@ -15,9 +15,9 @@ class CreateEavsTable extends Migration
     {
         Schema::create('eavs', function (Blueprint $table) {
             $table->id();
-            $table->morphs('entity_eavable');
+            $table->morphs('entity');
             $table->unsignedBigInteger('attribute_id');
-            $table->morphs('value_eavable');
+            $table->morphs('value');
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
         });

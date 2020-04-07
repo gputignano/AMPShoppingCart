@@ -200,11 +200,11 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('eavs', $fields = [
                 'id',
-                'entity_eavable_type',
-                'entity_eavable_id',
+                'entity_type',
+                'entity_id',
                 'attribute_id',
-                'value_eavable_type',
-                'value_eavable_id',
+                'value_type',
+                'value_id',
             ])
         );
 
