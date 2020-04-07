@@ -13,9 +13,4 @@ abstract class EntityAbstract extends Model
     ];
 
     public $timestamps = false;
-
-    protected static function booted()
-    {
-        //
-    }
 }
