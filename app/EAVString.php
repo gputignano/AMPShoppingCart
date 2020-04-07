@@ -18,4 +18,9 @@ class EAVString extends Model
     {
         return $this->morphMany(EAV::class, 'value');
     }
+
+    public function attribute()
+    {
+        return $this->morphToMany(Attribute::class, 'attributable');
+    }
 }
