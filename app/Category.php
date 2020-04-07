@@ -21,6 +21,11 @@ class Category extends EntityAbstract
         return $this->belongsToMany(Product::class);
     }
 
+    public function eavs()
+    {
+        return $this->morphMany(EAV::class, 'entity');
+    }
+
     public function rewrite()
     {
         return $this->morphOne(Rewrite::class, 'rewritable');

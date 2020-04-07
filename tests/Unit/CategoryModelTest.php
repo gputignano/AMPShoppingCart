@@ -74,6 +74,13 @@ class CategoryModelTest extends TestCase
     }
 
     /** @test */
+    public function page_has_eavs_relation()
+    { 
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->category->eavs());
+    }
+
+    /** @test */
     public function category_has_rewrite_relation()
     {
         // One to One Polymorphic
