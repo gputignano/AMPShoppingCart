@@ -66,4 +66,11 @@ class AttributeModelTest extends TestCase
         // One to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->attribute->eavs());
     }
+
+    /** @test */
+    public function attribute_has_values_relation()
+    {
+        // One to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->attribute->values());
+    }
 }

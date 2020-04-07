@@ -21,4 +21,9 @@ class Attribute extends Model
     {
         return $this->hasMany(EAV::class);
     }
+
+    public function values()
+    {
+        return $this->hasMany($this->type);
+    }
 }
