@@ -56,4 +56,11 @@ class EAVIntegerModelTest extends TestCase
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavInteger->eavs());
     }
+
+    /** @test */
+    public function eav_integer_has_attribute_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavInteger->attribute());
+    }
 }

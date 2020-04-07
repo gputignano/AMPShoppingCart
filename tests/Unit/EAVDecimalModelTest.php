@@ -56,4 +56,11 @@ class EAVDecimalModelTest extends TestCase
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavDecimal->eavs());
     }
+
+    /** @test */
+    public function eav_decimal_has_attribute_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavDecimal->attribute());
+    }
 }

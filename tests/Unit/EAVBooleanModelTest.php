@@ -56,4 +56,11 @@ class EAVBooleanModelTest extends TestCase
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavBoolean->eavs());
     }
+
+    /** @test */
+    public function eav_boolean_has_attribute_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavBoolean->attribute());
+    }
 }

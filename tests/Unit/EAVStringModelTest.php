@@ -56,4 +56,11 @@ class EAVStringModelTest extends TestCase
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavString->eavs());
     }
+
+    /** @test */
+    public function eav_string_has_attribute_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavString->attribute());
+    }
 }
