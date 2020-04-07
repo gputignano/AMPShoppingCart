@@ -68,9 +68,9 @@ class AttributeModelTest extends TestCase
     }
 
     /** @test */
-    public function attribute_has_attributables_relation()
+    public function attribute_has_values_relation()
     {
         // Many to Many polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->attribute->attributables());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->attribute->values());
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttributablesTable extends Migration
+class CreateAttributeValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAttributablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributables', function (Blueprint $table) {
+        Schema::create('attribute_values', function (Blueprint $table) {
             $table->unsignedBigInteger('attribute_id');
-            $table->morphs('attributable');
+            $table->morphs('value');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateAttributablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributables');
+        Schema::dropIfExists('attribute_values');
     }
 }

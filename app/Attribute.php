@@ -22,8 +22,8 @@ class Attribute extends Model
         return $this->hasMany(EAV::class);
     }
 
-    public function attributables()
+    public function values()
     {
-        return $this->morphedByMany($this->type, 'attributable');
+        return $this->morphedByMany($this->type, 'value', 'attribute_values');
     }
 }

@@ -19,8 +19,8 @@ class EAVDecimal extends Model
         return $this->morphMany(EAV::class, 'value');
     }
 
-    public function attribute()
+    public function attributes()
     {
-        return $this->morphToMany(Attribute::class, 'attributable');
+        return $this->morphToMany(Attribute::class, 'value', 'attribute_values');
     }
 }

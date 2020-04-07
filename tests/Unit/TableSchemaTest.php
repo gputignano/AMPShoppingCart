@@ -134,6 +134,18 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
+    public function attribute_values_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('attribute_values', $fields = [
+                'attribute_id',
+                'value_type',
+                'value_id',
+            ])
+        );
+    }
+
+    /** @test */
     public function entities_table_has_expected_columns()
     {
         $this->assertTrue(

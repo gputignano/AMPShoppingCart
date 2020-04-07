@@ -58,9 +58,9 @@ class EAVTextModelTest extends TestCase
     }
 
     /** @test */
-    public function eav_text_has_attribute_relation()
+    public function eav_text_has_attributes_relation()
     {
         // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavText->attribute());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavText->attributes());
     }
 }
