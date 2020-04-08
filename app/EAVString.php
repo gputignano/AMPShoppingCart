@@ -21,6 +21,6 @@ class EAVString extends Model
 
     public function attributes()
     {
-        return $this->morphToMany(Attribute::class, 'value', 'attribute_values');
+        return $this->morphToMany(Attribute::class, 'value', 'attribute_value');
     }
 }

@@ -24,6 +24,6 @@ class Attribute extends Model
 
     public function values()
     {
-        return $this->morphedByMany($this->type, 'value', 'attribute_values');
+        return $this->morphedByMany($this->type, 'value', 'attribute_value');
     }
 }
