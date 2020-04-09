@@ -3,7 +3,7 @@
 use App\Attribute;
 use Illuminate\Database\Seeder;
 
-class AttributeValuesTableSeeder extends Seeder
+class AttributeValueTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,15 +12,17 @@ class AttributeValuesTableSeeder extends Seeder
      */
     public function run()
     {
-        Attribute::find(4)->attribute_values()->createMany([ // Manufacturer
+        Attribute::find(4)->values()->createMany([ // Manufacturer
             ['value' => 'Elena Fucci'],
             ['value' => 'Feudi di San Gregorio'],
             ['value' => 'Vietti'],
             ['value' => 'Allegrini'],
             ['value' => 'Cusumano'],
+            ['value' => 'Oleificio De carlo'],
+            ['value' => 'De Cecco'],
         ]);
 
-        Attribute::find(5)->attribute_values()->createMany([ // Year
+        Attribute::find(5)->values()->createMany([ // Year
             ['value' => '2015'],
             ['value' => '2016'],
             ['value' => '2017'],
@@ -29,14 +31,14 @@ class AttributeValuesTableSeeder extends Seeder
             ['value' => '2020'],
         ]);
 
-        Attribute::find(6)->attribute_values()->createMany([ // Cultivar
-            ['value' => 'Coratine'],
+        Attribute::find(7)->values()->createMany([ // Cultivar
+            ['value' => 'Coratina'],
             ['value' => 'Moraiolo'],
             ['value' => 'Bosana'],
             ['value' => 'Biancolelle'],
         ]);
 
-        Attribute::find(7)->attribute_values()->createMany([
+        Attribute::find(8)->values()->createMany([
             ['value' => '5 minutes'],
             ['value' => '10 minutes'],
             ['value' => '15 minutes'],
@@ -44,7 +46,7 @@ class AttributeValuesTableSeeder extends Seeder
             ['value' => '25 minutes'],
         ]);
 
-        Attribute::find(8)->attribute_values()->createMany([ // Active
+        Attribute::find(9)->values()->createMany([ // Active
             ['value' => false],
             ['value' => true],
         ]);

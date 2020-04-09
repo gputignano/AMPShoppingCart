@@ -44,20 +44,32 @@ class AttributesTableSeeder extends Seeder
 
         Attribute::create([
             'id' => 6,
-            'label' => 'Cultivar',
+            'label' => 'Size',
             'type' => \App\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 7,
-            'label' => 'Cooking Time',
+            'label' => 'Cultivar',
             'type' => \App\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 8,
+            'label' => 'Cooking Time',
+            'type' => \App\EAVString::class,
+        ]);
+
+        Attribute::create([
+            'id' => 9,
             'label' => 'Active',
             'type' => \App\EAVBoolean::class,
+        ]);
+
+        Attribute::create([
+            'id' => 10,
+            'label' => 'Product Description',
+            'type' => \App\EAVText::class,
         ]);
     }
 }

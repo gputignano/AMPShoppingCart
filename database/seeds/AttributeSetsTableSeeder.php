@@ -13,14 +13,17 @@ class AttributeSetsTableSeeder extends Seeder
     public function run()
     {
         AttributeSet::create([
+            'id' => 1,
             'label' => 'Wine',
         ]);
 
         AttributeSet::create([
+            'id' => 2,
             'label' => 'Olive Oil',
         ]);
 
         AttributeSet::create([
+            'id' => 3,
             'label' => 'Pasta',
         ]);
     }
