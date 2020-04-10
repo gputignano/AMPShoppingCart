@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Rewrite;
+use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

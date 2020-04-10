@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EAVBoolean extends Model
+class EAVInteger extends Model
 {
     protected $fillable = [
         'value',
@@ -12,7 +12,7 @@ class EAVBoolean extends Model
 
     public $timestamps = false;
 
-    public $table = 'eav_booleans';
+    public $table = 'eav_integers';
 
     public function eavs()
     {
@@ -21,6 +21,6 @@ class EAVBoolean extends Model
 
     public function attributes()
     {
-        return $this->morphToMany(Attribute::class, 'value', 'attribute_value' );
+        return $this->morphToMany(Attribute::class, 'value', 'attribute_value');
     }
 }

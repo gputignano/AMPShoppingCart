@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EAVString extends Model
+class EAVDecimal extends Model
 {
     protected $fillable = [
         'value',
@@ -12,7 +12,7 @@ class EAVString extends Model
 
     public $timestamps = false;
 
-    public $table = 'eav_strings';
+    public $table = 'eav_decimals';
 
     public function eavs()
     {

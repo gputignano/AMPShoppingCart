@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\EAVText;
+use App\Models\EAVText;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

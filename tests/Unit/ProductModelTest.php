@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Product;
+use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

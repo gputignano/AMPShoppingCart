@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\AttributeSet;
+use App\Models\AttributeSet;
 use Faker\Generator as Faker;
 
 $factory->define(AttributeSet::class, function (Faker $faker) {

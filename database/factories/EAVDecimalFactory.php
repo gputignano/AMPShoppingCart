@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EAVDecimal;
+use App\Models\EAVDecimal;
 use Faker\Generator as Faker;
 
 $factory->define(EAVDecimal::class, function (Faker $faker) {

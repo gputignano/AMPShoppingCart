@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EAVBoolean;
+use App\Models\EAVBoolean;
 use Faker\Generator as Faker;
 
 $factory->define(EAVBoolean::class, function (Faker $faker) {

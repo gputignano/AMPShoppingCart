@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EAVInteger;
+use App\Models\EAVInteger;
 use Faker\Generator as Faker;
 
 $factory->define(EAVInteger::class, function (Faker $faker) {

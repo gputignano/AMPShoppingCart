@@ -2,8 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Order;
-use App\OrderDetail;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 

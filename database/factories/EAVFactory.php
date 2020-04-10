@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Attribute;
-use App\Category;
-use App\EAV;
-use App\Page;
-use App\Product;
+use App\Models\Attribute;
+use App\Models\Category;
+use App\Models\EAV;
+use App\Models\Page;
+use App\Models\Product;
 use Faker\Generator as Faker;
 
 $factory->define(EAV::class, function (Faker $faker) {

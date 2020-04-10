@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EAVString;
+use App\Models\EAVString;
 use Faker\Generator as Faker;
 
 $factory->define(EAVString::class, function (Faker $faker) {

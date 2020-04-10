@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Rewrite;
+use App\Models\Rewrite;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -10,9 +10,9 @@ $factory->define(Rewrite::class, function (Faker $faker) {
     $title = $faker->sentence;
 
     $rewritable = factory($faker->randomElement([
-        \App\Category::class,
-        \App\Page::class,
-        \App\Product::class,
+        \App\Models\Category::class,
+        \App\Models\Page::class,
+        \App\Models\Product::class,
     ]))->create();
 
     return [

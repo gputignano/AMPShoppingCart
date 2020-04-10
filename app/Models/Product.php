@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class Category extends EntityAbstract
+class Product extends EntityAbstract
 {
     public function parent()
     {
@@ -16,14 +16,14 @@ class Category extends EntityAbstract
         return $this->hasMany($this, 'parent_id');
     }
 
-    public function products()
+    public function attribute_sets()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(AttributeSet::class);
     }
 
-    public function eavs()
+    public function categories()
     {
-        return $this->morphMany(EAV::class, 'entity');
+        return $this->belongsToMany(Category::class);
     }
 
     public function rewrite()
@@ -31,18 +31,32 @@ class Category extends EntityAbstract
         return $this->morphOne(Rewrite::class, 'rewritable');
     }
 
+    public function eavs()
+    {
+        return $this->morphMany(EAV::class, 'entity');
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
     protected static function booted()
     {
         parent::booted();
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => 'category',
+                'type' => 'product',
             ]);
         });
 
+        static::deleting(function ($product) {
+            $product->children()->delete();
+        });
+
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', 'category');
+            $builder->where('type', 'product');
         });
     }
 }

@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\EAVText;
+use App\Models\EAVText;
 use Faker\Generator as Faker;
 
 $factory->define(EAVText::class, function (Faker $faker) {
