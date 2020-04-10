@@ -1,8 +1,8 @@
 <?php
 
-use App\Category;
-use App\Page;
-use App\Product;
+use App\Models\Category;
+use App\Models\Page;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class RewritesTableSeeder extends Seeder

@@ -1,11 +1,11 @@
 <?php
 
-use App\EAV;
-use App\EAVDecimal;
-use App\EAVInteger;
-use App\EAVString;
-use App\EAVText;
-use App\Product;
+use App\Models\EAV;
+use App\Models\EAVDecimal;
+use App\Models\EAVInteger;
+use App\Models\EAVString;
+use App\Models\EAVText;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class EAVsTableSeeder extends Seeder

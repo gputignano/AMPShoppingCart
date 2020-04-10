@@ -1,6 +1,6 @@
 <?php
 
-use App\Attribute;
+use App\Models\Attribute;
 use Illuminate\Database\Seeder;
 
 class AttributeValueTableSeeder extends Seeder

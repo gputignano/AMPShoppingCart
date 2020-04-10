@@ -1,6 +1,6 @@
 <?php
 
-use App\AttributeSet;
+use App\Models\AttributeSet;
 use Illuminate\Database\Seeder;
 
 class AttributeSetsTableSeeder extends Seeder

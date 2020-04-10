@@ -1,7 +1,7 @@
 <?php
 
-use App\AttributeSet;
-use App\Product;
+use App\Models\AttributeSet;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class AttributeSetProductTableSeeder extends Seeder

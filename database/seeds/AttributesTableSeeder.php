@@ -1,6 +1,6 @@
 <?php
 
-use App\Attribute;
+use App\Models\Attribute;
 use Illuminate\Database\Seeder;
 
 class AttributesTableSeeder extends Seeder
@@ -15,61 +15,61 @@ class AttributesTableSeeder extends Seeder
         Attribute::create([
             'id' => 1,
             'label' => 'Code',
-            'type' => \App\EAVString::class,
+            'type' => \App\Models\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 2,
             'label' => 'Price',
-            'type' => \App\EAVDecimal::class,
+            'type' => \App\Models\EAVDecimal::class,
         ]);
 
         Attribute::create([
             'id' => 3,
             'label' => 'Quantity',
-            'type' => \App\EAVInteger::class,
+            'type' => \App\Models\EAVInteger::class,
         ]);
 
         Attribute::create([
             'id' => 4,
             'label' => 'Manufacturer',
-            'type' => \App\EAVString::class,
+            'type' => \App\Models\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 5,
             'label' => 'Year',
-            'type' => \App\EAVString::class,
+            'type' => \App\Models\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 6,
             'label' => 'Size',
-            'type' => \App\EAVString::class,
+            'type' => \App\Models\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 7,
             'label' => 'Cultivar',
-            'type' => \App\EAVString::class,
+            'type' => \App\Models\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 8,
             'label' => 'Cooking Time',
-            'type' => \App\EAVString::class,
+            'type' => \App\Models\EAVString::class,
         ]);
 
         Attribute::create([
             'id' => 9,
             'label' => 'Active',
-            'type' => \App\EAVBoolean::class,
+            'type' => \App\Models\EAVBoolean::class,
         ]);
 
         Attribute::create([
             'id' => 10,
             'label' => 'Product Description',
-            'type' => \App\EAVText::class,
+            'type' => \App\Models\EAVText::class,
         ]);
     }
 }
