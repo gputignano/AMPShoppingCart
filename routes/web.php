@@ -18,6 +18,7 @@ Route::prefix('admin')->group(function() {
         return 'Admin Area';
     });
 
-    Route::resource('users', 'Admin\UsersController');
+    Route::resource('attributes', 'Admin\AttributesController');
     Route::resource('attributeSets', 'Admin\AttributeSetsController');
+    Route::resource('users', 'Admin\UsersController');
 });
