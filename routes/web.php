@@ -19,4 +19,5 @@ Route::prefix('admin')->group(function() {
     });
 
     Route::resource('users', 'Admin\UsersController');
+    Route::resource('attributeSets', 'Admin\AttributeSetsController');
 });
