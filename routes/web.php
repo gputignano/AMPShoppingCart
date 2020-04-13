@@ -21,5 +21,6 @@ Route::prefix('admin')->group(function() {
     Route::resource('attributes', 'Admin\AttributesController');
     Route::resource('attributeSets', 'Admin\AttributeSetsController');
     Route::resource('eavBooleans', 'Admin\EAVBooleansController');
+    Route::resource('eavDecimals', 'Admin\EAVDecimalsController');
     Route::resource('users', 'Admin\UsersController');
 });
