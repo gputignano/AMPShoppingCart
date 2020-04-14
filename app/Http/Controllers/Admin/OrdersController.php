@@ -40,7 +40,7 @@ class OrdersController extends Controller
 
         return response()->json([
             'created' => isset($order),
-        ], 201);
+        ]);
     }
 
     /**

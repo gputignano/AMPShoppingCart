@@ -21,7 +21,7 @@ class UserTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

@@ -40,7 +40,7 @@ class UsersController extends Controller
 
         return response()->json([
             'created' => isset($user),
-        ], 201);
+        ]);
     }
 
     /**

@@ -40,7 +40,7 @@ class EAVIntegersController extends Controller
 
         return response()->json([
             'created' => isset($eavInteger),
-        ], 201);
+        ]);
     }
 
     /**

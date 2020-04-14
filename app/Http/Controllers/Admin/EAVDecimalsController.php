@@ -40,7 +40,7 @@ class EAVDecimalsController extends Controller
 
         return response()->json([
             'created' => isset($eavDecimal),
-        ], 201);
+        ]);
     }
 
     /**

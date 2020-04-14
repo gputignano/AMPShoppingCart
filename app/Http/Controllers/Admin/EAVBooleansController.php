@@ -40,7 +40,7 @@ class EAVBooleansController extends Controller
 
         return response()->json([
             'created' => isset($eavBoolean),
-        ], 201);
+        ]);
     }
 
     /**

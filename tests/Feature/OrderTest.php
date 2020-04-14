@@ -22,7 +22,7 @@ class OrderTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

@@ -46,7 +46,7 @@ class EAVTest extends TestCase
             'value_id' => $value->id,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

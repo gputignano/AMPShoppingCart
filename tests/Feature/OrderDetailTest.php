@@ -25,7 +25,7 @@ class OrderDetailTest extends TestCase
             'quantity' => $this->faker->numberBetween(1, 10),
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

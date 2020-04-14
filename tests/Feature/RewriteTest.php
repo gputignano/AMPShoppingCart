@@ -32,7 +32,7 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

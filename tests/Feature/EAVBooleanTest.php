@@ -19,7 +19,7 @@ class EAVBooleanTest extends TestCase
             'value' => $this->faker->boolean(50),
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

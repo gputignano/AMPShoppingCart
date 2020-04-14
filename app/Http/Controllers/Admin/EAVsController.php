@@ -40,7 +40,7 @@ class EAVsController extends Controller
 
         return response()->json([
             'created' => isset($eav),
-        ], 201);
+        ]);
     }
 
     /**

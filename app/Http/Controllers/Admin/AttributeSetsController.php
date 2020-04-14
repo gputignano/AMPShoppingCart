@@ -40,7 +40,7 @@ class AttributeSetsController extends Controller
 
         return response()->json([
             'created' => isset($attributeSet),
-        ], 201);
+        ]);
     }
 
     /**

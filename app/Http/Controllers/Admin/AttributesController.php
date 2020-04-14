@@ -40,7 +40,7 @@ class AttributesController extends Controller
 
         return response()->json([
             'created' => true,
-        ], 201);
+        ]);
     }
 
     /**

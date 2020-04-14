@@ -40,7 +40,7 @@ class RewritesController extends Controller
 
         return response()->json([
             'created' => isset($rewrite),
-        ], 201);
+        ]);
     }
 
     /**

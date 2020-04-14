@@ -19,7 +19,7 @@ class CategoryTest extends TestCase
             'name' => $this->faker->sentence,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

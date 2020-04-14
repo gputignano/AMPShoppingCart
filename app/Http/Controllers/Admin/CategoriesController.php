@@ -40,7 +40,7 @@ class CategoriesController extends Controller
 
         return response()->json([
             'created' => isset($category),
-        ], 201);
+        ]);
     }
 
     /**

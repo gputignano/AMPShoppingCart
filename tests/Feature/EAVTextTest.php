@@ -19,7 +19,7 @@ class EAVTextTest extends TestCase
             'value' => $this->faker->sentence,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

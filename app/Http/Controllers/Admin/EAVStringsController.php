@@ -40,7 +40,7 @@ class EAVStringsController extends Controller
 
         return response()->json([
             'created' => isset($eAVString),
-        ], 201);
+        ]);
     }
 
     /**

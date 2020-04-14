@@ -19,7 +19,7 @@ class EAVDecimalTest extends TestCase
             'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

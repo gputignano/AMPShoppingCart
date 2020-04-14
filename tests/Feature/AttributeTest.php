@@ -20,7 +20,7 @@ class AttributeTest extends TestCase
             'type' => $this->faker->word,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);

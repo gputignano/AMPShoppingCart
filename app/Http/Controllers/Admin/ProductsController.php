@@ -40,7 +40,7 @@ class ProductsController extends Controller
 
         return response()->json([
             'created' => isset($product),
-        ], 201);
+        ]);
     }
 
     /**

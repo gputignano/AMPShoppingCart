@@ -40,7 +40,7 @@ class PagesController extends Controller
 
         return response()->json([
             'created' => isset($page),
-        ], 201);
+        ]);
     }
 
     /**
