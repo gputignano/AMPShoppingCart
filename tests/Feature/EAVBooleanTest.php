@@ -12,6 +12,15 @@ class EAVBooleanTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $eavBoolean;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eavBoolean = factory(EAVBoolean::class)->create();
+    }
+
     /** @test */
     public function an_eav_boolean_can_be_created()
     {
@@ -28,9 +37,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function an_eav_boolean_can_be_updated()
     {
-        $eavBoolean = factory(EAVBoolean::class)->create();
-
-        $response = $this->patchJson(route('eavBooleans.update', $eavBoolean), [
+        $response = $this->patchJson(route('eavBooleans.update', $this->eavBoolean), [
             'value' => $this->faker->boolean(50),
         ]);
 
@@ -43,9 +50,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function an_eav_boolean_can_be_deleted()
     {
-        $eavBoolean = factory(EAVBoolean::class)->create();
-
-        $response = $this->deleteJson(route('eavBooleans.destroy', $eavBoolean), [
+        $response = $this->deleteJson(route('eavBooleans.destroy', $this->eavBoolean), [
             //
         ]);
 
@@ -53,5 +58,25 @@ class EAVBooleanTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function eav_boolean_has_eavs_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavBoolean->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavBoolean->eavs());
+    }
+
+    /** @test */
+    public function eav_boolean_has_attributes_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavBoolean->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavBoolean->attributes());
     }
 }

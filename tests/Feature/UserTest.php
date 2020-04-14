@@ -13,6 +13,15 @@ class UserTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+    }
+
     /** @test */
     public function a_user_can_be_created()
     {
@@ -30,9 +39,7 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_be_updated()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->patchJson(route('users.update', $user), [
+        $response = $this->patchJson(route('users.update', $this->user), [
             'email' => $this->faker->safeEmail,
             'password' => Str::random(10),
         ]);
@@ -46,9 +53,7 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_be_deleted()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->deleteJson(route('users.destroy', $user), [
+        $response = $this->deleteJson(route('users.destroy', $this->user), [
             //
         ]);
 
@@ -56,5 +61,17 @@ class UserTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function user_has_orders_relation()
+    {
+        // One to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->user->orders);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->user->orders());
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Rewrite;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,6 +16,15 @@ class RewriteTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+
+    protected $rewrite;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->rewrite = factory(Rewrite::class)->create();
+    }
 
     /** @test */
     public function a_rewrite_can_be_created()
@@ -41,9 +51,7 @@ class RewriteTest extends TestCase
     /** @test */
     public function a_rewrite_can_be_updated()
     {
-        $rewrite = factory(Rewrite::class)->create();
-
-        $response = $this->patchJson(route('rewrites.update', $rewrite), [
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
             'title' => $title = $this->faker->sentence,
             'slug' => Str::slug($title),
             'description' => $this->faker->text,
@@ -65,9 +73,7 @@ class RewriteTest extends TestCase
     /** @test */
     public function a_rewrite_can_be_deleted()
     {
-        $rewrite = factory(Rewrite::class)->create();
-
-        $response = $this->deleteJson(route('rewrites.destroy', $rewrite), [
+        $response = $this->deleteJson(route('rewrites.destroy', $this->rewrite), [
             //
         ]);
 
@@ -75,5 +81,17 @@ class RewriteTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function rewrite_has_rewritable_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(Model::class, $this->rewrite->rewritable);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->rewrite->rewritable());
     }
 }

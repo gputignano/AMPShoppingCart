@@ -13,13 +13,21 @@ class OrderTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $order;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->order = factory(Order::class)->create();
+        $this->user = factory(User::class)->create();
+    }
+
     /** @test */
     public function an_order_can_be_created()
     {
-        $user = factory(User::class)->create();
-
         $response = $this->postJson(route('orders.store'), [
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
         ]);
 
         $response->assertStatus(200);
@@ -31,9 +39,7 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_updated()
     {
-        $order = factory(Order::class)->create();
-
-        $response = $this->patchJson(route('orders.update', $order), [
+        $response = $this->patchJson(route('orders.update', $this->order), [
             'user_id' => factory(User::class)->create()->id,
         ]);
 
@@ -46,9 +52,7 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_deleted()
     {
-        $order = factory(Order::class)->create();
-
-        $response = $this->deleteJson(route('orders.destroy', $order), [
+        $response = $this->deleteJson(route('orders.destroy', $this->order), [
             //
         ]);
 
@@ -56,5 +60,25 @@ class OrderTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function order_has_user_relation()
+    {
+        // Many to One
+        $this->assertInstanceOf(User::class, $this->order->user);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->order->user());
+    }
+
+    /** @test */
+    public function order_has_order_details_telation()
+    {
+        // One to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->order->orderDetails);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->order->orderDetails());
     }
 }

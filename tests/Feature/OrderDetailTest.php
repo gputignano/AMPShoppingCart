@@ -14,6 +14,15 @@ class OrderDetailTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $orderDetail;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->orderDetail = factory(OrderDetail::class)->create();
+    }
+
     /** @test */
     public function an_order_detail_can_be_created()
     {
@@ -34,9 +43,7 @@ class OrderDetailTest extends TestCase
     /** @test */
     public function an_order_detail_can_be_updated()
     {
-        $orderDetail = factory(OrderDetail::class)->create();
-
-        $response = $this->patchJson(route('orderDetails.update', $orderDetail), [
+        $response = $this->patchJson(route('orderDetails.update', $this->orderDetail), [
             'order_id' => factory(Order::class)->create()->id,
             'code' => Str::random(5),
             'name' => $this->faker->name,
@@ -55,7 +62,7 @@ class OrderDetailTest extends TestCase
     {
         $orderDetail = factory(OrderDetail::class)->create();
 
-        $response = $this->deleteJson(route('orderDetails.destroy', $orderDetail), [
+        $response = $this->deleteJson(route('orderDetails.destroy', $this->orderDetail), [
             //
         ]);
 
@@ -63,5 +70,17 @@ class OrderDetailTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function order_detail_has_order_relation()
+    {
+        // Many to One
+        $this->assertInstanceOf(Order::class, $this->orderDetail->order);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->orderDetail->order());
     }
 }

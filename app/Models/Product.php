@@ -51,8 +51,8 @@ class Product extends EntityAbstract
             ]);
         });
 
-        static::deleting(function ($product) {
-            $product->children()->delete();
+        static::deleting(function ($entity) {
+            $entity->children()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {

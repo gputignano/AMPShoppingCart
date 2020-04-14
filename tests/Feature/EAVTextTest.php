@@ -12,6 +12,15 @@ class EAVTextTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $eavText;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eavText = factory(EAVText::class)->create();
+    }
+
     /** @test */
     public function an_eav_text_can_be_created()
     {
@@ -28,9 +37,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function an_eav_text_can_be_updated()
     {
-        $eavText = factory(EAVText::class)->create();
-
-        $response = $this->patchJson(route('eavTexts.update', $eavText), [
+        $response = $this->patchJson(route('eavTexts.update', $this->eavText), [
             'value' => $this->faker->sentence,
         ]);
 
@@ -43,9 +50,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function an_eav_text_can_be_deleted()
     {
-        $eavText = factory(EAVText::class)->create();
-
-        $response = $this->deleteJson(route('eavTexts.destroy', $eavText), [
+        $response = $this->deleteJson(route('eavTexts.destroy', $this->eavText), [
             //
         ]);
 
@@ -53,5 +58,25 @@ class EAVTextTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function eav_text_has_eavs_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavText->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavText->eavs());
+    }
+
+    /** @test */
+    public function eav_text_has_attributes_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavText->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavText->attributes());
     }
 }

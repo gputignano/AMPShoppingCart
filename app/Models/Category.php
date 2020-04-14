@@ -41,6 +41,10 @@ class Category extends EntityAbstract
             ]);
         });
 
+        static::deleting(function ($entity) {
+            $entity->children()->delete();
+        });
+
         static::addGlobalScope('type', function (Builder $builder) {
             $builder->where('type', 'category');
         });

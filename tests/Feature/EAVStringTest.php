@@ -12,6 +12,15 @@ class EAVStringTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $eavString;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eavString = factory(EAVString::class)->create();
+    }
+
     /** @test */
     public function an_eav_string_can_be_created()
     {
@@ -28,9 +37,7 @@ class EAVStringTest extends TestCase
     /** @test */
     public function an_eav_string_can_be_updated()
     {
-        $eavString = factory(EAVString::class)->create();
-
-        $response = $this->patchJson(route('eavStrings.update', $eavString), [
+        $response = $this->patchJson(route('eavStrings.update', $this->eavString), [
             'value' => $this->faker->word,
         ]);
 
@@ -43,9 +50,7 @@ class EAVStringTest extends TestCase
     /** @test */
     public function an_eav_string_can_be_deleted()
     {
-        $eavString = factory(EAVString::class)->create();
-
-        $response = $this->deleteJson(route('eavStrings.destroy', $eavString), [
+        $response = $this->deleteJson(route('eavStrings.destroy', $this->eavString), [
             //
         ]);
 
@@ -53,5 +58,25 @@ class EAVStringTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function eav_string_has_eavs_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavString->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavString->eavs());
+    }
+
+    /** @test */
+    public function eav_string_has_attributes_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavString->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavString->attributes());
     }
 }

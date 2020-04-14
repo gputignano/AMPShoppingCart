@@ -12,11 +12,18 @@ class EAVIntegerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $eavInteger;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eavInteger = factory(EAVInteger::class)->create();
+    }
+
     /** @test */
     public function an_eav_integer_can_be_created()
     {
-        $eavInteger = factory(EAVInteger::class)->create();
-
         $response = $this->postJson(route('eavIntegers.store'), [
             'value' => $this->faker->randomDigit,
         ]);
@@ -30,9 +37,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function an_eav_integer_can_be_updated()
     {
-        $eavInteger = factory(EAVInteger::class)->create();
-
-        $response = $this->patchJson(route('eavIntegers.update', $eavInteger), [
+        $response = $this->patchJson(route('eavIntegers.update', $this->eavInteger), [
             'value' => $this->faker->randomDigit,
         ]);
 
@@ -45,9 +50,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function an_eav_integer_can_be_deleted()
     {
-        $eavInteger = factory(EAVInteger::class)->create();
-
-        $response = $this->deleteJson(route('eavIntegers.destroy', $eavInteger), [
+        $response = $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
             //
         ]);
 
@@ -55,5 +58,25 @@ class EAVIntegerTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function eav_integer_has_eavs_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavInteger->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavInteger->eavs());
+    }
+
+    /** @test */
+    public function eav_integer_has_attributes_relation()
+    {
+        // One to Many Polymorphic
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavInteger->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavInteger->attributes());
     }
 }

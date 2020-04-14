@@ -12,6 +12,7 @@ use App\Models\EAVString;
 use App\Models\EAVText;
 use App\Models\Page;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -21,29 +22,43 @@ class EAVTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    /** @test */
-    public function an_eav_can_be_created()
+    protected $eav;
+    protected $entity;
+    protected $attribute;
+    protected $value;
+
+    protected function setUp(): void
     {
-        $entity = factory($this->faker->randomElement([
+        parent::setUp();
+
+        $this->eav = factory(EAV::class)->create();
+
+        $this->entity = factory($this->faker->randomElement([
             Category::class,
             Page::class,
             Product::class,
         ]))->create();
-        $attribute = factory(Attribute::class)->create();
-        $value = factory($this->faker->randomElement([
+
+        $this->attribute = factory(Attribute::class)->create();
+
+        $this->value = factory($this->faker->randomElement([
             EAVBoolean::class,
             EAVDecimal::class,
             EAVInteger::class,
             EAVString::class,
             EAVText::class,
         ]))->create();
+    }
 
+    /** @test */
+    public function an_eav_can_be_created()
+    {
         $response = $this->postJson(route('eavs.store'), [
-            'entity_type' => get_class($entity),
-            'entity_id' => $entity->id,
-            'attribute_id' => $attribute->id,
-            'value_type' => get_class($value),
-            'value_id' => $value->id,
+            'entity_type' => get_class($this->entity),
+            'entity_id' => $this->entity->id,
+            'attribute_id' => $this->attribute->id,
+            'value_type' => get_class($this->value),
+            'value_id' => $this->value->id,
         ]);
 
         $response->assertStatus(200);
@@ -55,27 +70,12 @@ class EAVTest extends TestCase
     /** @test */
     public function an_eav_can_be_updated()
     {
-        $eav = factory(EAV::class)->create();
-        $entity = factory($this->faker->randomElement([
-            Category::class,
-            Page::class,
-            Product::class,
-        ]))->create();
-        $attribute = factory(Attribute::class)->create();
-        $value = factory($this->faker->randomElement([
-            EAVBoolean::class,
-            EAVDecimal::class,
-            EAVInteger::class,
-            EAVString::class,
-            EAVText::class,
-        ]))->create();
-
-        $response = $this->patchJson(route('eavs.update', $eav), [
-            'entity_type' => get_class($entity),
-            'entity_id' => $entity->id,
-            'attribute_id' => $attribute->id,
-            'value_type' => get_class($value),
-            'value_id' => $value->id,
+        $response = $this->patchJson(route('eavs.update', $this->eav), [
+            'entity_type' => get_class($this->entity),
+            'entity_id' => $this->entity->id,
+            'attribute_id' => $this->attribute->id,
+            'value_type' => get_class($this->value),
+            'value_id' => $this->value->id,
         ]);
 
         $response->assertStatus(200);
@@ -87,9 +87,7 @@ class EAVTest extends TestCase
     /** @test */
     public function an_eav_can_be_deleted()
     {
-        $eav = factory(EAV::class)->create();
-
-        $response = $this->deleteJson(route('eavs.destroy', $eav), [
+        $response = $this->deleteJson(route('eavs.destroy', $this->eav), [
             //
         ]);
 
@@ -97,5 +95,33 @@ class EAVTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function eav_has_entity_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(Model::class, $this->eav->entity);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->entity());
+    }
+
+    /** @test */
+    public function eav_has_attribute_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(Attribute::class, $this->eav->attribute);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->eav->attribute());
+    }
+
+    /** @test */
+    public function eav_has_value_relation()
+    {
+        // One to One Polymorphic
+        $this->assertInstanceOf(Model::class, $this->eav->value);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->value());
     }
 }
