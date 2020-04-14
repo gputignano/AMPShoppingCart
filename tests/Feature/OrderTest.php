@@ -49,7 +49,7 @@ class OrderTest extends TestCase
         $order = factory(Order::class)->create();
 
         $response = $this->deleteJson(route('orders.destroy', $order), [
-            'deleted' => true,
+            //
         ]);
 
         $response->assertStatus(200);
