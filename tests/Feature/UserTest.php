@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -26,14 +27,62 @@ class UserTest extends TestCase
     public function a_user_can_be_created()
     {
         $response = $this->postJson(route('users.store'), [
-            'email' => 'user@user.com',
-            'password' => 'password',
+            'email' => $this->faker->safeEmail,
+            'password' => Str::random(10),
         ]);
 
         $response->assertStatus(200);
         $response->assertJson([
             'created' => true,
         ]);
+        $response->assertSessionHasNoErrors();
+    }
+
+    /** @test */
+    public function email_is_required_when_creating_a_new_user()
+    {
+        $response = $this->postJson(route('users.store'), [
+            'password' => 'password',
+        ]);
+
+        $response->assertJsonValidationErrors(['email']);
+    }
+
+    /** @test */
+    public function email_must_have_the_right_format()
+    {
+        $response = $this->postJson(route('users.store'), [
+            'email' => Str::random(10),
+            'password' => Str::random(10),
+        ]);
+
+        $response->assertJsonValidationErrors('email');
+    }
+
+    /** @test */
+    public function email_must_be_unique()
+    {
+        $this->postJson(route('users.store'), [
+            'email' => $email = $this->faker->safeEmail,
+            'password' => Str::random(19),
+        ]);
+
+        $response = $this->postJson(route('users.store'), [
+            'email' => $email,
+            'password' => Str::random(10),
+        ]);
+
+        $response->assertJsonValidationErrors('email');
+    }
+
+    /** @test */
+    public function password_is_required_when_creating_a_new_user()
+    {
+        $response = $this->postJson(route('users.store'), [
+            'email' => $this->faker->safeEmail,
+        ]);
+
+        $response->assertJsonValidationErrors('password');
     }
 
     /** @test */
@@ -51,6 +100,16 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function password_is_required_when_updating_a_new_user()
+    {
+        $response = $this->patchJson(route('users.update', $this->user), [
+            //
+        ]);
+
+        $response->assertJsonValidationErrors(['password']);
+    }
+
+    /** @test */
     public function a_user_can_be_deleted()
     {
         $response = $this->deleteJson(route('users.destroy', $this->user), [
@@ -61,6 +120,19 @@ class UserTest extends TestCase
         $response->assertJson([
             'deleted' => true,
         ]);
+    }
+
+    /** @test */
+    public function when_a_user_is_deleted_related_orders_are_deleted()
+    {
+        $order = $this->user->orders()->save(factory(Order::class)->make());
+
+        $response = $this->deleteJson(route('users.destroy', $this->user), [
+            //
+        ]);
+
+        $this->assertDeleted($this->user);
+        $this->assertDeleted($order);
     }
 
     /**
