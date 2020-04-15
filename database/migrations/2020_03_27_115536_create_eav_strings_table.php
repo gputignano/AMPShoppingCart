@@ -14,6 +14,7 @@ class CreateEAVStringsTable extends Migration
     public function up()
     {
         Schema::create('eav_strings', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('value');
         });

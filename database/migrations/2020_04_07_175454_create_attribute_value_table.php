@@ -14,6 +14,7 @@ class CreateAttributeValueTable extends Migration
     public function up()
     {
         Schema::create('attribute_value', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('attribute_id');
             $table->morphs('value');
         });

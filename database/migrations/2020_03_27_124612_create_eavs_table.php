@@ -14,6 +14,7 @@ class CreateEavsTable extends Migration
     public function up()
     {
         Schema::create('eavs', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->morphs('entity');
             $table->unsignedBigInteger('attribute_id');

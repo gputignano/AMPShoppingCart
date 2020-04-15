@@ -14,6 +14,7 @@ class CreateAttributesTable extends Migration
     public function up()
     {
         Schema::create('attributes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('label');
             $table->string('type');

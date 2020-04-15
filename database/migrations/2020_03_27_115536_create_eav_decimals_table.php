@@ -14,6 +14,7 @@ class CreateEAVDecimalsTable extends Migration
     public function up()
     {
         Schema::create('eav_decimals', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->decimal('value', 10, 4);
         });

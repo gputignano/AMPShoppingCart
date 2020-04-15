@@ -14,6 +14,7 @@ class CreateAttributeSetProductTable extends Migration
     public function up()
     {
         Schema::create('attribute_set_product', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('attribute_set_id');
             $table->unsignedBigInteger('product_id');
 

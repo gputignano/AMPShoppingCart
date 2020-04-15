@@ -14,6 +14,7 @@ class CreateAttributeAttributeSetTable extends Migration
     public function up()
     {
         Schema::create('attribute_attribute_set', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('attribute_set_id');
 
