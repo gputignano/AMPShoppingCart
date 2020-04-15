@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Attribute;
 use App\Models\AttributeSet;
+use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -36,6 +37,16 @@ class AttributeSetTest extends TestCase
     }
 
     /** @test */
+    public function label_is_required_when_creating_a_new_attribute_set()
+    {
+        $response = $this->postJson(route('attributeSets.store'), [
+            //'
+        ]);
+
+        $response->assertJsonValidationErrors('label');
+    }
+
+    /** @test */
     public function an_attribute_set_can_be_updated()
     {
         $response = $this->patchJson(route('attributeSets.update', $this->attributeSet), [
@@ -46,6 +57,16 @@ class AttributeSetTest extends TestCase
         $response->assertJson([
             'updated' => true,
         ]);
+    }
+
+    /** @test */
+    public function label_is_required_when_updating_a_new_attribute_set()
+    {
+        $response = $this->patchJson(route('attributeSets.update', $this->attributeSet), [
+            //'
+        ]);
+
+        $response->assertJsonValidationErrors('label');
     }
 
     /** @test */
@@ -61,12 +82,50 @@ class AttributeSetTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function when_an_attribute_set_is_deleted_attributes_relation_is_updated()
+    {
+        $attribute = $this->attributeSet->attributes()->save(factory(Attribute::class)->make());
+
+        $this->deleteJson(route('attributeSets.destroy', $this->attributeSet), [
+            //
+        ]);
+
+        $this->assertDeleted($this->attributeSet);
+        $this->assertDatabaseHas('attributes', [
+            'id' => $attribute->id,
+        ]);
+        $this->assertDatabaseMissing('attribute_attribute_set', [
+            'attribute_id' => $attribute->id,
+            'attribute_set_id' => $this->attributeSet->is,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_attribute_set_is_deleted_products_relation_is_updated()
+    {
+        $product = $this->attributeSet->products()->save(factory(Product::class)->make());
+
+        $this->deleteJson(route('attributeSets.destroy', $this->attributeSet), [
+            //
+        ]);
+
+        $this->assertDeleted($this->attributeSet);
+        $this->assertDatabaseHas('entities', [
+            'id' => $product->id,
+        ]);
+        $this->assertDatabaseMissing('attribute_set_product', [
+            'attribute_set_id' => $this->attributeSet->id,
+            'product_id' => $product->id,
+        ]);
+    }
+
     /**
      * RELATIONS
      */
 
     /** @test */
-    public function attribute_set_has_attribute_relation()
+    public function attribute_set_has_attributes_relation()
     {
         // Many to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attributeSet->attributes);
