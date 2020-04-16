@@ -59,11 +59,13 @@ class TableSchemaTest extends TestCase
     public function entity_types_table_has_expected_columns()
     {
         $this->assertTrue(
-            Schema::hasColumns('entity_types', [
+            Schema::hasColumns('entity_types', $fields = [
                 'id',
                 'label',
             ])
         );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('entity_types'));
     }
 
     /** @test */
