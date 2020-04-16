@@ -17,6 +17,8 @@ class CreateAttributeValueTable extends Migration
             $table->engine = 'InnoDB';
             $table->unsignedBigInteger('attribute_id');
             $table->morphs('value');
+
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
         });
     }
 
