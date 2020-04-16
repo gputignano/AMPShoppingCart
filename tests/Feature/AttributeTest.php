@@ -83,6 +83,14 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
+    public function attribute_has_entity_types_relation()
+    {
+        // Many to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->entity_types);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attribute->entity_types());
+    }
+
+    /** @test */
     public function attribute_has_values_relation()
     {
         // Many to Many polymorphic
