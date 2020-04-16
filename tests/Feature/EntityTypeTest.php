@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attribute;
 use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,7 +19,7 @@ class EntityTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->entityTpe = factory(EntityType::class)->create();
+        $this->entityType = factory(EntityType::class)->create();
     }
 
     /** @test */
@@ -35,9 +36,19 @@ class EntityTypeTest extends TestCase
     }
 
     /** @test */
+    public function label_is_required_when_creating_a_new_entity_type()
+    {
+        $response = $this->postJson(route('entityTypes.store'), [
+            //'
+        ]);
+
+        $response->assertJsonValidationErrors('label');
+    }
+
+    /** @test */
     public function an_entity_type_can_be_updated()
     {
-        $response = $this->patchJson(route('entityTypes.update', $this->entityTpe), [
+        $response = $this->patchJson(route('entityTypes.update', $this->entityType), [
             'label' => $this->faker->word,
         ]);
 
@@ -48,15 +59,44 @@ class EntityTypeTest extends TestCase
     }
 
     /** @test */
+    public function label_is_required_when_updating_a_new_entity_type()
+    {
+        $response = $this->patchJson(route('entityTypes.update', $this->entityType), [
+            //'
+        ]);
+
+        $response->assertJsonValidationErrors('label');
+    }
+
+    /** @test */
     public function an_entity_type_can_be_deleted()
     {
-        $response = $this->deleteJson(route('entityTypes.destroy', $this->entityTpe), [
+        $response = $this->deleteJson(route('entityTypes.destroy', $this->entityType), [
             //
         ]);
 
         $response->assertStatus(200);
         $response->assertJson([
             'deleted' => true,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_entity_type_is_deleted_attributes_relation_is_updated()
+    {
+        $attribute = $this->entityType->attributes()->save(factory(Attribute::class)->make());
+
+        $this->deleteJson(route('entityTypes.destroy', $this->entityType), [
+            //
+        ]);
+
+        $this->assertDeleted($this->entityType);
+        $this->assertDatabaseHas('attributes', [
+            'id' => $attribute->id,
+        ]);
+        $this->assertDatabaseMissing('attribute_entity_type', [
+            'attribute_id' => $attribute->id,
+            'entity_type_id' => $this->entityType->is,
         ]);
     }
 
@@ -68,7 +108,7 @@ class EntityTypeTest extends TestCase
     public function entity_type_has_attributes_relation()
     {
         // Many to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->entityTpe->attributes);
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->entityTpe->attributes());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->entityType->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->entityType->attributes());
     }
 }

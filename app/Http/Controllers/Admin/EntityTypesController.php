@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEntityTypeFormRequest;
+use App\Http\Requests\UpdateEntityTypeFormRequest;
 use App\Models\EntityType;
-use Illuminate\Http\Request;
 
 class EntityTypesController extends Controller
 {
@@ -34,7 +35,7 @@ class EntityTypesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEntityTypeFormRequest $request)
     {
         $entityType = EntityType::create($request->all());
 
@@ -72,7 +73,7 @@ class EntityTypesController extends Controller
      * @param  \App\Models\EntityType  $entityType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EntityType $entityType)
+    public function update(UpdateEntityTypeFormRequest $request, EntityType $entityType)
     {
         $updated = $entityType->update($request->all());
 
