@@ -14,6 +14,7 @@ class CreateAttributeEntityTypeTable extends Migration
     public function up()
     {
         Schema::create('attribute_entity_type', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('entity_type_id');
 
