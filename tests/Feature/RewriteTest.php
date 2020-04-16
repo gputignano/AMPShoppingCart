@@ -30,9 +30,9 @@ class RewriteTest extends TestCase
     public function a_rewrite_can_be_created()
     {
         $response = $this->postJson(route('rewrites.store'), [
-            'title' => $title = $this->faker->sentence,
-            'slug' => Str::slug($title),
-            'description' => $this->faker->text,
+            'meta_title' => $meta_title = $this->faker->sentence,
+            'slug' => Str::slug($meta_title),
+            'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
             'rewritable_type' => $this->faker->randomElement([
                 Category::class,
@@ -52,9 +52,9 @@ class RewriteTest extends TestCase
     public function a_rewrite_can_be_updated()
     {
         $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
-            'title' => $title = $this->faker->sentence,
-            'slug' => Str::slug($title),
-            'description' => $this->faker->text,
+            'meta_title' => $meta_title = $this->faker->sentence,
+            'slug' => Str::slug($meta_title),
+            'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
             'rewritable_type' => $this->faker->randomElement([
                 Category::class,

@@ -17,8 +17,8 @@ $factory->define(Rewrite::class, function (Faker $faker) {
 
     return [
         'slug' => Str::slug($title),
-        'title' => $title,
-        'description' => $faker->sentence,
+        'meta_title' => $title,
+        'meta_description' => $faker->sentence,
         'template' => $faker->word,
         'rewritable_type' => get_class($rewritable),
         'rewritable_id' => $rewritable->id,

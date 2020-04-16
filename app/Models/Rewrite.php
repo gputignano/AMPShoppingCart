@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rewrite extends Model
 {
     protected $fillable = [
-        'slug', 'title', 'description', 'robots', 'template', 'enabled', 'rewritable_type', 'rewritable_id',
+        'slug', 'meta_title', 'meta_description', 'meta_robots', 'template', 'enabled', 'rewritable_type', 'rewritable_id',
     ];
 
     public $timestamps = false;

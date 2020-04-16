@@ -180,9 +180,9 @@ class TableSchemaTest extends TestCase
             Schema::hasColumns('rewrites', $fields = [
                 'id',
                 'slug',
-                'title',
-                'description',
-                'robots',
+                'meta_title',
+                'meta_description',
+                'meta_robots',
                 'template',
                 'enabled',
                 'rewritable_type',
