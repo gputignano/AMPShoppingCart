@@ -11,4 +11,9 @@ class EntityType extends Model
     ];
 
     public $timestamps = false;
+
+    public function attributes()
+    {
+        return $this->belongsToMany(Attribute::class);
+    }
 }

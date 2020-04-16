@@ -59,4 +59,16 @@ class EntityTypeTest extends TestCase
             'deleted' => true,
         ]);
     }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function entity_type_has_attributes_relation()
+    {
+        // Many to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->entityTpe->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->entityTpe->attributes());
+    }
 }
