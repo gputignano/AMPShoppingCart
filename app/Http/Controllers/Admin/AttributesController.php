@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAttributeFormRequest;
+use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
-use Illuminate\Http\Request;
 
 class AttributesController extends Controller
 {
@@ -34,7 +35,7 @@ class AttributesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAttributeFormRequest $request)
     {
         $attribute = Attribute::create($request->all());
 
@@ -72,7 +73,7 @@ class AttributesController extends Controller
      * @param  \App\Models\Attribute  $attribute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attribute $attribute)
+    public function update(UpdateAttributeFormRequest $request, Attribute $attribute)
     {
         $updated = $attribute->update($request->all());
 

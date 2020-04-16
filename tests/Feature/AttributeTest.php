@@ -3,6 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Attribute;
+use App\Models\AttributeSet;
+use App\Models\EAV;
+use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -36,6 +39,26 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
+    public function label_is_required_when_creating_a_new_attribute()
+    {
+        $response = $this->postJson(route('attributes.store'), [
+            'type' => $this->faker->word,
+        ]);
+
+        $response->assertJsonValidationErrors('label');
+    }
+
+    /** @test */
+    public function type_is_required_when_creating_a_new_attribute()
+    {
+        $response = $this->postJson(route('attributes.store'), [
+            'label' => $this->faker->word,
+        ]);
+
+        $response->assertJsonValidationErrors('type');
+    }
+
+    /** @test */
     public function an_attribute_can_be_updated()
     {
         $response = $this->patchJson(route('attributes.update', $this->attribute), [
@@ -50,6 +73,26 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
+    public function label_is_required_when_updating_a_new_attribute()
+    {
+        $response = $this->patchJson(route('attributes.update', $this->attribute), [
+            'type' => $this->faker->word,
+        ]);
+
+        $response->assertJsonValidationErrors('label');
+    }
+
+    /** @test */
+    public function type_is_required_when_updating_a_new_attribute()
+    {
+        $response = $this->patchJson(route('attributes.update', $this->attribute), [
+            'label' => $this->faker->word,
+        ]);
+
+        $response->assertJsonValidationErrors('type');
+    }
+
+    /** @test */
     public function an_attribute_can_be_deleted()
     {
         $response = $this->deleteJson(route('attributes.destroy', $this->attribute), [
@@ -59,6 +102,79 @@ class AttributeTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'deleted' => true,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_attribute_is_deleted_attribute_sets_relation_is_updated()
+    {
+        $attributeSet = $this->attribute->attribute_sets()->save(factory(AttributeSet::class)->make());
+
+        $this->deleteJson(route('attributes.destroy', $this->attribute), [
+            //
+        ]);
+
+        $this->assertDeleted($this->attribute);
+        $this->assertDatabaseHas('attribute_sets', [
+            'id' => $attributeSet->id,
+        ]);
+        $this->assertDatabaseMissing('attribute_attribute_set', [
+            'attribute_id' => $this->attribute->id,
+            'attribute_set_id' => $attributeSet->id,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_attribute_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = factory(EAV::class)->create([
+            'attribute_id' => $this->attribute,
+        ]);
+
+        $this->deleteJson(route('attributes.destroy', $this->attribute), [
+            //
+        ]);
+
+        $this->assertDeleted($this->attribute);
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_an_attribute_is_deleted_entity_types_relation_is_updated()
+    {
+        $entityTypes = $this->attribute->entity_types()->save(factory(EntityType::class)->make());
+
+        $this->deleteJson(route('attributes.destroy', $this->attribute), [
+            //
+        ]);
+
+        $this->assertDeleted($this->attribute);
+        $this->assertDatabaseHas('entity_types', [
+            'id' => $entityTypes->id,
+        ]);
+        $this->assertDatabaseMissing('attribute_entity_type', [
+            'attribute_id' => $this->attribute->id,
+            'entity_type_id' => $entityTypes->id,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_attribute_is_deleted_values_relation_is_updated()
+    {
+        $value = $this->attribute->values()->save(factory($this->attribute->type)->make());
+
+        $this->deleteJson(route('attributes.destroy', $this->attribute), [
+            //
+        ]);
+
+        $this->assertDeleted($this->attribute);
+        $this->assertDatabaseHas($value->getTable(), [
+            'value' => $value->value,
+        ]);
+        $this->assertDatabaseMissing('attribute_value', [
+            'attribute_id' => $this->attribute->id,
+            'value_type' => get_class($value),
+            'value_id' => $value->id,
         ]);
     }
 
