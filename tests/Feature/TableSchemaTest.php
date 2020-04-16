@@ -56,6 +56,17 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
+    public function entity_types_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('entity_types', [
+                'id',
+                'label',
+            ])
+        );
+    }
+
+    /** @test */
     public function attribute_attribute_set_table_has_expected_columns()
     {
         $this->assertTrue(
