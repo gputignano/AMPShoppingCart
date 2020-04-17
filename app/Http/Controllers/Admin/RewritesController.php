@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRewriteFormRequest;
+use App\Http\Requests\UpdateRewriteFormRequest;
 use App\Models\Rewrite;
-use Illuminate\Http\Request;
 
 class RewritesController extends Controller
 {
@@ -34,9 +35,9 @@ class RewritesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRewriteFormRequest $request)
     {
-        $rewrite = Rewrite::create($request->all());
+        $rewrite = Rewrite::create($request->validated());
 
         return response()->json([
             'created' => isset($rewrite),
@@ -72,7 +73,7 @@ class RewritesController extends Controller
      * @param  \App\Rewrite  $rewrite
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rewrite $rewrite)
+    public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
         $updated = $rewrite->update($request->all());
 

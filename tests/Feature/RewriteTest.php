@@ -29,9 +29,11 @@ class RewriteTest extends TestCase
     /** @test */
     public function a_rewrite_can_be_created()
     {
+        $meta_title = $this->faker->sentence;
+
         $response = $this->postJson(route('rewrites.store'), [
-            'meta_title' => $meta_title = $this->faker->sentence,
             'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
             'rewritable_type' => $this->faker->randomElement([
@@ -49,11 +51,139 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
+    public function slug_is_rewuired_when_creating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->postJson(route('rewrites.store'), [
+            // 'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('slug');
+    }
+
+    /** @test */
+    public function meta_title_is_rewuired_when_creating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->postJson(route('rewrites.store'), [
+            'slug' => Str::slug($meta_title),
+            // 'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('meta_title');
+    }
+
+    /** @test */
+    public function meta_description_is_rewuired_when_creating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->postJson(route('rewrites.store'), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            // 'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('meta_description');
+    }
+
+    /** @test */
+    public function template_is_rewuired_when_creating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->postJson(route('rewrites.store'), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            // 'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('template');
+    }
+
+    /** @test */
+    public function rewritable_type_is_rewuired_when_creating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->postJson(route('rewrites.store'), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            // 'rewritable_type' => $this->faker->randomElement([
+            //     Category::class,
+            //     Page::class,
+            //     Product::class,
+            // ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('rewritable_type');
+    }
+
+    /** @test */
+    public function rewritable_id_is_rewuired_when_creating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->postJson(route('rewrites.store'), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            // 'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('rewritable_id');
+    }
+
+    /** @test */
     public function a_rewrite_can_be_updated()
     {
+        $meta_title = $this->faker->sentence;
+
         $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
-            'meta_title' => $meta_title = $this->faker->sentence,
             'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
             'rewritable_type' => $this->faker->randomElement([
@@ -68,6 +198,132 @@ class RewriteTest extends TestCase
         $response->assertJson([
             'updated' => true,
         ]);
+    }
+
+    /** @test */
+    public function slug_is_rewuired_when_updating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+            // 'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('slug');
+    }
+
+    /** @test */
+    public function meta_title_is_rewuired_when_updating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+            'slug' => Str::slug($meta_title),
+            // 'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('meta_title');
+    }
+
+    /** @test */
+    public function meta_description_is_rewuired_when_updating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            // 'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('meta_description');
+    }
+
+    /** @test */
+    public function template_is_rewuired_when_updating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            // 'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('template');
+    }
+
+    /** @test */
+    public function rewritable_type_is_rewuired_when_updating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            // 'rewritable_type' => $this->faker->randomElement([
+            //     Category::class,
+            //     Page::class,
+            //     Product::class,
+            // ]),
+            'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('rewritable_type');
+    }
+
+    /** @test */
+    public function rewritable_id_is_rewuired_when_updating_rewrite()
+    {
+        $meta_title = $this->faker->sentence;
+
+        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+            'slug' => Str::slug($meta_title),
+            'meta_title' => $meta_title,
+            'meta_description' => $this->faker->text,
+            'template' => $this->faker->word,
+            'rewritable_type' => $this->faker->randomElement([
+                Category::class,
+                Page::class,
+                Product::class,
+            ]),
+            // 'rewritable_id' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('rewritable_id');
     }
 
     /** @test */
