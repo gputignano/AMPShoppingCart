@@ -23,4 +23,14 @@ class EAVInteger extends Model
     {
         return $this->morphToMany(Attribute::class, 'value', 'attribute_value');
     }
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::deleting(function ($value) {
+            $value->eavs()->delete();
+            $value->attributes()->delete();
+        });
+    }
 }

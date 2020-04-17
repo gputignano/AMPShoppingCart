@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEAVIntegerFormRequest;
+use App\Http\Requests\UpdateEAVIntegerFormRequest;
 use App\Models\EAVInteger;
-use Illuminate\Http\Request;
 
 class EAVIntegersController extends Controller
 {
@@ -34,7 +35,7 @@ class EAVIntegersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEAVIntegerFormRequest $request)
     {
         $eavInteger = EAVInteger::create($request->all());
 
@@ -72,7 +73,7 @@ class EAVIntegersController extends Controller
      * @param  \App\Models\EAVInteger  $eAVInteger
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EAVInteger $eavInteger)
+    public function update(UpdateEAVIntegerFormRequest $request, EAVInteger $eavInteger)
     {
         $updated = $eavInteger->update($request->all());
 

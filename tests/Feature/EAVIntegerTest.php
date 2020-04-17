@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attribute;
+use App\Models\EAV;
 use App\Models\EAVInteger;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -35,6 +37,16 @@ class EAVIntegerTest extends TestCase
     }
 
     /** @test */
+    public function value_is_required_when_creating_a_new_eav_integer()
+    {
+        $response = $this->postJson(route('eavIntegers.store'), [
+            // 'value' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('value');
+    }
+
+    /** @test */
     public function an_eav_integer_can_be_updated()
     {
         $response = $this->patchJson(route('eavIntegers.update', $this->eavInteger), [
@@ -48,6 +60,16 @@ class EAVIntegerTest extends TestCase
     }
 
     /** @test */
+    public function value_is_required_when_updating_a_new_eav_integer()
+    {
+        $response = $this->patchJson(route('eavIntegers.update', $this->eavInteger), [
+            // 'value' => $this->faker->randomDigit,
+        ]);
+
+        $response->assertJsonValidationErrors('value');
+    }
+
+    /** @test */
     public function an_eav_integer_can_be_deleted()
     {
         $response = $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
@@ -57,6 +79,39 @@ class EAVIntegerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'deleted' => true,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_eav_integer_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = factory(EAV::class)->create([
+            'value_type' => get_class($this->eavInteger),
+            'value_id' => $this->eavInteger->id,
+        ]);
+
+        $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
+            //
+        ]);
+
+        $this->assertDeleted($this->eavInteger);
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_an_eav_integer_is_deleted_attributes_relation_is_updated()
+    {
+        $attribute = $this->eavInteger->attributes()->save(factory(Attribute::class)->make(['type' => get_class($this->eavInteger),]));
+
+        $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
+            //
+        ]);
+
+        $this->assertDeleted($this->eavInteger);
+        $this->assertDatabaseMissing('attribute_value', [
+            'attribute_id' => $attribute->id,
+            'value_type' => get_class($this->eavInteger),
+            'value_id' => $this->eavInteger->id,
         ]);
     }
 
