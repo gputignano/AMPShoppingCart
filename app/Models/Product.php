@@ -16,11 +16,6 @@ class Product extends EntityAbstract
         return $this->hasMany($this, 'parent_id');
     }
 
-    public function attribute_sets()
-    {
-        return $this->belongsToMany(AttributeSet::class);
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class);

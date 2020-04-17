@@ -29,19 +29,6 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function attribute_sets_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('attribute_sets', $fields = [
-                'id',
-                'label',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('attribute_sets'));
-    }
-
-    /** @test */
     public function attributes_table_has_expected_columns()
     {
         $this->assertTrue(
@@ -82,19 +69,6 @@ class TableSchemaTest extends TestCase
         $this->assertCount(count($fields), Schema::getColumnListing('attribute_entity_type'));
     }
     
-/** @test */
-    public function attribute_attribute_set_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('attribute_attribute_set', $fields = [
-                'attribute_id',
-                'attribute_set_id',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('attribute_attribute_set'));
-    }
-
     /** @test */
     public function eav_booleans_table_has_expected_columns()
     {
@@ -185,19 +159,6 @@ class TableSchemaTest extends TestCase
         );
 
         $this->assertCount(count($fields), Schema::getColumnListing('entities'));
-    }
-
-    /** @test */
-    public function attribute_set_product_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('attribute_set_product', $fields = [
-                'attribute_set_id',
-                'product_id',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('attribute_set_product'));
     }
 
     /** @test */

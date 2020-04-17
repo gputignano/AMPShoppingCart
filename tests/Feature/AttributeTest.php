@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Attribute;
-use App\Models\AttributeSet;
 use App\Models\EAV;
 use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -106,25 +105,6 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_attribute_sets_relation_is_updated()
-    {
-        $attributeSet = $this->attribute->attribute_sets()->save(factory(AttributeSet::class)->make());
-
-        $this->deleteJson(route('attributes.destroy', $this->attribute), [
-            //
-        ]);
-
-        $this->assertDeleted($this->attribute);
-        $this->assertDatabaseHas('attribute_sets', [
-            'id' => $attributeSet->id,
-        ]);
-        $this->assertDatabaseMissing('attribute_attribute_set', [
-            'attribute_id' => $this->attribute->id,
-            'attribute_set_id' => $attributeSet->id,
-        ]);
-    }
-
-    /** @test */
     public function when_an_attribute_is_deleted_eavs_relation_is_updated()
     {
         $eav = factory(EAV::class)->create([
@@ -181,14 +161,6 @@ class AttributeTest extends TestCase
     /**
      * RELATIONS
      */
-
-    /** @test */
-    public function attribute_has_attribute_sets_relation()
-    {
-        // Many to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->attribute_sets);
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attribute->attribute_sets());
-    }
 
     /** @test */
     public function attribute_has_eavs_relation()

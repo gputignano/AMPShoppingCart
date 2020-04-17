@@ -155,14 +155,6 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function product_has_attribute_sets_relation()
-    {
-        // Many to Many
-        $this->assertInstanceOf(\Illuminate\database\Eloquent\Collection::class, $this->product->attribute_sets);
-        $this->assertInstanceOf(\Illuminate\database\Eloquent\Relations\BelongsToMany::class, $this->product->attribute_sets());
-    }
-
-    /** @test */
     public function product_has_eavs_relation()
     { 
         // One to Many Polymorphic

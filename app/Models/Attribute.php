@@ -12,11 +12,6 @@ class Attribute extends Model
 
     public $timestamps = false;
 
-    public function attribute_sets()
-    {
-        return $this->belongsToMany(AttributeSet::class);
-    }
-
     public function eavs()
     {
         return $this->hasMany(EAV::class);

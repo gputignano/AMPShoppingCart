@@ -19,7 +19,6 @@ Route::prefix('admin')->group(function() {
     });
 
     Route::resource('attributes', 'Admin\AttributesController');
-    Route::resource('attributeSets', 'Admin\AttributeSetsController');
     Route::resource('categories', 'Admin\CategoriesController');
     Route::resource('eavs', 'Admin\EAVsController');
     Route::resource('eavBooleans', 'Admin\EAVBooleansController');
