@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEAVTextFormRequest;
+use App\Http\Requests\UpdateEAVTextFormRequest;
 use App\Models\EAVText;
-use Illuminate\Http\Request;
 
 class EAVTextsController extends Controller
 {
@@ -34,7 +35,7 @@ class EAVTextsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEAVTextFormRequest $request)
     {
         $eavText = EAVText::create($request->all());
 
@@ -72,7 +73,7 @@ class EAVTextsController extends Controller
      * @param  \App\Models\EAVText  $eAVText
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EAVText $eavText)
+    public function update(UpdateEAVTextFormRequest $request, EAVText $eavText)
     {
         $updated = $eavText->update($request->all());
 
