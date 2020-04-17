@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductFormRequest;
+use App\Http\Requests\UpdateProductFormRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -34,7 +36,7 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductFormRequest $request)
     {
         $product = Product::create($request->all());
 
@@ -72,7 +74,7 @@ class ProductsController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductFormRequest $request, Product $product)
     {
         $updated = $product->update($request->all());
 

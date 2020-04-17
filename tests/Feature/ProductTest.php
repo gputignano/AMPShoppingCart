@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
+use App\Models\EAV;
 use App\Models\Product;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,6 +42,16 @@ class ProductTest extends TestCase
     }
 
     /** @test */
+    public function name_is_required_when_creating_a_new_product()
+    {
+        $response = $this->postJson(route('products.store'), [
+            // 'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+    }
+
+    /** @test */
     public function a_product_can_be_updated()
     {
         $response = $this->patchJson(route('products.update', $this->product), [
@@ -50,6 +62,16 @@ class ProductTest extends TestCase
         $response->assertJson([
             'updated' => true,
         ]);
+    }
+
+    /** @test */
+    public function name_is_required_when_updating_a_new_product()
+    {
+        $response = $this->patchJson(route('products.update', $this->product), [
+            // 'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
     }
 
     /** @test */
@@ -66,7 +88,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function when_a_parent_product_is_deleted_all_children_products_are_deleted()
+    public function when_a_parent_product_is_deleted_children_relation_is_updated()
     {
         $children = $this->product->children()->save(factory(Product::class)->make());
 
@@ -74,6 +96,42 @@ class ProductTest extends TestCase
 
         $this->assertDeleted($this->product);
         $this->assertDeleted($children);
+    }
+
+    /** @test */
+    public function when_a_product_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = factory(EAV::class)->create([
+            'entity_type' => get_class($this->product),
+            'entity_id' => $this->product->id,
+        ]);
+
+        $this->product->delete();
+
+        $this->assertDeleted($this->product);
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_a_product_is_deleted_categories_relation_is_deleted()
+    {
+        $category = $this->product->categories()->save(factory(Category::class)->make());
+
+        $this->product->delete();
+
+        $this->assertDeleted($this->product);
+        $this->assertDeleted($category);
+    }
+
+    /** @test */
+    public function when_a_product_is_deleted_rewrite_relation_is_deleted()
+    {
+        $rewrite = $this->product->rewrite()->save(factory(Rewrite::class)->make());
+
+        $this->product->delete();
+
+        $this->assertDeleted($this->product);
+        $this->assertDeleted($rewrite);
     }
     
     /**

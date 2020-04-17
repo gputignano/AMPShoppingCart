@@ -53,6 +53,9 @@ class Product extends EntityAbstract
 
         static::deleting(function ($entity) {
             $entity->children()->delete();
+            $entity->eavs()->delete();
+            $entity->categories()->delete();
+            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
