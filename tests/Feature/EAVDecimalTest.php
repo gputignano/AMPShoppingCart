@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attribute;
+use App\Models\EAV;
 use App\Models\EAVDecimal;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -35,6 +37,16 @@ class EAVDecimalTest extends TestCase
     }
 
     /** @test */
+    public function value_is_required_when_creating_a_new_eav_decimal()
+    {
+        $response = $this->postJson(route('eavDecimals.store'), [
+            // 'value' => $this->faker->randomFloat(5, 10, 100),
+        ]);
+
+        $response->assertJsonValidationErrors('value');
+    }
+
+    /** @test */
     public function an_eav_decimal_can_be_updated()
     {
         $response = $this->patchJson(route('eavDecimals.update', $this->eavDecimal), [
@@ -48,6 +60,16 @@ class EAVDecimalTest extends TestCase
     }
 
     /** @test */
+    public function value_is_required_when_updating_a_new_eav_decimal()
+    {
+        $response = $this->patchJson(route('eavDecimals.update', $this->eavDecimal), [
+            // 'value' => $this->faker->randomFloat(5, 10, 100),
+        ]);
+
+        $response->assertJsonValidationErrors('value');
+    }
+
+    /** @test */
     public function an_eav_decimal_can_be_deleted()
     {
         $response = $this->deleteJson(route('eavDecimals.destroy', $this->eavDecimal), [
@@ -57,6 +79,39 @@ class EAVDecimalTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'deleted' => true,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_eav_decimal_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = factory(EAV::class)->create([
+            'value_type' => get_class($this->eavDecimal),
+            'value_id' => $this->eavDecimal->id,
+        ]);
+
+        $this->deleteJson(route('eavDecimals.destroy', $this->eavDecimal), [
+            //
+        ]);
+
+        $this->assertDeleted($this->eavDecimal);
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_an_eav_decimal_is_deleted_attributes_relation_is_updated()
+    {
+        $attribute = $this->eavDecimal->attributes()->save(factory(Attribute::class)->make(['type' => get_class($this->eavDecimal),]));
+
+        $this->deleteJson(route('eavDecimals.destroy', $this->eavDecimal), [
+            //
+        ]);
+
+        $this->assertDeleted($this->eavDecimal);
+        $this->assertDatabaseMissing('attribute_value', [
+            'attribute_id' => $attribute->id,
+            'value_type' => get_class($this->eavDecimal),
+            'value_id' => $this->eavDecimal->id,
         ]);
     }
 

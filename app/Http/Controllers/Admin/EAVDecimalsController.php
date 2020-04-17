@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEAVDecimalFormRequest;
+use App\Http\Requests\UpdateEAVDecimalFormRequest;
 use App\Models\EAVDecimal;
-use Illuminate\Http\Request;
 
 class EAVDecimalsController extends Controller
 {
@@ -34,7 +35,7 @@ class EAVDecimalsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEAVDecimalFormRequest $request)
     {
         $eavDecimal = EAVDecimal::create($request->all());
 
@@ -72,7 +73,7 @@ class EAVDecimalsController extends Controller
      * @param  \App\Models\EAVDecimal  $eAVDecimal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EAVDecimal $eavDecimal)
+    public function update(UpdateEAVDecimalFormRequest $request, EAVDecimal $eavDecimal)
     {
         $updated = $eavDecimal->update($request->all());
 
