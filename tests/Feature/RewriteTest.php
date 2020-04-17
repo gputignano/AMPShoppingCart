@@ -31,7 +31,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -56,7 +56,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -77,7 +77,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -98,7 +98,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
@@ -119,7 +119,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -140,7 +140,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -161,7 +161,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->postJson(route('rewrites.store'), [
+        $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -182,7 +182,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -207,7 +207,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -228,7 +228,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -249,7 +249,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
@@ -270,7 +270,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -291,7 +291,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -312,7 +312,7 @@ class RewriteTest extends TestCase
     {
         $meta_title = $this->faker->sentence;
 
-        $response = $this->patchJson(route('rewrites.update', $this->rewrite), [
+        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
@@ -331,7 +331,7 @@ class RewriteTest extends TestCase
     /** @test */
     public function a_rewrite_can_be_deleted()
     {
-        $response = $this->deleteJson(route('rewrites.destroy', $this->rewrite), [
+        $response = $this->deleteJson(route('admin.rewrites.destroy', $this->rewrite), [
             //
         ]);
 

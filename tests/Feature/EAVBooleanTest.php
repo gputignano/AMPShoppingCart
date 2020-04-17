@@ -25,7 +25,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function an_eav_boolean_can_be_created()
     {
-        $response = $this->postJson(route('eavBooleans.store'), [
+        $response = $this->postJson(route('admin.eavBooleans.store'), [
             'value' => $this->faker->boolean(50),
         ]);
 
@@ -39,7 +39,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function value_is_required_when_creating_a_new_eav_boolean()
     {
-        $response = $this->postJson(route('eavBooleans.store'), [
+        $response = $this->postJson(route('admin.eavBooleans.store'), [
             // 'value' => $this->faker->boolean(50),
         ]);
 
@@ -49,7 +49,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function an_eav_boolean_can_be_updated()
     {
-        $response = $this->patchJson(route('eavBooleans.update', $this->eavBoolean), [
+        $response = $this->patchJson(route('admin.eavBooleans.update', $this->eavBoolean), [
             'value' => $this->faker->boolean(50),
         ]);
 
@@ -63,7 +63,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function value_is_required_when_updating_a_new_eav_boolean()
     {
-        $response = $this->patchJson(route('eavBooleans.update', $this->eavBoolean), [
+        $response = $this->patchJson(route('admin.eavBooleans.update', $this->eavBoolean), [
             // 'value' => $this->faker->boolean(50),
         ]);
 
@@ -73,7 +73,7 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function an_eav_boolean_can_be_deleted()
     {
-        $response = $this->deleteJson(route('eavBooleans.destroy', $this->eavBoolean), [
+        $response = $this->deleteJson(route('admin.eavBooleans.destroy', $this->eavBoolean), [
             //
         ]);
 

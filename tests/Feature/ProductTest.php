@@ -31,7 +31,7 @@ class ProductTest extends TestCase
     /** @test */
     public function a_product_can_be_created()
     {
-        $response = $this->postJson(route('products.store'), [
+        $response = $this->postJson(route('admin.products.store'), [
             'name' => $this->faker->sentence,
         ]);
 
@@ -45,7 +45,7 @@ class ProductTest extends TestCase
     /** @test */
     public function name_is_required_when_creating_a_new_product()
     {
-        $response = $this->postJson(route('products.store'), [
+        $response = $this->postJson(route('admin.products.store'), [
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -55,7 +55,7 @@ class ProductTest extends TestCase
     /** @test */
     public function a_product_can_be_updated()
     {
-        $response = $this->patchJson(route('products.update', $this->product), [
+        $response = $this->patchJson(route('admin.products.update', $this->product), [
             'name' => $this->faker->sentence,
         ]);
 
@@ -69,7 +69,7 @@ class ProductTest extends TestCase
     /** @test */
     public function name_is_required_when_updating_a_new_product()
     {
-        $response = $this->patchJson(route('products.update', $this->product), [
+        $response = $this->patchJson(route('admin.products.update', $this->product), [
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -79,7 +79,7 @@ class ProductTest extends TestCase
     /** @test */
     public function a_product_can_be_deleted()
     {
-        $response = $this->deleteJson(route('products.destroy', $this->product), [
+        $response = $this->deleteJson(route('admin.products.destroy', $this->product), [
             //
         ]);
 

@@ -25,7 +25,7 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function an_eav_decimal_can_be_created()
     {
-        $response = $this->postJson(route('eavDecimals.store'), [
+        $response = $this->postJson(route('admin.eavDecimals.store'), [
             'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
@@ -39,7 +39,7 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function value_is_required_when_creating_a_new_eav_decimal()
     {
-        $response = $this->postJson(route('eavDecimals.store'), [
+        $response = $this->postJson(route('admin.eavDecimals.store'), [
             // 'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
@@ -49,7 +49,7 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function an_eav_decimal_can_be_updated()
     {
-        $response = $this->patchJson(route('eavDecimals.update', $this->eavDecimal), [
+        $response = $this->patchJson(route('admin.eavDecimals.update', $this->eavDecimal), [
             'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
@@ -63,7 +63,7 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function value_is_required_when_updating_a_new_eav_decimal()
     {
-        $response = $this->patchJson(route('eavDecimals.update', $this->eavDecimal), [
+        $response = $this->patchJson(route('admin.eavDecimals.update', $this->eavDecimal), [
             // 'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
@@ -73,7 +73,7 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function an_eav_decimal_can_be_deleted()
     {
-        $response = $this->deleteJson(route('eavDecimals.destroy', $this->eavDecimal), [
+        $response = $this->deleteJson(route('admin.eavDecimals.destroy', $this->eavDecimal), [
             //
         ]);
 

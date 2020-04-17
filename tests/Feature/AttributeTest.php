@@ -26,7 +26,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function an_attribute_can_be_created()
     {
-        $response = $this->postJson(route('attributes.store'), [
+        $response = $this->postJson(route('admin.attributes.store'), [
             'label' => $this->faker->word,
             'type' => $this->faker->word,
         ]);
@@ -41,7 +41,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function label_is_required_when_creating_a_new_attribute()
     {
-        $response = $this->postJson(route('attributes.store'), [
+        $response = $this->postJson(route('admin.attributes.store'), [
             'type' => $this->faker->word,
         ]);
 
@@ -51,7 +51,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function type_is_required_when_creating_a_new_attribute()
     {
-        $response = $this->postJson(route('attributes.store'), [
+        $response = $this->postJson(route('admin.attributes.store'), [
             'label' => $this->faker->word,
         ]);
 
@@ -61,7 +61,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function an_attribute_can_be_updated()
     {
-        $response = $this->patchJson(route('attributes.update', $this->attribute), [
+        $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
             'label' => $this->faker->word,
             'type' => $this->faker->word,
         ]);
@@ -76,7 +76,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function label_is_required_when_updating_a_new_attribute()
     {
-        $response = $this->patchJson(route('attributes.update', $this->attribute), [
+        $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
             // 'label' => $this->faker->word,
             'type' => $this->faker->word,
         ]);
@@ -87,7 +87,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function type_is_required_when_updating_a_new_attribute()
     {
-        $response = $this->patchJson(route('attributes.update', $this->attribute), [
+        $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
             'label' => $this->faker->word,
             // 'type' => $this->faker->word,
         ]);
@@ -98,7 +98,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function an_attribute_can_be_deleted()
     {
-        $response = $this->deleteJson(route('attributes.destroy', $this->attribute), [
+        $response = $this->deleteJson(route('admin.attributes.destroy', $this->attribute), [
             //
         ]);
 

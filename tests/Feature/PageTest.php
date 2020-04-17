@@ -30,7 +30,7 @@ class PageTest extends TestCase
     /** @test */
     public function a_page_can_be_created()
     {
-        $response = $this->postJson(route('pages.store'), [
+        $response = $this->postJson(route('admin.pages.store'), [
             'name' => $this->faker->sentence,
         ]);
 
@@ -44,7 +44,7 @@ class PageTest extends TestCase
     /** @test */
     public function name_is_required_when_creating_a_new_page()
     {
-        $response = $this->postJson(route('pages.store'), [
+        $response = $this->postJson(route('admin.pages.store'), [
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -54,7 +54,7 @@ class PageTest extends TestCase
     /** @test */
     public function a_page_can_be_updated()
     {
-        $response = $this->patch(route('pages.update', $this->page), [
+        $response = $this->patch(route('admin.pages.update', $this->page), [
             'name' => $this->faker->name,
         ]);
 
@@ -68,7 +68,7 @@ class PageTest extends TestCase
     /** @test */
     public function name_is_required_when_updating_a_new_page()
     {
-        $response = $this->patchJson(route('pages.update', $this->page), [
+        $response = $this->patchJson(route('admin.pages.update', $this->page), [
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -78,7 +78,7 @@ class PageTest extends TestCase
     /** @test */
     public function a_page_can_be_deleted()
     {
-        $response = $this->deleteJson(route('pages.destroy', $this->page), [
+        $response = $this->deleteJson(route('admin.pages.destroy', $this->page), [
             //
         ]);
 

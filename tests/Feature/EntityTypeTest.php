@@ -25,7 +25,7 @@ class EntityTypeTest extends TestCase
     /** @test */
     public function an_entity_type_can_be_created()
     {
-        $response = $this->postJson(route('entityTypes.store'), [
+        $response = $this->postJson(route('admin.entityTypes.store'), [
             'label' => $this->faker->word,
         ]);
 
@@ -39,7 +39,7 @@ class EntityTypeTest extends TestCase
     /** @test */
     public function label_is_required_when_creating_a_new_entity_type()
     {
-        $response = $this->postJson(route('entityTypes.store'), [
+        $response = $this->postJson(route('admin.entityTypes.store'), [
             //'
         ]);
 
@@ -49,7 +49,7 @@ class EntityTypeTest extends TestCase
     /** @test */
     public function an_entity_type_can_be_updated()
     {
-        $response = $this->patchJson(route('entityTypes.update', $this->entityType), [
+        $response = $this->patchJson(route('admin.entityTypes.update', $this->entityType), [
             'label' => $this->faker->word,
         ]);
 
@@ -63,7 +63,7 @@ class EntityTypeTest extends TestCase
     /** @test */
     public function label_is_required_when_updating_a_new_entity_type()
     {
-        $response = $this->patchJson(route('entityTypes.update', $this->entityType), [
+        $response = $this->patchJson(route('admin.entityTypes.update', $this->entityType), [
             //'
         ]);
 
@@ -73,7 +73,7 @@ class EntityTypeTest extends TestCase
     /** @test */
     public function an_entity_type_can_be_deleted()
     {
-        $response = $this->deleteJson(route('entityTypes.destroy', $this->entityType), [
+        $response = $this->deleteJson(route('admin.entityTypes.destroy', $this->entityType), [
             //
         ]);
 

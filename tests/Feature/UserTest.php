@@ -26,7 +26,7 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_be_created()
     {
-        $response = $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('admin.users.store'), [
             'email' => $this->faker->safeEmail,
             'password' => Str::random(10),
         ]);
@@ -42,7 +42,7 @@ class UserTest extends TestCase
     /** @test */
     public function email_is_required_when_creating_a_new_user()
     {
-        $response = $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('admin.users.store'), [
             'password' => 'password',
         ]);
 
@@ -52,7 +52,7 @@ class UserTest extends TestCase
     /** @test */
     public function email_must_have_the_right_format()
     {
-        $response = $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('admin.users.store'), [
             'email' => Str::random(10),
             'password' => Str::random(10),
         ]);
@@ -63,12 +63,12 @@ class UserTest extends TestCase
     /** @test */
     public function email_must_be_unique()
     {
-        $this->postJson(route('users.store'), [
+        $this->postJson(route('admin.users.store'), [
             'email' => $email = $this->faker->safeEmail,
             'password' => Str::random(19),
         ]);
 
-        $response = $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('admin.users.store'), [
             'email' => $email,
             'password' => Str::random(10),
         ]);
@@ -79,7 +79,7 @@ class UserTest extends TestCase
     /** @test */
     public function password_is_required_when_creating_a_new_user()
     {
-        $response = $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('admin.users.store'), [
             'email' => $this->faker->safeEmail,
         ]);
 
@@ -89,7 +89,7 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_be_updated()
     {
-        $response = $this->patchJson(route('users.update', $this->user), [
+        $response = $this->patchJson(route('admin.users.update', $this->user), [
             'email' => $this->faker->safeEmail,
             'password' => Str::random(10),
         ]);
@@ -104,7 +104,7 @@ class UserTest extends TestCase
     /** @test */
     public function password_is_required_when_updating_a_new_user()
     {
-        $response = $this->patchJson(route('users.update', $this->user), [
+        $response = $this->patchJson(route('admin.users.update', $this->user), [
             //
         ]);
 
@@ -114,7 +114,7 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_be_deleted()
     {
-        $response = $this->deleteJson(route('users.destroy', $this->user), [
+        $response = $this->deleteJson(route('admin.users.destroy', $this->user), [
             //
         ]);
 

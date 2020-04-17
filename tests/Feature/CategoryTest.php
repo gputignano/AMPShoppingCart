@@ -31,7 +31,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function a_category_can_be_created()
     {
-        $response = $this->postJson(route('categories.store'), [
+        $response = $this->postJson(route('admin.categories.store'), [
             'name' => $this->faker->sentence,
         ]);
 
@@ -45,7 +45,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function name_is_required_when_creating_a_new_category()
     {
-        $response = $this->postJson(route('categories.store'), [
+        $response = $this->postJson(route('admin.categories.store'), [
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -55,7 +55,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function a_category_can_be_updated()
     {
-        $response = $this->patchJson(route('categories.update', $this->category), [
+        $response = $this->patchJson(route('admin.categories.update', $this->category), [
             'name' => $this->faker->sentence,
         ]);
 
@@ -69,7 +69,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function name_is_required_when_updating_a_category()
     {
-        $response = $this->patchJson(route('categories.update', $this->category), [
+        $response = $this->patchJson(route('admin.categories.update', $this->category), [
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -79,7 +79,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function a_category_can_be_deleted()
     {
-        $response = $this->deleteJson(route('categories.destroy', $this->category), [
+        $response = $this->deleteJson(route('admin.categories.destroy', $this->category), [
             //
         ]);
 

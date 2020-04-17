@@ -27,7 +27,7 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_created()
     {
-        $response = $this->postJson(route('orders.store'), [
+        $response = $this->postJson(route('admin.orders.store'), [
             'user_id' => $this->user->id,
         ]);
 
@@ -41,7 +41,7 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_updated()
     {
-        $response = $this->patchJson(route('orders.update', $this->order), [
+        $response = $this->patchJson(route('admin.orders.update', $this->order), [
             'user_id' => factory(User::class)->create()->id,
         ]);
 
@@ -55,7 +55,7 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_deleted()
     {
-        $response = $this->deleteJson(route('orders.destroy', $this->order), [
+        $response = $this->deleteJson(route('admin.orders.destroy', $this->order), [
             //
         ]);
 

@@ -25,7 +25,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function an_eav_integer_can_be_created()
     {
-        $response = $this->postJson(route('eavIntegers.store'), [
+        $response = $this->postJson(route('admin.eavIntegers.store'), [
             'value' => $this->faker->randomDigit,
         ]);
 
@@ -39,7 +39,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function value_is_required_when_creating_a_new_eav_integer()
     {
-        $response = $this->postJson(route('eavIntegers.store'), [
+        $response = $this->postJson(route('admin.eavIntegers.store'), [
             // 'value' => $this->faker->randomDigit,
         ]);
 
@@ -49,7 +49,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function an_eav_integer_can_be_updated()
     {
-        $response = $this->patchJson(route('eavIntegers.update', $this->eavInteger), [
+        $response = $this->patchJson(route('admin.eavIntegers.update', $this->eavInteger), [
             'value' => $this->faker->randomDigit,
         ]);
 
@@ -63,7 +63,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function value_is_required_when_updating_a_new_eav_integer()
     {
-        $response = $this->patchJson(route('eavIntegers.update', $this->eavInteger), [
+        $response = $this->patchJson(route('admin.eavIntegers.update', $this->eavInteger), [
             // 'value' => $this->faker->randomDigit,
         ]);
 
@@ -73,7 +73,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function an_eav_integer_can_be_deleted()
     {
-        $response = $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
+        $response = $this->deleteJson(route('admin.eavIntegers.destroy', $this->eavInteger), [
             //
         ]);
 

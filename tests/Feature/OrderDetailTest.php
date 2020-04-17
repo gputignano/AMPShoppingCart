@@ -26,7 +26,7 @@ class OrderDetailTest extends TestCase
     /** @test */
     public function an_order_detail_can_be_created()
     {
-        $response = $this->postJson(route('orderDetails.store'), [
+        $response = $this->postJson(route('admin.orderDetails.store'), [
             'order_id' => factory(Order::class)->create()->id,
             'code' => Str::random(5),
             'name' => $this->faker->name,
@@ -44,7 +44,7 @@ class OrderDetailTest extends TestCase
     /** @test */
     public function an_order_detail_can_be_updated()
     {
-        $response = $this->patchJson(route('orderDetails.update', $this->orderDetail), [
+        $response = $this->patchJson(route('admin.orderDetails.update', $this->orderDetail), [
             'order_id' => factory(Order::class)->create()->id,
             'code' => Str::random(5),
             'name' => $this->faker->name,
@@ -64,7 +64,7 @@ class OrderDetailTest extends TestCase
     {
         $orderDetail = factory(OrderDetail::class)->create();
 
-        $response = $this->deleteJson(route('orderDetails.destroy', $this->orderDetail), [
+        $response = $this->deleteJson(route('admin.orderDetails.destroy', $this->orderDetail), [
             //
         ]);
 

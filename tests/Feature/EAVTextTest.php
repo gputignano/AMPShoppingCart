@@ -25,7 +25,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function an_eav_text_can_be_created()
     {
-        $response = $this->postJson(route('eavTexts.store'), [
+        $response = $this->postJson(route('admin.eavTexts.store'), [
             'value' => $this->faker->sentence,
         ]);
 
@@ -39,7 +39,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function value_is_required_when_creating_a_new_eav_text()
     {
-        $response = $this->postJson(route('eavTexts.store'), [
+        $response = $this->postJson(route('admin.eavTexts.store'), [
             // 'value' => $this->faker->sentence,
         ]);
 
@@ -49,7 +49,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function an_eav_text_can_be_updated()
     {
-        $response = $this->patchJson(route('eavTexts.update', $this->eavText), [
+        $response = $this->patchJson(route('admin.eavTexts.update', $this->eavText), [
             'value' => $this->faker->sentence,
         ]);
 
@@ -63,7 +63,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function value_is_required_when_updating_a_new_eav_text()
     {
-        $response = $this->patchJson(route('eavTexts.update', $this->eavText), [
+        $response = $this->patchJson(route('admin.eavTexts.update', $this->eavText), [
             // 'value' => $this->faker->sentence,
         ]);
 
@@ -73,7 +73,7 @@ class EAVTextTest extends TestCase
     /** @test */
     public function an_eav_text_can_be_deleted()
     {
-        $response = $this->deleteJson(route('eavTexts.destroy', $this->eavText), [
+        $response = $this->deleteJson(route('admin.eavTexts.destroy', $this->eavText), [
             //
         ]);
 

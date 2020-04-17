@@ -53,7 +53,7 @@ class EAVTest extends TestCase
     /** @test */
     public function an_eav_can_be_created()
     {
-        $response = $this->postJson(route('eavs.store'), [
+        $response = $this->postJson(route('admin.eavs.store'), [
             'entity_type' => get_class($this->entity),
             'entity_id' => $this->entity->id,
             'attribute_id' => $this->attribute->id,
@@ -71,7 +71,7 @@ class EAVTest extends TestCase
     /** @test */
     public function an_eav_can_be_updated()
     {
-        $response = $this->patchJson(route('eavs.update', $this->eav), [
+        $response = $this->patchJson(route('admin.eavs.update', $this->eav), [
             'entity_type' => get_class($this->entity),
             'entity_id' => $this->entity->id,
             'attribute_id' => $this->attribute->id,
@@ -89,7 +89,7 @@ class EAVTest extends TestCase
     /** @test */
     public function an_eav_can_be_deleted()
     {
-        $response = $this->deleteJson(route('eavs.destroy', $this->eav), [
+        $response = $this->deleteJson(route('admin.eavs.destroy', $this->eav), [
             //
         ]);
 
