@@ -32,6 +32,7 @@ class AttributeTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -66,6 +67,7 @@ class AttributeTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -75,6 +77,7 @@ class AttributeTest extends TestCase
     public function label_is_required_when_updating_a_new_attribute()
     {
         $response = $this->patchJson(route('attributes.update', $this->attribute), [
+            // 'label' => $this->faker->word,
             'type' => $this->faker->word,
         ]);
 
@@ -86,6 +89,7 @@ class AttributeTest extends TestCase
     {
         $response = $this->patchJson(route('attributes.update', $this->attribute), [
             'label' => $this->faker->word,
+            // 'type' => $this->faker->word,
         ]);
 
         $response->assertJsonValidationErrors('type');
@@ -99,63 +103,50 @@ class AttributeTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_eavs_relation_is_updated()
+    public function when_an_attribute_is_deleted_eavs_is_deleted()
     {
-        $eav = factory(EAV::class)->create([
-            'attribute_id' => $this->attribute,
-        ]);
+        $eav = $this->attribute->eavs()->save(factory(EAV::class)->make());
 
-        $this->deleteJson(route('attributes.destroy', $this->attribute), [
-            //
-        ]);
+        $this->attribute->delete();
 
         $this->assertDeleted($this->attribute);
+
         $this->assertDeleted($eav);
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_entity_types_relation_is_updated()
+    public function when_an_attribute_is_deleted_entity_types_relation_is_detached()
     {
         $entityTypes = $this->attribute->entity_types()->save(factory(EntityType::class)->make());
 
-        $this->deleteJson(route('attributes.destroy', $this->attribute), [
-            //
-        ]);
+        $this->attribute->delete();
 
         $this->assertDeleted($this->attribute);
-        $this->assertDatabaseHas('entity_types', [
-            'id' => $entityTypes->id,
-        ]);
-        $this->assertDatabaseMissing('attribute_entity_type', [
-            'attribute_id' => $this->attribute->id,
-            'entity_type_id' => $entityTypes->id,
-        ]);
+
+        $this->assertNotNull($entityTypes->fresh());
+
+        $this->assertCount(0, $this->attribute->entity_types);
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_values_relation_is_updated()
+    public function when_an_attribute_is_deleted_values_relation_is_detached()
     {
         $value = $this->attribute->values()->save(factory($this->attribute->type)->make());
 
-        $this->deleteJson(route('attributes.destroy', $this->attribute), [
-            //
-        ]);
+        $this->attribute->delete();
 
         $this->assertDeleted($this->attribute);
-        $this->assertDatabaseHas($value->getTable(), [
-            'value' => $value->value,
-        ]);
-        $this->assertDatabaseMissing('attribute_value', [
-            'attribute_id' => $this->attribute->id,
-            'value_type' => get_class($value),
-            'value_id' => $value->id,
-        ]);
+
+        $this->assertNotNull($value->fresh());
+
+        $this->assertCount(0, $this->attribute->values);
     }
 
     /**
@@ -167,6 +158,7 @@ class AttributeTest extends TestCase
     {
         // One to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->eavs);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->attribute->eavs());
     }
 
@@ -175,6 +167,7 @@ class AttributeTest extends TestCase
     {
         // Many to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->entity_types);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attribute->entity_types());
     }
 
@@ -183,6 +176,7 @@ class AttributeTest extends TestCase
     {
         // Many to Many polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->values);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->attribute->values());
     }
 }

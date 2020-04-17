@@ -62,6 +62,7 @@ class EAVTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -79,6 +80,7 @@ class EAVTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -92,6 +94,7 @@ class EAVTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -106,6 +109,7 @@ class EAVTest extends TestCase
     {
         // One to One Polymorphic
         $this->assertInstanceOf(Model::class, $this->eav->entity);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->entity());
     }
 
@@ -114,6 +118,7 @@ class EAVTest extends TestCase
     {
         // One to One Polymorphic
         $this->assertInstanceOf(Attribute::class, $this->eav->attribute);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->eav->attribute());
     }
 
@@ -122,6 +127,7 @@ class EAVTest extends TestCase
     {
         // One to One Polymorphic
         $this->assertInstanceOf(Model::class, $this->eav->value);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->value());
     }
 }

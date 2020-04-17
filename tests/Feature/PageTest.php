@@ -35,6 +35,7 @@ class PageTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -58,6 +59,7 @@ class PageTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -81,6 +83,7 @@ class PageTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -94,28 +97,31 @@ class PageTest extends TestCase
         $this->page->delete();
 
         $this->assertDeleted($this->page);
+
         $this->assertDeleted($children);
     }
 
     /** @test */
-    public function when_a_parent_page_is_deleted_eavs_relation_is_updated()
+    public function when_a_page_is_deleted_eavs_is_deleted()
     {
         $eav = $this->page->eavs()->save(factory(EAV::class)->make());
 
         $this->page->delete();
 
         $this->assertDeleted($this->page);
+
         $this->assertDeleted($eav);
     }
 
     /** @test */
-    public function when_a_parent_page_is_deleted_rewrite_relation_is_updated()
+    public function when_a_page_is_deleted_rewrite_is_deleted()
     {
         $rewrite = $this->page->rewrite()->save(factory(Rewrite::class)->make());
 
         $this->page->delete();
 
         $this->assertDeleted($this->page);
+
         $this->assertDeleted($rewrite);
     }
 
@@ -128,6 +134,7 @@ class PageTest extends TestCase
     {
         // Many to One
         $this->assertInstanceOf(Page::class, $this->page->parent);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->page->parent());
     }
 
@@ -136,6 +143,7 @@ class PageTest extends TestCase
     {
         // One to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->page->children);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->page->children());
     }
 
@@ -144,6 +152,7 @@ class PageTest extends TestCase
     { 
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->page->eavs);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->page->eavs());
     }
 
@@ -152,6 +161,7 @@ class PageTest extends TestCase
     {
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->page->rewrite);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->page->rewrite());
     }
 }

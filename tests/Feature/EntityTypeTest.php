@@ -30,6 +30,7 @@ class EntityTypeTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -53,6 +54,7 @@ class EntityTypeTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -76,6 +78,7 @@ class EntityTypeTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -86,18 +89,13 @@ class EntityTypeTest extends TestCase
     {
         $attribute = $this->entityType->attributes()->save(factory(Attribute::class)->make());
 
-        $this->deleteJson(route('entityTypes.destroy', $this->entityType), [
-            //
-        ]);
+        $this->entityType->delete();
 
         $this->assertDeleted($this->entityType);
-        $this->assertDatabaseHas('attributes', [
-            'id' => $attribute->id,
-        ]);
-        $this->assertDatabaseMissing('attribute_entity_type', [
-            'attribute_id' => $attribute->id,
-            'entity_type_id' => $this->entityType->is,
-        ]);
+
+        $this->assertNotNull($attribute->fresh());
+
+        $this->assertCount(0, $this->entityType->attributes);
     }
 
     /**
@@ -109,6 +107,7 @@ class EntityTypeTest extends TestCase
     {
         // Many to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->entityType->attributes);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->entityType->attributes());
     }
 }

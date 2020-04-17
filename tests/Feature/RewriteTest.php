@@ -45,6 +45,7 @@ class RewriteTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -195,6 +196,7 @@ class RewriteTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -334,6 +336,7 @@ class RewriteTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -348,6 +351,7 @@ class RewriteTest extends TestCase
     {
         // One to One Polymorphic
         $this->assertInstanceOf(Model::class, $this->rewrite->rewritable);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->rewrite->rewritable());
     }
 }

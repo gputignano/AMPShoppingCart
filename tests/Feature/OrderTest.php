@@ -20,6 +20,7 @@ class OrderTest extends TestCase
         parent::setUp();
 
         $this->order = factory(Order::class)->create();
+
         $this->user = factory(User::class)->create();
     }
 
@@ -31,6 +32,7 @@ class OrderTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -44,6 +46,7 @@ class OrderTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -57,6 +60,7 @@ class OrderTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -71,6 +75,7 @@ class OrderTest extends TestCase
     {
         // Many to One
         $this->assertInstanceOf(User::class, $this->order->user);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->order->user());
     }
 
@@ -79,6 +84,7 @@ class OrderTest extends TestCase
     {
         // One to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->order->orderDetails);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->order->orderDetails());
     }
 }

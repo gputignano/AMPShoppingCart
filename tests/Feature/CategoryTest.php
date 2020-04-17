@@ -36,6 +36,7 @@ class CategoryTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -59,6 +60,7 @@ class CategoryTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -82,40 +84,38 @@ class CategoryTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
     }
 
     /** @test */
-    public function when_a_parent_category_is_deleted_children_relation_is_updated()
+    public function when_a_parent_category_is_deleted_children_is_deleted()
     {
         $children = $this->category->children()->save(factory(Category::class)->make());
 
         $this->category->delete();
 
         $this->assertDeleted($this->category);
+
         $this->assertDeleted($children);
     }
 
     /** @test */
-    public function when_a_category_is_deleted_products_relation_is_updated()
+    public function when_a_category_is_deleted_products_relation_is_detached()
     {
         $product = $this->category->products()->save(factory(Product::class)->make());
 
         $this->category->delete();
 
-        $this->assertDatabaseHas('entities', [
-            'id' => $product->id,
-        ]);
-        $this->assertDatabaseMissing('category_product', [
-            'category_id' => $this->category->id,
-            'product_id' => $product->id,
-        ]);
+        $this->assertNotNull($product->fresh());
+
+        $this->assertCount(0, $this->category->products);
     }
 
     /** @test */
-    public function when_a_category_is_deleted_eavs_relation_is_updated()
+    public function when_a_category_is_deleted_eavs_is_deleted()
     {
         $eav = $this->category->eavs()->save(factory(EAV::class)->make());
 
@@ -127,7 +127,7 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function when_a_category_is_deleted_rewrite_relation_is_updated()
+    public function when_a_category_is_deleted_rewrite_is_deleted()
     {
         $rewrite = $this->category->rewrite()->save(factory(Rewrite::class)->make());
 
@@ -147,6 +147,7 @@ class CategoryTest extends TestCase
     {
         // Many to One
         $this->assertInstanceOf(Category::class, $this->category->parent);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->category->parent());
     }
 
@@ -155,6 +156,7 @@ class CategoryTest extends TestCase
     {
         // One to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->children);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->children());
     }
 
@@ -163,6 +165,7 @@ class CategoryTest extends TestCase
     {
         // Many to Many
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->products);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->category->products());
     }
 
@@ -171,6 +174,7 @@ class CategoryTest extends TestCase
     { 
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->eavs);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->category->eavs());
     }
 
@@ -179,6 +183,7 @@ class CategoryTest extends TestCase
     {
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->category->rewrite);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->category->rewrite());
     }
 }

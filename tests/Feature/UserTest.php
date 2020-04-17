@@ -117,6 +117,7 @@ class UserTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -127,11 +128,10 @@ class UserTest extends TestCase
     {
         $order = $this->user->orders()->save(factory(Order::class)->make());
 
-        $response = $this->deleteJson(route('users.destroy', $this->user), [
-            //
-        ]);
+        $this->user->delete();
 
         $this->assertDeleted($this->user);
+
         $this->assertDeleted($order);
     }
 

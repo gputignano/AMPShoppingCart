@@ -49,7 +49,7 @@ class Product extends EntityAbstract
         static::deleting(function ($entity) {
             $entity->children()->delete();
             $entity->eavs()->delete();
-            $entity->categories()->delete();
+            $entity->categories()->detach();
             $entity->rewrite()->delete();
         });
 

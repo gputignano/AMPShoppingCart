@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Attribute;
 use App\Models\EAV;
 use App\Models\EAVDecimal;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,6 +30,7 @@ class EAVDecimalTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -54,6 +54,7 @@ class EAVDecimalTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -77,6 +78,7 @@ class EAVDecimalTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -85,34 +87,13 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function when_an_eav_decimal_is_deleted_eavs_relation_is_updated()
     {
-        $eav = factory(EAV::class)->create([
-            'value_type' => get_class($this->eavDecimal),
-            'value_id' => $this->eavDecimal->id,
-        ]);
+        $eav = $this->eavDecimal->eavs()->save(factory(EAV::class)->make());
 
-        $this->deleteJson(route('eavDecimals.destroy', $this->eavDecimal), [
-            //
-        ]);
+        $this->eavDecimal->delete();
 
         $this->assertDeleted($this->eavDecimal);
+
         $this->assertDeleted($eav);
-    }
-
-    /** @test */
-    public function when_an_eav_decimal_is_deleted_attributes_relation_is_updated()
-    {
-        $attribute = $this->eavDecimal->attributes()->save(factory(Attribute::class)->make(['type' => get_class($this->eavDecimal),]));
-
-        $this->deleteJson(route('eavDecimals.destroy', $this->eavDecimal), [
-            //
-        ]);
-
-        $this->assertDeleted($this->eavDecimal);
-        $this->assertDatabaseMissing('attribute_value', [
-            'attribute_id' => $attribute->id,
-            'value_type' => get_class($this->eavDecimal),
-            'value_id' => $this->eavDecimal->id,
-        ]);
     }
 
     /**
@@ -124,6 +105,7 @@ class EAVDecimalTest extends TestCase
     {
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavDecimal->eavs);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavDecimal->eavs());
     }
 
@@ -132,6 +114,7 @@ class EAVDecimalTest extends TestCase
     {
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavDecimal->attributes);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavDecimal->attributes());
     }
 }

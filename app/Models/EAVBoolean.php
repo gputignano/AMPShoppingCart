@@ -30,7 +30,6 @@ class EAVBoolean extends Model
 
         static::deleting(function ($value) {
             $value->eavs()->delete();
-            $value->attributes()->delete();
         });
     }
 }

@@ -35,6 +35,7 @@ class OrderDetailTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -52,6 +53,7 @@ class OrderDetailTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -67,6 +69,7 @@ class OrderDetailTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -81,6 +84,7 @@ class OrderDetailTest extends TestCase
     {
         // Many to One
         $this->assertInstanceOf(Order::class, $this->orderDetail->order);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->orderDetail->order());
     }
 }

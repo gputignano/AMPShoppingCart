@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Attribute;
 use App\Models\EAV;
 use App\Models\EAVText;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,6 +30,7 @@ class EAVTextTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -54,6 +54,7 @@ class EAVTextTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -77,6 +78,7 @@ class EAVTextTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -85,34 +87,13 @@ class EAVTextTest extends TestCase
     /** @test */
     public function when_an_eav_text_is_deleted_eavs_relation_is_updated()
     {
-        $eav = factory(EAV::class)->create([
-            'value_type' => get_class($this->eavText),
-            'value_id' => $this->eavText->id,
-        ]);
+        $eav = $this->eavText->eavs()->save(factory(EAV::class)->make());
 
-        $this->deleteJson(route('eavTexts.destroy', $this->eavText), [
-            //
-        ]);
+        $this->eavText->delete();
 
         $this->assertDeleted($this->eavText);
+
         $this->assertDeleted($eav);
-    }
-
-    /** @test */
-    public function when_an_eav_text_is_deleted_attributes_relation_is_updated()
-    {
-        $attribute = $this->eavText->attributes()->save(factory(Attribute::class)->make(['type' => get_class($this->eavText),]));
-
-        $this->deleteJson(route('eavTexts.destroy', $this->eavText), [
-            //
-        ]);
-
-        $this->assertDeleted($this->eavText);
-        $this->assertDatabaseMissing('attribute_value', [
-            'attribute_id' => $attribute->id,
-            'value_type' => get_class($this->eavText),
-            'value_id' => $this->eavText->id,
-        ]);
     }
 
     /**
@@ -124,6 +105,7 @@ class EAVTextTest extends TestCase
     {
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavText->eavs);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavText->eavs());
     }
 
@@ -132,6 +114,7 @@ class EAVTextTest extends TestCase
     {
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavText->attributes);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavText->attributes());
     }
 }

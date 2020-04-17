@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Attribute;
 use App\Models\EAV;
 use App\Models\EAVInteger;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,6 +30,7 @@ class EAVIntegerTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'created' => true,
         ]);
@@ -54,6 +54,7 @@ class EAVIntegerTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'updated' => true,
         ]);
@@ -77,6 +78,7 @@ class EAVIntegerTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $response->assertJson([
             'deleted' => true,
         ]);
@@ -85,34 +87,13 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function when_an_eav_integer_is_deleted_eavs_relation_is_updated()
     {
-        $eav = factory(EAV::class)->create([
-            'value_type' => get_class($this->eavInteger),
-            'value_id' => $this->eavInteger->id,
-        ]);
+        $eav = $this->eavInteger->eavs()->save(factory(EAV::class)->make());
 
-        $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
-            //
-        ]);
+        $this->eavInteger->delete();
 
         $this->assertDeleted($this->eavInteger);
+
         $this->assertDeleted($eav);
-    }
-
-    /** @test */
-    public function when_an_eav_integer_is_deleted_attributes_relation_is_updated()
-    {
-        $attribute = $this->eavInteger->attributes()->save(factory(Attribute::class)->make(['type' => get_class($this->eavInteger),]));
-
-        $this->deleteJson(route('eavIntegers.destroy', $this->eavInteger), [
-            //
-        ]);
-
-        $this->assertDeleted($this->eavInteger);
-        $this->assertDatabaseMissing('attribute_value', [
-            'attribute_id' => $attribute->id,
-            'value_type' => get_class($this->eavInteger),
-            'value_id' => $this->eavInteger->id,
-        ]);
     }
 
     /**
@@ -124,6 +105,7 @@ class EAVIntegerTest extends TestCase
     {
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavInteger->eavs);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavInteger->eavs());
     }
 
@@ -132,6 +114,7 @@ class EAVIntegerTest extends TestCase
     {
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavInteger->attributes);
+
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavInteger->attributes());
     }
 }
