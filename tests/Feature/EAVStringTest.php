@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attribute;
+use App\Models\EAV;
 use App\Models\EAVString;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -35,6 +37,16 @@ class EAVStringTest extends TestCase
     }
 
     /** @test */
+    public function value_is_required_when_creating_a_new_eav_string()
+    {
+        $response = $this->postJson(route('eavStrings.store'), [
+            // 'value' => $this->faker->word,
+        ]);
+
+        $response->assertJsonValidationErrors('value');
+    }
+
+    /** @test */
     public function an_eav_string_can_be_updated()
     {
         $response = $this->patchJson(route('eavStrings.update', $this->eavString), [
@@ -48,6 +60,16 @@ class EAVStringTest extends TestCase
     }
 
     /** @test */
+    public function value_is_required_when_updating_a_new_eav_string()
+    {
+        $response = $this->patchJson(route('eavStrings.update', $this->eavString), [
+            // 'value' => $this->faker->word,
+        ]);
+
+        $response->assertJsonValidationErrors('value');
+    }
+
+    /** @test */
     public function an_eav_string_can_be_deleted()
     {
         $response = $this->deleteJson(route('eavStrings.destroy', $this->eavString), [
@@ -57,6 +79,39 @@ class EAVStringTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'deleted' => true,
+        ]);
+    }
+
+    /** @test */
+    public function when_an_eav_string_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = factory(EAV::class)->create([
+            'value_type' => get_class($this->eavString),
+            'value_id' => $this->eavString->id,
+        ]);
+
+        $this->deleteJson(route('eavStrings.destroy', $this->eavString), [
+            //
+        ]);
+
+        $this->assertDeleted($this->eavString);
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_an_eav_string_is_deleted_attributes_relation_is_updated()
+    {
+        $attribute = $this->eavString->attributes()->save(factory(Attribute::class)->make(['type' => get_class($this->eavString),]));
+
+        $this->deleteJson(route('eavStrings.destroy', $this->eavString), [
+            //
+        ]);
+
+        $this->assertDeleted($this->eavString);
+        $this->assertDatabaseMissing('attribute_value', [
+            'attribute_id' => $attribute->id,
+            'value_type' => get_class($this->eavString),
+            'value_id' => $this->eavString->id,
         ]);
     }
 

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEAVStringFormRequest;
+use App\Http\Requests\UpdateEAVStringFormRequest;
 use App\Models\EAVString;
-use Illuminate\Http\Request;
 
 class EAVStringsController extends Controller
 {
@@ -34,7 +35,7 @@ class EAVStringsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEAVStringFormRequest $request)
     {
         $eAVString = EAVString::create($request->all());
 
@@ -72,7 +73,7 @@ class EAVStringsController extends Controller
      * @param  \App\Models\EAVString  $eAVString
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EAVString $eavString)
+    public function update(UpdateEAVStringFormRequest $request, EAVString $eavString)
     {
         $updated = $eavString->update($request->all());
 
