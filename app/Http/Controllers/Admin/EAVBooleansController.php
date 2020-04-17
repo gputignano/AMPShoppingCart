@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEavBooleanFormController;
+use App\Http\Requests\UpdateEAVBooleanFormRequest;
 use App\Models\EAVBoolean;
-use Illuminate\Http\Request;
 
 class EAVBooleansController extends Controller
 {
@@ -34,7 +35,7 @@ class EAVBooleansController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEavBooleanFormController $request)
     {
         $eavBoolean = EAVBoolean::create($request->all());
 
@@ -72,7 +73,7 @@ class EAVBooleansController extends Controller
      * @param  \App\Models\EAVBoolean  $eAVBoolean
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EAVBoolean $eavBoolean)
+    public function update(UpdateEAVBooleanFormRequest $request, EAVBoolean $eavBoolean)
     {
         $updated = $eavBoolean->update($request->all());
 
