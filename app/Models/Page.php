@@ -38,6 +38,8 @@ class Page extends EntityAbstract
 
         static::deleting(function ($entity) {
             $entity->children()->delete();
+            $entity->eavs()->delete();
+            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {

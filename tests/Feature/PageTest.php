@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\EAV;
 use App\Models\Page;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,16 +41,36 @@ class PageTest extends TestCase
     }
 
     /** @test */
+    public function name_is_required_when_creating_a_new_page()
+    {
+        $response = $this->postJson(route('pages.store'), [
+            // 'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+    }
+
+    /** @test */
     public function a_page_can_be_updated()
     {
         $response = $this->patch(route('pages.update', $this->page), [
-            'updated' => true,
+            'name' => $this->faker->name,
         ]);
 
         $response->assertStatus(200);
         $response->assertJson([
             'updated' => true,
         ]);
+    }
+
+    /** @test */
+    public function name_is_required_when_updating_a_new_page()
+    {
+        $response = $this->patchJson(route('pages.update', $this->page), [
+            // 'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
     }
 
     /** @test */
@@ -66,7 +87,7 @@ class PageTest extends TestCase
     }
 
     /** @test */
-    public function when_a_parent_page_is_deleted_all_children_pages_are_deleted()
+    public function when_a_parent_page_is_deleted_children_relation_is_updated()
     {
         $children = $this->page->children()->save(factory(Page::class)->make());
 
@@ -74,6 +95,28 @@ class PageTest extends TestCase
 
         $this->assertDeleted($this->page);
         $this->assertDeleted($children);
+    }
+
+    /** @test */
+    public function when_a_parent_page_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = $this->page->eavs()->save(factory(EAV::class)->make());
+
+        $this->page->delete();
+
+        $this->assertDeleted($this->page);
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_a_parent_page_is_deleted_rewrite_relation_is_updated()
+    {
+        $rewrite = $this->page->rewrite()->save(factory(Rewrite::class)->make());
+
+        $this->page->delete();
+
+        $this->assertDeleted($this->page);
+        $this->assertDeleted($rewrite);
     }
 
     /**
