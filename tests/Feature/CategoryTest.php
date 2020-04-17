@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\EAV;
+use App\Models\Product;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -40,6 +42,16 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
+    public function name_is_required_when_creating_a_new_category()
+    {
+        $response = $this->postJson(route('categories.store'), [
+            // 'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+    }
+
+    /** @test */
     public function a_category_can_be_updated()
     {
         $response = $this->patchJson(route('categories.update', $this->category), [
@@ -50,6 +62,16 @@ class CategoryTest extends TestCase
         $response->assertJson([
             'updated' => true,
         ]);
+    }
+
+    /** @test */
+    public function name_is_required_when_updating_a_category()
+    {
+        $response = $this->patchJson(route('categories.update', $this->category), [
+            // 'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
     }
 
     /** @test */
@@ -66,7 +88,7 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function when_a_parent_category_is_deleted_all_children_pcategoriess_are_deleted()
+    public function when_a_parent_category_is_deleted_children_relation_is_updated()
     {
         $children = $this->category->children()->save(factory(Category::class)->make());
 
@@ -74,6 +96,46 @@ class CategoryTest extends TestCase
 
         $this->assertDeleted($this->category);
         $this->assertDeleted($children);
+    }
+
+    /** @test */
+    public function when_a_category_is_deleted_products_relation_is_updated()
+    {
+        $product = $this->category->products()->save(factory(Product::class)->make());
+
+        $this->category->delete();
+
+        $this->assertDatabaseHas('entities', [
+            'id' => $product->id,
+        ]);
+        $this->assertDatabaseMissing('category_product', [
+            'category_id' => $this->category->id,
+            'product_id' => $product->id,
+        ]);
+    }
+
+    /** @test */
+    public function when_a_category_is_deleted_eavs_relation_is_updated()
+    {
+        $eav = $this->category->eavs()->save(factory(EAV::class)->make());
+
+        $this->category->delete();
+
+        $this->assertDeleted($this->category);
+
+        $this->assertDeleted($eav);
+    }
+
+    /** @test */
+    public function when_a_category_is_deleted_rewrite_relation_is_updated()
+    {
+        $rewrite = $this->category->rewrite()->save(factory(Rewrite::class)->make());
+
+        $this->category->delete();
+
+        $this->assertDeleted($this->category);
+
+        $this->assertDeleted($rewrite);
     }
 
     /**

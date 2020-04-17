@@ -43,6 +43,9 @@ class Category extends EntityAbstract
 
         static::deleting(function ($entity) {
             $entity->children()->delete();
+            $entity->products()->detach();
+            $entity->eavs()->delete();
+            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
