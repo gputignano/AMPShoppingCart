@@ -16,7 +16,9 @@ class EntityTypesController extends Controller
      */
     public function index()
     {
-        //
+        $entityTypes = EntityType::all();
+
+        return view('admin.entityType.index', compact('entityTypes'));
     }
 
     /**
@@ -26,7 +28,7 @@ class EntityTypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.entityType.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class EntityTypesController extends Controller
 
         return response()->json([
             'created' => isset($entityType),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.entityTypes.show', $entityType));
     }
 
     /**
@@ -52,7 +54,7 @@ class EntityTypesController extends Controller
      */
     public function show(EntityType $entityType)
     {
-        //
+        return view('admin.entityType.show', compact('entityType'));
     }
 
     /**
@@ -63,7 +65,7 @@ class EntityTypesController extends Controller
      */
     public function edit(EntityType $entityType)
     {
-        //
+        return view('admin.entityType.edit', compact('entityType'));
     }
 
     /**
@@ -79,7 +81,7 @@ class EntityTypesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.entityTypes.show', $entityType));
     }
 
     /**
@@ -94,6 +96,6 @@ class EntityTypesController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.entityTypes.index'));
     }
 }

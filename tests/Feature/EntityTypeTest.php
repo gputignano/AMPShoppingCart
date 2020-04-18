@@ -23,6 +23,46 @@ class EntityTypeTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_entity_type_index()
+    {
+        $response = $this->get(route('admin.entityTypes.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.entityType.index');
+    }
+
+    /** @test */
+    // public function a_user_can_view_entity_type_create()
+    // {
+    //     $response = $this->get(route('admin.entityTypes.create'));
+
+    //     $response->assertStatus(200);
+
+    //     $response->assertViewIs('admin.entityType.create');
+    // }
+
+    /** @test */
+    // public function a_user_can_view_entity_type_show()
+    // {
+    //     $response = $this->get(route('admin.entityTypes.show', $this->user));
+
+    //     $response->assertStatus(200);
+
+    //     $response->assertViewIs('admin.entityType.show');
+    // }
+
+    /** @test */
+    // public function a_user_can_view_entity_type_edit()
+    // {
+    //     $response = $this->get(route('admin.entityTypes.edit', $this->user));
+
+    //     $response->assertStatus(200);
+
+    //     $response->assertViewIs('admin.entityType.edit');
+    // }
+
+    /** @test */
     public function an_entity_type_can_be_created()
     {
         $response = $this->postJson(route('admin.entityTypes.store'), [
