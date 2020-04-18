@@ -7,9 +7,21 @@
 
     <p><a href="{{ route('admin.users.create') }}">{{ __('Create New user') }}</a></p>
 
-    @forelse ($users as $user)
-        <p><a href="{{ route('admin.users.show', $user) }}">{{ $user->email }}</a></p>
-    @empty
-        <p>{{ __('No user found!') }}</p>
-    @endforelse
+    <table>
+        <thead>
+            <th>{{ __('ID') }}</th>
+            <th>{{ __('Email') }}</th>
+        </thead>
+
+        @forelse ($users as $user)
+            <tr>
+                <td>{{ $user->id }}</td>
+                <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->email }}</a></td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="2">{{ __('No user found!') }}</td>
+            </tr>
+        @endforelse
+    </table>
 @endsection
