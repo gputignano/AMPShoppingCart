@@ -34,34 +34,34 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    // public function a_user_can_view_attribute_create()
-    // {
-    //     $response = $this->get(route('admin.attributes.create'));
+    public function a_user_can_view_attribute_create()
+    {
+        $response = $this->get(route('admin.attributes.create'));
 
-    //     $response->assertStatus(200);
+        $response->assertStatus(200);
 
-    //     $response->assertViewIs('admin.attribute.create');
-    // }
-
-    /** @test */
-    // public function a_user_can_view_attribute_show()
-    // {
-    //     $response = $this->get(route('admin.attributes.show', $this->user));
-
-    //     $response->assertStatus(200);
-
-    //     $response->assertViewIs('admin.attribute.show');
-    // }
+        $response->assertViewIs('admin.attribute.create');
+    }
 
     /** @test */
-    // public function a_user_can_view_attribute_edit()
-    // {
-    //     $response = $this->get(route('admin.attributes.edit', $this->user));
+    public function a_user_can_view_attribute_show()
+    {
+        $response = $this->get(route('admin.attributes.show', $this->attribute));
 
-    //     $response->assertStatus(200);
+        $response->assertStatus(200);
 
-    //     $response->assertViewIs('admin.attribute.edit');
-    // }
+        $response->assertViewIs('admin.attribute.show');
+    }
+
+    /** @test */
+    public function a_user_can_view_attribute_edit()
+    {
+        $response = $this->get(route('admin.attributes.edit', $this->attribute));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.attribute.edit');
+    }
 
     /** @test */
     public function an_attribute_can_be_created()
