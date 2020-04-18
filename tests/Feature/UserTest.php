@@ -24,7 +24,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_user_insex()
+    public function a_user_can_view_user_index()
     {
         $response = $this->get(route('admin.users.index'));
 
