@@ -16,7 +16,7 @@ class CreateEntityTypesTable extends Migration
         Schema::create('entity_types', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('label');
+            $table->string('label')->unique();
         });
     }
 
