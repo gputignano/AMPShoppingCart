@@ -52,7 +52,7 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
-    public function slug_is_rewuired_when_creating_rewrite()
+    public function slug_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -69,11 +69,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('slug');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'slug',
+                    'message' => ['The slug field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function meta_title_is_rewuired_when_creating_rewrite()
+    public function meta_title_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -90,11 +97,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('meta_title');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'meta_title',
+                    'message' => ['The meta title field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function meta_description_is_rewuired_when_creating_rewrite()
+    public function meta_description_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -111,11 +125,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('meta_description');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'meta_description',
+                    'message' => ['The meta description field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function template_is_rewuired_when_creating_rewrite()
+    public function template_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -132,11 +153,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('template');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'template',
+                    'message' => ['The template field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function rewritable_type_is_rewuired_when_creating_rewrite()
+    public function rewritable_type_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -153,11 +181,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('rewritable_type');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'rewritable_type',
+                    'message' => ['The rewritable type field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function rewritable_id_is_rewuired_when_creating_rewrite()
+    public function rewritable_id_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -174,7 +209,14 @@ class RewriteTest extends TestCase
             // 'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('rewritable_id');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'rewritable_id',
+                    'message' => ['The rewritable id field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -203,7 +245,7 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
-    public function slug_is_rewuired_when_updating_rewrite()
+    public function slug_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -220,11 +262,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('slug');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'slug',
+                    'message' => ['The slug field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function meta_title_is_rewuired_when_updating_rewrite()
+    public function meta_title_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -241,11 +290,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('meta_title');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'meta_title',
+                    'message' => ['The meta title field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function meta_description_is_rewuired_when_updating_rewrite()
+    public function meta_description_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -262,11 +318,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('meta_description');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'meta_description',
+                    'message' => ['The meta description field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function template_is_rewuired_when_updating_rewrite()
+    public function template_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -283,11 +346,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('template');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'template',
+                    'message' => ['The template field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function rewritable_type_is_rewuired_when_updating_rewrite()
+    public function rewritable_type_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -304,11 +374,18 @@ class RewriteTest extends TestCase
             'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('rewritable_type');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'rewritable_type',
+                    'message' => ['The rewritable type field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
-    public function rewritable_id_is_rewuired_when_updating_rewrite()
+    public function rewritable_id_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -325,7 +402,14 @@ class RewriteTest extends TestCase
             // 'rewritable_id' => $this->faker->randomDigit,
         ]);
 
-        $response->assertJsonValidationErrors('rewritable_id');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'rewritable_id',
+                    'message' => ['The rewritable id field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */

@@ -43,7 +43,14 @@ class EAVBooleanTest extends TestCase
             // 'value' => $this->faker->boolean(50),
         ]);
 
-        $response->assertJsonValidationErrors('value');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'value',
+                    'message' => ['The value field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -67,7 +74,14 @@ class EAVBooleanTest extends TestCase
             // 'value' => $this->faker->boolean(50),
         ]);
 
-        $response->assertJsonValidationErrors('value');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'value',
+                    'message' => ['The value field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */

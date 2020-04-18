@@ -45,7 +45,14 @@ class AttributeTest extends TestCase
             'type' => $this->faker->word,
         ]);
 
-        $response->assertJsonValidationErrors('label');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'label',
+                    'message' => ['The label field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -55,7 +62,14 @@ class AttributeTest extends TestCase
             'label' => $this->faker->word,
         ]);
 
-        $response->assertJsonValidationErrors('type');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'type',
+                    'message' => ['The type field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -81,7 +95,14 @@ class AttributeTest extends TestCase
             'type' => $this->faker->word,
         ]);
 
-        $response->assertJsonValidationErrors('label');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'label',
+                    'message' => ['The label field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -92,7 +113,14 @@ class AttributeTest extends TestCase
             // 'type' => $this->faker->word,
         ]);
 
-        $response->assertJsonValidationErrors('type');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'type',
+                    'message' => ['The type field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */

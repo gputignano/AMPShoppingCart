@@ -25,10 +25,10 @@
             <input type="password" name="password" id="password">
         </fieldset>
 
-        <fieldset>
+        {{-- <fieldset>
             <label for="password_confirm">{{ __('Password Confirm') }}</label>
             <input type="password" name="password_confirm" id="password_confirm">
-        </fieldset>
+        </fieldset> --}}
 
         <input type="submit" value="{{ __('Create') }}">
 
@@ -46,10 +46,11 @@
 
         <div submit-error>
             <template type="amp-mustache">
-                @{{message}}
-                @{{#errors}}
-                    <b>@{{email}}</b>
-                @{{/errors}}
+                <ul>
+                    @{{#errors}}
+                    <li><strong>@{{name}}</strong>: @{{message}}</li>
+                    @{{/errors}}
+                </ul>
             </template>
         </div>
     </form>

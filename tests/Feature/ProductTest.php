@@ -49,7 +49,14 @@ class ProductTest extends TestCase
             // 'name' => $this->faker->sentence,
         ]);
 
-        $response->assertJsonValidationErrors('name');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'name',
+                    'message' => ['The name field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -73,7 +80,14 @@ class ProductTest extends TestCase
             // 'name' => $this->faker->sentence,
         ]);
 
-        $response->assertJsonValidationErrors('name');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'name',
+                    'message' => ['The name field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */

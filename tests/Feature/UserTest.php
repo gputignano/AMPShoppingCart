@@ -72,7 +72,14 @@ class UserTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertJsonValidationErrors(['email']);
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'email',
+                    'message' => ['The email field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -83,7 +90,14 @@ class UserTest extends TestCase
             'password' => Str::random(10),
         ]);
 
-        $response->assertJsonValidationErrors('email');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'email',
+                    'message' => ['The email must be a valid email address.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -99,7 +113,14 @@ class UserTest extends TestCase
             'password' => Str::random(10),
         ]);
 
-        $response->assertJsonValidationErrors('email');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'email',
+                    'message' => ['The email has already been taken.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -109,7 +130,14 @@ class UserTest extends TestCase
             'email' => $this->faker->safeEmail,
         ]);
 
-        $response->assertJsonValidationErrors('password');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'password',
+                    'message' => ['The password field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -134,7 +162,14 @@ class UserTest extends TestCase
             //
         ]);
 
-        $response->assertJsonValidationErrors(['password']);
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'password',
+                    'message' => ['The password field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */

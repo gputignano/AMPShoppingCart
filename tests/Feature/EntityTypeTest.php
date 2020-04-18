@@ -43,7 +43,14 @@ class EntityTypeTest extends TestCase
             //'
         ]);
 
-        $response->assertJsonValidationErrors('label');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'label',
+                    'message' => ['The label field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -67,7 +74,14 @@ class EntityTypeTest extends TestCase
             //'
         ]);
 
-        $response->assertJsonValidationErrors('label');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'label',
+                    'message' => ['The label field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */

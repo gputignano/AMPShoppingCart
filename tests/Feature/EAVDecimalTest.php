@@ -43,7 +43,14 @@ class EAVDecimalTest extends TestCase
             // 'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
-        $response->assertJsonValidationErrors('value');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'value',
+                    'message' => ['The value field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
@@ -67,7 +74,14 @@ class EAVDecimalTest extends TestCase
             // 'value' => $this->faker->randomFloat(5, 10, 100),
         ]);
 
-        $response->assertJsonValidationErrors('value');
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'value',
+                    'message' => ['The value field is required.'],
+                ],
+            ]
+        ]);
     }
 
     /** @test */
