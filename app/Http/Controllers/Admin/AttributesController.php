@@ -16,7 +16,9 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        //
+        $attributes = Attribute::all();
+
+        return view('admin.attribute.index', compact('attributes'));
     }
 
     /**
@@ -26,7 +28,7 @@ class AttributesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.attribute.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class AttributesController extends Controller
 
         return response()->json([
             'created' => true,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.attributes.show', $attribute));
     }
 
     /**
@@ -52,7 +54,7 @@ class AttributesController extends Controller
      */
     public function show(Attribute $attribute)
     {
-        //
+        return view('admin.attribute.show', compact('attribute'));
     }
 
     /**
@@ -63,7 +65,7 @@ class AttributesController extends Controller
      */
     public function edit(Attribute $attribute)
     {
-        //
+        return view('admin.attribute.edit', compact('attribute'));
     }
 
     /**
@@ -79,7 +81,7 @@ class AttributesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.attributes.show', $attribute));
     }
 
     /**
@@ -94,6 +96,6 @@ class AttributesController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.attributes.index'));
     }
 }
