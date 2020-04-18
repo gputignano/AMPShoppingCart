@@ -24,7 +24,33 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_be_created()
+    public function a_user_can_view_user_insex()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->get(route('admin.users.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.user.index');
+
+        $response->assertSee($user->email);
+    }
+
+    /** @test */
+    public function a_user_can_view_user_create()
+    {
+        $response = $this->get(route('admin.users.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.user.create');
+
+        $response->assertSee('Create a New User');
+    }
+
+    /** @test */
+    public function a_user_can_be_cstored()
     {
         $response = $this->postJson(route('admin.users.store'), [
             'email' => $this->faker->safeEmail,
