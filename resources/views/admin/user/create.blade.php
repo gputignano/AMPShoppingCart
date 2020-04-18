@@ -25,11 +25,6 @@
             <input type="password" name="password" id="password">
         </fieldset>
 
-        {{-- <fieldset>
-            <label for="password_confirm">{{ __('Password Confirm') }}</label>
-            <input type="password" name="password_confirm" id="password_confirm">
-        </fieldset> --}}
-
         <input type="submit" value="{{ __('Create') }}">
 
         <div submitting>
