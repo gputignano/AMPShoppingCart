@@ -12,6 +12,11 @@
         @show
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="{{ route('admin.users.index') }}">{{ __('Users') }}</a></li>
+            </ul>
+        </nav>
         @yield('content', __('Please update me!'))
     </body>
 </html>

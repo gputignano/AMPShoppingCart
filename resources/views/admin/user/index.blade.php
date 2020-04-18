@@ -5,8 +5,10 @@
 @section('content')
     <h1>{{ __('All Users') }}</h1>
 
+    <p><a href="{{ route('admin.users.create') }}">{{ __('Create New user') }}</a></p>
+
     @forelse ($users as $user)
-        <p>{{ $user->email }}</p>
+        <p><a href="{{ route('admin.users.show', $user) }}">{{ $user->email }}</a></p>
     @empty
         <p>{{ __('No user found!') }}</p>
     @endforelse

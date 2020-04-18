@@ -43,7 +43,7 @@ class UsersController extends Controller
 
         return response()->json([
             'created' => isset($user),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.users.show', $user));
     }
 
     /**
@@ -54,7 +54,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.user.show', compact('user'));
     }
 
     /**
@@ -65,7 +65,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -81,7 +81,7 @@ class UsersController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.users.show', $user));
     }
 
     /**
@@ -96,6 +96,6 @@ class UsersController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.users.index'));
     }
 }

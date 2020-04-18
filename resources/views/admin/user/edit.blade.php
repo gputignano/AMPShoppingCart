@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('meta_title', __('Create a New User'))
+@section('meta_title', __('Edit a New User'))
 
 @section('amp-components')
     @parent
@@ -10,14 +10,13 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Create a New User') }}</h1>
-
-    <form method="post" action-xhr="{{ route('admin.users.store') }}">
+    <form method="post" action-xhr="{{ route('admin.users.update', $user) }}">
         @csrf
+        @method('patch')
 
-        <fieldset>
+        <fieldset disabled>
             <label for="email">{{ __('Email') }}</label>
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" value="{{ $user->email }}">
         </fieldset>
 
         <fieldset>
@@ -25,12 +24,7 @@
             <input type="password" name="password" id="password">
         </fieldset>
 
-        {{-- <fieldset>
-            <label for="password_confirm">{{ __('Password Confirm') }}</label>
-            <input type="password" name="password_confirm" id="password_confirm">
-        </fieldset> --}}
-
-        <input type="submit" value="{{ __('Create') }}">
+        <input type="submit" value="{{ __('Update') }}">
 
         <div submitting>
             <template type="amp-mustache">
@@ -40,7 +34,7 @@
 
         <div submit-success>
             <template type="amp-mustache">
-                {{ __('User created successfully!') }}
+                {{ __('User updated successfully!') }}
             </template>
         </div>
 

@@ -26,15 +26,11 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_view_user_insex()
     {
-        $user = factory(User::class)->create();
-
         $response = $this->get(route('admin.users.index'));
 
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.user.index');
-
-        $response->assertSee($user->email);
     }
 
     /** @test */
@@ -45,12 +41,30 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.user.create');
-
-        $response->assertSee('Create a New User');
     }
 
     /** @test */
-    public function a_user_can_be_cstored()
+    public function a_user_can_view_user_show()
+    {
+        $response = $this->get(route('admin.users.show', $this->user));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.user.show');
+    }
+
+    /** @test */
+    public function a_user_can_view_user_edit()
+    {
+        $response = $this->get(route('admin.users.edit', $this->user));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.user.edit');
+    }
+
+    /** @test */
+    public function a_user_can_be_stored()
     {
         $response = $this->postJson(route('admin.users.store'), [
             'email' => $this->faker->safeEmail,
@@ -62,7 +76,6 @@ class UserTest extends TestCase
         $response->assertJson([
             'created' => true,
         ]);
-        $response->assertSessionHasNoErrors();
     }
 
     /** @test */
