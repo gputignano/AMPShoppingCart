@@ -22,7 +22,7 @@ class StoreAttributeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required',
+            'label' => 'required|unique:attributes',
             'type' => 'required',
         ];
     }

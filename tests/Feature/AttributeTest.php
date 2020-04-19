@@ -91,7 +91,25 @@ class AttributeTest extends TestCase
                     'name' => 'label',
                     'message' => ['The label field is required.'],
                 ],
-            ]
+            ],
+        ]);
+    }
+
+    /** @test */
+    public function label_must_be_unique_when_creating_a_new_attribute()
+    {
+        $response = $this->postJson(route('admin.attributes.store'), [
+            'label' => $this->attribute->label,
+            'type' => $this->faker->word,
+        ]);
+
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'label',
+                    'message' => ['The label has already been taken.'],
+                ],
+            ],
         ]);
     }
 

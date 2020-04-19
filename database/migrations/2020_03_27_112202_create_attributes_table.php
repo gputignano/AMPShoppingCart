@@ -16,7 +16,7 @@ class CreateAttributesTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('label');
+            $table->string('label')->unique();
             $table->string('type');
         });
     }
