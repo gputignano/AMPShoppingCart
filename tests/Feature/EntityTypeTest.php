@@ -13,7 +13,7 @@ class EntityTypeTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $entityTpe;
+    protected $entityType;
 
     protected function setUp(): void
     {
@@ -88,6 +88,23 @@ class EntityTypeTest extends TestCase
                 [
                     'name' => 'label',
                     'message' => ['The label field is required.'],
+                ],
+            ]
+        ]);
+    }
+
+    /** @test */
+    public function label_must_be_unique_when_creating_a_new_entity_type()
+    {
+        $response = $this->postJson(route('admin.entityTypes.store', [
+            'label' => $this->entityType->label,
+        ]));
+
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'label',
+                    'message' => ['The label has already been taken.'],
                 ],
             ]
         ]);

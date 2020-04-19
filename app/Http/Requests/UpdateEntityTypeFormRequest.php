@@ -23,6 +23,7 @@ class UpdateEntityTypeFormRequest extends FormRequest
     {
         return [
             'label' => 'required',
+            'attributes' => 'array',
         ];
     }
 }

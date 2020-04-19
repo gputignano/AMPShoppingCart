@@ -19,7 +19,17 @@
             <input type="text" name="label" id="label" value="{{ $entityType->label }}">
         </fieldset>
 
-        <input type="submit" value="{{ __('Update') }}">
+        @if (\App\Models\Attribute::count())
+            <h2>Attributes</h2>
+
+            <ul>
+                @foreach (\App\Models\Attribute::all() as $attribute)
+                    <li><input type="checkbox" name="attributes[]" value="{{ $attribute->id }}" {{ $entityType->attributes->find($attribute->id) ? 'checked' : '' }}>{{ $attribute->label }}</li>
+                @endforeach
+            </ul>
+        @endif
+
+    <input type="submit" value="{{ __('Update') }}">
 
         <div submitting>
             <template type="amp-mustache">

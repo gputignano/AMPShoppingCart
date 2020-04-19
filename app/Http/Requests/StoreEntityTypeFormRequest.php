@@ -22,7 +22,7 @@ class StoreEntityTypeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required',
+            'label' => 'required|unique:entity_types',
         ];
     }
 }

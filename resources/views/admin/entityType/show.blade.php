@@ -21,4 +21,14 @@
 
         <input type="submit" value="{{ __('Delete') }}">
     </form>
+
+    @if ($entityType->attributes()->count())
+        <h2>Attributes</h2>
+
+        <ul>
+            @foreach ($entityType->attributes as $attribute)
+                <li>{{ $attribute->label }}</li>
+            @endforeach
+        </ul>
+    @endif
 @endsection

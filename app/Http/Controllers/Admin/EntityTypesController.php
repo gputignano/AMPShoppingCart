@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEntityTypeFormRequest;
 use App\Http\Requests\UpdateEntityTypeFormRequest;
 use App\Models\EntityType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EntityTypesController extends Controller
 {
@@ -77,7 +79,9 @@ class EntityTypesController extends Controller
      */
     public function update(UpdateEntityTypeFormRequest $request, EntityType $entityType)
     {
-        $updated = $entityType->update($request->all());
+        $updated = $entityType->update($request->only('label'));
+
+        $entityType->attributes()->sync($request->input('attributes'));
 
         return response()->json([
             'updated' => $updated,
