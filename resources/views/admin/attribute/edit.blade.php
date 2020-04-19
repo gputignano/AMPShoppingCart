@@ -24,6 +24,16 @@
             <input type="text" name="type" id="type" value="{{ $attribute->type }}">
         </fieldset>
 
+        @if (\App\Models\EntityType::count())
+            <h2>{{ __('Entity Types') }}</h2>
+
+            <ul>
+                @foreach (\App\Models\EntityType::all() as $entity_type)
+                    <li><input type="checkbox" name="entity_types[]" value="{{ $entity_type->id }}" {{ $attribute->entity_types()->find($entity_type->id) ? 'checked' : '' }}>{{ $entity_type->label }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <input type="submit" value="{{ __('Update') }}">
 
         <div submitting>

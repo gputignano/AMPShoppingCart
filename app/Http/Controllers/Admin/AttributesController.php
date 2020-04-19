@@ -77,7 +77,9 @@ class AttributesController extends Controller
      */
     public function update(UpdateAttributeFormRequest $request, Attribute $attribute)
     {
-        $updated = $attribute->update($request->all());
+        $updated = $attribute->update($request->only(['label', 'type']));
+
+        $attribute->entity_types()->sync($request->input('entity_types'));
 
         return response()->json([
             'updated' => $updated,
