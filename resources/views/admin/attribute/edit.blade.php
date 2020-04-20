@@ -23,7 +23,12 @@
 
         <fieldset>
             <label for="type">{{ __('Type') }}</label>
-            <input type="text" name="type" id="type" value="{{ $attribute->type }}">
+            <select name="type">
+                <option value="0">{{ __('--select--') }}</option>
+                @foreach (['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText'] as $type)
+                    <option value="{{ $type }}" {{ $attribute->type == $type ? 'selected' : '' }}>{{ $type }}</option>
+                @endforeach
+            </select>
         </fieldset>
 
         @if (\App\Models\EntityType::count())

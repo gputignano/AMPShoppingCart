@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class UpdateAttributeFormRequest extends FormRequest
 {
     /**
@@ -22,8 +24,11 @@ class UpdateAttributeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required',
-            'type' => 'required',
+            'label' => 'required|unique:attributes,label,' . $this->attribute->id,
+            'type' => [
+                'required',
+                Rule::in(['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText']),
+            ],
         ];
     }
 }

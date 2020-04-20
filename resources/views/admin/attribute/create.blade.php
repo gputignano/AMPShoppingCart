@@ -22,7 +22,12 @@
 
         <fieldset>
             <label for="type">{{ __('Type') }}</label>
-            <input type="text" name="type" id="type">
+            <select name="type">
+                <option value="0" selected>{{ ('--select--') }}</option>
+                @foreach (['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText'] as $type)
+                    <option value="{{ $type }}">{{ $type }}</option>
+                @endforeach
+            </select>
         </fieldset>
 
         <input type="submit" value="{{ __('Create') }}">

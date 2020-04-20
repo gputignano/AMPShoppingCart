@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class StoreAttributeFormRequest extends FormRequest
 {
     /**
@@ -23,7 +25,10 @@ class StoreAttributeFormRequest extends FormRequest
     {
         return [
             'label' => 'required|unique:attributes',
-            'type' => 'required',
+            'type' => [
+                'required',
+                Rule::in(['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText']),
+            ],
         ];
     }
 }

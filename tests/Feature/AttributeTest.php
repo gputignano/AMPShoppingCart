@@ -76,7 +76,13 @@ class AttributeTest extends TestCase
     {
         $response = $this->postJson(route('admin.attributes.store'), [
             'label' => $this->faker->word,
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement([
+                \App\Models\EAVBoolean::class,
+                \App\Models\EAVDecimal::class,
+                \App\Models\EAVInteger::class,
+                \App\Models\EAVString::class,
+                \App\Models\EAVText::class,
+            ]),
         ]);
 
         $response->assertStatus(200);
@@ -90,7 +96,13 @@ class AttributeTest extends TestCase
     public function label_is_required_when_creating_a_new_attribute()
     {
         $response = $this->postJson(route('admin.attributes.store'), [
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement([
+                \App\Models\EAVBoolean::class,
+                \App\Models\EAVDecimal::class,
+                \App\Models\EAVInteger::class,
+                \App\Models\EAVString::class,
+                \App\Models\EAVText::class,
+            ]),
         ]);
 
         $response->assertExactJson([
@@ -108,7 +120,13 @@ class AttributeTest extends TestCase
     {
         $response = $this->postJson(route('admin.attributes.store'), [
             'label' => $this->attribute->label,
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement([
+                \App\Models\EAVBoolean::class,
+                \App\Models\EAVDecimal::class,
+                \App\Models\EAVInteger::class,
+                \App\Models\EAVString::class,
+                \App\Models\EAVText::class,
+            ]),
         ]);
 
         $response->assertExactJson([
@@ -143,7 +161,13 @@ class AttributeTest extends TestCase
     {
         $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
             'label' => $this->faker->word,
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement([
+                \App\Models\EAVBoolean::class,
+                \App\Models\EAVDecimal::class,
+                \App\Models\EAVInteger::class,
+                \App\Models\EAVString::class,
+                \App\Models\EAVText::class,
+            ]),
         ]);
 
         $response->assertStatus(200);
@@ -158,7 +182,13 @@ class AttributeTest extends TestCase
     {
         $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
             // 'label' => $this->faker->word,
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement([
+                \App\Models\EAVBoolean::class,
+                \App\Models\EAVDecimal::class,
+                \App\Models\EAVInteger::class,
+                \App\Models\EAVString::class,
+                \App\Models\EAVText::class,
+            ]),
         ]);
 
         $response->assertExactJson([
