@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEAVDecimalFormRequest;
 use App\Http\Requests\UpdateEAVDecimalFormRequest;
 use App\Models\EAVDecimal;
+use Illuminate\Support\Facades\Log;
 
 class EAVDecimalsController extends Controller
 {
@@ -16,7 +17,9 @@ class EAVDecimalsController extends Controller
      */
     public function index()
     {
-        //
+        $eavDecimals = EAVDecimal::all();
+
+        return view('admin.eavDecimal.index', compact('eavDecimals'));
     }
 
     /**
@@ -26,7 +29,7 @@ class EAVDecimalsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.eavDecimal.create');
     }
 
     /**
@@ -41,7 +44,7 @@ class EAVDecimalsController extends Controller
 
         return response()->json([
             'created' => isset($eavDecimal),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavDecimals.show', $eavDecimal));
     }
 
     /**
@@ -52,7 +55,7 @@ class EAVDecimalsController extends Controller
      */
     public function show(EAVDecimal $eavDecimal)
     {
-        //
+        return view('admin.eavDecimal.show', compact('eavDecimal'));
     }
 
     /**
@@ -63,7 +66,7 @@ class EAVDecimalsController extends Controller
      */
     public function edit(EAVDecimal $eavDecimal)
     {
-        //
+        return view('admin.eavDecimal.edit', compact('eavDecimal'));
     }
 
     /**
@@ -75,11 +78,12 @@ class EAVDecimalsController extends Controller
      */
     public function update(UpdateEAVDecimalFormRequest $request, EAVDecimal $eavDecimal)
     {
+        Log::debug($request->all());
         $updated = $eavDecimal->update($request->all());
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavDecimals.show', $eavDecimal));
     }
 
     /**
@@ -94,6 +98,6 @@ class EAVDecimalsController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavDecimals.index'));
     }
 }

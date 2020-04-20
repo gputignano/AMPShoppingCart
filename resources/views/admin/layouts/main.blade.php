@@ -17,7 +17,8 @@
                 <li><a href="{{ route('admin.users.index') }}">{{ __('Users') }}</a></li>
                 <li><a href="{{ route('admin.entityTypes.index') }}">{{ __('Entity Types') }}</a></li>
                 <li><a href="{{ route('admin.attributes.index') }}">{{ __('Attributes') }}</a></li>
-                <li><a href="{{ route('admin.eavBooleans.index') }}">{{ __('EAVBoolean') }}</a></li>
+                <li><a href="{{ route('admin.eavBooleans.index') }}">{{ __('EAVBooleans') }}</a></li>
+                <li><a href="{{ route('admin.eavDecimals.index') }}">{{ __('EAVDecimals') }}</a></li>
             </ul>
         </nav>
         @yield('content', __('Please update me!'))
