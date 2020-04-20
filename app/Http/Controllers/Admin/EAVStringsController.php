@@ -16,7 +16,9 @@ class EAVStringsController extends Controller
      */
     public function index()
     {
-        //
+        $eavStrings = EAVString::all();
+
+        return view('admin.eavString.index', compact('eavStrings'));
     }
 
     /**
@@ -26,7 +28,7 @@ class EAVStringsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.eavString.create');
     }
 
     /**
@@ -37,11 +39,11 @@ class EAVStringsController extends Controller
      */
     public function store(StoreEAVStringFormRequest $request)
     {
-        $eAVString = EAVString::create($request->all());
+        $eavString = EAVString::create($request->all());
 
         return response()->json([
-            'created' => isset($eAVString),
-        ]);
+            'created' => isset($eavString),
+        ])->header('AMP-Redirect-To', route('admin.eavStrings.show', $eavString));
     }
 
     /**
@@ -52,7 +54,7 @@ class EAVStringsController extends Controller
      */
     public function show(EAVString $eavString)
     {
-        //
+        return view('admin.eavString.show', compact('eavString'));
     }
 
     /**
@@ -63,7 +65,7 @@ class EAVStringsController extends Controller
      */
     public function edit(EAVString $eavString)
     {
-        //
+        return view('admin.eavString.edit', compact('eavString'));
     }
 
     /**
@@ -79,7 +81,7 @@ class EAVStringsController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavStrings.show', $eavString));
     }
 
     /**
@@ -94,6 +96,6 @@ class EAVStringsController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavStrings.index'));
     }
 }

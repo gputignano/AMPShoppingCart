@@ -23,6 +23,46 @@ class EAVStringTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_eav_string_index()
+    {
+        $response = $this->get(route('admin.eavStrings.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavString.index');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_string_create()
+    {
+        $response = $this->get(route('admin.eavStrings.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavString.create');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_string_show()
+    {
+        $response = $this->get(route('admin.eavStrings.show', $this->eavString));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavString.show');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_string_edit()
+    {
+        $response = $this->get(route('admin.eavStrings.edit', $this->eavString));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavString.edit');
+    }
+
+    /** @test */
     public function an_eav_string_can_be_created()
     {
         $response = $this->postJson(route('admin.eavStrings.store'), [
