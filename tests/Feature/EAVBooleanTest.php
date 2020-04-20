@@ -19,7 +19,9 @@ class EAVBooleanTest extends TestCase
     {
         parent::setUp();
 
-        $this->eavBoolean = factory(EAVBoolean::class)->create();
+        $this->eavBoolean = factory(EAVBoolean::class)->create([
+            'value' => false,
+        ]);
     }
 
     /** @test */
@@ -66,7 +68,7 @@ class EAVBooleanTest extends TestCase
     public function an_eav_boolean_can_be_created()
     {
         $response = $this->postJson(route('admin.eavBooleans.store'), [
-            'value' => $this->faker->boolean(50),
+            'value' => true,
         ]);
 
         $response->assertStatus(200);
