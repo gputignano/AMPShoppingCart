@@ -23,6 +23,46 @@ class EAVTextTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_eav_text_index()
+    {
+        $response = $this->get(route('admin.eavTexts.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavText.index');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_text_create()
+    {
+        $response = $this->get(route('admin.eavTexts.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavText.create');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_text_show()
+    {
+        $response = $this->get(route('admin.eavTexts.show', $this->eavText));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavText.show');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_text_edit()
+    {
+        $response = $this->get(route('admin.eavTexts.edit', $this->eavText));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavText.edit');
+    }
+
+    /** @test */
     public function an_eav_text_can_be_created()
     {
         $response = $this->postJson(route('admin.eavTexts.store'), [

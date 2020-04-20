@@ -16,7 +16,9 @@ class EAVTextsController extends Controller
      */
     public function index()
     {
-        //
+        $eavTexts = EAVText::all();
+
+        return view('admin.eavText.index', compact('eavTexts'));
     }
 
     /**
@@ -26,7 +28,7 @@ class EAVTextsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.eavText.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class EAVTextsController extends Controller
 
         return response()->json([
             'created' => isset($eavText),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavTexts.show', $eavText));
     }
 
     /**
@@ -52,7 +54,7 @@ class EAVTextsController extends Controller
      */
     public function show(EAVText $eavText)
     {
-        //
+        return view('admin.eavText.show', compact('eavText'));
     }
 
     /**
@@ -63,7 +65,7 @@ class EAVTextsController extends Controller
      */
     public function edit(EAVText $eavText)
     {
-        //
+        return view('admin.eavText.edit', compact('eavText'));
     }
 
     /**
@@ -79,7 +81,7 @@ class EAVTextsController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavTexts.show', $eavText));
     }
 
     /**
@@ -94,6 +96,6 @@ class EAVTextsController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavTexts.index'));
     }
 }
