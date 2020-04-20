@@ -23,6 +23,46 @@ class EAVBooleanTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_eav_boolean_index()
+    {
+        $response = $this->get(route('admin.eavBooleans.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavBoolean.index');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_boolean_create()
+    {
+        $response = $this->get(route('admin.eavBooleans.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavBoolean.create');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_boolean_show()
+    {
+        $response = $this->get(route('admin.eavBooleans.show', $this->eavBoolean));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavBoolean.show');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_boolean_edit()
+    {
+        $response = $this->get(route('admin.eavBooleans.edit', $this->eavBoolean));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavBoolean.edit');
+    }
+
+    /** @test */
     public function an_eav_boolean_can_be_created()
     {
         $response = $this->postJson(route('admin.eavBooleans.store'), [

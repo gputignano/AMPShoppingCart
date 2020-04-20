@@ -16,7 +16,9 @@ class EAVBooleansController extends Controller
      */
     public function index()
     {
-        //
+        $eavBooleans = EAVBoolean::all();
+
+        return view('admin.eavBoolean.index', compact('eavBooleans'));
     }
 
     /**
@@ -26,7 +28,7 @@ class EAVBooleansController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.eavBoolean.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class EAVBooleansController extends Controller
 
         return response()->json([
             'created' => isset($eavBoolean),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavBooleans.show', $eavBoolean));
     }
 
     /**
@@ -52,7 +54,7 @@ class EAVBooleansController extends Controller
      */
     public function show(EAVBoolean $eavBoolean)
     {
-        //
+        return view('admin.eavBoolean.show', compact('eavBoolean'));
     }
 
     /**
@@ -63,7 +65,7 @@ class EAVBooleansController extends Controller
      */
     public function edit(EAVBoolean $eavBoolean)
     {
-        //
+        return view('admin.eavBoolean.edit', compact('eavBoolean'));
     }
 
     /**
@@ -79,7 +81,7 @@ class EAVBooleansController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavBooleans.show', $eavBoolean));
     }
 
     /**
@@ -94,6 +96,6 @@ class EAVBooleansController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavBooleans.index'));
     }
 }

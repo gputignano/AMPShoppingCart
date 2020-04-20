@@ -22,7 +22,7 @@ class UpdateEAVBooleanFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required',
+            'value' => 'required|unique:eav_booleans,value,' . $this->eavBoolean->id,
         ];
     }
 }

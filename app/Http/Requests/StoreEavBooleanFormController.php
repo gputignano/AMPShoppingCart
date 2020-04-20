@@ -22,7 +22,7 @@ class StoreEavBooleanFormController extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required',
+            'value' => 'required|unique:eav_booleans',
         ];
     }
 }
