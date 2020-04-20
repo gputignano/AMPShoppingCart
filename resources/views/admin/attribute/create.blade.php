@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Create a New Attribute') }}</h1>
+    <h1>{{ __('Create Attribute') }}</h1>
 
     <form method="post" action-xhr="{{ route('admin.attributes.store') }}">
         @csrf

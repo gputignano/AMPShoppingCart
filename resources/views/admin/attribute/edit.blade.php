@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+    <h1>{{ __('Edit Attribute') }}</h1>
+
     <form method="post" action-xhr="{{ route('admin.attributes.update', $attribute) }}">
         @csrf
         @method('patch')

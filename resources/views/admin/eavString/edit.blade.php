@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+    <h1>{{ __('Edit EAVString') }}</h1>
+
     <form method="post" action-xhr="{{ route('admin.eavStrings.update', $eavString) }}">
         @csrf
         @method('patch')

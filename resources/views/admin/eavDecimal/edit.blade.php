@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+    <h1>{{ __('Edit EAVDecimal') }}</h1>
+
     <form method="post" action-xhr="{{ route('admin.eavDecimals.update', $eavDecimal) }}">
         @csrf
         @method('patch')

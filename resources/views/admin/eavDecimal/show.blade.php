@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Show EAV Decimal') }}</h1>
+    <h1>{{ __('Show EAVDecimal') }}</h1>
 
     <p><a href="{{ route('admin.eavDecimals.edit', $eavDecimal) }}">{{ __('Edit') }}</a></p>
 

@@ -30,6 +30,8 @@ class EAVIntegerTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavInteger.index');
+
+        $response->assertSee('<h1>All EAVIntegers</h1>', false);
     }
 
     /** @test */
@@ -40,6 +42,8 @@ class EAVIntegerTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavInteger.create');
+
+        $response->assertSee('<h1>Create EAVInteger</h1>', false);
     }
 
     /** @test */
@@ -50,6 +54,8 @@ class EAVIntegerTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavInteger.show');
+
+        $response->assertSee('<h1>Show EAVInteger</h1>', false);
     }
 
     /** @test */
@@ -60,6 +66,8 @@ class EAVIntegerTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavInteger.edit');
+
+        $response->assertSee('<h1>Edit EAVInteger</h1>', false);
     }
 
     /** @test */

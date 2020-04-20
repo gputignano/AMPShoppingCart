@@ -32,6 +32,8 @@ class EAVBooleanTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavBoolean.index');
+
+        $response->assertSee('<h1>All EAVBooleans</h1>', false);
     }
 
     /** @test */
@@ -42,6 +44,8 @@ class EAVBooleanTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavBoolean.create');
+
+        $response->assertSee('<h1>Create EAVBoolean</h1>', false);
     }
 
     /** @test */
@@ -52,6 +56,8 @@ class EAVBooleanTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavBoolean.show');
+
+        $response->assertSee('<h1>Show EAVBoolean</h1>', false);
     }
 
     /** @test */
@@ -62,6 +68,8 @@ class EAVBooleanTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavBoolean.edit');
+
+        $response->assertSee('<h1>Edit EAVBoolean</h1>', false);
     }
 
     /** @test */

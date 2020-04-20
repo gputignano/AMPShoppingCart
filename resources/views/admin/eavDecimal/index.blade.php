@@ -3,7 +3,7 @@
 @section('meta_title', __('All EAV Decimals'))
 
 @section('content')
-    <h1>{{ __('All EAV Decimals') }}</h1>
+    <h1>{{ __('All EAVDecimals') }}</h1>
 
     <p><a href="{{ route('admin.eavDecimals.create') }}">{{ __('Create EAV Decimal') }}</a></p>
 

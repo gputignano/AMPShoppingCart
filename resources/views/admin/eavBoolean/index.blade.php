@@ -3,7 +3,7 @@
 @section('meta_title', __('All EAV Booleans'))
 
 @section('content')
-    <h1>{{ __('All EAV Booleans') }}</h1>
+    <h1>{{ __('All EAVBooleans') }}</h1>
 
     <p><a href="{{ route('admin.eavBooleans.create') }}">{{ __('Create EAV Boolean') }}</a></p>
 

@@ -30,6 +30,8 @@ class EAVDecimalTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavDecimal.index');
+
+        $response->assertSee('<h1>All EAVDecimals</h1>', false);
     }
 
     /** @test */
@@ -40,6 +42,8 @@ class EAVDecimalTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavDecimal.create');
+
+        $response->assertSee('<h1>Create EAVDecimal</h1>', false);
     }
 
     /** @test */
@@ -50,6 +54,8 @@ class EAVDecimalTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavDecimal.show');
+
+        $response->assertSee('<h1>Show EAVDecimal</h1>', false);
     }
 
     /** @test */
@@ -60,6 +66,8 @@ class EAVDecimalTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavDecimal.edit');
+
+        $response->assertSee('<h1>Edit EAVDecimal</h1>', false);
     }
 
     /** @test */

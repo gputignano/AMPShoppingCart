@@ -31,6 +31,8 @@ class AttributeTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.attribute.index');
+
+        $response->assertSee('<h1>All Attributes</h1>', false);
     }
 
     /** @test */
@@ -41,6 +43,8 @@ class AttributeTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.attribute.create');
+
+        $response->assertSee('<h1>Create Attribute</h1>', false);
     }
 
     /** @test */
@@ -51,6 +55,8 @@ class AttributeTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.attribute.show');
+
+        $response->assertSee('<h1>Show Attribute</h1>', false);
     }
 
     /** @test */
@@ -61,6 +67,8 @@ class AttributeTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.attribute.edit');
+
+        $response->assertSee('<h1>Edit Attribute</h1>', false);
     }
 
     /** @test */

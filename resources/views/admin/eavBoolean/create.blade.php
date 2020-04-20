@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Create a New EAV Boolean') }}</h1>
+    <h1>{{ __('Create EAVBoolean') }}</h1>
 
     <form method="post" action-xhr="{{ route('admin.eavBooleans.store') }}">
         @csrf

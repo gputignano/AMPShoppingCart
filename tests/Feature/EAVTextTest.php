@@ -30,6 +30,8 @@ class EAVTextTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavText.index');
+
+        $response->assertSee('<h1>All EAVTexts</h1>', false);
     }
 
     /** @test */
@@ -40,6 +42,8 @@ class EAVTextTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavText.create');
+
+        $response->assertSee('<h1>Create EAVText</h1>', false);
     }
 
     /** @test */
@@ -50,6 +54,8 @@ class EAVTextTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavText.show');
+
+        $response->assertSee('<h1>Show EAVText</h1>', false);
     }
 
     /** @test */
@@ -60,6 +66,8 @@ class EAVTextTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavText.edit');
+
+        $response->assertSee('<h1>Edit EAVText</h1>', false);
     }
 
     /** @test */

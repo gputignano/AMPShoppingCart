@@ -30,6 +30,8 @@ class EAVStringTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavString.index');
+
+        $response->assertSee('<h1>All EAVStrings</h1>', false);
     }
 
     /** @test */
@@ -40,6 +42,8 @@ class EAVStringTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavString.create');
+
+        $response->assertSee('<h1>Create EAVString</h1>', false);
     }
 
     /** @test */
@@ -50,6 +54,8 @@ class EAVStringTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavString.show');
+
+        $response->assertSee('<h1>Show EAVString</h1>', false);
     }
 
     /** @test */
@@ -60,6 +66,8 @@ class EAVStringTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.eavString.edit');
+
+        $response->assertSee('<h1>Edit EAVString</h1>', false);
     }
 
     /** @test */
