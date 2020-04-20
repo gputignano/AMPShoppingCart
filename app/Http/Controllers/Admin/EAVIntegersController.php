@@ -16,7 +16,9 @@ class EAVIntegersController extends Controller
      */
     public function index()
     {
-        //
+        $eavIntegers = EAVInteger::all();
+
+        return view('admin.eavInteger.index', compact('eavIntegers'));
     }
 
     /**
@@ -26,7 +28,7 @@ class EAVIntegersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.eavInteger.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class EAVIntegersController extends Controller
 
         return response()->json([
             'created' => isset($eavInteger),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavIntegers.show', $eavInteger));
     }
 
     /**
@@ -52,7 +54,7 @@ class EAVIntegersController extends Controller
      */
     public function show(EAVInteger $eavInteger)
     {
-        //
+        return view('admin.eavInteger.show', compact('eavInteger'));
     }
 
     /**
@@ -63,7 +65,7 @@ class EAVIntegersController extends Controller
      */
     public function edit(EAVInteger $eavInteger)
     {
-        //
+        return view('admin.eavInteger.edit', compact('eavInteger'));
     }
 
     /**
@@ -79,7 +81,7 @@ class EAVIntegersController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavIntegers.show', $eavInteger));
     }
 
     /**
@@ -94,6 +96,6 @@ class EAVIntegersController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.eavIntegers.index'));
     }
 }

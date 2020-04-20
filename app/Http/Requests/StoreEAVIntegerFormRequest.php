@@ -22,7 +22,7 @@ class StoreEAVIntegerFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required',
+            'value' => 'required|integer',
         ];
     }
 }

@@ -23,6 +23,46 @@ class EAVIntegerTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_eav_integer_index()
+    {
+        $response = $this->get(route('admin.eavIntegers.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavInteger.index');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_integer_create()
+    {
+        $response = $this->get(route('admin.eavIntegers.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavInteger.create');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_integer_show()
+    {
+        $response = $this->get(route('admin.eavIntegers.show', $this->eavInteger));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavInteger.show');
+    }
+
+    /** @test */
+    public function a_user_can_view_eav_integer_edit()
+    {
+        $response = $this->get(route('admin.eavIntegers.edit', $this->eavInteger));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.eavInteger.edit');
+    }
+
+    /** @test */
     public function an_eav_integer_can_be_created()
     {
         $response = $this->postJson(route('admin.eavIntegers.store'), [

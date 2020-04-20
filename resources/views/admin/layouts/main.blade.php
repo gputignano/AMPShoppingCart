@@ -19,6 +19,7 @@
                 <li><a href="{{ route('admin.attributes.index') }}">{{ __('Attributes') }}</a></li>
                 <li><a href="{{ route('admin.eavBooleans.index') }}">{{ __('EAVBooleans') }}</a></li>
                 <li><a href="{{ route('admin.eavDecimals.index') }}">{{ __('EAVDecimals') }}</a></li>
+                <li><a href="{{ route('admin.eavIntegers.index') }}">{{ __('EAVIntegers') }}</a></li>
             </ul>
         </nav>
         @yield('content', __('Please update me!'))
