@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class EntityAbstract extends Model
+abstract class Entity extends Model
 {
     public $table = 'entities';
 

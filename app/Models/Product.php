@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Contracts\Entity;
 use Illuminate\Database\Eloquent\Builder;
 
-class Product extends EntityAbstract
+class Product extends Entity
 {
     public function parent()
     {

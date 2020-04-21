@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Contracts\Entity;
 use Illuminate\Database\Eloquent\Builder;
 
-class Page extends EntityAbstract
+class Page extends Entity
 {
     public function parent()
     {
