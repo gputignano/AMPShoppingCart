@@ -41,6 +41,18 @@
             </ul>
         @endif
 
+        <div>
+            <h2>{{ __('Attribute Values') }}</h2>
+
+            <ul>
+                @foreach ($attribute->values as $value)
+                    <li>{{ $value->value }}</li>
+                @endforeach
+            </ul>
+
+            <input type="text" name="value">
+        </div>
+
         <input type="submit" value="{{ __('Update') }}">
 
         <div submitting>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeFormRequest;
 use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
+use Illuminate\Support\Facades\Log;
 
 class AttributesController extends Controller
 {
@@ -79,7 +80,14 @@ class AttributesController extends Controller
     {
         $updated = $attribute->update($request->only(['label', 'type']));
 
-        $attribute->entity_types()->sync($request->input('entity_types'));
+        $attribute->entity_types()->sync($request->entity_types);
+
+        if (null != $request->input('value'))
+        {
+            $attribute->values()->save($attribute->type::create([
+                'value' => $request->input('value'),
+            ]));
+        }
 
         return response()->json([
             'updated' => $updated,

@@ -33,4 +33,16 @@
             @endforeach
         </ul>
     @endif
+
+    @if ($attribute->values)
+        <h2>{{ __('Attribute Values') }}</h2>
+
+        <ul>
+            @forelse ($attribute->values as $value)
+                <li>{{ $value->value }}</li>
+            @empty
+                <li>{{ __('No value found!') }}</li>
+            @endforelse
+        </ul>
+    @endif
 @endsection
