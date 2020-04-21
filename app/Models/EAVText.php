@@ -2,34 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Contracts\EAVValue;
 
-class EAVText extends Model
+class EAVText extends EAVValue
 {
-    protected $fillable = [
-        'value',
-    ];
-
-    public $timestamps = false;
-
     public $table = 'eav_texts';
-
-    public function eavs()
-    {
-        return $this->morphMany(EAV::class, 'value');
-    }
-
-    public function attributes()
-    {
-        return $this->morphToMany(Attribute::class, 'value', 'attribute_value');
-    }
-
-    protected static function booted()
-    {
-        parent::booted();
-
-        static::deleting(function ($value) {
-            $value->eavs()->delete();
-        });
-    }
 }
