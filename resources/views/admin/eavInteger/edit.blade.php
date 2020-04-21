@@ -18,7 +18,7 @@
 
         <fieldset>
             <label for="value">{{ __('Value') }}</label>
-            <input type="text" name="value" value="{{ $eavInteger->value }}">
+            <input type="number" name="value" value="{{ $eavInteger->value }}">
         </fieldset>
 
         <input type="submit" value="{{ __('Update') }}">

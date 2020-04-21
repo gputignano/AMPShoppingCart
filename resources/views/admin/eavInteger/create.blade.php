@@ -17,7 +17,7 @@
 
         <fieldset>
             <label for="value">{{ __('Value') }}</label>
-            <input type="text" name="value" id="value">
+            <input type="number" name="value" id="value">
         </fieldset>
 
         <input type="submit" value="{{ __('Create') }}">
