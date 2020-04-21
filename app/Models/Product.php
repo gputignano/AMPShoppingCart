@@ -7,29 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Entity
 {
-    public function parent()
-    {
-        return $this->belongsTo($this, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany($this, 'parent_id');
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class);
-    }
-
-    public function rewrite()
-    {
-        return $this->morphOne(Rewrite::class, 'rewritable');
-    }
-
-    public function eavs()
-    {
-        return $this->morphMany(EAV::class, 'entity');
     }
 
     /**

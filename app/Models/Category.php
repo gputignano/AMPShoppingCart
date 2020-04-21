@@ -7,29 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Category extends Entity
 {
-    public function parent()
-    {
-        return $this->belongsTo($this, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany($this, 'parent_id');
-    }
-
     public function products()
     {
         return $this->belongsToMany(Product::class);
-    }
-
-    public function eavs()
-    {
-        return $this->morphMany(EAV::class, 'entity');
-    }
-
-    public function rewrite()
-    {
-        return $this->morphOne(Rewrite::class, 'rewritable');
     }
 
     protected static function booted()

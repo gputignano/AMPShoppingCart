@@ -7,26 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Page extends Entity
 {
-    public function parent()
-    {
-        return $this->belongsTo($this, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany($this, 'parent_id');
-    }
-
-    public function rewrite()
-    {
-        return $this->morphOne(Rewrite::class, 'rewritable');
-    }
-
-    public function eavs()
-    {
-        return $this->morphMany(EAV::class, 'entity');
-    }
-
     protected static function booted()
     {
         parent::booted();
