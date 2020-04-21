@@ -39,7 +39,7 @@ class EAVBooleansController extends Controller
      */
     public function store(StoreEavBooleanFormController $request)
     {
-        $eavBoolean = EAVBoolean::create($request->all());
+        $eavBoolean = EAVBoolean::create($request->input());
 
         return response()->json([
             'created' => isset($eavBoolean),
@@ -77,7 +77,7 @@ class EAVBooleansController extends Controller
      */
     public function update(UpdateEAVBooleanFormRequest $request, EAVBoolean $eavBoolean)
     {
-        $updated = $eavBoolean->update($request->all());
+        $updated = $eavBoolean->update($request->input());
 
         return response()->json([
             'updated' => $updated,

@@ -17,10 +17,13 @@
         @method('patch')
 
         <fieldset>
-            @foreach ([0 => 'false', 1 => 'true'] as $key => $value)
+            <label for="value">{{ __('Value') }}</label>
+            <input type="checkbox" name="value" {{ $eavBoolean->value ? 'checked' : '' }}>
+
+            {{-- @foreach ([0 => 'false', 1 => 'true'] as $key => $value)
                 <input type="radio" name="value" id="{{ $value }}" value="{{ $key }}" {{ $eavBoolean->value == $key ? 'checked' : '' }}>
                 <label for="{{ $value }}">{{ $value }}</label>
-            @endforeach
+            @endforeach --}}
         </fieldset>
 
         <input type="submit" value="{{ __('Update') }}">

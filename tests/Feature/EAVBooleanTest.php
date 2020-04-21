@@ -87,21 +87,21 @@ class EAVBooleanTest extends TestCase
     }
 
     /** @test */
-    public function value_is_required_when_creating_a_new_eav_boolean()
-    {
-        $response = $this->postJson(route('admin.eavBooleans.store'), [
-            // 'value' => $this->faker->boolean(50),
-        ]);
+    // public function value_is_required_when_creating_a_new_eav_boolean()
+    // {
+    //     $response = $this->postJson(route('admin.eavBooleans.store'), [
+    //         // 'value' => $this->faker->boolean(50),
+    //     ]);
 
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'value',
-                    'message' => ['The value field is required.'],
-                ],
-            ]
-        ]);
-    }
+    //     $response->assertExactJson([
+    //         'errors' => [
+    //             [
+    //                 'name' => 'value',
+    //                 'message' => ['The value field is required.'],
+    //             ],
+    //         ]
+    //     ]);
+    // }
 
     /** @test */
     public function an_eav_boolean_can_be_updated()
@@ -118,21 +118,21 @@ class EAVBooleanTest extends TestCase
     }
 
     /** @test */
-    public function value_is_required_when_updating_a_new_eav_boolean()
-    {
-        $response = $this->patchJson(route('admin.eavBooleans.update', $this->eavBoolean), [
-            // 'value' => $this->faker->boolean(50),
-        ]);
+    // public function value_is_required_when_updating_a_new_eav_boolean()
+    // {
+    //     $response = $this->patchJson(route('admin.eavBooleans.update', $this->eavBoolean), [
+    //         // 'value' => $this->faker->boolean(50),
+    //     ]);
 
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'value',
-                    'message' => ['The value field is required.'],
-                ],
-            ]
-        ]);
-    }
+    //     $response->assertExactJson([
+    //         'errors' => [
+    //             [
+    //                 'name' => 'value',
+    //                 'message' => ['The value field is required.'],
+    //             ],
+    //         ]
+    //     ]);
+    // }
 
     /** @test */
     public function an_eav_boolean_can_be_deleted()

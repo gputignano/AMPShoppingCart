@@ -25,4 +25,11 @@ class UpdateEAVBooleanFormRequest extends FormRequest
             'value' => 'required|unique:eav_booleans,value,' . $this->eavBoolean->id,
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'value' => null != $this->value ? 1 : 0,
+        ]);
+    }
 }

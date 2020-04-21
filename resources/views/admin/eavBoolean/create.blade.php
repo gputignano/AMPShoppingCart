@@ -16,11 +16,8 @@
         @csrf
 
         <fieldset>
-            <input type="radio" name="value" id="false" value="0">
-            <label for="false">False</label>
-        
-            <input type="radio" name="value" id="true" value="1">
-            <label for="true">True</label>
+            <label for="value">{{ __('Value') }}</label>
+            <input type="checkbox" name="value">
         </fieldset>
 
         <input type="submit" value="{{ __('Create') }}">
