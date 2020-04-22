@@ -16,9 +16,11 @@ class CreateEntitiesTable extends Migration
         Schema::create('entities', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->unsignedBigInteger('parent_id')->default(0);
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->string('type')->index();
+
+            $table->foreign('parent_id')->references('id')->on('entities')->onDelete('cascade');
         });
     }
 
