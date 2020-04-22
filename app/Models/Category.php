@@ -23,7 +23,6 @@ class Category extends Entity
         });
 
         static::deleting(function ($entity) {
-            $entity->children()->delete();
             $entity->products()->detach();
             $entity->eavs()->delete();
             $entity->rewrite()->delete();
