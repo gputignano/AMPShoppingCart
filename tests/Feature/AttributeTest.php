@@ -77,7 +77,7 @@ class AttributeTest extends TestCase
         $response = $this->postJson(route('admin.attributes.store'), [
             'label' => $this->faker->word,
             'type' => $this->faker->randomElement([
-                \App\Models\EAVBoolean::class,
+                // \App\Models\EAVBoolean::class,
                 \App\Models\EAVDecimal::class,
                 \App\Models\EAVInteger::class,
                 \App\Models\EAVString::class,
