@@ -28,7 +28,6 @@ class Product extends Entity
         });
 
         static::deleting(function ($entity) {
-            $entity->children()->delete();
             $entity->eavs()->delete();
             $entity->categories()->detach();
             $entity->rewrite()->delete();
