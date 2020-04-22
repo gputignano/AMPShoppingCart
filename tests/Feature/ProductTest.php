@@ -28,10 +28,55 @@ class ProductTest extends TestCase
         $this->product->rewrite()->save(factory(Rewrite::class)->make());
     }
 
+    public function a_user_can_view_product_index()
+    {
+        $response = $this->get(route('admin.products.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.product.index');
+
+        $response->assertSee('<h1>All Products</h1>');
+    }
+
+    public function a_user_can_view_product_create()
+    {
+        $response = $this->get(route('admin.products.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.product.create');
+
+        $response->assertSee('<h1>Create Product</h1>');
+    }
+
+    public function a_user_can_view_product_show()
+    {
+        $response = $this->get(route('admin.products.show', $this->product));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.product.show');
+
+        $response->assertSee('<h1>' . $this->product->name . '</h1>');
+    }
+
+    public function a_user_can_view_product_edit()
+    {
+        $response = $this->get(route('admin.products.edit', $this->product));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.product.edit');
+
+        $response->assertSee('<h1>Edit ' . $this->product->name . '</h1>');
+    }
+
     /** @test */
     public function a_product_can_be_created()
     {
         $response = $this->postJson(route('admin.products.store'), [
+            'parent_id' => 0,
             'name' => $this->faker->sentence,
         ]);
 
@@ -43,9 +88,28 @@ class ProductTest extends TestCase
     }
 
     /** @test */
+    public function product_id_is_required_when_creating_a_new_product()
+    {
+        $response = $this->postJson(route('admin.products.store'), [
+            // 'parent_id' => 0,
+            'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'parent_id',
+                    'message' => ['The parent id field is required.'],
+                ],
+            ]
+        ]);
+    }
+
+    /** @test */
     public function name_is_required_when_creating_a_new_product()
     {
         $response = $this->postJson(route('admin.products.store'), [
+            'parent_id' => 0,
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -63,6 +127,7 @@ class ProductTest extends TestCase
     public function a_product_can_be_updated()
     {
         $response = $this->patchJson(route('admin.products.update', $this->product), [
+            'parent_id' => 0,
             'name' => $this->faker->sentence,
         ]);
 
@@ -74,9 +139,28 @@ class ProductTest extends TestCase
     }
 
     /** @test */
+    public function parent_id_is_required_when_updating_a_new_product()
+    {
+        $response = $this->patchJson(route('admin.products.update', $this->product), [
+            // 'parent_id' => 0,
+            'name' => $this->faker->sentence,
+        ]);
+
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'parent_id',
+                    'message' => ['The parent id field is required.'],
+                ],
+            ]
+        ]);
+    }
+
+    /** @test */
     public function name_is_required_when_updating_a_new_product()
     {
         $response = $this->patchJson(route('admin.products.update', $this->product), [
+            'parent_id' => 0,
             // 'name' => $this->faker->sentence,
         ]);
 

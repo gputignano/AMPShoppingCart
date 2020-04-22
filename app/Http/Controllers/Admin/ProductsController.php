@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -17,7 +16,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -27,7 +28,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -42,7 +43,7 @@ class ProductsController extends Controller
 
         return response()->json([
             'created' => isset($product),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.products.show', $product));
     }
 
     /**
@@ -53,7 +54,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.product.show', compact('product'));
     }
 
     /**
@@ -64,7 +65,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
@@ -80,7 +81,7 @@ class ProductsController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.products.show', $product));
     }
 
     /**
@@ -95,6 +96,6 @@ class ProductsController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.products.index'));
     }
 }

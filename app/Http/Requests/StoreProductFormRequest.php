@@ -22,6 +22,7 @@ class StoreProductFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'parent_id' => 'required|numeric',
             'name' => 'required',
         ];
     }
