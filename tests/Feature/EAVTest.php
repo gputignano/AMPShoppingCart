@@ -42,7 +42,7 @@ class EAVTest extends TestCase
         $this->attribute = factory(Attribute::class)->create();
 
         $this->value = factory($this->faker->randomElement([
-            EAVBoolean::class,
+            // EAVBoolean::class,
             EAVDecimal::class,
             EAVInteger::class,
             EAVString::class,
