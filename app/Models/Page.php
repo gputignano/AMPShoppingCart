@@ -18,7 +18,6 @@ class Page extends Entity
         });
 
         static::deleting(function ($entity) {
-            $entity->children()->delete();
             $entity->eavs()->delete();
             $entity->rewrite()->delete();
         });
