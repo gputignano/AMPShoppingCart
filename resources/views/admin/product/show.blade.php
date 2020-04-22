@@ -13,7 +13,7 @@
 
     <p><a href="{{ route('admin.products.edit', $product) }}">{{ __('Edit') }}</a></p>
 
-    <p>{{ $product->parent_id }}</p>
+    {{-- <p>{{ $product->parent->name }}</p> --}}
 
     <p>{{ $product->name }}</p>
 
@@ -23,4 +23,16 @@
 
         <input type="submit" value="{{ __('Delete') }}">
     </form>
+
+    <div>
+        <dd>
+            @foreach ($product->attributes as $attribute)
+                <dt><strong>{{ $attribute->label }}</strong></dt>
+
+                @if ($product->eavs()->count())
+                    <dd>{{ $product->eavs()->where('attribute_id', $attribute->id )->first()->value->value }}</dd>
+                @endif
+            @endforeach
+        </dd>
+    </div>
 @endsection
