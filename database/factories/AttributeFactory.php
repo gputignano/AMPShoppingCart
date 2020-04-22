@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Attribute::class, function (Faker $faker) {
     return [
-        'label' => $faker->word,
+        'label' => $faker->unique()->word,
         'type' => $faker->randomElement([
             // \App\Models\EAVBoolean::class,
             \App\Models\EAVDecimal::class,
