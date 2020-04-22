@@ -17,7 +17,15 @@
 
         <fieldset>
             <label for="parent_id">{{ __('Parend ID') }}</label>
-            <input type="text" name="parent_id">
+            {{-- <input type="text" name="parent_id"> --}}
+
+            <select name="parent_id">
+                <option value="">{{ __('------') }}</option>
+
+                @foreach (\App\Models\Product::all() as $product)
+                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                @endforeach
+            </select>
         </fieldset>
 
         <fieldset>
