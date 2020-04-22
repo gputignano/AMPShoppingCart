@@ -10,15 +10,15 @@
     <table>
         <thead>
             <th>{{ __('ID') }}</th>
-            <th>{{ __('Parend ID') }}</th>
             <td>{{ __('Name') }}</td>
+            <th>{{ __('Parent') }}</th>
         </thead>
 
         @forelse ($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
-                <td>{{ $product->parent_id }}</td>
                 <td><a href="{{ route('admin.products.show', $product) }}">{{ $product->name }}</a></td>
+                <td>{{ $product->parent->name ?? 'none' }}</td>
             </tr>
         @empty
             <tr>
