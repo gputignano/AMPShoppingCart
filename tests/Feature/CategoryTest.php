@@ -29,6 +29,54 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_category_index()
+    {
+        $response = $this->get(route('admin.categories.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.category.index');
+
+        $response->assertSee('<h1>All Categories</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_category_create()
+    {
+        $response = $this->get(route('admin.categories.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.category.create');
+
+        $response->assertSee('<h1>Create Category</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_category_show()
+    {
+        $response = $this->get(route('admin.categories.show', $this->category));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.category.show');
+
+        $response->assertSee('<h1>' . $this->category->name . '</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_category_edit()
+    {
+        $response = $this->get(route('admin.categories.edit', $this->category));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.category.edit');
+
+        $response->assertSee('<h1>Edit ' . $this->category->name . '</h1>', false);
+    }
+
+    /** @test */
     public function a_category_can_be_created()
     {
         $response = $this->postJson(route('admin.categories.store'), [

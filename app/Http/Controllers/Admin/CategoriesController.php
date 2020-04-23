@@ -16,7 +16,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -26,7 +28,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class CategoriesController extends Controller
 
         return response()->json([
             'created' => isset($category),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.categories.show', $category));
     }
 
     /**
@@ -52,7 +54,7 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -63,7 +65,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -79,7 +81,7 @@ class CategoriesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.categories.show', $category));
     }
 
     /**
@@ -94,6 +96,6 @@ class CategoriesController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.categories.index'));
     }
 }
