@@ -12,14 +12,16 @@ class MigrationTest extends TestCase
     /** @test */
     public function tables_migration_terminates_successfully()
     {
-        $this->artisan('migrate:fresh')
-            ->assertExitCode(0);
+        $response = $this->artisan('migrate:fresh');
+
+        $response->assertExitCode(0);
     }
 
     /** @test */
-    // public function tables_seeding_terminates_successfully()
-    // {
-    //     $this->artisan('db:seed')
-    //         ->expectsOutput('Database seeding completed successfully.');
-    // }
+    public function tables_seeding_terminates_successfully()
+    {
+        $response = $this->artisan('db:seed');
+
+        $response->expectsOutput('Database seeding completed successfully.');
+    }
 }
