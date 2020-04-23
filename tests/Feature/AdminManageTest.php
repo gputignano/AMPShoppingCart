@@ -14,5 +14,9 @@ class AdminManageTest extends TestCase
         $response = $this->get(route('admin.home'));
 
         $response->assertStatus(200);
+
+        $response->assertViewIs('admin.home');
+
+        $response->assertSee('<h1>Admin Home</h1>', false);
     }
 }
