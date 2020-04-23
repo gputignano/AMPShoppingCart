@@ -28,6 +28,7 @@ class ProductTest extends TestCase
         $this->product->rewrite()->save(factory(Rewrite::class)->make());
     }
 
+    /** @test */
     public function a_user_can_view_product_index()
     {
         $response = $this->get(route('admin.products.index'));
@@ -36,9 +37,10 @@ class ProductTest extends TestCase
 
         $response->assertViewIs('admin.product.index');
 
-        $response->assertSee('<h1>All Products</h1>');
+        $response->assertSee('<h1>All Products</h1>', false);
     }
 
+    /** @test */
     public function a_user_can_view_product_create()
     {
         $response = $this->get(route('admin.products.create'));
@@ -47,9 +49,10 @@ class ProductTest extends TestCase
 
         $response->assertViewIs('admin.product.create');
 
-        $response->assertSee('<h1>Create Product</h1>');
+        $response->assertSee('<h1>Create Product</h1>', false);
     }
 
+    /** @test */
     public function a_user_can_view_product_show()
     {
         $response = $this->get(route('admin.products.show', $this->product));
@@ -58,9 +61,10 @@ class ProductTest extends TestCase
 
         $response->assertViewIs('admin.product.show');
 
-        $response->assertSee('<h1>' . $this->product->name . '</h1>');
+        $response->assertSee('<h1>' . $this->product->name . '</h1>', false);
     }
 
+    /** @test */
     public function a_user_can_view_product_edit()
     {
         $response = $this->get(route('admin.products.edit', $this->product));
@@ -69,7 +73,7 @@ class ProductTest extends TestCase
 
         $response->assertViewIs('admin.product.edit');
 
-        $response->assertSee('<h1>Edit ' . $this->product->name . '</h1>');
+        $response->assertSee('<h1>Edit ' . $this->product->name . '</h1>', false);
     }
 
     /** @test */
