@@ -19,111 +19,8 @@ class EAVBooleanTest extends TestCase
     {
         parent::setUp();
 
-        $this->eavBoolean = factory(EAVBoolean::class)->create([
-            'value' => false,
-        ]);
-    }
-
-    /** @test */
-    public function a_user_can_view_eav_boolean_index()
-    {
-        $response = $this->get(route('admin.eavBooleans.index'));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.eavBoolean.index');
-
-        $response->assertSee('<h1>All EAVBooleans</h1>', false);
-    }
-
-    /** @test */
-    public function a_user_can_view_eav_boolean_create()
-    {
-        $response = $this->get(route('admin.eavBooleans.create'));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.eavBoolean.create');
-
-        $response->assertSee('<h1>Create EAVBoolean</h1>', false);
-    }
-
-    /** @test */
-    public function a_user_can_view_eav_boolean_show()
-    {
-        $response = $this->get(route('admin.eavBooleans.show', $this->eavBoolean));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.eavBoolean.show');
-
-        $response->assertSee('<h1>Show EAVBoolean</h1>', false);
-    }
-
-    /** @test */
-    public function a_user_can_view_eav_boolean_edit()
-    {
-        $response = $this->get(route('admin.eavBooleans.edit', $this->eavBoolean));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.eavBoolean.edit');
-
-        $response->assertSee('<h1>Edit EAVBoolean</h1>', false);
-    }
-
-    /** @test */
-    public function an_eav_boolean_can_be_created()
-    {
-        $response = $this->postJson(route('admin.eavBooleans.store'), [
-            'value' => true,
-        ]);
-
-        $response->assertStatus(200);
-
-        $response->assertJson([
-            'created' => true,
-        ]);
-    }
-
-    /** @test */
-    public function an_eav_boolean_can_be_updated()
-    {
-        $response = $this->patchJson(route('admin.eavBooleans.update', $this->eavBoolean), [
-            'value' => true,
-        ]);
-
-        $response->assertStatus(200);
-
-        $response->assertJson([
-            'updated' => true,
-        ]);
-    }
-
-    /** @test */
-    public function an_eav_boolean_can_be_deleted()
-    {
-        $response = $this->deleteJson(route('admin.eavBooleans.destroy', $this->eavBoolean), [
-            //
-        ]);
-
-        $response->assertStatus(200);
-
-        $response->assertJson([
-            'deleted' => true,
-        ]);
-    }
-
-    /** @test */
-    public function when_an_eav_boolean_is_deleted_eavs_is_deleted()
-    {
-        $eav = $this->eavBoolean->eavs()->save(factory(EAV::class)->make());
-
-        $this->eavBoolean->delete();
-
-        $this->assertDeleted($this->eavBoolean);
-
-        $this->assertDeleted($eav);
+        factory(EAVBoolean::class)->create(['value' => false]);
+        factory(EAVBoolean::class)->create(['value' => true]);
     }
 
     /**
@@ -134,17 +31,17 @@ class EAVBooleanTest extends TestCase
     public function eav_boolean_has_eavs_relation()
     {
         // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavBoolean->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, EAVBoolean::all()->random()->eavs);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavBoolean->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, EAVBoolean::all()->random()->eavs());
     }
 
     /** @test */
     public function eav_boolean_has_attributes_relation()
     {
         // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavBoolean->attributes);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, EAVBoolean::all()->random()->attributes);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, $this->eavBoolean->attributes());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphToMany::class, EAVBoolean::all()->random()->attributes());
     }
 }
