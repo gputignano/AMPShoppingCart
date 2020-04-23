@@ -21,7 +21,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('attributes', 'Admin\AttributesController');
     Route::resource('categories', 'Admin\CategoriesController');
     Route::resource('eavs', 'Admin\EAVsController');
-    Route::post('eavsMany', 'Admin\EAVsController@storeMany')->name('eavs.many');
     Route::resource('eavBooleans', 'Admin\EAVBooleansController');
     Route::resource('eavDecimals', 'Admin\EAVDecimalsController');
     Route::resource('eavIntegers', 'Admin\EAVIntegersController');

@@ -17,7 +17,6 @@
 
         <fieldset>
             <label for="parent_id">{{ __('Parend ID') }}</label>
-            {{-- <input type="text" name="parent_id"> --}}
 
             <select name="parent_id">
                 <option value="">{{ __('------') }}</option>

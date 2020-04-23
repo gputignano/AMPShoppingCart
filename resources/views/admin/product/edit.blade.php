@@ -56,47 +56,4 @@
             </template>
         </div>
     </form>
-
-    <form action-xhr="{{ route('admin.eavs.many') }}" method="post">
-        @csrf
-
-        <input type="hidden" name="entity_type" value="{{ get_class($product) }}">
-        <input type="hidden" name="entity_id" value="{{ $product->id }}">
-
-        <div>
-            @foreach ($product->attributes as $attribute)
-                <h2>{{ $attribute->label }}</h2>
-
-                <select name="attribute[{{ $attribute->id }}]">
-                    @foreach ($attribute->values as $value)
-                        <option value="{{ $value->id }}" {{ optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value_id == $value->id ? 'selected' : '' }}>{{ $value->value }}</option>
-                    @endforeach
-                </select>
-            @endforeach
-        </div>
-
-        <input type="submit" value="{{ __('Save') }}">
-
-        <div submitting>
-            <template type="amp-mustache">
-                {{ __('Submitting...') }}
-            </template>
-        </div>
-
-        <div submit-success>
-            <template type="amp-mustache">
-                {{ __('Product updated successfully!') }}
-            </template>
-        </div>
-
-        <div submit-error>
-            <template type="amp-mustache">
-                <ul>
-                    @{{#errors}}
-                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                    @{{/errors}}
-                </ul>
-            </template>
-        </div>
-    </form>
 @endsection
