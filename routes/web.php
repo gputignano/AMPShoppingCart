@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('admin')->name('admin.')->group(function() {
-    Route::get('/', function() {
-        return 'Admin Area';
-    });
+    Route::view('/', 'admin.home')->name('home');
 
     Route::resource('attributes', 'Admin\AttributesController');
     Route::resource('categories', 'Admin\CategoriesController');
