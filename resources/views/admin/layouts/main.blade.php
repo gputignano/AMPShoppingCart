@@ -23,6 +23,7 @@
                 <li><a href="{{ route('admin.eavStrings.index') }}">{{ __('EAVStrings') }}</a></li>
                 <li><a href="{{ route('admin.eavTexts.index') }}">{{ __('EAVTexts') }}</a></li>
                 <li><a href="{{ route('admin.products.index') }}">{{ __('Products') }}</a></li>
+                <li><a href="{{ route('admin.pages.index') }}">{{ __('Pages') }}</a></li>
             </ul>
         </nav>
         @yield('content', __('Please update me!'))

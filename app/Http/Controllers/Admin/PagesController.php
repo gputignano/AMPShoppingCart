@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePageFormRequest;
 use App\Http\Requests\UpdatePageFormRequest;
 use App\Models\Page;
-use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -17,7 +16,9 @@ class PagesController extends Controller
      */
     public function index()
     {
-        //
+        $pages = Page::all();
+
+        return view('admin.page.index', compact('pages'));
     }
 
     /**
@@ -27,7 +28,7 @@ class PagesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.page.create');
     }
 
     /**
@@ -38,11 +39,11 @@ class PagesController extends Controller
      */
     public function store(StorePageFormRequest $request)
     {
-        $page = factory(Page::class)->create();
+        $page = Page::create($request->all());
 
         return response()->json([
             'created' => isset($page),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.pages.show', $page));
     }
 
     /**
@@ -53,7 +54,7 @@ class PagesController extends Controller
      */
     public function show(Page $page)
     {
-        //
+        return view('admin.page.show', compact('page'));
     }
 
     /**
@@ -64,7 +65,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        return view('admin.page.edit', compact('page'));
     }
 
     /**
@@ -80,7 +81,7 @@ class PagesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.pages.show', $page));
     }
 
     /**
@@ -95,6 +96,6 @@ class PagesController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.pages.index'));
     }
 }

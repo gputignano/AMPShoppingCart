@@ -28,6 +28,54 @@ class PageTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_page_index()
+    {
+        $response = $this->get(route('admin.pages.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.page.index');
+
+        $response->assertSee('<h1>All Pages</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_page_create()
+    {
+        $response = $this->get(route('admin.pages.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.page.create');
+
+        $response->assertSee('<h1>Create Page</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_page_show()
+    {
+        $response = $this->get(route('admin.pages.show', $this->page));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.page.show', $this->page);
+
+        $response->assertSee('<h1>' . $this->page->name . '</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_page_edit()
+    {
+        $response = $this->get(route('admin.pages.edit', $this->page));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.page.edit', $this->page);
+
+        $response->assertSee('<h1>Edit ' . $this->page->name . '</h1>', false);
+    }
+
+    /** @test */
     public function a_page_can_be_created()
     {
         $response = $this->postJson(route('admin.pages.store'), [
