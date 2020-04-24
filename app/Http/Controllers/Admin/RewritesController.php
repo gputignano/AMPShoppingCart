@@ -16,7 +16,9 @@ class RewritesController extends Controller
      */
     public function index()
     {
-        //
+        $rewrites = Rewrite::all();
+
+        return view('admin.rewrite.index', compact('rewrites'));
     }
 
     /**
@@ -26,7 +28,7 @@ class RewritesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.rewrite.create');
     }
 
     /**
@@ -41,7 +43,7 @@ class RewritesController extends Controller
 
         return response()->json([
             'created' => isset($rewrite),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.rewrites.show', $rewrite));
     }
 
     /**
@@ -52,7 +54,7 @@ class RewritesController extends Controller
      */
     public function show(Rewrite $rewrite)
     {
-        //
+        return view('admin.rewrite.show', compact('rewrite'));
     }
 
     /**
@@ -63,7 +65,7 @@ class RewritesController extends Controller
      */
     public function edit(Rewrite $rewrite)
     {
-        //
+        return view('admin.rewrite.edit', compact('rewrite'));
     }
 
     /**
@@ -75,11 +77,11 @@ class RewritesController extends Controller
      */
     public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
-        $updated = $rewrite->update($request->all());
+        $updated = $rewrite->update($request->validated());
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.rewrites.show', $rewrite));
     }
 
     /**
@@ -94,6 +96,6 @@ class RewritesController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.rewrites.index'));
     }
 }

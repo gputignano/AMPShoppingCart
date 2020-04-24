@@ -27,6 +27,54 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_rewrite_index()
+    {
+        $response = $this->get(route('admin.rewrites.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.rewrite.index');
+
+        $response->assertSee('<h1>All Rewrites</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_rewrite_create()
+    {
+        $response = $this->get(route('admin.rewrites.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.rewrite.create');
+
+        $response->assertSee('<h1>Create Rewrite</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_rewrite_show()
+    {
+        $response = $this->get(route('admin.rewrites.show', $this->rewrite));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.rewrite.show');
+
+        $response->assertSee('<h1>' . e($this->rewrite->meta_title) . '</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_rewrite_edit()
+    {
+        $response = $this->get(route('admin.rewrites.edit', $this->rewrite));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.rewrite.edit');
+
+        $response->assertSee('<h1>' . e($this->rewrite->meta_title) . '</h1>', false);
+    }
+
+    /** @test */
     public function a_rewrite_can_be_created()
     {
         $meta_title = $this->faker->sentence;
@@ -158,34 +206,6 @@ class RewriteTest extends TestCase
                 [
                     'name' => 'template',
                     'message' => ['The template field is required.'],
-                ],
-            ]
-        ]);
-    }
-
-    /** @test */
-    public function rewritable_type_is_required_when_creating_rewrite()
-    {
-        $meta_title = $this->faker->sentence;
-
-        $response = $this->postJson(route('admin.rewrites.store'), [
-            'slug' => Str::slug($meta_title),
-            'meta_title' => $meta_title,
-            'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
-            // 'rewritable_type' => $this->faker->randomElement([
-            //     Category::class,
-            //     Page::class,
-            //     Product::class,
-            // ]),
-            'rewritable_id' => $this->faker->randomDigit,
-        ]);
-
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'rewritable_type',
-                    'message' => ['The rewritable type field is required.'],
                 ],
             ]
         ]);
@@ -351,34 +371,6 @@ class RewriteTest extends TestCase
                 [
                     'name' => 'template',
                     'message' => ['The template field is required.'],
-                ],
-            ]
-        ]);
-    }
-
-    /** @test */
-    public function rewritable_type_is_required_when_updating_rewrite()
-    {
-        $meta_title = $this->faker->sentence;
-
-        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
-            'slug' => Str::slug($meta_title),
-            'meta_title' => $meta_title,
-            'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
-            // 'rewritable_type' => $this->faker->randomElement([
-            //     Category::class,
-            //     Page::class,
-            //     Product::class,
-            // ]),
-            'rewritable_id' => $this->faker->randomDigit,
-        ]);
-
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'rewritable_type',
-                    'message' => ['The rewritable type field is required.'],
                 ],
             ]
         ]);

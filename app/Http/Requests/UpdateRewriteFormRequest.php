@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Entity;
+
 class UpdateRewriteFormRequest extends FormRequest
 {
     /**
@@ -26,8 +28,15 @@ class UpdateRewriteFormRequest extends FormRequest
             'meta_title' => 'required',
             'meta_description' => 'required',
             'template' => 'required',
-            'rewritable_type' => 'required',
+            'rewritable_type' => 'sometimes|required',
             'rewritable_id' => 'required',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'rewritable_type' => $this->rewritable_type ?? Entity::find($this->rewritable_id)->type,
+        ]);
     }
 }
