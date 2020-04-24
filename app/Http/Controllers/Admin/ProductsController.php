@@ -79,6 +79,8 @@ class ProductsController extends Controller
     {
         $updated = $product->update($request->validated());
 
+        $product->categories()->sync($request->input('categories'));
+
         return response()->json([
             'updated' => $updated,
         ])->header('AMP-Redirect-To', route('admin.products.show', $product));
