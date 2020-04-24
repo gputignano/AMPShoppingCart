@@ -18,7 +18,7 @@ class Category extends Entity
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => 'category',
+                'type' => Category::class,
             ]);
         });
 
@@ -29,7 +29,7 @@ class Category extends Entity
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', 'category');
+            $builder->where('type', Category::class);
         });
     }
 }

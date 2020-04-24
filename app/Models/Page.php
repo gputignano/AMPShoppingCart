@@ -13,7 +13,7 @@ class Page extends Entity
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => 'page',
+                'type' => Page::class,
             ]);
         });
 
@@ -23,7 +23,7 @@ class Page extends Entity
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', 'page');
+            $builder->where('type', Page::class);
         });
     }
 }

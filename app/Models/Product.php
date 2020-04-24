@@ -23,7 +23,7 @@ class Product extends Entity
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => 'product',
+                'type' => Product::class,
             ]);
         });
 
@@ -34,7 +34,7 @@ class Product extends Entity
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', 'product');
+            $builder->where('type', Product::class);
         });
     }
 }
