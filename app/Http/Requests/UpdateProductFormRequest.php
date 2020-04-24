@@ -23,6 +23,7 @@ class UpdateProductFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'categories' => 'sometimes|required|array',
         ];
     }
 }
