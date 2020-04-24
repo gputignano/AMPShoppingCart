@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryFormRequest;
 use App\Http\Requests\UpdateCategoryFormRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
@@ -39,7 +40,7 @@ class CategoriesController extends Controller
      */
     public function store(StoreCategoryFormRequest $request)
     {
-        $category = Category::create($request->all());
+        $category = Category::create($request->validated());
 
         return response()->json([
             'created' => isset($category),
@@ -77,7 +78,18 @@ class CategoriesController extends Controller
      */
     public function update(UpdateCategoryFormRequest $request, Category $category)
     {
-        $updated = $category->update($request->all());
+        $updated = $category->update($request->validated());
+
+        $category->products()->sync($request->input('products'));
+
+        // $others = array_intersect_key(
+        //     $request->validated(),
+        //     $request->except($category->getFillable()),
+        // );
+
+        // foreach ($others as $key => $value) {
+        //     $category->{$key}()->sync($request->input($key));
+        // }
 
         return response()->json([
             'updated' => $updated,

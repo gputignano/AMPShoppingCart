@@ -39,7 +39,7 @@ class ProductsController extends Controller
      */
     public function store(StoreProductFormRequest $request)
     {
-        $product = Product::create($request->all());
+        $product = Product::create($request->validated());
 
         return response()->json([
             'created' => isset($product),
@@ -77,7 +77,7 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductFormRequest $request, Product $product)
     {
-        $updated = $product->update($request->all());
+        $updated = $product->update($request->validated());
 
         return response()->json([
             'updated' => $updated,

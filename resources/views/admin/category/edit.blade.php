@@ -31,6 +31,16 @@
             <input type="text" name="name" value="{{ $category->name }}">
         </fieldset>
 
+        @if (App\Models\Product::count())
+            <div>
+                <ul>
+                    @foreach (App\Models\Product::all() as $product)
+                        <li><input type="checkbox" name="products[]" value="{{ $product->id }}" {{ $product->categories->contains($category->id) ? 'checked' : ''}}> {{ $product->name }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <input type="submit" value="{{ __('Update') }}">
 
 
