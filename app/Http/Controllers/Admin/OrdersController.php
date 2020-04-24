@@ -15,7 +15,9 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+
+        return view('admin.order.index', compact('orders'));
     }
 
     /**
@@ -25,7 +27,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.order.create');
     }
 
     /**
@@ -40,7 +42,7 @@ class OrdersController extends Controller
 
         return response()->json([
             'created' => isset($order),
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.orders.show', $order));
     }
 
     /**
@@ -51,7 +53,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('admin.order.show', compact('order'));
     }
 
     /**
@@ -78,7 +80,7 @@ class OrdersController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.orders.show', $order));
     }
 
     /**
@@ -93,6 +95,6 @@ class OrdersController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ]);
+        ])->header('AMP-Redirect-To', route('admin.orders.index'));
     }
 }

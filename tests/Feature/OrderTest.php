@@ -25,6 +25,42 @@ class OrderTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_view_order_index()
+    {
+        $response = $this->get(route('admin.orders.index'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.order.index');
+
+        $response->assertSee('<h1>All Orders</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_order_create()
+    {
+        $response = $this->get(route('admin.orders.create'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.order.create');
+
+        $response->assertSee('<h1>Create Order</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_order_show()
+    {
+        $response = $this->get(route('admin.orders.show', $this->order));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.order.show');
+
+        $response->assertSee('<h1>Show Order</h1>', false);
+    }
+
+    /** @test */
     public function an_order_can_be_created()
     {
         $response = $this->postJson(route('admin.orders.store'), [
