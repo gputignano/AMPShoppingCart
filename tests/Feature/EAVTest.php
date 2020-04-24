@@ -6,10 +6,6 @@ use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\EAV;
 use App\Models\EAVBoolean;
-use App\Models\EAVDecimal;
-use App\Models\EAVInteger;
-use App\Models\EAVString;
-use App\Models\EAVText;
 use App\Models\Page;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +27,8 @@ class EAVTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->eav = factory(EAV::class)->create();
 
         $this->entity = factory($this->faker->randomElement([
@@ -41,13 +39,7 @@ class EAVTest extends TestCase
 
         $this->attribute = factory(Attribute::class)->create();
 
-        $this->value = factory($this->faker->randomElement([
-            // EAVBoolean::class,
-            EAVDecimal::class,
-            EAVInteger::class,
-            EAVString::class,
-            EAVText::class,
-        ]))->create();
+        $this->value = ($this->attribute->type == 'App\Models\EAVBoolean') ? EAVBoolean::all()->random() : factory($this->attribute->type)->create();
     }
 
     /** @test */

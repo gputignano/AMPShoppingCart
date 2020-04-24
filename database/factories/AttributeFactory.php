@@ -9,7 +9,7 @@ $factory->define(Attribute::class, function (Faker $faker) {
     return [
         'label' => $faker->unique()->word,
         'type' => $faker->randomElement([
-            // \App\Models\EAVBoolean::class,
+            \App\Models\EAVBoolean::class,
             \App\Models\EAVDecimal::class,
             \App\Models\EAVInteger::class,
             \App\Models\EAVString::class,

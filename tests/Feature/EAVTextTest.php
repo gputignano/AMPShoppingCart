@@ -19,6 +19,8 @@ class EAVTextTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->eavText = factory(EAVText::class)->create();
     }
 

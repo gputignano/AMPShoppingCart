@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Attribute;
 use App\Models\EAV;
+use App\Models\EAVBoolean;
 use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -19,6 +20,8 @@ class AttributeTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->seed('InstallationTableSeeder');
 
         $this->attribute = factory(Attribute::class)->create();
     }
@@ -75,9 +78,9 @@ class AttributeTest extends TestCase
     public function an_attribute_can_be_created()
     {
         $response = $this->postJson(route('admin.attributes.store'), [
-            'label' => $this->faker->word,
+            'label' => $this->faker->unique()->word,
             'type' => $this->faker->randomElement([
-                // \App\Models\EAVBoolean::class,
+                \App\Models\EAVBoolean::class,
                 \App\Models\EAVDecimal::class,
                 \App\Models\EAVInteger::class,
                 \App\Models\EAVString::class,
@@ -143,7 +146,7 @@ class AttributeTest extends TestCase
     public function type_is_required_when_creating_a_new_attribute()
     {
         $response = $this->postJson(route('admin.attributes.store'), [
-            'label' => $this->faker->word,
+            'label' => $this->faker->unique()->word,
         ]);
 
         $response->assertExactJson([
@@ -160,7 +163,7 @@ class AttributeTest extends TestCase
     public function an_attribute_can_be_updated()
     {
         $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
-            'label' => $this->faker->word,
+            'label' => $this->faker->unique()->word,
             'type' => $this->faker->randomElement([
                 \App\Models\EAVBoolean::class,
                 \App\Models\EAVDecimal::class,
@@ -181,7 +184,7 @@ class AttributeTest extends TestCase
     public function label_is_required_when_updating_a_new_attribute()
     {
         $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
-            // 'label' => $this->faker->word,
+            // 'label' => $this->faker->unique()->word,
             'type' => $this->faker->randomElement([
                 \App\Models\EAVBoolean::class,
                 \App\Models\EAVDecimal::class,
@@ -205,7 +208,7 @@ class AttributeTest extends TestCase
     public function type_is_required_when_updating_a_new_attribute()
     {
         $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
-            'label' => $this->faker->word,
+            'label' => $this->faker->unique()->word,
             // 'type' => $this->faker->word,
         ]);
 
@@ -262,7 +265,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function when_an_attribute_is_deleted_values_relation_is_detached()
     {
-        $value = $this->attribute->values()->save(factory($this->attribute->type)->make());
+        $value = ($this->attribute->type == 'App\Models\EAVBoolean') ? EAVBoolean::all()->random() : $this->attribute->values()->save(factory($this->attribute->type)->make());
 
         $this->attribute->delete();
 

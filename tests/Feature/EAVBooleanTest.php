@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\EAV;
 use App\Models\EAVBoolean;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

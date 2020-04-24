@@ -21,6 +21,8 @@ class ProductTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->product = factory(Product::class)->create([
             'parent_id' => factory(Product::class)->create(),
         ]);
@@ -61,7 +63,7 @@ class ProductTest extends TestCase
 
         $response->assertViewIs('admin.product.show');
 
-        $response->assertSee('<h1>' . $this->product->name . '</h1>', false);
+        $response->assertSee('<h1>' . e($this->product->name) . '</h1>', false);
     }
 
     /** @test */
@@ -73,7 +75,7 @@ class ProductTest extends TestCase
 
         $response->assertViewIs('admin.product.edit');
 
-        $response->assertSee('<h1>Edit ' . $this->product->name . '</h1>', false);
+        $response->assertSee('<h1>Edit ' . e($this->product->name) . '</h1>', false);
     }
 
     /** @test */

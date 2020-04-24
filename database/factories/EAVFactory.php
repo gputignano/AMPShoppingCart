@@ -5,12 +5,13 @@
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\EAV;
+use App\Models\EAVBoolean;
 use App\Models\Page;
 use App\Models\Product;
 use Faker\Generator as Faker;
 
 $factory->define(EAV::class, function (Faker $faker) {
-    $entitable = factory($faker->randomElement([
+    $entity = factory($faker->randomElement([
         Category::class,
         Product::class,
         Page::class,
@@ -18,15 +19,15 @@ $factory->define(EAV::class, function (Faker $faker) {
 
     $attribute = factory(Attribute::class)->create();
 
-    $valuable = factory($attribute->type)->create();
+    $value = ($attribute->type == 'App\Models\EAVBoolean') ? EAVBoolean::all()->random() : factory($attribute->type)->create();
 
     return [
-        'entity_type' => get_class($entitable),
-        'entity_id' => $entitable->id,
+        'entity_type' => get_class($entity),
+        'entity_id' => $entity->id,
 
         'attribute_id' => $attribute,
 
-        'value_type' => get_class($valuable),
-        'value_id' => $valuable->id,
+        'value_type' => get_class($value),
+        'value_id' => $value->id,
     ];
 });

@@ -20,6 +20,8 @@ class PageTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->page = factory(Page::class)->create([
             'parent_id' => factory(Page::class)->create(),
         ]);
@@ -60,7 +62,7 @@ class PageTest extends TestCase
 
         $response->assertViewIs('admin.page.show', $this->page);
 
-        $response->assertSee('<h1>' . $this->page->name . '</h1>', false);
+        $response->assertSee('<h1>' . e($this->page->name) . '</h1>', false);
     }
 
     /** @test */
@@ -72,7 +74,7 @@ class PageTest extends TestCase
 
         $response->assertViewIs('admin.page.edit', $this->page);
 
-        $response->assertSee('<h1>Edit ' . $this->page->name . '</h1>', false);
+        $response->assertSee('<h1>Edit ' . e($this->page->name) . '</h1>', false);
     }
 
     /** @test */
@@ -110,7 +112,7 @@ class PageTest extends TestCase
     public function a_page_can_be_updated()
     {
         $response = $this->patch(route('admin.pages.update', $this->page), [
-            'name' => $this->faker->name,
+            'name' => $this->faker->sentence,
         ]);
 
         $response->assertStatus(200);

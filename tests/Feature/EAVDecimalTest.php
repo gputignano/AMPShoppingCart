@@ -19,6 +19,8 @@ class EAVDecimalTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->eavDecimal = factory(EAVDecimal::class)->create();
     }
 

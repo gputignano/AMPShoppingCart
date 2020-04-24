@@ -19,6 +19,8 @@ class EAVIntegerTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->eavInteger = factory(EAVInteger::class)->create();
     }
 

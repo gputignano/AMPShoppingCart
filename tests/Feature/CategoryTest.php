@@ -21,6 +21,8 @@ class CategoryTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed('InstallationTableSeeder');
+
         $this->category = factory(Category::class)->create([
             'parent_id' => factory(Category::class)->create(),
         ]);
@@ -61,7 +63,7 @@ class CategoryTest extends TestCase
 
         $response->assertViewIs('admin.category.show');
 
-        $response->assertSee('<h1>' . $this->category->name . '</h1>', false);
+        $response->assertSee('<h1>' . e($this->category->name) . '</h1>', false);
     }
 
     /** @test */
@@ -73,7 +75,7 @@ class CategoryTest extends TestCase
 
         $response->assertViewIs('admin.category.edit');
 
-        $response->assertSee('<h1>Edit ' . $this->category->name . '</h1>', false);
+        $response->assertSee('<h1>Edit ' . e($this->category->name) . '</h1>', false);
     }
 
     /** @test */
