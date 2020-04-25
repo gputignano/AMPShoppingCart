@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Rewrite extends Model
 {
     protected $fillable = [
-        'slug', 'meta_title', 'meta_description', 'meta_robots', 'template', 'enabled', 'rewritable_type', 'rewritable_id',
+        'slug', 'meta_title', 'meta_description', 'meta_robots', 'template', 'enabled', 'entity_id',
     ];
 
     public $timestamps = false;
 
-    public function rewritable()
+    public function entity()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Entity::class);
     }
 }

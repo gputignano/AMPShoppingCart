@@ -28,9 +28,7 @@ class Product extends AbstractEntity
         });
 
         static::deleting(function ($entity) {
-            $entity->eavs()->delete();
             $entity->categories()->detach();
-            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {

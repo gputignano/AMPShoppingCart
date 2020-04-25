@@ -22,7 +22,9 @@ class CreateRewritesTable extends Migration
             $table->text('meta_robots')->nullable();
             $table->string('template');
             $table->boolean('enabled')->default(false);
-            $table->morphs('rewritable');
+            $table->unsignedBigInteger('entity_id');
+
+            $table->foreign('entity_id')->references('id')->on('entities')->onDelete('cascade');
         });
     }
 

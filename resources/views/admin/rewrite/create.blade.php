@@ -46,8 +46,8 @@
         </fieldset>
 
         <fieldset>
-            <label for="rewritable_id">{{ __('Rewritable') }}</label>
-            <select name="rewritable_id">
+            <label for="entity_id">{{ __('Entity') }}</label>
+            <select name="entity_id">
                 @foreach (App\Models\Entity::all() as $entity)
                     <option value="{{ $entity->id }}">{{ $entity->name }}</option>
                 @endforeach

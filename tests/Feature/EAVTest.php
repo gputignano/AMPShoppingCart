@@ -3,11 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Attribute;
-use App\Models\Category;
 use App\Models\EAV;
 use App\Models\EAVBoolean;
-use App\Models\Page;
-use App\Models\Product;
+use App\Models\Entity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -31,11 +29,7 @@ class EAVTest extends TestCase
 
         $this->eav = factory(EAV::class)->create();
 
-        $this->entity = factory($this->faker->randomElement([
-            Category::class,
-            Page::class,
-            Product::class,
-        ]))->create();
+        $this->entity = factory(Entity::class)->create();
 
         $this->attribute = factory(Attribute::class)->create();
 
@@ -46,7 +40,6 @@ class EAVTest extends TestCase
     public function an_eav_can_be_created()
     {
         $response = $this->postJson(route('admin.eavs.store'), [
-            'entity_type' => get_class($this->entity),
             'entity_id' => $this->entity->id,
             'attribute_id' => $this->attribute->id,
             'value_type' => get_class($this->value),
@@ -64,7 +57,6 @@ class EAVTest extends TestCase
     public function an_eav_can_be_updated()
     {
         $response = $this->patchJson(route('admin.eavs.update', $this->eav), [
-            'entity_type' => get_class($this->entity),
             'entity_id' => $this->entity->id,
             'attribute_id' => $this->attribute->id,
             'value_type' => get_class($this->value),
@@ -100,9 +92,9 @@ class EAVTest extends TestCase
     public function eav_has_entity_relation()
     {
         // One to One Polymorphic
-        $this->assertInstanceOf(Model::class, $this->eav->entity);
+        $this->assertInstanceOf(Entity::class, $this->eav->entity);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->eav->entity());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->eav->entity());
     }
 
     /** @test */

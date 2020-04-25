@@ -173,8 +173,8 @@ class TableSchemaTest extends TestCase
                 'meta_robots',
                 'template',
                 'enabled',
-                'rewritable_type',
-                'rewritable_id',
+                // 'rewritable_type',
+                'entity_id',
             ])
         );
 
@@ -200,7 +200,6 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('eavs', $fields = [
                 'id',
-                'entity_type',
                 'entity_id',
                 'attribute_id',
                 'value_type',

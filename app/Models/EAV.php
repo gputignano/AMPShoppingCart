@@ -16,7 +16,7 @@ class EAV extends Model
 
     public function entity()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Entity::class);
     }
 
     public function attribute()

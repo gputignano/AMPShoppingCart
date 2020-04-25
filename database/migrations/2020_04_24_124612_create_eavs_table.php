@@ -16,10 +16,11 @@ class CreateEavsTable extends Migration
         Schema::create('eavs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->morphs('entity');
+            $table->unsignedBigInteger('entity_id');
             $table->unsignedBigInteger('attribute_id');
             $table->morphs('value');
 
+            $table->foreign('entity_id')->references('id')->on('entities')->onDelete('cascade');
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
         });
     }

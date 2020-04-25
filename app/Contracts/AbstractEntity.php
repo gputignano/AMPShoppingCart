@@ -35,11 +35,11 @@ abstract class AbstractEntity extends Model
 
     public function eavs()
     {
-        return $this->morphMany(EAV::class, 'entity');
+        return $this->hasMany(EAV::class, 'entity_id');
     }
 
     public function rewrite()
     {
-        return $this->morphOne(Rewrite::class, 'rewritable');
+        return $this->hasOne(Rewrite::class, 'entity_id');
     }
 }

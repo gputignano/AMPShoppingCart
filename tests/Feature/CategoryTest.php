@@ -239,7 +239,7 @@ class CategoryTest extends TestCase
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->eavs);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->category->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->eavs());
     }
 
     /** @test */
@@ -248,6 +248,6 @@ class CategoryTest extends TestCase
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->category->rewrite);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->category->rewrite());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasOne::class, $this->category->rewrite());
     }
 }

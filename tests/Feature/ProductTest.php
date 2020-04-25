@@ -232,7 +232,7 @@ class ProductTest extends TestCase
         // One to Many Polymorphic
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->product->eavs);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->product->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->product->eavs());
     }
 
     /** @test */
@@ -250,6 +250,6 @@ class ProductTest extends TestCase
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->product->rewrite);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->product->rewrite());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasOne::class, $this->product->rewrite());
     }
 }

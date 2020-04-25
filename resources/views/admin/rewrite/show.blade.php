@@ -23,9 +23,7 @@
 
     <p>{{ __('Enabled') . ': ' . $rewrite->enabled }}</p>
 
-    <p>{{ __('Rewritable Type') . ': ' . $rewrite->rewritable_type }}</p>
-
-    <p>{{ __('Rewritable ID') . ': ' . $rewrite->rewritable_id }}</p>
+    <p>{{ __('Entity ID') . ': ' . $rewrite->entity_id }}</p>
 
     <form action-xhr="{{ route('admin.rewrites.destroy', $rewrite) }}" method="post">
         @csrf

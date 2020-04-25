@@ -24,8 +24,6 @@ class Category extends AbstractEntity
 
         static::deleting(function ($entity) {
             $entity->products()->detach();
-            $entity->eavs()->delete();
-            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {

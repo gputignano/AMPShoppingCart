@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Category;
-use App\Models\Page;
-use App\Models\Product;
+use App\Models\Entity;
 use App\Models\Rewrite;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -84,12 +81,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create()->id,
         ]);
 
         $response->assertStatus(200);
@@ -109,12 +101,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -137,12 +124,7 @@ class RewriteTest extends TestCase
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -165,12 +147,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -193,12 +170,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             // 'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -212,7 +184,7 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
-    public function rewritable_id_is_required_when_creating_rewrite()
+    public function entity_id_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -221,19 +193,14 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            // 'rewritable_id' => $this->faker->randomDigit,
+            // 'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
             'errors' => [
                 [
-                    'name' => 'rewritable_id',
-                    'message' => ['The rewritable id field is required.'],
+                    'name' => 'entity_id',
+                    'message' => ['The entity id field is required.'],
                 ],
             ]
         ]);
@@ -249,12 +216,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create()->id,
         ]);
 
         $response->assertStatus(200);
@@ -274,12 +236,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -302,12 +259,7 @@ class RewriteTest extends TestCase
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -330,12 +282,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -358,12 +305,7 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             // 'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            'rewritable_id' => $this->faker->randomDigit,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -377,7 +319,7 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
-    public function rewritable_id_is_required_when_updating_rewrite()
+    public function entity_id_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
 
@@ -386,19 +328,14 @@ class RewriteTest extends TestCase
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
             'template' => $this->faker->word,
-            'rewritable_type' => $this->faker->randomElement([
-                Category::class,
-                Page::class,
-                Product::class,
-            ]),
-            // 'rewritable_id' => $this->faker->randomDigit,
+            // 'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
             'errors' => [
                 [
-                    'name' => 'rewritable_id',
-                    'message' => ['The rewritable id field is required.'],
+                    'name' => 'entity_id',
+                    'message' => ['The entity id field is required.'],
                 ],
             ]
         ]);
@@ -423,11 +360,11 @@ class RewriteTest extends TestCase
      */
 
     /** @test */
-    public function rewrite_has_rewritable_relation()
+    public function rewrite_has_entity_relation()
     {
         // One to One Polymorphic
-        $this->assertInstanceOf(Model::class, $this->rewrite->rewritable);
+        $this->assertInstanceOf(Entity::class, $this->rewrite->entity);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphTo::class, $this->rewrite->rewritable());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->rewrite->entity());
     }
 }

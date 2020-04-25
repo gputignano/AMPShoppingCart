@@ -18,8 +18,6 @@ class Page extends AbstractEntity
         });
 
         static::deleting(function ($entity) {
-            $entity->eavs()->delete();
-            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
