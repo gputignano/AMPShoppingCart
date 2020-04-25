@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Page::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
-        'type' => 'page',
+        'type' => Page::class,
     ];
 });
