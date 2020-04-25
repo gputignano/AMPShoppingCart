@@ -8,7 +8,7 @@ use App\Models\EntityType;
 use App\Models\Rewrite;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class Entity extends Model
+abstract class AbstractEntity extends Model
 {
     public $table = 'entities';
 

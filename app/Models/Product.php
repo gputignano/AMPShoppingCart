@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Contracts\Entity;
+use App\Contracts\AbstractEntity;
 use Illuminate\Database\Eloquent\Builder;
 
-class Product extends Entity
+class Product extends AbstractEntity
 {
     public function categories()
     {

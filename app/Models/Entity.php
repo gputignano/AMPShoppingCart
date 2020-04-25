@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Contracts\AbstractEntity;
 
-class Entity extends Model
+class Entity extends AbstractEntity
 {
     //
 }

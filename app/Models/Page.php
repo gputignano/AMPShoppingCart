@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Contracts\Entity;
+use App\Contracts\AbstractEntity;
 use Illuminate\Database\Eloquent\Builder;
 
-class Page extends Entity
+class Page extends AbstractEntity
 {
     protected static function booted()
     {
