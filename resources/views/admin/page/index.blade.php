@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ $page->id }}</td>
                 <td><a href="{{ route('admin.pages.show', $page) }}">{{ $page->name }}</a></td>
-                <td>{{ $prage->parent->name ?? 'none' }}</td>
+                <td>{{ $page->parent->name ?? 'none' }}</td>
             </tr>
         @empty
             <tr>

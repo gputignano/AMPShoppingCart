@@ -21,7 +21,7 @@
             <select name="parent_id">
                 <option value="">{{ __('------') }}</option>
 
-                @foreach (\App\Models\Product::all() as $product)
+                @foreach (\App\Models\Product::doesntHave('parent')->get() as $product)
                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
             </select>

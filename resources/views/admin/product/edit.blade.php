@@ -20,8 +20,9 @@
             <label for="parent_id">{{ __('Parent ID') }}</label>
 
             <select name="parent_id">
-                <option value="0">{{ __('------') }}</option>
-                @foreach (App\Models\Product::where('id', '!=', $product->id)->get() as $parent)
+                <option value="">{{ __('------') }}</option>
+
+                @foreach (App\Models\Product::where('id', '!=', $product->id)->doesntHave('parent')->get() as $parent)
                     <option value="{{ $parent->id }}" {{ $product->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                 @endforeach
             </select>

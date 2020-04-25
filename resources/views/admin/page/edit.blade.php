@@ -20,7 +20,9 @@
             <label for="parent_id">{{ __('Parent ID') }}</label>
 
             <select name="parent_id">
-                @foreach (App\Models\Page::all() as $parent)
+                <option value="">{{ __('------') }}</option>
+
+                @foreach (App\Models\Page::where('id', '<', $page->id)->get() as $parent)
                     <option value="{{ $parent->id }}" {{ $page->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                 @endforeach
             </select>
