@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryFormRequest;
 use App\Http\Requests\UpdateCategoryFormRequest;
 use App\Models\Category;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::whereNull('parent_id')->get();
 
         return view('admin.category.index', compact('categories'));
     }

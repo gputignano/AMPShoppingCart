@@ -7,24 +7,13 @@
 
     <p><a href="{{ route('admin.categories.create') }}">{{ __('Create Category') }}</a></p>
 
-    <table>
-        <thead>
-            <th>{{ __('ID') }}</th>
-            <td>{{ __('Name') }}</td>
-            <th>{{ __('Parent') }}</th>
-        </thead>
-
+    <ul>
         @forelse ($categories as $category)
-            <tr>
-                <td>{{ $category->id }}</td>
-                <td><a href="{{ route('admin.categories.show', $category) }}">{{ $category->name }}</a></td>
-                <td>{{ $category->parent->name ?? 'none' }}</td>
-            </tr>
+            <li>
+                <a href="{{ route('admin.categories.show', $category) }}">{{ $category->name }}</a>
+            </li>
         @empty
-            <tr>
-                <td colspan="3">{{ __('No Category found!') }}</td>
-            </tr>
+            <li>{{ __('No Category found!') }}</li>
         @endforelse
-    </table>
+    </ul>
 @endsection
-
