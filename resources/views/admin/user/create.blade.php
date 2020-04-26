@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('meta_title', __('Create a New User'))
+@section('meta_title', __('Create User'))
 
 @section('amp-components')
     @parent
@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Create a New User') }}</h1>
+    <h1>{{ __('Create User') }}</h1>
 
     <form method="post" action-xhr="{{ route('admin.users.store') }}">
         @csrf

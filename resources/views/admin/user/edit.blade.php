@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+    <h1>{{ __('Edit User') }}</h1>
+
     <form method="post" action-xhr="{{ route('admin.users.update', $user) }}">
         @csrf
         @method('patch')

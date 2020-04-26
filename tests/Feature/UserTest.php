@@ -31,6 +31,8 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.user.index');
+
+        $response->assertSee('<h1>All Users</h1>', false);
     }
 
     /** @test */
@@ -41,6 +43,8 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.user.create');
+
+        $response->assertSee('<h1>Create User</h1>', false);
     }
 
     /** @test */
@@ -51,6 +55,8 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.user.show');
+
+        $response->assertSee('Show User', false);
     }
 
     /** @test */
@@ -61,6 +67,8 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertViewIs('admin.user.edit');
+
+        $response->assertSee('Edit User', false);
     }
 
     /** @test */
