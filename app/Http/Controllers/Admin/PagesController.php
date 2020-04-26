@@ -39,7 +39,7 @@ class PagesController extends Controller
      */
     public function store(StorePageFormRequest $request)
     {
-        $page = Page::create($request->all());
+        $page = Page::create($request->validated());
 
         return response()->json([
             'created' => isset($page),
@@ -77,7 +77,7 @@ class PagesController extends Controller
      */
     public function update(UpdatePageFormRequest $request, Page $page)
     {
-        $updated = $page->update($request->all());
+        $updated = $page->update($request->validated());
 
         return response()->json([
             'updated' => $updated,

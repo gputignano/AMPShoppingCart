@@ -82,6 +82,7 @@ class CategoryTest extends TestCase
     public function a_category_can_be_created()
     {
         $response = $this->postJson(route('admin.categories.store'), [
+            'parent_id' => '',
             'name' => $this->faker->sentence,
         ]);
 
@@ -96,6 +97,7 @@ class CategoryTest extends TestCase
     public function name_is_required_when_creating_a_new_category()
     {
         $response = $this->postJson(route('admin.categories.store'), [
+            'parent_id' => '',
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -113,6 +115,7 @@ class CategoryTest extends TestCase
     public function a_category_can_be_updated()
     {
         $response = $this->patchJson(route('admin.categories.update', $this->category), [
+            'parent_id' => '',
             'name' => $this->faker->sentence,
         ]);
 
@@ -127,6 +130,7 @@ class CategoryTest extends TestCase
     public function name_is_required_when_updating_a_category()
     {
         $response = $this->patchJson(route('admin.categories.update', $this->category), [
+            'parent_id' => '',
             // 'name' => $this->faker->sentence,
         ]);
 

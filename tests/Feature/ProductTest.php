@@ -82,6 +82,7 @@ class ProductTest extends TestCase
     public function a_product_can_be_created()
     {
         $response = $this->postJson(route('admin.products.store'), [
+            'parent_id' => '',
             'name' => $this->faker->sentence,
         ]);
 
@@ -96,6 +97,7 @@ class ProductTest extends TestCase
     public function name_is_required_when_creating_a_new_product()
     {
         $response = $this->postJson(route('admin.products.store'), [
+            'parent_id' => '',
             // 'name' => $this->faker->sentence,
         ]);
 
@@ -113,6 +115,7 @@ class ProductTest extends TestCase
     public function a_product_can_be_updated()
     {
         $response = $this->patchJson(route('admin.products.update', $this->product), [
+            'parent_id' => null,
             'name' => $this->faker->sentence,
         ]);
 
@@ -127,6 +130,7 @@ class ProductTest extends TestCase
     public function name_is_required_when_updating_a_new_product()
     {
         $response = $this->patchJson(route('admin.products.update', $this->product), [
+            'parent_id' => null,
             // 'name' => $this->faker->sentence,
         ]);
 
