@@ -1,4 +1,7 @@
 <style amp-custom>
+    /* NORMALIZE v 8.0.1 */
+    @include('admin.layouts.normalize')
+
     body {
         font-family:roboto;
     }
@@ -40,4 +43,6 @@
     @media(min-width:2560px) {
         /*  */
     }
+
+    /* TESTS */
 </style>
