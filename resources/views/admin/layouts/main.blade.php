@@ -7,35 +7,16 @@
         <link rel="canonical" href="https://amp.dev/documentation/guides-and-tutorials/start/create/basic_markup/">
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
         <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-        <style amp-custom>
-            .amp-sidebar-toolbar-target-shown {
-                display:none;
-            }
-            #sidebar {
-                width:80vw;
-            }
-            nav [toolbar] {
-                overflow:auto;
-            }
-            /* #sidebar-open-btn {
-                display:none;
-            } */
-            #mega-menu {
-                display:none;
-            }
-            @media(min-width:768px) {
-                #mega-menu {
-                    display:block;
-                }
-                #sidebar-open-btn {
-                    display:none;
-                }
-            }
-        </style>
+
+        @section('amp-custom-style')
+            @include('admin.layouts.styles')
+        @show
+
         @section('amp-components')
             <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
             <script async custom-element="amp-mega-menu" src="https://cdn.ampproject.org/v0/amp-mega-menu-0.1.js"></script>
         @show
+
     </head>
     <body>
         <amp-sidebar id="sidebar" layout="nodisplay" side="left">
