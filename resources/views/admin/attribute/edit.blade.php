@@ -88,4 +88,11 @@
             </template>
         </div>
     </form>
+
+    <form action-xhr="{{ route('admin.attributes.destroy', $attribute) }}" method="post">
+        @csrf
+        @method('delete')
+
+        <input type="submit" value="{{ __('Delete') }}">
+    </form>
 @endsection

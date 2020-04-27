@@ -50,4 +50,11 @@
             </template>
         </div>
     </form>
+
+    <form action-xhr="{{ route('admin.users.destroy', $user) }}" method="post">
+        @csrf
+        @method('delete')
+
+        <input type="submit" value="{{ __('Delete') }}">
+    </form>
 @endsection

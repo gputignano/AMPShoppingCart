@@ -45,4 +45,11 @@
             </template>
         </div>
     </form>
+
+    <form action-xhr="{{ route('admin.eavIntegers.destroy', $eavInteger) }}" method="post">
+        @csrf
+        @method('delete')
+
+        <input type="submit" value="{{ __('Delete') }}">
+    </form>
 @endsection

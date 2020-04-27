@@ -29,7 +29,7 @@
             </ul>
         @endif
 
-    <input type="submit" value="{{ __('Update') }}">
+        <input type="submit" value="{{ __('Update') }}">
 
         <div submitting>
             <template type="amp-mustache">
@@ -52,5 +52,12 @@
                 </ul>
             </template>
         </div>
+    </form>
+
+    <form action-xhr="{{ route('admin.entityTypes.destroy', $entityType) }}" method="post">
+        @csrf
+        @method('delete')
+
+        <input type="submit" value="{{ __('Delete') }}">
     </form>
 @endsection

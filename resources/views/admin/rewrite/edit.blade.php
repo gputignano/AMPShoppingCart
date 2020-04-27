@@ -79,4 +79,11 @@
             </template>
         </div>
     </form>
+
+    <form action-xhr="{{ route('admin.rewrites.destroy', $rewrite) }}" method="post">
+        @csrf
+        @method('delete')
+
+        <input type="submit" value="{{ __('Delete') }}">
+    </form>
 @endsection

@@ -45,7 +45,6 @@
 
         <input type="submit" value="{{ __('Update') }}">
 
-
         <div submitting>
             <template type="amp-mustache">
                 {{ __('Submitting...') }}
@@ -67,5 +66,12 @@
                 </ul>
             </template>
         </div>
+    </form>
+
+    <form action-xhr="{{ route('admin.categories.destroy', $category) }}" method="post">
+        @csrf
+        @method('delete')
+
+        <input type="submit" value="{{ __('Delete') }}">
     </form>
 @endsection
