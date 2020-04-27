@@ -7,6 +7,7 @@
 
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
 @endsection
 
 @section('content')
@@ -33,15 +34,50 @@
             <input type="text" name="name" value="{{ $product->name }}">
         </fieldset>
 
-        @if (App\Models\Category::count())
-            <div>
-                <ul>
-                    @foreach (App\Models\Category::all() as $category)
-                        <li><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $category->products->contains($product->id) ? 'checked' : ''}}> {{ $category->name }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <amp-accordion id="accordion" expand-single-section animate>
+            <section>
+                {{-- ADD ATTRIBUTES --}}
+                <h2>{{ __('Attributes') }}</h2>
+
+                <div>
+                    <ul>
+                        @if (App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes->count())
+                            @foreach (App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes as $attribute)
+                                <li>
+                                    <label for="">{{ $attribute->label }}</label>
+
+                                    <select name="attributes[{{ $attribute->id }}]">
+                                        <option value="">{{ __('------') }}</option>
+                                        @foreach ($attribute->values as $value)
+                                            <option value="{{ $value->id }}" {{ optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value_id == $value->id ? 'selected' : '' }}>{{ $value->value }}</option>
+                                        @endforeach
+                                    </select>
+                                </li>
+                            @endforeach
+                        @else
+                            <li>{!! __('No attribute found! <a href="' . route('admin.attributes.create') . ' ">Create a new one</a>') !!}</li>
+                        @endif
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                {{-- CATEGORIES --}}
+                <h2>{{ __('Categories') }}</h2>
+
+                <div>
+                    <ul>
+                        @if (App\Models\Category::count())
+                            @foreach (App\Models\Category::all() as $category)
+                                <li><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $category->products->contains($product->id) ? 'checked' : ''}}> {{ $category->name }}</li>
+                            @endforeach
+                        @else
+                            <li>{!! __('No category found! <a href="' . route('admin.categories.create') . '">Create a new one</a>') !!}</li>
+                        @endif
+                    </ul>
+                </div>
+            </section>
+        </amp-accordion>
 
         <input type="submit" value="{{ __('Update') }}">
 

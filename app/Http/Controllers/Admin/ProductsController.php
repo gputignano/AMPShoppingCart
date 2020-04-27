@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
+use App\Models\Attribute;
+use App\Models\EAV;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class ProductsController extends Controller
 {
@@ -77,7 +80,25 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductFormRequest $request, Product $product)
     {
+        Log::debug($request->input('attributes'));
+
         $updated = $product->update($request->validated());
+
+        if ($request->input('attributes'))
+        {
+            foreach ($request->input('attributes') as $attribute => $value) {
+                $attr = Attribute::find($attribute);
+    
+                EAV::updateOrCreate([
+                    'entity_id' => $product->id,
+                    'attribute_id' => $attr->id,
+                ],
+                [
+                    'value_type' => $attr->type,
+                    'value_id' => $value,
+                ]);
+            }
+        }
 
         $product->categories()->sync($request->input('categories'));
 

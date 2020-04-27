@@ -251,7 +251,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function when_an_attribute_is_deleted_entity_types_relation_is_detached()
     {
-        $entityTypes = $this->attribute->entity_types()->save(factory(EntityType::class)->make());
+        $entityTypes = $this->attribute->entity_types()->save(EntityType::all()->random());
 
         $this->attribute->delete();
 

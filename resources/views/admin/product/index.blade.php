@@ -10,7 +10,7 @@
     <table>
         <thead>
             <th>{{ __('ID') }}</th>
-            <td>{{ __('Name') }}</td>
+            <th>{{ __('Name') }}</th>
             <th>{{ __('Parent') }}</th>
         </thead>
 
