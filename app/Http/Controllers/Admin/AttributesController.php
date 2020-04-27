@@ -44,7 +44,7 @@ class AttributesController extends Controller
 
         return response()->json([
             'created' => true,
-        ])->header('AMP-Redirect-To', route('admin.attributes.show', $attribute));
+        ])->header('AMP-Redirect-To', route('admin.attributes.edit', $attribute));
     }
 
     /**
@@ -91,7 +91,7 @@ class AttributesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.attributes.show', $attribute));
+        ])->header('AMP-Redirect-To', route('admin.attributes.edit', $attribute));
     }
 
     /**

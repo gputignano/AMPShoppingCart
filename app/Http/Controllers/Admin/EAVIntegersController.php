@@ -43,7 +43,7 @@ class EAVIntegersController extends Controller
 
         return response()->json([
             'created' => isset($eavInteger),
-        ])->header('AMP-Redirect-To', route('admin.eavIntegers.show', $eavInteger));
+        ])->header('AMP-Redirect-To', route('admin.eavIntegers.edit', $eavInteger));
     }
 
     /**
@@ -81,7 +81,7 @@ class EAVIntegersController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.eavIntegers.show', $eavInteger));
+        ])->header('AMP-Redirect-To', route('admin.eavIntegers.edit', $eavInteger));
     }
 
     /**

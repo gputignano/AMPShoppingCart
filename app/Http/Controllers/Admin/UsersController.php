@@ -43,7 +43,7 @@ class UsersController extends Controller
 
         return response()->json([
             'created' => isset($user),
-        ])->header('AMP-Redirect-To', route('admin.users.show', $user));
+        ])->header('AMP-Redirect-To', route('admin.users.edit', $user));
     }
 
     /**
@@ -81,7 +81,7 @@ class UsersController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.users.show', $user));
+        ])->header('AMP-Redirect-To', route('admin.users.edit', $user));
     }
 
     /**

@@ -43,7 +43,7 @@ class RewritesController extends Controller
 
         return response()->json([
             'created' => isset($rewrite),
-        ])->header('AMP-Redirect-To', route('admin.rewrites.show', $rewrite));
+        ])->header('AMP-Redirect-To', route('admin.rewrites.edit', $rewrite));
     }
 
     /**
@@ -81,7 +81,7 @@ class RewritesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.rewrites.show', $rewrite));
+        ])->header('AMP-Redirect-To', route('admin.rewrites.edit', $rewrite));
     }
 
     /**

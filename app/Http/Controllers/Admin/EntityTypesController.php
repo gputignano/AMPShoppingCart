@@ -45,7 +45,7 @@ class EntityTypesController extends Controller
 
         return response()->json([
             'created' => isset($entityType),
-        ])->header('AMP-Redirect-To', route('admin.entityTypes.show', $entityType));
+        ])->header('AMP-Redirect-To', route('admin.entityTypes.edit', $entityType));
     }
 
     /**
@@ -85,7 +85,7 @@ class EntityTypesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.entityTypes.show', $entityType));
+        ])->header('AMP-Redirect-To', route('admin.entityTypes.edit', $entityType));
     }
 
     /**

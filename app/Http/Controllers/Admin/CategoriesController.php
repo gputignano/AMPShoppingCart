@@ -44,7 +44,7 @@ class CategoriesController extends Controller
 
         return response()->json([
             'created' => isset($category),
-        ])->header('AMP-Redirect-To', route('admin.categories.show', $category));
+        ])->header('AMP-Redirect-To', route('admin.categories.edit', $category));
     }
 
     /**
@@ -93,7 +93,7 @@ class CategoriesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.categories.show', $category));
+        ])->header('AMP-Redirect-To', route('admin.categories.edit', $category));
     }
 
     /**

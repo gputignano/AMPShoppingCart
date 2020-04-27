@@ -43,7 +43,7 @@ class EAVStringsController extends Controller
 
         return response()->json([
             'created' => isset($eavString),
-        ])->header('AMP-Redirect-To', route('admin.eavStrings.show', $eavString));
+        ])->header('AMP-Redirect-To', route('admin.eavStrings.edit', $eavString));
     }
 
     /**
@@ -81,7 +81,7 @@ class EAVStringsController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.eavStrings.show', $eavString));
+        ])->header('AMP-Redirect-To', route('admin.eavStrings.edit', $eavString));
     }
 
     /**

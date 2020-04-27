@@ -42,7 +42,7 @@ class OrdersController extends Controller
 
         return response()->json([
             'created' => isset($order),
-        ])->header('AMP-Redirect-To', route('admin.orders.show', $order));
+        ])->header('AMP-Redirect-To', route('admin.orders.edit', $order));
     }
 
     /**
@@ -80,7 +80,7 @@ class OrdersController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.orders.show', $order));
+        ])->header('AMP-Redirect-To', route('admin.orders.edit', $order));
     }
 
     /**

@@ -46,7 +46,7 @@ class ProductsController extends Controller
 
         return response()->json([
             'created' => isset($product),
-        ])->header('AMP-Redirect-To', route('admin.products.show', $product));
+        ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
     }
 
     /**
@@ -104,7 +104,7 @@ class ProductsController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.products.show', $product));
+        ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
     }
 
     /**

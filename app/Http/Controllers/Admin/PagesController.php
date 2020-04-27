@@ -43,7 +43,7 @@ class PagesController extends Controller
 
         return response()->json([
             'created' => isset($page),
-        ])->header('AMP-Redirect-To', route('admin.pages.show', $page));
+        ])->header('AMP-Redirect-To', route('admin.pages.edit', $page));
     }
 
     /**
@@ -81,7 +81,7 @@ class PagesController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.pages.show', $page));
+        ])->header('AMP-Redirect-To', route('admin.pages.edit', $page));
     }
 
     /**

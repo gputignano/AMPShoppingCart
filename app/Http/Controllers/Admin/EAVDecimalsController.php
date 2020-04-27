@@ -44,7 +44,7 @@ class EAVDecimalsController extends Controller
 
         return response()->json([
             'created' => isset($eavDecimal),
-        ])->header('AMP-Redirect-To', route('admin.eavDecimals.show', $eavDecimal));
+        ])->header('AMP-Redirect-To', route('admin.eavDecimals.edit', $eavDecimal));
     }
 
     /**
@@ -83,7 +83,7 @@ class EAVDecimalsController extends Controller
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.eavDecimals.show', $eavDecimal));
+        ])->header('AMP-Redirect-To', route('admin.eavDecimals.edit', $eavDecimal));
     }
 
     /**
