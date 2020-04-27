@@ -17,7 +17,7 @@
         @forelse ($attributes as $attribute)
             <tr>
                 <td>{{ $attribute->id }}</td>
-                <td><a href="{{ route('admin.attributes.show', $attribute) }}">{{ $attribute->label }}</a></td>
+                <td><a href="{{ route('admin.attributes.edit', $attribute) }}">{{ $attribute->label }}</a></td>
                 <td>{{ $attribute->type }}</td>
             </tr>
         @empty

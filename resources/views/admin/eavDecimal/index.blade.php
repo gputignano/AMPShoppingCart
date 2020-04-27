@@ -16,7 +16,7 @@
         @forelse ($eavDecimals as $eavDecimal)
             <tr>
                 <td>{{ $eavDecimal->id }}</td>
-                <td><a href="{{ route('admin.eavDecimals.show', $eavDecimal) }}">{{ $eavDecimal->value }}</a></td>
+                <td><a href="{{ route('admin.eavDecimals.edit', $eavDecimal) }}">{{ $eavDecimal->value }}</a></td>
             </tr>
         @empty
             <tr>

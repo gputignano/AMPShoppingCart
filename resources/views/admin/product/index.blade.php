@@ -17,7 +17,7 @@
         @forelse ($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
-                <td><a href="{{ route('admin.products.show', $product) }}">{{ $product->name }}</a></td>
+                <td><a href="{{ route('admin.products.edit', $product) }}">{{ $product->name }}</a></td>
                 <td>{{ $product->parent->name ?? 'none' }}</td>
             </tr>
         @empty

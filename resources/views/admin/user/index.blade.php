@@ -16,7 +16,7 @@
         @forelse ($users as $user)
             <tr>
                 <td>{{ $user->id }}</td>
-                <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->email }}</a></td>
+                <td><a href="{{ route('admin.users.edit', $user) }}">{{ $user->email }}</a></td>
             </tr>
         @empty
             <tr>

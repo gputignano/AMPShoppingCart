@@ -16,7 +16,7 @@
         @forelse ($eavStrings as $eavString)
             <tr>
                 <td>{{ $eavString->id }}</td>
-                <td><a href="{{ route('admin.eavStrings.show', $eavString) }}">{{ $eavString->value }}</a></td>
+                <td><a href="{{ route('admin.eavStrings.edit', $eavString) }}">{{ $eavString->value }}</a></td>
             </tr>
         @empty
             <tr>

@@ -24,7 +24,7 @@
                 <td>{{ $order->user->email }}</td>
                 <td>{{ $order->created_at }}</td>
                 <td>{{ $order->updated_at }}</td>
-                <td><a href="{{ route('admin.orders.show', $order) }}">{{ __('View') }}</a></td>
+                <td><a href="{{ route('admin.orders.edit', $order) }}">{{ __('View') }}</a></td>
             </tr>
         @empty
             <tr>

@@ -16,7 +16,7 @@
         @forelse ($entityTypes as $entityType)
             <tr>
                 <td>{{ $entityType->id }}</td>
-                <td><a href="{{ route('admin.entityTypes.show', $entityType) }}">{{ $entityType->label }}</a></td>
+                <td><a href="{{ route('admin.entityTypes.edit', $entityType) }}">{{ $entityType->label }}</a></td>
             </tr>
         @empty
             <tr>
