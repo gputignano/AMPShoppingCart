@@ -7,6 +7,7 @@
 
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
 @endsection
 
 @section('content')
@@ -31,27 +32,37 @@
             </select>
         </fieldset>
 
-        @if (\App\Models\EntityType::count())
-            <h2>{{ __('Entity Types') }}</h2>
+        <amp-accordion id="attributes" expand-single-section animate>
+            <section>
+                <h2>{{ __('Attribute Values') }}</h2>
+   
+                <div>
+                    <ul>
+                        @forelse ($attribute->values as $value)
+                            <li>{{ $value->value }}</li>
+                        @empty
+                            <li>{{ __('No attribute found') }}</li>
+                        @endforelse
+                    </ul>
+        
+                    <input type="text" name="value">
+                </div>
+            </section>
 
-            <ul>
-                @foreach (\App\Models\EntityType::all() as $entity_type)
-                    <li><input type="checkbox" name="entity_types[]" value="{{ $entity_type->id }}" {{ $attribute->entity_types()->find($entity_type->id) ? 'checked' : '' }}>{{ $entity_type->label }}</li>
-                @endforeach
-            </ul>
-        @endif
+            @if (\App\Models\EntityType::count())
+                <section>
+                    <h2>{{ __('Entity Types') }}</h2>
 
-        <div>
-            <h2>{{ __('Attribute Values') }}</h2>
-
-            <ul>
-                @foreach ($attribute->values as $value)
-                    <li>{{ $value->value }}</li>
-                @endforeach
-            </ul>
-
-            <input type="text" name="value">
-        </div>
+                    <div>
+                        <ul>
+                            @foreach (\App\Models\EntityType::all() as $entity_type)
+                                <li><input type="checkbox" name="entity_types[]" value="{{ $entity_type->id }}" {{ $attribute->entity_types()->find($entity_type->id) ? 'checked' : '' }}>{{ $entity_type->label }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </section>
+            @endif
+        </amp-accordion>
 
         <input type="submit" value="{{ __('Update') }}">
 

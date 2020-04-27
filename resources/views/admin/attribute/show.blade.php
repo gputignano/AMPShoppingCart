@@ -6,6 +6,7 @@
     @parent
 
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
 @endsection
 
 @section('content')
@@ -24,25 +25,33 @@
         <input type="submit" value="{{ __('Delete') }}">
     </form>
 
-    @if ($attribute->entity_types()->count())
-        <h2>{{ __('Entity Types') }}</h2>
+    <amp-accordion id="attributes" expand-single-section animate>
+        <section>
+            <h2>{{ __('Attribute Values') }}</h2>
 
-        <ul>
-            @foreach ($attribute->entity_types as $entity_type)
-                <li>{{ $entity_type->label }}</li>
-            @endforeach
-        </ul>
-    @endif
+            <div>
+                <ul>
+                    @forelse ($attribute->values as $value)
+                        <li>{{ $value->value }}</li>
+                    @empty
+                        <li>{{ __('No value found!') }}</li>
+                    @endforelse
+                </ul>
+            </div>
+        </section>
 
-    @if ($attribute->values)
-        <h2>{{ __('Attribute Values') }}</h2>
+        @if ($attribute->entity_types()->count())
+            <section>
+                <h2>{{ __('Entity Types') }}</h2>
 
-        <ul>
-            @forelse ($attribute->values as $value)
-                <li>{{ $value->value }}</li>
-            @empty
-                <li>{{ __('No value found!') }}</li>
-            @endforelse
-        </ul>
-    @endif
+                <div>
+                    <ul>
+                        @foreach ($attribute->entity_types as $entity_type)
+                            <li>{{ $entity_type->label }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </section>
+        @endif
+    </amp-accordion>
 @endsection
