@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeFormRequest;
 use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
+use App\Models\EAVBoolean;
 use Illuminate\Support\Facades\Log;
 
 class AttributesController extends Controller
@@ -41,6 +42,13 @@ class AttributesController extends Controller
     public function store(StoreAttributeFormRequest $request)
     {
         $attribute = Attribute::create($request->all());
+
+        $type = $attribute->type;
+
+        if ($type::$hasDefaultValues)
+        {
+            $attribute->values()->sync($type::$hasDefaultValues);
+        }
 
         return response()->json([
             'created' => true,

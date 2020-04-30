@@ -14,6 +14,8 @@ abstract class EAVValue extends Model
 
     public $timestamps = false;
 
+    public static $hasDefaultValues = false;
+
     public function eavs()
     {
         return $this->morphMany(EAV::class, 'value');

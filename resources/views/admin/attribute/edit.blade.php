@@ -32,23 +32,29 @@
             </select>
         </fieldset>
 
+        {{-- ATTRIBUTE VALUES --}}
         <amp-accordion id="attributes" expand-single-section animate>
-            <section>
-                <h2>{{ __('Attribute Values') }}</h2>
-   
-                <div>
-                    <ul>
-                        @forelse ($attribute->values as $value)
-                            <li>{{ $value->value }}</li>
-                        @empty
-                            <li>{{ __('No attribute found') }}</li>
-                        @endforelse
-                    </ul>
-        
-                    <input type="text" name="value">
-                </div>
-            </section>
+            @if ($attribute->type::$hasDefaultValues)
+                <section>
+                    <h2>{{ __('Attribute Values') }}</h2>
+    
+                    <div>
+                        <ul>
+                            @forelse ($attribute->values as $value)
+                                <li>{{ $value->value }}</li>
+                            @empty
+                                <li>{{ __('No attribute found') }}</li>
+                            @endforelse
+                        </ul>
+            
+                        @if (!is_array($attribute->type::$hasDefaultValues))
+                            <input type="text" name="value">
+                        @endif
+                    </div>
+                </section>
+            @endif
 
+            {{-- ENTITY TYPES --}}
             @if (\App\Models\EntityType::count())
                 <section>
                     <h2>{{ __('Entity Types') }}</h2>
