@@ -24,7 +24,7 @@
 
         <fieldset>
             <label for="type">{{ __('Type') }}</label>
-            <select name="type">
+            <select name="type" disabled>
                 <option value="0">{{ __('--select--') }}</option>
                 @foreach (['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText'] as $type)
                     <option value="{{ $type }}" {{ $attribute->type == $type ? 'selected' : '' }}>{{ $type }}</option>
