@@ -45,11 +45,6 @@ class AttributesController extends Controller
 
         $type = $attribute->type;
 
-        if ($type::$hasDefaultValues)
-        {
-            $attribute->values()->sync($type::$hasDefaultValues);
-        }
-
         return response()->json([
             'created' => true,
         ])->header('AMP-Redirect-To', route('admin.attributes.edit', $attribute));
@@ -92,7 +87,7 @@ class AttributesController extends Controller
 
         if (null != $request->input('value'))
         {
-            $attribute->values()->save($attribute->type::create([
+            $a = $attribute->values()->save($attribute->type::create([
                 'value' => $request->input('value'),
             ]));
         }
