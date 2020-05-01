@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
 use App\Models\Attribute;
 use App\Models\EAV;
+use App\Models\EntityType;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 
@@ -80,29 +81,29 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductFormRequest $request, Product $product)
     {
-        Log::debug($request->input('attributes'));
+        // UPDATES PRODUCT FIELS
         $updated = $product->update($request->validated());
 
-        if ($request->input('attributes'))
-        {
-            foreach ($request->input('attributes') as $attribute_id => $value) {
-                $attribute = Attribute::find($attribute_id);
-                $value_id = $attribute->type::getValueId($product, $attribute, $value);
-                LOG::debug($attribute->label . ": " . $value_id);
+        // UPDATES PRODUCT'S ATTRIBUTES
+        foreach (EntityType::where('label', Product::class)->first()->attributes as $attribute) {
+            $value = $request->input('attributes')[$attribute->id] ?? false;
 
+            $value_id = $attribute->type::getValueId($product, $attribute, $value);
+
+            if (null != $value_id)
+            {
                 $eav = EAV::updateOrCreate([
                     'entity_id' => $product->id,
-                    'attribute_id' => $attribute_id,
+                    'attribute_id' => $attribute->id,
                 ],
                 [
                     'value_type' => $attribute->type,
                     'value_id' => $value_id,
                 ]);
-    
-                Log::debug($eav);
             }
         }
 
+        // UPDATES CATEGORIES
         $product->categories()->sync($request->input('categories'));
 
         return response()->json([

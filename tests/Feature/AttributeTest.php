@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Attribute;
 use App\Models\EAV;
-use App\Models\EAVBoolean;
 use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

@@ -15,7 +15,6 @@ class EAVBoolean extends EAVValue
 
     public static function getInputBlade($product, $attribute)
     {
-        // return "<input type=\"checkbox\" name=\"attributes[$attribute->id]\" value=\"1\" " . (optional(optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value)->value ? 'checked' : '') . ">";
         return "<input type=\"checkbox\" name=\"attributes[$attribute->id]\" " . (optional(optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value)->value ? 'checked' : '') . ">";
     }
 }

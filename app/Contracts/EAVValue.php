@@ -5,6 +5,7 @@ namespace App\Contracts;
 use App\Models\Attribute;
 use App\Models\EAV;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 abstract class EAVValue extends Model
 {
@@ -39,6 +40,20 @@ abstract class EAVValue extends Model
 
     public static function getValueId($product, $attribute, $value)
     {
+        if (null == $value)
+        {
+            $eav = $product->eavs()->where('attribute_id', $attribute->id)->first();
+
+            if (self::$hasDefaultValues)
+            {
+                optional(optional($eav)->value)->delete();
+            }
+
+            optional($eav)->delete();
+
+            return null;
+        }
+
         if (count($attribute->values) > 0) return $value;
 
         return self::updateOrCreate(

@@ -15,7 +15,7 @@ class EAVString extends EAVValue
         // return "<input type=\"text\" name=\"attributes[$attribute->id]\">";
 
         $select = "<select name=\"attributes[" . $attribute->id . "]\">";
-        $select .= "<option>------</option>";
+        $select .= "<option value=\"\">------</option>";
 
         foreach ($attribute->values as $id => $value) {
             $select .= "<option value=\"" . $value->id . "\" " . (optional(optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value)->id == $value->id ? 'selected' : '') . ">" . $value->value . "</option>";
