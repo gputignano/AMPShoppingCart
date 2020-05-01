@@ -16,7 +16,7 @@ class CreateEAVBooleansTable extends Migration
         Schema::create('eav_booleans', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->boolean('value')->unique();
+            $table->boolean('value');
         });
     }
 

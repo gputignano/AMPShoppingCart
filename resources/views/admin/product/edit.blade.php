@@ -46,12 +46,7 @@
                                 <li>
                                     <label for="">{{ $attribute->label }}</label>
 
-                                    <select name="attributes[{{ $attribute->id }}]">
-                                        <option value="">{{ __('------') }}</option>
-                                        @foreach ($attribute->values as $value)
-                                            <option value="{{ $value->id }}" {{ optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value_id == $value->id ? 'selected' : '' }}>{{ $value->value }}</option>
-                                        @endforeach
-                                    </select>
+                                    {!! $attribute->type::getInputBlade($product, $attribute) !!}
                                 </li>
                             @endforeach
                         @else

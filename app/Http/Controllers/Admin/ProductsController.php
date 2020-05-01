@@ -81,22 +81,25 @@ class ProductsController extends Controller
     public function update(UpdateProductFormRequest $request, Product $product)
     {
         Log::debug($request->input('attributes'));
-
         $updated = $product->update($request->validated());
 
         if ($request->input('attributes'))
         {
-            foreach ($request->input('attributes') as $attribute => $value) {
-                $attr = Attribute::find($attribute);
-    
-                EAV::updateOrCreate([
+            foreach ($request->input('attributes') as $attribute_id => $value) {
+                $attribute = Attribute::find($attribute_id);
+                $value_id = $attribute->type::getValueId($product, $attribute, $value);
+                LOG::debug($attribute->label . ": " . $value_id);
+
+                $eav = EAV::updateOrCreate([
                     'entity_id' => $product->id,
-                    'attribute_id' => $attr->id,
+                    'attribute_id' => $attribute_id,
                 ],
                 [
-                    'value_type' => $attr->type,
-                    'value_id' => $value,
+                    'value_type' => $attribute->type,
+                    'value_id' => $value_id,
                 ]);
+    
+                Log::debug($eav);
             }
         }
 

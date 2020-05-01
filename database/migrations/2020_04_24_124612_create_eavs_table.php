@@ -18,7 +18,7 @@ class CreateEavsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('entity_id');
             $table->unsignedBigInteger('attribute_id');
-            $table->morphs('value');
+            $table->nullableMorphs('value');
 
             $table->foreign('entity_id')->references('id')->on('entities')->onDelete('cascade');
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');

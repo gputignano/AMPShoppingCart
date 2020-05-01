@@ -25,10 +25,10 @@ class UpdateAttributeFormRequest extends FormRequest
     {
         return [
             'label' => 'required|unique:attributes,label,' . $this->attribute->id,
-            'type' => [
-                'required',
-                Rule::in(['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText']),
-            ],
+            // 'type' => [
+            //     'required',
+            //     Rule::in(['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText']),
+            // ],
         ];
     }
 }

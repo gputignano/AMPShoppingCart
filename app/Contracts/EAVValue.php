@@ -26,6 +26,8 @@ abstract class EAVValue extends Model
         return $this->morphToMany(Attribute::class, 'value', 'attribute_value' );
     }
 
+    abstract static function getInputBlade($product, $attribute);
+
     protected static function booted()
     {
         parent::booted();
@@ -33,5 +35,15 @@ abstract class EAVValue extends Model
         static::deleting(function ($value) {
             $value->eavs()->delete();
         });
+    }
+
+    public static function getValueId($product, $attribute, $value)
+    {
+        if (count($attribute->values) > 0) return $value;
+
+        return self::updateOrCreate(
+            ['id' => optional(optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value)->id,],
+            ['value' => $value,],
+        )->id;
     }
 }

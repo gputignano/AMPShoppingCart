@@ -33,7 +33,7 @@ class EAVTest extends TestCase
 
         $this->attribute = factory(Attribute::class)->create();
 
-        $this->value = ($this->attribute->type == 'App\Models\EAVBoolean') ? EAVBoolean::all()->random() : factory($this->attribute->type)->create();
+        $this->value = factory($this->attribute->type)->create();
     }
 
     /** @test */

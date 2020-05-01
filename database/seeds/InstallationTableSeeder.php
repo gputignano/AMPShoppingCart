@@ -12,8 +12,8 @@ class InstallationTableSeeder extends Seeder
     public function run()
     {
         // SEEDS BOOLEAN VALUES
-        factory(App\Models\EAVBoolean::class)->create(['value' => false]);
-        factory(App\Models\EAVBoolean::class)->create(['value' => true]);
+        // factory(App\Models\EAVBoolean::class)->create(['value' => false]);
+        // factory(App\Models\EAVBoolean::class)->create(['value' => true]);
 
         // SEEDS ENTITY TYPES
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Category::class,]);
