@@ -13,6 +13,14 @@
 
     <p><a href="{{ route('admin.pages.edit', $page) }}">{{ __('Edit') }}</a></p>
 
+    @if ($page->has('children'))
+        <ul>
+            @foreach ($page->children as $children)
+                <li><a href="{{ route('admin.pages.show', $children) }}">{{ $children->name }}</a></li>
+            @endforeach
+        </ul>
+    @endif
+
     <form action-xhr="{{ route('admin.pages.destroy', $page) }}" method="post">
         @csrf
         @method('delete')

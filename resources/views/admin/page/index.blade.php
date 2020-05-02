@@ -17,7 +17,7 @@
         @forelse ($pages as $page)
             <tr>
                 <td>{{ $page->id }}</td>
-                <td><a href="{{ route('admin.pages.edit', $page) }}">{{ $page->name }}</a></td>
+                <td><a href="{{ route('admin.pages.show', $page) }}">{{ $page->name }}</a></td>
                 <td>{{ $page->parent->name ?? 'none' }}</td>
             </tr>
         @empty
