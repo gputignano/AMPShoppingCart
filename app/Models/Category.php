@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Contracts\AbstractEntity;
-use Illuminate\Database\Eloquent\Builder;
 
 class Category extends AbstractEntity
 {
@@ -16,18 +15,8 @@ class Category extends AbstractEntity
     {
         parent::booted();
 
-        static::creating(function ($entity) {
-            $entity->forceFill([
-                'type' => self::class,
-            ]);
-        });
-
         static::deleting(function ($entity) {
             $entity->products()->detach();
-        });
-
-        static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', self::class);
         });
     }
 }
