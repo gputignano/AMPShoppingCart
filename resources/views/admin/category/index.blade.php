@@ -10,7 +10,7 @@
     <ul>
         @forelse ($categories as $category)
             <li>
-                <a href="{{ route('admin.categories.edit', $category) }}">{{ $category->name }}</a>
+                <a href="{{ route('admin.categories.show', $category) }}">{{ $category->name }}</a>
             </li>
         @empty
             <li>{{ __('No Category found!') }}</li>

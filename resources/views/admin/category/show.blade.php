@@ -18,8 +18,8 @@
     @endif
 
     <ul>
-        @forelse ($category->children as $category)
-            <li><a href="{{ route('admin.categories.show', $category) }}">{{ $category->name }}</a></li>
+        @forelse ($category->children as $children)
+            <li><a href="{{ route('admin.categories.show', $children) }}">{{ $children->name }}</a></li>
         @empty
             <li>{{ __('No category found') }}</li>
         @endforelse

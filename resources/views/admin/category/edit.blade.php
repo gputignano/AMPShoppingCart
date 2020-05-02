@@ -12,9 +12,20 @@
 @section('content')
     <h1>{{ __('Edit ') . $category->name }}</h1>
 
+    @if (isset($category->parent))
+        <div>
+            {{ _('Parent Categoory:') }} <a href="{{ route('admin.categories.show', $category->parent) }}">{{ $category->parent->name }}</a>
+        </div>
+    @endif
+
     <form method="post" action-xhr="{{ route('admin.categories.update', $category) }}">
         @csrf
         @method('patch')
+
+        <fieldset>
+            <label for="name">{{ __('Name') }}</label>
+            <input type="text" name="name" value="{{ $category->name }}">
+        </fieldset>
 
         <fieldset>
             <label for="parent_id">{{ __('Parent ID') }}</label>
@@ -28,13 +39,9 @@
             </select>
         </fieldset>
 
-        <fieldset>
-            <label for="name">{{ __('Name') }}</label>
-            <input type="text" name="name" value="{{ $category->name }}">
-        </fieldset>
-
         @if (App\Models\Product::count())
             <div>
+                <h2>{{ __('Related Products') }}</h2>
                 <ul>
                     @foreach (App\Models\Product::all() as $product)
                         <li><input type="checkbox" name="products[]" value="{{ $product->id }}" {{ $product->categories->contains($category->id) ? 'checked' : ''}}> {{ $product->name }}</li>
