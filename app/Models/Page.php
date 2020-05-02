@@ -13,7 +13,7 @@ class Page extends AbstractEntity
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => Page::class,
+                'type' => self::class,
             ]);
         });
 
@@ -21,7 +21,7 @@ class Page extends AbstractEntity
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', Page::class);
+            $builder->where('type', self::class);
         });
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Attribute;
 use App\Models\EAV;
 use App\Models\EntityType;
 use App\Models\Rewrite;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractEntity extends Model
@@ -41,5 +42,23 @@ abstract class AbstractEntity extends Model
     public function rewrite()
     {
         return $this->hasOne(Rewrite::class, 'entity_id');
+    }
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::creating(function ($entity) {
+            $entity->forceFill([
+                'type' => static::class,
+            ]);
+        });
+
+        static::deleting(function ($entity) {
+        });
+
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where('type', static::class);
+        });
     }
 }

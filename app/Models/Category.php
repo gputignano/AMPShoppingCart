@@ -18,7 +18,7 @@ class Category extends AbstractEntity
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => Category::class,
+                'type' => self::class,
             ]);
         });
 
@@ -27,7 +27,7 @@ class Category extends AbstractEntity
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', Category::class);
+            $builder->where('type', self::class);
         });
     }
 }

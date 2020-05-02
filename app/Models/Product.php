@@ -12,18 +12,13 @@ class Product extends AbstractEntity
         return $this->belongsToMany(Category::class);
     }
 
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
     protected static function booted()
     {
         parent::booted();
 
         static::creating(function ($entity) {
             $entity->forceFill([
-                'type' => Product::class,
+                'type' => self::class,
             ]);
         });
 
@@ -32,7 +27,7 @@ class Product extends AbstractEntity
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', Product::class);
+            $builder->where('type', self::class);
         });
     }
 }
