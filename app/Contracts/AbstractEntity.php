@@ -54,9 +54,6 @@ abstract class AbstractEntity extends Model
             ]);
         });
 
-        static::deleting(function ($entity) {
-        });
-
         static::addGlobalScope('type', function (Builder $builder) {
             $builder->where('type', static::class);
         });
