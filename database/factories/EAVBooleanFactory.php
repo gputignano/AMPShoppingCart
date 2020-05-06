@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(EAVBoolean::class, function (Faker $faker) {
     return [
-        'value' => $faker->boolean(100),
+        'value' => 1,
     ];
 });

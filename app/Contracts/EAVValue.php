@@ -17,9 +17,9 @@ abstract class EAVValue extends Model
 
     public static $hasDefaultValues = false;
 
-    public function eavs()
+    public function eav()
     {
-        return $this->morphMany(EAV::class, 'value');
+        return $this->morphOne(EAV::class, 'value');
     }
 
     public function attributes()
@@ -32,7 +32,7 @@ abstract class EAVValue extends Model
         parent::booted();
 
         static::deleting(function ($value) {
-            $value->eavs()->delete();
+            $value->eav()->delete();
         });
     }
 

@@ -149,9 +149,9 @@ class EAVStringTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_string_is_deleted_eavs_relation_is_updated()
+    public function when_an_eav_string_is_deleted_eav_relation_is_updated()
     {
-        $eav = $this->eavString->eavs()->save(factory(EAV::class)->make());
+        $eav = $this->eavString->eav()->save(factory(EAV::class)->make());
 
         $this->eavString->delete();
 
@@ -165,12 +165,14 @@ class EAVStringTest extends TestCase
      */
 
     /** @test */
-    public function eav_string_has_eavs_relation()
+    public function eav_string_has_eav_relation()
     {
-        // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavString->eavs);
+        $this->eavString->eav()->save(factory(EAV::class)->make());
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavString->eavs());
+        // One to One Polymorphic
+        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavString->eav);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavString->eav());
     }
 
     /** @test */

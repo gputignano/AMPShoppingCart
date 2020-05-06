@@ -149,9 +149,9 @@ class EAVDecimalTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_decimal_is_deleted_eavs_relation_is_updated()
+    public function when_an_eav_decimal_is_deleted_eav_relation_is_updated()
     {
-        $eav = $this->eavDecimal->eavs()->save(factory(EAV::class)->make());
+        $eav = $this->eavDecimal->eav()->save(factory(EAV::class)->make());
 
         $this->eavDecimal->delete();
 
@@ -165,12 +165,14 @@ class EAVDecimalTest extends TestCase
      */
 
     /** @test */
-    public function eav_decimal_has_eavs_relation()
+    public function eav_decimal_has_eav_relation()
     {
-        // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavDecimal->eavs);
+        $this->eavDecimal->eav()->save(factory(EAV::class)->make());
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavDecimal->eavs());
+        // One to One Polymorphic
+        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavDecimal->eav);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavDecimal->eav());
     }
 
     /** @test */

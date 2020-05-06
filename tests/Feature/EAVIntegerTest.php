@@ -149,9 +149,9 @@ class EAVIntegerTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_integer_is_deleted_eavs_relation_is_updated()
+    public function when_an_eav_integer_is_deleted_eav_relation_is_updated()
     {
-        $eav = $this->eavInteger->eavs()->save(factory(EAV::class)->make());
+        $eav = $this->eavInteger->eav()->save(factory(EAV::class)->make());
 
         $this->eavInteger->delete();
 
@@ -165,12 +165,14 @@ class EAVIntegerTest extends TestCase
      */
 
     /** @test */
-    public function eav_integer_has_eavs_relation()
+    public function eav_integer_has_eav_relation()
     {
-        // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->eavInteger->eavs);
+        $this->eavInteger->eav()->save(factory(EAV::class)->make());
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $this->eavInteger->eavs());
+        // One to One Polymorphic
+        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavInteger->eav);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavInteger->eav());
     }
 
     /** @test */

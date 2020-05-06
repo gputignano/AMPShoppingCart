@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\EAV;
 use App\Models\EAVBoolean;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,8 +19,9 @@ class EAVBooleanTest extends TestCase
     {
         parent::setUp();
 
-        factory(EAVBoolean::class)->create(['value' => false]);
-        factory(EAVBoolean::class)->create(['value' => true]);
+        $this->seed('InstallationTableSeeder');
+
+        $this->eavBoolean = factory(EAVBoolean::class)->create();
     }
 
     /**
@@ -27,12 +29,14 @@ class EAVBooleanTest extends TestCase
      */
 
     /** @test */
-    public function eav_boolean_has_eavs_relation()
+    public function eav_boolean_has_eav_relation()
     {
-        // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, EAVBoolean::all()->random()->eavs);
+        $this->eavBoolean->eav()->save(factory(EAV::class)->make());
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, EAVBoolean::all()->random()->eavs());
+        // One to One Polymorphic
+        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavBoolean->eav);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavBoolean->eav());
     }
 
     /** @test */
