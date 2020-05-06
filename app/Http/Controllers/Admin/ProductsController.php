@@ -9,6 +9,7 @@ use App\Models\Attribute;
 use App\Models\EAV;
 use App\Models\EntityType;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProductsController extends Controller
@@ -43,7 +44,18 @@ class ProductsController extends Controller
      */
     public function store(StoreProductFormRequest $request)
     {
-        $product = Product::create($request->validated());
+        // Log::debug($request->validated());
+        DB::beginTransaction();
+
+        $product = Product::create($request->validated('name'));
+
+        $product->eavs()->create([
+            'attribute_id' => Attribute::find(1)->first()->id,
+            'value_type' => Attribute::find(1)->first()->type,
+            'value_id' => $request->product_type,
+        ]);
+
+        DB::commit();
 
         return response()->json([
             'created' => isset($product),
@@ -69,7 +81,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.product.edit', compact('product'));
+        return view('admin.product.' . $product->getValueOfAttribute('product_type') . '.edit', compact('product'));
     }
 
     /**
@@ -86,20 +98,27 @@ class ProductsController extends Controller
 
         // UPDATES PRODUCT'S ATTRIBUTES
         foreach (EntityType::where('label', Product::class)->first()->attributes as $attribute) {
-            $value = $request->input('attributes')[$attribute->id] ?? false;
 
-            $value_id = $attribute->type::getValueId($product, $attribute, $value);
+            $value = $request->input('attributes')[$attribute->id] ?? null;
 
-            if (null != $value_id)
+            if (null === $value)
             {
-                $eav = EAV::updateOrCreate([
-                    'entity_id' => $product->id,
-                    'attribute_id' => $attribute->id,
-                ],
-                [
-                    'value_type' => $attribute->type,
-                    'value_id' => $value_id,
-                ]);
+                optional($product->eavs($attribute->id)->first())->delete();
+            } else {
+                $value_type = $attribute->type;
+                $value_id = $attribute->type::getValueId($product, $attribute, $value);
+    
+                if (null != $value_id)
+                {
+                    $eav = EAV::updateOrCreate([
+                        'entity_id' => $product->id,
+                        'attribute_id' => $attribute->id,
+                    ],
+                    [
+                        'value_type' => $value_type,
+                        'value_id' => $value_id,
+                    ]);
+                }
             }
         }
 

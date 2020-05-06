@@ -19,14 +19,26 @@
 
         <fieldset>
             <label for="label">{{ __('Label') }}</label>
-            <input type="text" name="label" id="label" value="{{ $attribute->label }}">
+            <input type="text" name="label" value="{{ $attribute->label }}">
+        </fieldset>
+
+        <fieldset disabled>
+            <label for="code">{{ __('Code') }}</label>
+            <input type="text" name="code" value="{{ $attribute->code }}">
         </fieldset>
 
         <fieldset>
             <label for="type">{{ __('Type') }}</label>
             <select name="type" disabled>
                 <option value="0">{{ __('--select--') }}</option>
-                @foreach (['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText'] as $type)
+                @foreach ([
+                    App\Models\EAVBoolean::class,
+                    App\Models\EAVDecimal::class,
+                    App\Models\EAVInteger::class,
+                    App\Models\EAVSelect::class,
+                    App\Models\EAVString::class,
+                    App\Models\EAVText::class,
+                ] as $type)
                     <option value="{{ $type }}" {{ $attribute->type == $type ? 'selected' : '' }}>{{ $type }}</option>
                 @endforeach
             </select>

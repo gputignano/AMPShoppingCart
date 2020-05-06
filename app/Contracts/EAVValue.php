@@ -40,24 +40,10 @@ abstract class EAVValue extends Model
 
     public static function getValueId($product, $attribute, $value)
     {
-        if (null == $value)
-        {
-            $eav = $product->eavs()->where('attribute_id', $attribute->id)->first();
-
-            if (self::$hasDefaultValues)
-            {
-                optional(optional($eav)->value)->delete();
-            }
-
-            optional($eav)->delete();
-
-            return null;
-        }
-
-        if (count($attribute->values) > 0) return $value;
+        if ($attribute->type::$hasDefaultValues) return $value;
 
         return self::updateOrCreate(
-            ['id' => optional(optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value)->id,],
+            ['id' => optional(optional($product->eavs($attribute->id)->first())->value)->id,],
             ['value' => $value,],
         )->id;
     }

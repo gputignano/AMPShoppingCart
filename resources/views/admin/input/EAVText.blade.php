@@ -1,0 +1,1 @@
+<textarea name="{{ $name }}[{{ $attribute->id }}]">{{ optional(optional($product->eavs($attribute->id)->first())->value)->value }}</textarea>

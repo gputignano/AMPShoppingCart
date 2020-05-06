@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('orderDetails', 'Admin\OrderDetailsController');
     Route::resource('pages', 'Admin\PagesController');
     Route::resource('products', 'Admin\ProductsController');
+    Route::resource('productVariants', 'Admin\ProductVariantsController');
     Route::resource('users', 'Admin\UsersController');
     Route::resource('rewrites', 'Admin\RewritesController');
 });

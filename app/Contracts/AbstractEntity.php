@@ -34,9 +34,12 @@ abstract class AbstractEntity extends Model
         return $this->hasMany($this, 'parent_id');
     }
 
-    public function eavs()
+    public function eavs($attribute_id = null)
     {
-        return $this->hasMany(EAV::class, 'entity_id');
+        return $this->hasMany(EAV::class, 'entity_id')
+        ->when($attribute_id, function ($query, $attribute_id) {
+            return $query->where('attribute_id', $attribute_id );
+        });
     }
 
     public function rewrite()

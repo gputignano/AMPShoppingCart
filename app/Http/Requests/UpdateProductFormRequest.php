@@ -22,10 +22,9 @@ class UpdateProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'present',
-            'name' => 'required',
+            // 'parent_id' => 'sometimes|present',
+            'name' => 'sometimes|required',
             'categories' => 'sometimes|required|array',
-            // 'attributes.*' => 'present||required'
         ];
     }
 }

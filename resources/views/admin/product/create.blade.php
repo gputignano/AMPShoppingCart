@@ -15,7 +15,7 @@
     <form method="post" action-xhr="{{ route('admin.products.store') }}">
         @csrf
 
-        <fieldset>
+        {{-- <fieldset>
             <label for="parent_id">{{ __('Parend ID') }}</label>
 
             <select name="parent_id">
@@ -25,11 +25,21 @@
                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
             </select>
-        </fieldset>
+        </fieldset> --}}
 
         <fieldset>
             <label for="name">{{ __('Name') }}</label>
             <input type="text" name="name">
+        </fieldset>
+
+        <fieldset>
+            <label for="product_type">{{ __('Product Type') }}</label>
+
+            <select name="product_type">
+                @foreach (App\Models\Attribute::find(1)->values as $value)
+                    <option value="{{ $value->id }}">{{ $value->value }}</option>
+                @endforeach
+            </select>
         </fieldset>
 
         <input type="submit" value="{{ __('Create') }}">

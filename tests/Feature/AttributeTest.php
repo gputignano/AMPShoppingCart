@@ -8,6 +8,7 @@ use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class AttributeTest extends TestCase
 {
@@ -76,8 +77,10 @@ class AttributeTest extends TestCase
     /** @test */
     public function an_attribute_can_be_created()
     {
+        $this->withoutExceptionHandling();
         $response = $this->postJson(route('admin.attributes.store'), [
-            'label' => $this->faker->unique()->word,
+            'label' => $label = $this->faker->unique()->word,
+            'code' => Str::slug($label),
             'type' => $this->faker->randomElement([
                 \App\Models\EAVBoolean::class,
                 \App\Models\EAVDecimal::class,

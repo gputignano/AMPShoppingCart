@@ -22,8 +22,9 @@ class StoreProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'present',
+            // 'parent_id' => 'present',
             'name' => 'required',
+            'product_type' => 'required',
         ];
     }
 }

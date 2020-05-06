@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class EAV extends Model
 {
@@ -27,5 +28,16 @@ class EAV extends Model
     public function value()
     {
         return $this->morphTo();
+    }
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::deleting(function ($eav) {
+            if ($eav->attribute->type::$hasDefaultValues) return;
+
+            $eav->value->delete();
+        });
     }
 }

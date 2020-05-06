@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attribute extends Model
 {
     protected $fillable = [
-        'label', 'type',
+        'label', 'code', 'type',
     ];
 
     public $timestamps = false;
@@ -26,4 +26,11 @@ class Attribute extends Model
     {
         return $this->morphedByMany($this->type, 'value', 'attribute_value');
     }
+
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope('is_system', function (Builder $builder) {
+    //         $builder->where('is_system', false);
+    //     });
+    // }
 }

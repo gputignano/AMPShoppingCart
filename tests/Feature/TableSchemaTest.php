@@ -35,7 +35,9 @@ class TableSchemaTest extends TestCase
             Schema::hasColumns('attributes', $fields = [
                 'id',
                 'label',
+                'code',
                 'type',
+                'is_system',
             ])
         );
 

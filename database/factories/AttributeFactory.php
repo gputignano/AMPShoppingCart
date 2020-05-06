@@ -4,10 +4,12 @@
 
 use App\Models\Attribute;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(Attribute::class, function (Faker $faker) {
     return [
-        'label' => $faker->unique()->word,
+        'label' => $label = $faker->unique()->word,
+        'code' => Str::snake($label),
         'type' => $faker->randomElement([
             \App\Models\EAVBoolean::class,
             \App\Models\EAVDecimal::class,

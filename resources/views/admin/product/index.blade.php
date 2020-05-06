@@ -11,14 +11,14 @@
         <thead>
             <th>{{ __('ID') }}</th>
             <th>{{ __('Name') }}</th>
-            <th>{{ __('Parent') }}</th>
+            <th>{{ __('Type') }}</th>
         </thead>
 
         @forelse ($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
                 <td><a href="{{ route('admin.products.edit', $product) }}">{{ $product->name }}</a></td>
-                <td>{{ $product->parent->name ?? 'none' }}</td>
+                <td>{{ $product->getValueOfAttribute('product_type') }}</td>
             </tr>
         @empty
             <tr>
@@ -27,4 +27,3 @@
         @endforelse
     </table>
 @endsection
-

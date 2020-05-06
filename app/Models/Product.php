@@ -6,6 +6,13 @@ use App\Contracts\AbstractEntity;
 
 class Product extends AbstractEntity
 {
+    public function getValueOfAttribute($id)
+    {
+        if (is_string($id)) $id = Attribute::where('code', $id)->first()->id ?? null;
+
+        return $this->eavs($id)->first()->value->value ?? null;
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);

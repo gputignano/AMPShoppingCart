@@ -27,7 +27,14 @@ class StoreAttributeFormRequest extends FormRequest
             'label' => 'required|unique:attributes',
             'type' => [
                 'required',
-                Rule::in(['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText']),
+                Rule::in([
+                    \App\Models\EAVBoolean::class,
+                    \App\Models\EAVDecimal::class,
+                    \App\Models\EAVInteger::class,
+                    \App\Models\EAVSelect::class,
+                    \App\Models\EAVString::class,
+                    \App\Models\EAVText::class,
+                ]),
             ],
         ];
     }

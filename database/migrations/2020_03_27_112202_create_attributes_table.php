@@ -17,7 +17,9 @@ class CreateAttributesTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('label')->unique();
+            $table->string('code')->unique();
             $table->string('type');
+            $table->boolean('is_system')->default(false);
         });
     }
 
