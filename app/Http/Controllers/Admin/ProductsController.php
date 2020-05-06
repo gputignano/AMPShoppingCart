@@ -94,7 +94,7 @@ class ProductsController extends Controller
             function (Builder $query) {
                 $query->where('value', 'configurable');
             }
-        )->pluck('id');
+        )->pluck('entity_id');
 
         return view('admin.product.' . $product->getValueOfAttribute('product_type') . '.edit', compact('product', 'eavs'));
     }
