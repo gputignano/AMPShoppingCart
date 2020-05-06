@@ -69,7 +69,7 @@
                                 <li>
                                     <label for="">{{ $attribute->label }}</label>
 
-                                    {!! $attribute->type::getInputBlade($product, $attribute) !!}
+                                    @include('admin.input.' . class_basename($attribute->type), ['name' => 'attributes','product' => $product, 'attribute' => $attribute])
                                 </li>
                             @endforeach
                         @else
@@ -122,23 +122,16 @@
                                 </ul>
                             </li>
                         @empty
-                            <li>{{ __('No product variants available') }}</li>
+                            <li>{!! __('No product variant found! <a href="' . route('admin.products.create') . '">Create a new one</a>') !!}</li>
                         @endforelse
                     </ul>
                 </div>
 
                 <div>
-                    <form action-xhr="{{ route('admin.productVariants.store') }}" method="post">
+                    <form action-xhr="{{ route('admin.products.update', $product) }}" method="post">
                         @csrf
 
-                        <input type="hidden" name="parent_id" value="{{ $product->id }}">
-
-                        @foreach ($product->attributes as $attribute)
-                            <fieldset>
-                                <label for="">{{ $attribute->label }}</label>
-                                {!! $attribute->type::getInputBlade($product, $attribute) !!}
-                            </fieldset>
-                        @endforeach
+                        {{-- TO DO --}}
 
                         <input type="submit" value="{{ __('Add') }}">
 

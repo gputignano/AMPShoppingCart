@@ -29,7 +29,6 @@ class InstallationTableSeeder extends Seeder
         $attribute->values()->saveMany([
             $attribute->type::create(['value' => 'simple']),
             $attribute->type::create(['value' => 'configurable']),
-            $attribute->type::create(['value' => 'variant']),
         ]);
     }
 }

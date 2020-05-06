@@ -27,17 +27,17 @@
                             <input type="text" name="name" value="{{ $product->name }}">
                         </fieldset>
 
-                        {{-- <fieldset>
+                        <fieldset>
                             <label for="parent_id">{{ __('Parent ID') }}</label>
                 
                             <select name="parent_id">
                                 <option value="">{{ __('------') }}</option>
                 
-                                @foreach (App\Models\Product::where('id', '!=', $product->id)->doesntHave('parent')->get() as $parent)
+                                @foreach (App\Models\Product::whereIn('id', $eavs)->get() as $parent)
                                     <option value="{{ $parent->id }}" {{ $product->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                                 @endforeach
                             </select>
-                        </fieldset> --}}
+                        </fieldset>
                 
                         <input type="submit" value="{{ __('Update') }}">
                 
@@ -81,8 +81,6 @@
                                     <li>
                                         <label for="">{{ $attribute->label }}</label>
     
-                                        {{-- {!! $attribute->type::getInputBlade($product, $attribute) !!} --}}
-
                                         @include('admin.input.' . class_basename($attribute->type), ['name' => 'attributes','product' => $product, 'attribute' => $attribute])
                                     </li>
                                 @endforeach
