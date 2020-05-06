@@ -111,15 +111,16 @@
             <div>
                 <div>
                     <ul>
-                        @forelse ($product->children as $children)
+                        @forelse ($product->children as $variant)
                             <li>
-                                {{ $children->name }}
+                                <a href="{{ route('admin.products.edit', $variant) }}">
+                                    {{ $variant->parent->name }}
 
-                                <ul>
-                                    @foreach ($children->eavs as $eav)
-                                        <li>{{ $eav->attribute->label }}: {{ $eav->value->value }}</li>
+                                    @foreach ($variant->eavs()->has('attribute')->get() as $eav)
+                                        {{-- {{ optional($eav->attribute)->label }}: --}}
+                                        {{ $eav->value->value }}
                                     @endforeach
-                                </ul>
+                                </a>
                             </li>
                         @empty
                             <li>{!! __('No product variant found! <a href="' . route('admin.products.create') . '">Create a new one</a>') !!}</li>

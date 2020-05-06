@@ -7,11 +7,7 @@ use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
 use App\Models\Attribute;
 use App\Models\EAV;
-use App\Models\EAVBoolean;
-use App\Models\EAVDecimal;
-use App\Models\EAVInteger;
 use App\Models\EAVString;
-use App\Models\EAVText;
 use App\Models\EntityType;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
@@ -88,13 +84,15 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         // RETURNS EAVS THAT HAVE CONFIGURABLE VALUE
-        $eavs = EAV::whereHasMorph(
+        $eavs = EAV::
+            whereHasMorph(
             'value',
             [EAVString::class,],
             function (Builder $query) {
                 $query->where('value', 'configurable');
             }
-        )->pluck('entity_id');
+        )->
+        pluck('entity_id');
 
         return view('admin.product.' . $product->getValueOfAttribute('product_type') . '.edit', compact('product', 'eavs'));
     }

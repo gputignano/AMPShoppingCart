@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
@@ -27,10 +28,10 @@ class Attribute extends Model
         return $this->morphedByMany($this->type, 'value', 'attribute_value');
     }
 
-    // protected static function booted()
-    // {
-    //     static::addGlobalScope('is_system', function (Builder $builder) {
-    //         $builder->where('is_system', false);
-    //     });
-    // }
+    protected static function booted()
+    {
+        static::addGlobalScope('is_system', function (Builder $builder) {
+            $builder->where('is_system', false);
+        });
+    }
 }
