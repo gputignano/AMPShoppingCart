@@ -12,9 +12,4 @@ class EAVBoolean extends EAVValue
     {
         $this->attributes['value'] = 1;
     }
-
-    public static function getInputBlade($product, $attribute)
-    {
-        return "<input type=\"checkbox\" name=\"attributes[$attribute->id]\" " . (optional(optional($product->eavs()->where('attribute_id', $attribute->id)->first())->value)->value ? 'checked' : '') . ">";
-    }
 }

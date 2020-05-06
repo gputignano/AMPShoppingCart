@@ -27,8 +27,6 @@ abstract class EAVValue extends Model
         return $this->morphToMany(Attribute::class, 'value', 'attribute_value' );
     }
 
-    abstract static function getInputBlade($product, $attribute);
-
     protected static function booted()
     {
         parent::booted();
