@@ -177,7 +177,7 @@
         <header>
             <div class="flex h6">
                 <button id="sidebar-open-btn" on="tap:sidebar.toggle">&#9776;</button>
-                <h1 class="m0 ml1">{{ __('La Compagnia del Cavatappi') }}</h1>
+                <h1 class="m0 ml1">{{ config('app.name') }}</h1>
             </div>
             <amp-mega-menu id="mega-menu" height="30" layout="fixed-height">
                 <nav>
