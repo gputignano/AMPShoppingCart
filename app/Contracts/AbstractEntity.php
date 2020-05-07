@@ -21,7 +21,7 @@ abstract class AbstractEntity extends Model
 
     public function attributes()
     {
-        return EntityType::where('label', get_class($this))->first()->belongsToMany(Attribute::class);
+        return $this->belongsToMany(Attribute::class, 'eavs', 'entity_id', 'attribute_id');
     }
 
     public function parent()
