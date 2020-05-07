@@ -114,13 +114,19 @@
                         @forelse ($product->children as $variant)
                             <li>
                                 <a href="{{ route('admin.products.edit', $variant) }}">
-                                    {{ $variant->parent->name }}
-
-                                    @foreach ($variant->eavs()->has('attribute')->get() as $eav)
-                                        {{-- {{ optional($eav->attribute)->label }}: --}}
-                                        {{ $eav->value->value }}
-                                    @endforeach
+                                    {{ $variant->name }}
                                 </a>
+
+                                <ul>
+                                    {{-- THE QUERY RETURNS EAVS WHICH ATTRIBUTES ARE DEFINED IN PARENT CONFIGURABLE PRODUCT --}}
+                                    @foreach (App\Models\EAV::whereHas('attribute', function ($query) use ($product) {
+                                        $query->whereIn('id', json_decode(App\Models\EAVString::whereHas('eav', function ($query) use ($product) {
+                                            $query->where('attribute_id', 2)->where('entity_id', $product->id);
+                                        })->first()->value));
+                                    })->get() as $eav)
+                                        <li>{{ $eav->attribute->label }}: {{ $eav->value->value }}</li>
+                                    @endforeach
+                                </ul>
                             </li>
                         @empty
                             <li>{!! __('No product variant found! <a href="' . route('admin.products.create') . '">Create a new one</a>') !!}</li>
