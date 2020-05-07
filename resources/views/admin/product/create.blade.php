@@ -24,7 +24,7 @@
             <label for="product_type">{{ __('Product Type') }}</label>
 
             <select name="product_type">
-                @foreach (App\Models\Attribute::find(1)->values as $value)
+                @foreach (App\Models\Attribute::withoutGlobalScope('is_system')->find(1)->values as $value)
                     <option value="{{ $value->id }}">{{ $value->value }}</option>
                 @endforeach
             </select>
