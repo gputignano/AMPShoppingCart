@@ -15,18 +15,6 @@
     <form method="post" action-xhr="{{ route('admin.products.store') }}">
         @csrf
 
-        {{-- <fieldset>
-            <label for="parent_id">{{ __('Parend ID') }}</label>
-
-            <select name="parent_id">
-                <option value="">{{ __('------') }}</option>
-
-                @foreach (\App\Models\Product::doesntHave('parent')->get() as $product)
-                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                @endforeach
-            </select>
-        </fieldset> --}}
-
         <fieldset>
             <label for="name">{{ __('Name') }}</label>
             <input type="text" name="name">
