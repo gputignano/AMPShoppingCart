@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Contracts\AbstractEntity;
-
-class Product extends AbstractEntity
+class Product extends Entity
 {
     public function getValueOfAttribute($id)
     {

@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Contracts\AbstractEntity;
-
-class Category extends AbstractEntity
+class Category extends Entity
 {
     public function products()
     {
