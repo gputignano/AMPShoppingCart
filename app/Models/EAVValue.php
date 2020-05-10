@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Models;
 
-use App\Models\Attribute;
-use App\Models\EAV;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
-abstract class EAVValue extends Model
+class EAVValue extends Model
 {
     protected $fillable = [
         'value',
