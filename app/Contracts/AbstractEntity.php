@@ -21,22 +21,43 @@ abstract class AbstractEntity extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany(Attribute::class, 'eavs', 'entity_id', 'attribute_id');
+        return $this->belongsToMany(
+            Attribute::class,
+            'eavs',
+            'entity_id',
+            'attribute_id',
+            'id',
+            'id',
+            'attributes,'
+        );
     }
 
     public function parent()
     {
-        return $this->belongsTo($this, 'parent_id');
+        return $this->belongsTo(
+            $this,
+            'parent_id',
+            'id',
+            'parent',
+        );
     }
 
     public function children()
     {
-        return $this->hasMany($this, 'parent_id');
+        return $this->hasMany(
+            $this,
+            'parent_id',
+            'id',
+        );
     }
 
     public function eavs($attribute_id = null)
     {
-        return $this->hasMany(EAV::class, 'entity_id')
+        return $this->hasMany(
+            EAV::class,
+            'entity_id',
+            'id',
+        )
         ->when($attribute_id, function ($query, $attribute_id) {
             return $query->where('attribute_id', $attribute_id );
         });
@@ -44,7 +65,11 @@ abstract class AbstractEntity extends Model
 
     public function rewrite()
     {
-        return $this->hasOne(Rewrite::class, 'entity_id');
+        return $this->hasOne(
+            Rewrite::class,
+            'entity_id',
+            'id',
+        );
     }
 
     protected static function booted()

@@ -15,16 +15,36 @@ class Attribute extends Model
 
     public function eavs()
     {
-        return $this->hasMany(EAV::class);
+        return $this->hasMany(
+            EAV::class,
+            'attribute_id',
+            'id',
+        );
     }
 
     public function entity_types()
     {
-        return $this->belongsToMany(EntityType::class);
+        return $this->belongsToMany(
+            EntityType::class,
+            'attribute_entity_type',
+            'attribute_id',
+            'entity_type_id',
+            'id',
+            'id',
+            'entity_types',
+        );
     }
 
     public function values()
     {
-        return $this->morphedByMany($this->type, 'value', 'attribute_value');
+        return $this->morphedByMany(
+            $this->type,
+            'value',
+            'attribute_value',
+            'attribute_id',
+            'value_id',
+            'id',
+            'id',
+        );
     }
 }

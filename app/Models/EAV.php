@@ -16,17 +16,32 @@ class EAV extends Model
 
     public function entity()
     {
-        return $this->belongsTo(Entity::class);
+        return $this->belongsTo(
+            Entity::class,
+            'entity_id',
+            'id',
+            'entity',
+        );
     }
 
     public function attribute()
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->belongsTo(
+            Attribute::class,
+            'attribute_id',
+            'id',
+            'attribute',
+        );
     }
 
     public function value()
     {
-        return $this->morphTo();
+        return $this->morphTo(
+            'value',
+            'value_type',
+            'value_id',
+            'id',
+        );
     }
 
     protected static function booted()

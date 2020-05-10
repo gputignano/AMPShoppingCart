@@ -19,12 +19,27 @@ abstract class EAVValue extends Model
 
     public function eav()
     {
-        return $this->morphOne(EAV::class, 'value');
+        return $this->morphOne(
+            EAV::class,
+            'value',
+            'value_type',
+            'value_id',
+            'id',
+        );
     }
 
     public function attributes()
     {
-        return $this->morphToMany(Attribute::class, 'value', 'attribute_value' );
+        return $this->morphToMany(
+            Attribute::class,
+            'value',
+            'attribute_value',
+            'value_id',
+            'value_id',
+            'id',
+            'id',
+            null,
+        );
     }
 
     protected static function booted()
