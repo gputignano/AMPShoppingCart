@@ -22,8 +22,9 @@ class UpdateProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'sometimes|present',
             'name' => 'sometimes|required',
+            'parent_id' => 'sometimes|present',
+            'attributes' => 'sometimes|required|array',
             'categories' => 'sometimes|required|array',
         ];
     }

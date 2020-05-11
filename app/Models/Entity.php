@@ -25,7 +25,10 @@ class Entity extends Model
             'id',
             'id',
             'attributes,'
-        );
+        )->withPivot([
+            'value_type',
+            'value_id',
+        ]);
     }
 
     public function parent()

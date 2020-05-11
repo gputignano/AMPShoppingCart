@@ -48,7 +48,7 @@ class EAVValue extends Model
         });
     }
 
-    public static function getValueId($product, $attribute, $value)
+    public static function findOrCreate($product, $attribute, $value)
     {
         if ($attribute->type::$hasDefaultValues) return $value;
 
