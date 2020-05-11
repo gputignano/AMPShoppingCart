@@ -52,14 +52,14 @@ class ProductsController extends Controller
         $product = Product::create($request->validated('name'));
 
         $product->eavs()->create([
-            'attribute_id' => Attribute::withoutGlobalScope('is_system')->find(1)->id,
-            'value_type' => Attribute::withoutGlobalScope('is_system')->find(1)->type,
+            'attribute_id' => Attribute::find(1)->id,
+            'value_type' => Attribute::find(1)->type,
             'value_id' => $request->product_type,
         ]);
 
         $product->eavs()->create([
-            'attribute_id' => Attribute::withoutGlobalScope('is_system')->find(2)->id,
-            'value_type' => Attribute::withoutGlobalScope('is_system')->find(2)->type,
+            'attribute_id' => Attribute::find(2)->id,
+            'value_type' => Attribute::find(2)->type,
             'value_id' => EAVString::create([
                 'value' => json_encode($request->input('attribute_variants')),
             ])->id,
