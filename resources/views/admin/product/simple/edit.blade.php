@@ -76,7 +76,7 @@
                         @method('patch')
 
                         <ul>
-                            @if ($product->attributes->count())
+                            @if ($product->attributes->where('is_system', false)->count())
                                 @foreach ($product->attributes as $attribute)
                                     <li>
                                         <label for="">{{ $attribute->label }}</label>
