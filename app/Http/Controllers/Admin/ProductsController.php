@@ -146,7 +146,7 @@ class ProductsController extends Controller
         }
 
         // UPDATES CATEGORIES
-        // $product->categories()->sync($request->input('categories'));
+        $product->categories()->sync($request->input('categories'));
 
         return response()->json([
             'updated' => $updated,

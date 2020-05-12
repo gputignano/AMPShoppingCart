@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
@@ -12,6 +11,22 @@ class Attribute extends Model
     ];
 
     public $timestamps = false;
+
+    public function products()
+    {
+        return $this->belongsToMany(
+            Product::class,
+            'eavs',
+            'attribute_id',
+            'entity_id',
+            'id',
+            'id',
+            'products',
+        )->withPivot([
+            'value_type',
+            'value_id',
+        ])->using(EAV::class);
+    }
 
     public function eavs()
     {

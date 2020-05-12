@@ -28,7 +28,7 @@ class Entity extends Model
         )->withPivot([
             'value_type',
             'value_id',
-        ]);
+        ])->using(EAV::class);
     }
 
     public function parent()
