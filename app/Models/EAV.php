@@ -18,7 +18,7 @@ class EAV extends Pivot
     public function entity()
     {
         return $this->belongsTo(
-            Entity::class,
+            BaseEntity::class,
             'entity_id',
             'id',
             'entity',

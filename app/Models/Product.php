@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Product extends Entity
+class Product extends BaseEntity
 {
     public function getValueOfAttribute($id)
     {

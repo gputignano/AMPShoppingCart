@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Entity;
-
 class StoreRewriteFormRequest extends FormRequest
 {
     /**

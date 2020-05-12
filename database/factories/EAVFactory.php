@@ -3,13 +3,12 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Attribute;
+use App\Models\BaseEntity;
 use App\Models\EAV;
-use App\Models\EAVBoolean;
-use App\Models\Entity;
 use Faker\Generator as Faker;
 
 $factory->define(EAV::class, function (Faker $faker) {
-    $entity = factory(Entity::class)->create();
+    $entity = factory(BaseEntity::class)->create();
 
     $attribute = factory(Attribute::class)->create();
 

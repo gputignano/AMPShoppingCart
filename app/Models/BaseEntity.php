@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Entity extends Model
+class BaseEntity extends Model
 {
     public $table = 'entities';
 

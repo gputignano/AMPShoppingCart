@@ -48,7 +48,7 @@
         <fieldset>
             <label for="entity_id">{{ __('Entity') }}</label>
             <select name="entity_id">
-                @foreach (App\Models\Entity::all() as $entity)
+                @foreach (App\Models\BaseEntity::all() as $entity)
                     <option value="{{ $entity->id }}">{{ $entity->name }}</option>
                 @endforeach
             </select>
