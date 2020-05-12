@@ -111,12 +111,19 @@
             <div>
                 <div>
                     <ul>
-                        @forelse ($product->children as $children)
+                        @forelse ($product->children as $variant)
                             <li>
-                                {{ $children->name }}
+                                <a href="{{ route('admin.products.edit', $variant) }}">
+                                    {{ $variant->name }}
+                                </a>
 
                                 <ul>
-                                    @foreach ($children->eavs as $eav)
+                                    {{-- THE QUERY RETURNS EAVS WHICH ATTRIBUTES ARE DEFINED IN PARENT CONFIGURABLE PRODUCT --}}
+                                    @foreach (App\Models\EAV::whereHas('attribute', function ($query) use ($product) {
+                                        $query->whereIn('id', json_decode(App\Models\EAVString::whereHas('eav', function ($query) use ($product) {
+                                            $query->where('attribute_id', 2)->where('entity_id', $product->id);
+                                        })->first()->value));
+                                    })->get() as $eav)
                                         <li>{{ $eav->attribute->label }}: {{ $eav->value->value }}</li>
                                     @endforeach
                                 </ul>

@@ -10,11 +10,11 @@
     <table>
         <thead>
             <th>{{ __('ID') }}</th>
-            <td>{{ __('User ID') }}</td>
-            <td>{{ __('User') }}</td>
+            <th>{{ __('User ID') }}</th>
+            <th>{{ __('Email') }}</th>
             <th>{{ __('Created At') }}</th>
             <th>{{ __('Updated At') }}</th>
-            <td>{{ __('Action') }}</td>
+            <th>{{ __('Action') }}</th>
         </thead>
 
         @forelse ($orders as $order)

@@ -15,18 +15,6 @@
     <form method="post" action-xhr="{{ route('admin.products.store') }}">
         @csrf
 
-        {{-- <fieldset>
-            <label for="parent_id">{{ __('Parend ID') }}</label>
-
-            <select name="parent_id">
-                <option value="">{{ __('------') }}</option>
-
-                @foreach (\App\Models\Product::doesntHave('parent')->get() as $product)
-                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                @endforeach
-            </select>
-        </fieldset> --}}
-
         <fieldset>
             <label for="name">{{ __('Name') }}</label>
             <input type="text" name="name">
@@ -40,6 +28,19 @@
                     <option value="{{ $value->id }}">{{ $value->value }}</option>
                 @endforeach
             </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ __('Select Attribute Variants') }}</legend>
+
+            <ul>
+                {{-- Gets attribute from Product EntityType where is_system is false --}}
+                @foreach (App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute)
+                    <label for="attribute_variants[{{ $attribute->id }}]">
+                        <li><input type="checkbox" name="attribute_variants[]" value="{{ $attribute->id }}"> {{ $attribute->label }}</li>
+                    </label>
+                @endforeach
+            </ul>
         </fieldset>
 
         <input type="submit" value="{{ __('Create') }}">

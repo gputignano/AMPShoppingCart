@@ -36,54 +36,6 @@ class EAVTest extends TestCase
         $this->value = factory($this->attribute->type)->create();
     }
 
-    /** @test */
-    public function an_eav_can_be_created()
-    {
-        $response = $this->postJson(route('admin.eavs.store'), [
-            'entity_id' => $this->entity->id,
-            'attribute_id' => $this->attribute->id,
-            'value_type' => get_class($this->value),
-            'value_id' => $this->value->id,
-        ]);
-
-        $response->assertStatus(200);
-
-        $response->assertJson([
-            'created' => true,
-        ]);
-    }
-
-    /** @test */
-    public function an_eav_can_be_updated()
-    {
-        $response = $this->patchJson(route('admin.eavs.update', $this->eav), [
-            'entity_id' => $this->entity->id,
-            'attribute_id' => $this->attribute->id,
-            'value_type' => get_class($this->value),
-            'value_id' => $this->value->id,
-        ]);
-
-        $response->assertStatus(200);
-
-        $response->assertJson([
-            'updated' => true,
-        ]);
-    }
-
-    /** @test */
-    public function an_eav_can_be_deleted()
-    {
-        $response = $this->deleteJson(route('admin.eavs.destroy', $this->eav), [
-            //
-        ]);
-
-        $response->assertStatus(200);
-
-        $response->assertJson([
-            'deleted' => true,
-        ]);
-    }
-
     /**
      * RELATIONS
      */

@@ -201,7 +201,6 @@ class TableSchemaTest extends TestCase
     {
         $this->assertTrue(
             Schema::hasColumns('eavs', $fields = [
-                'id',
                 'entity_id',
                 'attribute_id',
                 'value_type',

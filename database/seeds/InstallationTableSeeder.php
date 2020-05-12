@@ -17,12 +17,25 @@ class InstallationTableSeeder extends Seeder
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Page::class,]);
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Product::class,]);
 
-        // SEEDS SYSTEM ATTRIBUTES
-        $attribute = factory(App\Models\Attribute::class)->create([
+        // SEEDS PRODUCT_TYPE ATTRIBUTES
+        $product_type = $attribute = factory(App\Models\Attribute::class)->create([
             'label' => $label = 'Product Type',
+            'code' => Str::snake($label),
+            'type' => App\Models\EAVSelect::class,
+            'is_system' => true,
+        ]);
+
+        // SEEDS ATTRIBUTE_VARIANT ATTRIBUTES
+        $variant_attribute = $attribute_variant = factory(App\Models\Attribute::class)->create([
+            'label' => $label = 'Attribute Variant',
             'code' => Str::snake($label),
             'type' => App\Models\EAVString::class,
             'is_system' => true,
+        ]);
+
+        App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->sync([
+            $product_type->id,
+            $variant_attribute->id,
         ]);
 
         // SEEDS PRODUCT TYPE ATTRIBUTES

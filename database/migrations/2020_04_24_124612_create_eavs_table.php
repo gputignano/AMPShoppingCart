@@ -15,7 +15,6 @@ class CreateEavsTable extends Migration
     {
         Schema::create('eavs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id();
             $table->unsignedBigInteger('entity_id');
             $table->unsignedBigInteger('attribute_id');
             $table->nullableMorphs('value');

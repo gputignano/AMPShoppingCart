@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Contracts\AbstractEntity;
-
-class Product extends AbstractEntity
+class Product extends Entity
 {
     public function getValueOfAttribute($id)
     {
@@ -15,7 +13,15 @@ class Product extends AbstractEntity
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(
+            Category::class,
+            'category_product',
+            'product_id',
+            'category_id',
+            'id',
+            'id',
+            'categories',
+        );
     }
 
     protected static function booted()

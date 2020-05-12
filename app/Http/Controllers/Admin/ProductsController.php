@@ -7,11 +7,7 @@ use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
 use App\Models\Attribute;
 use App\Models\EAV;
-use App\Models\EAVBoolean;
-use App\Models\EAVDecimal;
-use App\Models\EAVInteger;
 use App\Models\EAVString;
-use App\Models\EAVText;
 use App\Models\EntityType;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,16 +46,30 @@ class ProductsController extends Controller
      */
     public function store(StoreProductFormRequest $request)
     {
-        // Log::debug($request->validated());
         DB::beginTransaction();
 
         $product = Product::create($request->validated('name'));
 
-        $product->eavs()->create([
-            'attribute_id' => Attribute::find(1)->first()->id,
-            'value_type' => Attribute::find(1)->first()->type,
-            'value_id' => $request->product_type,
+        // Set related product_type attribute
+        $product->attributes()->attach([
+            1 => [
+                'value_type' => Attribute::find(1)->type,
+                'value_id' => $request->product_type,
+            ],
         ]);
+
+        // If present set attribute_variant attribute
+        if (null != $request->input('attribute_variants'))
+        {
+            $product->attributes()->attach([
+                2 => [
+                    'value_type' => Attribute::find(2)->type,
+                    'value_id' => EAVString::create([
+                        'value' => json_encode($request->input('attribute_variants')),
+                    ])->id,
+                ],
+            ]);
+        }
 
         DB::commit();
 
@@ -88,13 +98,15 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         // RETURNS EAVS THAT HAVE CONFIGURABLE VALUE
-        $eavs = EAV::whereHasMorph(
+        $eavs = EAV::
+            whereHasMorph(
             'value',
             [EAVString::class,],
             function (Builder $query) {
                 $query->where('value', 'configurable');
             }
-        )->pluck('entity_id');
+        )->
+        pluck('entity_id');
 
         return view('admin.product.' . $product->getValueOfAttribute('product_type') . '.edit', compact('product', 'eavs'));
     }
@@ -112,28 +124,24 @@ class ProductsController extends Controller
         $updated = $product->update($request->validated());
 
         // UPDATES PRODUCT'S ATTRIBUTES
-        foreach (EntityType::where('label', Product::class)->first()->attributes as $attribute) {
+        foreach (EntityType::where('label', Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute) {
 
             $value = $request->input('attributes')[$attribute->id] ?? null;
 
             if (null === $value)
             {
-                optional($product->eavs($attribute->id)->first())->delete();
+                $product->attributes()->detach($attribute->id);
+
+                // TO DO EAV* value field is not deleted
             } else {
-                $value_type = $attribute->type;
-                $value_id = $attribute->type::getValueId($product, $attribute, $value);
-    
-                if (null != $value_id)
-                {
-                    $eav = EAV::updateOrCreate([
-                        'entity_id' => $product->id,
-                        'attribute_id' => $attribute->id,
-                    ],
-                    [
-                        'value_type' => $value_type,
+                $value_id = $attribute->type::findOrCreate($product, $attribute, $value);
+
+                $product->attributes()->syncWithoutDetaching([
+                    $attribute->id => [
+                        'value_type' => $attribute->type,
                         'value_id' => $value_id,
-                    ]);
-                }
+                    ],
+                ]);
             }
         }
 

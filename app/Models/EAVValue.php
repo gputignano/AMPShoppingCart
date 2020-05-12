@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Models;
 
-use App\Models\Attribute;
-use App\Models\EAV;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
-abstract class EAVValue extends Model
+class EAVValue extends Model
 {
     protected $fillable = [
         'value',
@@ -19,12 +16,27 @@ abstract class EAVValue extends Model
 
     public function eav()
     {
-        return $this->morphOne(EAV::class, 'value');
+        return $this->morphOne(
+            EAV::class,
+            'value',
+            'value_type',
+            'value_id',
+            'id',
+        );
     }
 
     public function attributes()
     {
-        return $this->morphToMany(Attribute::class, 'value', 'attribute_value' );
+        return $this->morphToMany(
+            Attribute::class,
+            'value',
+            'attribute_value',
+            'value_id',
+            'value_id',
+            'id',
+            'id',
+            null,
+        );
     }
 
     protected static function booted()
@@ -36,7 +48,7 @@ abstract class EAVValue extends Model
         });
     }
 
-    public static function getValueId($product, $attribute, $value)
+    public static function findOrCreate($product, $attribute, $value)
     {
         if ($attribute->type::$hasDefaultValues) return $value;
 

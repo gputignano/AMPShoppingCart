@@ -12,6 +12,7 @@
             <th>{{ __('ID') }}</th>
             <th>{{ __('Label') }}</th>
             <th>{{ __('Type') }}</th>
+            <th>{{ __('System') }}</th>
         </thead>
 
         @forelse ($attributes as $attribute)
@@ -19,6 +20,7 @@
                 <td>{{ $attribute->id }}</td>
                 <td><a href="{{ route('admin.attributes.edit', $attribute) }}">{{ $attribute->label }}</a></td>
                 <td>{{ $attribute->type }}</td>
+                <td>{{ $attribute->is_system ? 'true' : 'false' }}</td>
             </tr>
         @empty
             <tr>
