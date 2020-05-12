@@ -50,10 +50,6 @@ class EAV extends Pivot
         parent::booted();
 
         static::deleting(function ($eav) {
-            Log::debug('Deleting: ' . $eav);
-        });
-
-        static::deleting(function ($eav) {
             if ($eav->attribute->type::$hasDefaultValues) return;
 
             // TO DO: Removing values related to EAV
