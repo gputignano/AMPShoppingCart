@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ $product->id }}</td>
                 <td><a href="{{ route('admin.products.edit', $product) }}">{{ $product->name }}</a></td>
-                <td>{{ $product->getValueOfAttribute('product_type') }}</td>
+                <td>{{ $product->product_type }}</td>
             </tr>
         @empty
             <tr>

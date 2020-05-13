@@ -4,13 +4,6 @@ namespace App\Models;
 
 class Product extends BaseEntity
 {
-    public function getValueOfAttribute($id)
-    {
-        if (is_string($id)) $id = Attribute::where('code', $id)->first()->id ?? null;
-
-        return $this->eavs($id)->first()->value->value ?? null;
-    }
-
     public function categories()
     {
         return $this->belongsToMany(

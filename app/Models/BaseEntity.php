@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class BaseEntity extends Model
 {
@@ -14,14 +15,6 @@ class BaseEntity extends Model
     ];
 
     public $timestamps = false;
-
-    public function __get($code)
-    {
-        return $this->eavs()->whereHas(
-            'attribute',
-            fn ($query) => $query->where('code', $code)
-        )->first()->value->value;
-    }
 
     public function attributes()
     {
@@ -82,6 +75,12 @@ class BaseEntity extends Model
     protected static function booted()
     {
         parent::booted();
+
+        static::retrieved(function ($entity) {
+            foreach ($entity->attributes()->get() as $attribute) {
+                $entity->attributes[$attribute->code] = $attribute->pivot->value->value;
+            }
+        });
 
         static::creating(function ($entity) {
             $entity->forceFill([
