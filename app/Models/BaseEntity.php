@@ -15,6 +15,14 @@ class BaseEntity extends Model
 
     public $timestamps = false;
 
+    public function __get($code)
+    {
+        return $this->eavs()->whereHas(
+            'attribute',
+            fn ($query) => $query->where('code', $code)
+        )->first()->value->value;
+    }
+
     public function attributes()
     {
         return $this->belongsToMany(
