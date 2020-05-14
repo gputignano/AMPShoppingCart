@@ -16,6 +16,11 @@ class BaseEntity extends Model
 
     public $timestamps = false;
 
+    public function __get($key)
+    {
+        return $this->getAttribute($key) ?? optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->eav)->value)->value;
+    }
+
     public function attributes()
     {
         return $this->belongsToMany(
@@ -76,22 +81,10 @@ class BaseEntity extends Model
     {
         parent::booted();
 
-        static::retrieved(function ($entity) {
-            foreach ($entity->attributes()->get() as $attribute) {
-                $entity->attributes[$attribute->code] = $attribute->eav->value->value;
-            }
-        });
-
         static::creating(function ($entity) {
             $entity->forceFill([
                 'type' => static::class,
             ]);
-        });
-
-        static::saving(function ($entity) {
-            foreach ($entity->attributes()->get() as $attribute) {
-                unset($entity->attributes[$attribute->code]);
-            }
         });
 
         static::addGlobalScope('type', function (Builder $builder) {

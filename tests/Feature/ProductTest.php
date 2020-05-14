@@ -38,6 +38,7 @@ class ProductTest extends TestCase
     /** @test */
     public function a_user_can_view_product_index()
     {
+        $this->product->attributes()->attach(1, ['value_type' => EAVSelect::class, 'value_id' => 1]);
         $response = $this->get(route('admin.products.index'));
 
         $response->assertStatus(200);

@@ -22,9 +22,7 @@ class PageTest extends TestCase
 
         $this->seed('InstallationTableSeeder');
 
-        $this->page = factory(Page::class)->create([
-            'parent_id' => factory(Page::class)->create(),
-        ]);
+        $this->page = factory(Page::class)->create();
 
         $this->page->rewrite()->save(factory(Rewrite::class)->make());
     }
@@ -201,6 +199,7 @@ class PageTest extends TestCase
     public function page_has_parent_relation()
     {
         // Many to One
+        $this->page->parent_id = factory(Page::class)->create()->id;
         $this->assertInstanceOf(Page::class, $this->page->parent);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->page->parent());
