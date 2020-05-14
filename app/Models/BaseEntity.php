@@ -26,7 +26,7 @@ class BaseEntity extends Model
             'id',
             'id',
             'attributes,'
-        )->withPivot([
+        )->as('eav')->withPivot([
             'value_type',
             'value_id',
         ])->using(EAV::class);
@@ -78,7 +78,7 @@ class BaseEntity extends Model
 
         static::retrieved(function ($entity) {
             foreach ($entity->attributes()->get() as $attribute) {
-                $entity->attributes[$attribute->code] = $attribute->pivot->value->value;
+                $entity->attributes[$attribute->code] = $attribute->eav->value->value;
             }
         });
 

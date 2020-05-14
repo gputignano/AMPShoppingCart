@@ -244,7 +244,7 @@ class ProductTest extends TestCase
         }
 
         foreach ($this->product->refresh()->attributes as $attribute) {
-            $this->assertEquals($attribute->pivot->value->value, $this->product->{$attribute->code});
+            $this->assertEquals($attribute->eav->value->value, $this->product->{$attribute->code});
         }
     }
     

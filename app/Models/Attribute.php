@@ -22,7 +22,7 @@ class Attribute extends Model
             'id',
             'id',
             'products',
-        )->withPivot([
+        )->as('eav')->withPivot([
             'value_type',
             'value_id',
         ])->using(EAV::class);
