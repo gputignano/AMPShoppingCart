@@ -6,7 +6,11 @@ use App\Models\Attribute;
 use App\Models\EAVString;
 use App\Models\Category;
 use App\Models\EAV;
+use App\Models\EAVBoolean;
+use App\Models\EAVDecimal;
+use App\Models\EAVInteger;
 use App\Models\EAVSelect;
+use App\Models\EAVText;
 use App\Models\Product;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -227,6 +231,23 @@ class ProductTest extends TestCase
         $this->assertDeleted($rewrite);
     }
 
+    /** @test */
+    public function a_product_has_dynamic_attributes()
+    {
+        foreach ([EAVBoolean::class, EAVDecimal::class, EAVInteger::class, EAVString::class, EAVText::class] as $valueType) {
+            $this->product->attributes()->attach([
+                factory(Attribute::class)->create(['type' => $valueType])->id => [
+                    'value_type' => $valueType,
+                    'value_id' => factory($valueType)->create()->id,
+                ],
+            ]);
+        }
+
+        foreach ($this->product->refresh()->attributes as $attribute) {
+            $this->assertEquals($attribute->pivot->value->value, $this->product->{$attribute->code});
+        }
+    }
+    
     /**
      * RELATIONS
      */
