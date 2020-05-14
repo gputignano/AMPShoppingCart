@@ -11,6 +11,7 @@ use App\Models\EAVString;
 use App\Models\EntityType;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -123,40 +124,47 @@ class ProductsController extends Controller
         // UPDATES PRODUCT FIELS
         $updated = $product->update($request->validated());
 
-        // UPDATES PRODUCT'S ATTRIBUTES
-        if ($request->input('attributes'))
-        {
-            Log::debug($product);
-            foreach (EntityType::where('label', Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute) {
+        return response()->json([
+            'updated' => $updated,
+        ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
+    }
 
-                $value = $request->input('attributes')[$attribute->id] ?? null;
-    
-                if (null === $value)
-                {
-                    $product->attributes()->detach($attribute->id);
-    
-                    // TO DO EAV* value field is not deleted
-                } else {
-                    $value_id = $attribute->type::findOrCreate($product, $attribute, $value);
-    
-                    $product->attributes()->syncWithoutDetaching([
-                        $attribute->id => [
-                            'value_type' => $attribute->type,
-                            'value_id' => $value_id,
-                        ],
-                    ]);
-                }
+    public function updateAttributes(Request $request, Product $product)
+    {
+        // UPDATES PRODUCT'S ATTRIBUTES
+        foreach (EntityType::where('label', Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute) {
+
+            $value = $request->input('attributes')[$attribute->id] ?? null;
+
+            if (null === $value)
+            {
+                $product->attributes()->detach($attribute->id);
+
+                // TO DO EAV* value field is not deleted
+            } else {
+                $value_id = $attribute->type::findOrCreate($product, $attribute, $value);
+
+                $product->attributes()->syncWithoutDetaching([
+                    $attribute->id => [
+                        'value_type' => $attribute->type,
+                        'value_id' => $value_id,
+                    ],
+                ]);
             }
         }
 
+        return response()->json([
+            'updated' => 'OK',
+        ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
+    }
+
+    public function updateCategories(Request $request, Product $product)
+    {
         // UPDATES CATEGORIES
-        if ($request->input('categories'))
-        {
-            $product->categories()->sync($request->input('categories'));
-        }
+        $product->categories()->sync($request->input('categories'));
 
         return response()->json([
-            'updated' => $updated,
+            'updated' => 'OK',
         ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
     }
 

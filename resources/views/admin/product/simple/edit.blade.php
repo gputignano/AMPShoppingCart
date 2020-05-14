@@ -71,7 +71,7 @@
                 <h2>{{ __('Attributes') }}</h2>
 
                 <div>
-                    <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+                    <form method="post" action-xhr="{{ route('admin.products.update.attributes', $product) }}">
                         @csrf
                         @method('patch')
 
@@ -121,7 +121,7 @@
                 <h2>{{ __('Categories') }}</h2>
 
                 <div>
-                    <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+                    <form method="post" action-xhr="{{ route('admin.products.update.categories', $product) }}">
                         @csrf
                         @method('patch')
 
