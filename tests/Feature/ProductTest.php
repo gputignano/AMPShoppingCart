@@ -2,8 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attribute;
+use App\Models\EAVString;
 use App\Models\Category;
 use App\Models\EAV;
+use App\Models\EAVSelect;
 use App\Models\Product;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,75 +26,90 @@ class ProductTest extends TestCase
 
         $this->seed('InstallationTableSeeder');
 
-        $this->product = factory(Product::class)->create([
-            'parent_id' => factory(Product::class)->create(),
-        ]);
+        $this->product = factory(Product::class)->create();
 
         $this->product->rewrite()->save(factory(Rewrite::class)->make());
     }
 
     /** @test */
-    // public function a_user_can_view_product_index()
-    // {
-    //     $response = $this->get(route('admin.products.index'));
+    public function a_user_can_view_product_index()
+    {
+        $response = $this->get(route('admin.products.index'));
 
-    //     $response->assertStatus(200);
+        $response->assertStatus(200);
 
-    //     $response->assertViewIs('admin.product.index');
+        $response->assertViewIs('admin.product.index');
 
-    //     $response->assertSee('<h1>All Products</h1>', false);
-    // }
-
-    /** @test */
-    // public function a_user_can_view_product_create()
-    // {
-    //     $response = $this->get(route('admin.products.create'));
-
-    //     $response->assertStatus(200);
-
-    //     $response->assertViewIs('admin.product.create');
-
-    //     $response->assertSee('<h1>Create Product</h1>', false);
-    // }
+        $response->assertSee('<h1>All Products</h1>', false);
+    }
 
     /** @test */
-    // public function a_user_can_view_product_show()
-    // {
-    //     $response = $this->get(route('admin.products.show', $this->product));
+    public function a_user_can_view_product_create()
+    {
+        $response = $this->get(route('admin.products.create'));
 
-    //     $response->assertStatus(200);
+        $response->assertStatus(200);
 
-    //     $response->assertViewIs('admin.product.show');
+        $response->assertViewIs('admin.product.create');
 
-    //     $response->assertSee('<h1>' . e($this->product->name) . '</h1>', false);
-    // }
-
-    /** @test */
-    // public function a_user_can_view_product_edit()
-    // {
-    //     $response = $this->get(route('admin.products.edit', $this->product));
-
-    //     $response->assertStatus(200);
-
-    //     $response->assertViewIs('admin.product.edit');
-
-    //     $response->assertSee('<h1>Edit ' . e($this->product->name) . '</h1>', false);
-    // }
+        $response->assertSee('<h1>Create Product</h1>', false);
+    }
 
     /** @test */
-    // public function a_product_can_be_created()
-    // {
-    //     $response = $this->postJson(route('admin.products.store'), [
-    //         'parent_id' => '',
-    //         'name' => $this->faker->sentence,
-    //     ]);
+    public function a_user_can_view_product_show()
+    {
+        $response = $this->get(route('admin.products.show', $this->product));
 
-    //     $response->assertStatus(200);
+        $response->assertStatus(200);
 
-    //     $response->assertJson([
-    //         'created' => true,
-    //     ]);
-    // }
+        $response->assertViewIs('admin.product.show');
+
+        $response->assertSee('<h1>' . e($this->product->name) . '</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_product_simple_edit()
+    {
+        $this->product->attributes()->attach(1, ['value_type' => EAVSelect::class, 'value_id' => 1]);
+
+        $response = $this->get(route('admin.products.edit', $this->product));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.product.simple.edit');
+
+        $response->assertSee('<h1>Edit ' . e($this->product->name) . '</h1>', false);
+    }
+
+    /** @test */
+    public function a_user_can_view_product_configurable_edit()
+    {
+        $this->product->attributes()->attach(1, ['value_type' => EAVSelect::class, 'value_id' => 2]);
+
+        $response = $this->get(route('admin.products.edit', $this->product));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('admin.product.configurable.edit');
+
+        $response->assertSee('<h1>Edit ' . e($this->product->name) . '</h1>', false);
+    }
+
+    /** @test */
+    public function a_product_can_be_created()
+    {
+        $response = $this->postJson(route('admin.products.store'), [
+            'parent_id' => '',
+            'name' => $this->faker->sentence,
+            'product_type' => 'simple',
+        ]);
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'created' => true,
+        ]);
+    }
 
     /** @test */
     public function name_is_required_when_creating_a_new_product()
@@ -128,22 +146,22 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    // public function name_is_required_when_updating_a_new_product()
-    // {
-    //     $response = $this->patchJson(route('admin.products.update', $this->product), [
-    //         'parent_id' => null,
-    //         // 'name' => $this->faker->sentence,
-    //     ]);
+    public function name_is_required_when_updating_a_new_product()
+    {
+        $response = $this->patchJson(route('admin.products.update', $this->product), [
+            'parent_id' => null,
+            // 'name' => $this->faker->sentence,
+        ]);
 
-    //     $response->assertExactJson([
-    //         'errors' => [
-    //             [
-    //                 'name' => 'name',
-    //                 'message' => ['The name field is required.'],
-    //             ],
-    //         ]
-    //     ]);
-    // }
+        $response->assertExactJson([
+            'errors' => [
+                [
+                    'name' => 'name',
+                    'message' => ['The name field is required.'],
+                ],
+            ]
+        ]);
+    }
 
     /** @test */
     public function a_product_can_be_deleted()
@@ -208,7 +226,7 @@ class ProductTest extends TestCase
 
         $this->assertDeleted($rewrite);
     }
-    
+
     /**
      * RELATIONS
      */
@@ -217,6 +235,7 @@ class ProductTest extends TestCase
     public function product_has_parent_relation()
     {
         // Many to One
+        $this->product->parent_id = factory(Product::class)->create()->id;
         $this->assertInstanceOf(Product::class, $this->product->parent);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->product->parent());

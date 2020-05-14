@@ -108,7 +108,7 @@ class ProductsController extends Controller
         )->
         pluck('entity_id');
 
-        return view('admin.product.' . $product->getValueOfAttribute('product_type') . '.edit', compact('product', 'eavs'));
+        return view('admin.product.' . $product->product_type . '.edit', compact('product', 'eavs'));
     }
 
     /**
