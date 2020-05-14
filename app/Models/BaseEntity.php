@@ -88,6 +88,12 @@ class BaseEntity extends Model
             ]);
         });
 
+        static::saving(function ($entity) {
+            foreach ($entity->attributes()->get() as $attribute) {
+                unset($entity->attributes[$attribute->code]);
+            }
+        });
+
         static::addGlobalScope('type', function (Builder $builder) {
             $builder->where('type', static::class);
         });
