@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Attribute extends Model
 {
@@ -11,6 +12,12 @@ class Attribute extends Model
     ];
 
     public $timestamps = false;
+
+    public function setLabelAttribute($label)
+    {
+        $this->attributes['label'] = $label;
+        $this->attributes['code'] = Str::slug($label);
+    }
 
     public function products()
     {
