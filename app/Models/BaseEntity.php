@@ -24,7 +24,12 @@ class BaseEntity extends Model
     public function __set($key, $value)
     {
         // SKIP IF $KEY IS ALREADY A MODEL ATTRIBUTE OR RELATIONSHIP
-        if ($this->getAttribute($key)) return;
+        if ($this->getAttribute($key))
+        {
+            parent::__set($key, $value);
+
+            return;
+        }
 
         $attribute = Attribute::where('code', $key)->first();
 
