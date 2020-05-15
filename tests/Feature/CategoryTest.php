@@ -23,9 +23,7 @@ class CategoryTest extends TestCase
 
         $this->seed('InstallationTableSeeder');
 
-        $this->category = factory(Category::class)->create([
-            'parent_id' => factory(Category::class)->create(),
-        ]);
+        $this->category = factory(Category::class)->create();
 
         $this->category->rewrite()->save(factory(Rewrite::class)->make());
     }
@@ -214,7 +212,8 @@ class CategoryTest extends TestCase
     public function category_has_parent_relation()
     {
         // Many to One
-        $this->assertInstanceOf(Category::class, $this->category->parent);
+        $category = factory(Category::class)->create(['parent_id' => $this->category->id]);
+        $this->assertInstanceOf(Category::class, $category->parent);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->category->parent());
     }

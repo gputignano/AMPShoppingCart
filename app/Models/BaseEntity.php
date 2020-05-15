@@ -21,6 +21,59 @@ class BaseEntity extends Model
         return $this->getAttribute($key) ?? optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->eav)->value)->value;
     }
 
+    public function __set($key, $value)
+    {
+        // SKIP IF $KEY IS ALREADY A MODEL ATTRIBUTE OR RELATIONSHIP
+        if ($this->getAttribute($key)) return;
+
+        $attribute = Attribute::where('code', $key)->first();
+
+        // SKIP IF ATTRIBUTE DOES NOT EXISTS
+        if (null == $attribute) return;
+
+        // NOW ATTRIBUTE EXISTS
+
+        // VALUE IS NULL
+        if (null === $value)
+        {
+            if (null !== $this->{$key})
+            {
+                // IF EAV* HAS NOT DEFAULT VALUES I NEED TO REMOVE THE VALUE
+                if (! $attribute->type::$hasDefaultValues)
+                {
+                    $this->attributes()->where('code', $key)->first()->eav->value->delete();
+                }
+
+                $this->attributes()->detach($attribute->id);
+            }
+        } else {
+            if ($this->attributes()->where('code', $key)->count())
+            { // UPDATE
+                 if ($attribute->type::$hasDefaultValues)
+                {
+                    if ($attribute->type::find($value)) $this->attributes()->where('code', $key)->first()->eav->update(['value_id' => $value]);
+                } else {
+                    $this->attributes()->where('code', $key)->first()->eav->value->update(['value' => $value]);
+                }
+            } else { // CREATE
+                if ($attribute->type::$hasDefaultValues)
+                {
+                    $this->attributes()->attach($attribute->id, [
+                        'value_type' => $attribute->type,
+                        'value_id' => $value,
+                    ]);
+                } else {
+                    $new_value = $attribute->type::create(['value' => $value]);
+
+                    $this->attributes()->attach($attribute->id, [
+                        'value_type' => $attribute->type,
+                        'value_id' => $new_value->id,
+                    ]);
+                }
+            }
+        }
+    }
+
     public function attributes()
     {
         return $this->belongsToMany(

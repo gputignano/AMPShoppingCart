@@ -258,8 +258,8 @@ class ProductTest extends TestCase
     public function product_has_parent_relation()
     {
         // Many to One
-        $this->product->parent_id = factory(Product::class)->create()->id;
-        $this->assertInstanceOf(Product::class, $this->product->parent);
+        $product = factory(Product::class)->create(['parent_id' => $this->product->id]);
+        $this->assertInstanceOf(Product::class, $product->parent);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->product->parent());
     }

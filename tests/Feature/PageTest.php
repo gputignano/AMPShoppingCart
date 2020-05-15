@@ -199,8 +199,8 @@ class PageTest extends TestCase
     public function page_has_parent_relation()
     {
         // Many to One
-        $this->page->parent_id = factory(Page::class)->create()->id;
-        $this->assertInstanceOf(Page::class, $this->page->parent);
+        $page = factory(Page::class)->create(['parent_id' => $this->page->id]);
+        $this->assertInstanceOf(Page::class, $page->parent);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->page->parent());
     }
