@@ -34,7 +34,7 @@ class BaseEntity extends Model
         $attribute = Attribute::where('code', $key)->first();
 
         // SKIP IF ATTRIBUTE DOES NOT EXISTS
-        if (null == $attribute) return;
+        if (null === $attribute) return;
 
         // NOW ATTRIBUTE EXISTS
 
