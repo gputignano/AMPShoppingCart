@@ -51,25 +51,12 @@ class ProductsController extends Controller
 
         $product = Product::create($request->validated('name'));
 
-        // Set related product_type attribute
-        $product->attributes()->attach([
-            1 => [
-                'value_type' => Attribute::find(1)->type,
-                'value_id' => $request->product_type,
-            ],
-        ]);
+        $product->product_type = $request->product_type;
 
         // If present set attribute_variant attribute
         if (null != $request->input('attribute_variants'))
         {
-            $product->attributes()->attach([
-                2 => [
-                    'value_type' => Attribute::find(2)->type,
-                    'value_id' => EAVString::create([
-                        'value' => json_encode($request->input('attribute_variants')),
-                    ])->id,
-                ],
-            ]);
+            $product->attribute_variant = json_encode($request->input('attribute_variants'));
         }
 
         DB::commit();
@@ -136,21 +123,7 @@ class ProductsController extends Controller
 
             $value = $request->input('attributes')[$attribute->id] ?? null;
 
-            if (null === $value)
-            {
-                $product->attributes()->detach($attribute->id);
-
-                // TO DO EAV* value field is not deleted
-            } else {
-                $value_id = $attribute->type::findOrCreate($product, $attribute, $value);
-
-                $product->attributes()->syncWithoutDetaching([
-                    $attribute->id => [
-                        'value_type' => $attribute->type,
-                        'value_id' => $value_id,
-                    ],
-                ]);
-            }
+            $product->{$attribute->label} = $request->input('attributes')[$attribute->id] ?? null;
         }
 
         return response()->json([
