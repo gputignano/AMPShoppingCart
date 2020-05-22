@@ -56,7 +56,10 @@ class BaseEntity extends Model
             { // UPDATE
                  if ($attribute->type::$hasDefaultValues)
                 {
-                    if ($attribute->type::find($value)) $this->attributes()->where('code', $key)->first()->eav->update(['value_id' => $value]);
+                    if ($attribute->type::find($value))
+                        $this->attributes()->updateExistingPivot($attribute->id, [
+                            'value_id' => $value,
+                        ]);
                 } else {
                     $this->attributes()->where('code', $key)->first()->eav->value->update(['value' => $value]);
                 }
