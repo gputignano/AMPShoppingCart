@@ -27,6 +27,11 @@
                         <input type="text" name="name" value="{{ $product->name }}">
                     </fieldset>
             
+                    <fieldset>
+                        <label for="description">{{ __('Description') }}</label>
+                        <textarea name="description" cols="30" rows="10">{{ $product->description }}</textarea>
+                    </fieldset>
+
                     <input type="submit" value="{{ __('Update') }}">
             
                     <div submitting>

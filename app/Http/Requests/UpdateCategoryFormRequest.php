@@ -24,6 +24,7 @@ class UpdateCategoryFormRequest extends FormRequest
         return [
             'parent_id' => 'present',
             'name' => 'required',
+            'description' => 'sometimes',
             'products' => 'sometimes|required|array',
         ];
     }

@@ -18,6 +18,7 @@ class CreateEntitiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
+            $table->text('description');
             $table->string('type')->index();
 
             $table->foreign('parent_id')->references('id')->on('entities')->onDelete('cascade');

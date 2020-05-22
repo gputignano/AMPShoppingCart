@@ -156,6 +156,7 @@ class TableSchemaTest extends TestCase
                 'id',
                 'parent_id',
                 'name',
+                'description',
                 'type',
             ])
         );

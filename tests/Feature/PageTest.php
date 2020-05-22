@@ -81,6 +81,7 @@ class PageTest extends TestCase
         $response = $this->postJson(route('admin.pages.store'), [
             'parent_id' => '',
             'name' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
         ]);
 
         $response->assertStatus(200);

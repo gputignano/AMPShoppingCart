@@ -32,6 +32,11 @@
             <input type="text" name="name">
         </fieldset>
 
+        <fieldset>
+            <label for="description">{{ __('Description') }}</label>
+            <textarea name="description" cols="30" rows="10"></textarea>
+        </fieldset>
+
         <input type="submit" value="{{ __('Create') }}">
 
         <div submitting>

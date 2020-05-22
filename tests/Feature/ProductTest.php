@@ -106,6 +106,7 @@ class ProductTest extends TestCase
         $response = $this->postJson(route('admin.products.store'), [
             'parent_id' => '',
             'name' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
             'product_type' => 'simple',
         ]);
 

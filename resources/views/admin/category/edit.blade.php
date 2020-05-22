@@ -28,6 +28,11 @@
         </fieldset>
 
         <fieldset>
+            <label for="description">{{ __('Description') }}</label>
+            <textarea name="description" cols="30" rows="10">{{ $category->description }}</textarea>
+        </fieldset>
+
+        <fieldset>
             <label for="parent_id">{{ __('Parent ID') }}</label>
 
             <select name="parent_id">

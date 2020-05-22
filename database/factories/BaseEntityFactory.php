@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(BaseEntity::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
+        'description' => $faker->paragraph,
         'type' => BaseEntity::class,
     ];
 });

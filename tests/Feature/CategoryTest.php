@@ -82,6 +82,7 @@ class CategoryTest extends TestCase
         $response = $this->postJson(route('admin.categories.store'), [
             'parent_id' => '',
             'name' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
         ]);
 
         $response->assertStatus(200);

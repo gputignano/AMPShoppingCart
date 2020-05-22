@@ -23,6 +23,7 @@ class StoreProductFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'description' => 'sometimes',
             'product_type' => 'required',
         ];
     }

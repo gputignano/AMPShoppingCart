@@ -11,7 +11,7 @@ class BaseEntity extends Model
     public $table = 'entities';
 
     protected $fillable = [
-        'parent_id', 'name', 'type',
+        'parent_id', 'name', 'description', 'type',
     ];
 
     public $timestamps = false;
