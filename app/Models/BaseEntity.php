@@ -117,18 +117,6 @@ class BaseEntity extends Model
         );
     }
 
-    public function attributables($attribute_id = null)
-    {
-        return $this->hasMany(
-            Attributable::class,
-            'attributable_id',
-            'id',
-        )
-        ->when($attribute_id, function ($query, $attribute_id) {
-            return $query->where('attribute_id', $attribute_id );
-        });
-    }
-
     public function rewrite()
     {
         return $this->hasOne(

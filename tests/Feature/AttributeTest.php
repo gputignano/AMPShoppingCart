@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Attributable;
 use App\Models\Attribute;
 use App\Models\EntityType;
+use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -239,15 +240,15 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_attributables_is_deleted()
+    public function when_an_attribute_is_deleted_attributable_is_deleted()
     {
-        $attributable = $this->attribute->attributables()->save(factory(Attributable::class)->make());
+        $this->attribute->products()->attach(factory(Product::class)->create());
 
         $this->attribute->delete();
 
         $this->assertDeleted($this->attribute);
 
-        $this->assertDeleted($attributable);
+        $this->assertCount(0, $this->attribute->products);
     }
 
     /** @test */
@@ -281,15 +282,6 @@ class AttributeTest extends TestCase
     /**
      * RELATIONS
      */
-
-    /** @test */
-    public function attribute_has_attributables_relation()
-    {
-        // One to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->attributables);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->attribute->attributables());
-    }
 
     /** @test */
     public function attribute_has_entity_types_relation()

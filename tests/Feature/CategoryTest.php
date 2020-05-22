@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Attributable;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Rewrite;
@@ -182,18 +181,6 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function when_a_category_is_deleted_attributables_is_deleted()
-    {
-        $attributable = $this->category->attributables()->save(factory(Attributable::class)->make());
-
-        $this->category->delete();
-
-        $this->assertDeleted($this->category);
-
-        $this->assertDeleted($attributable);
-    }
-
-    /** @test */
     public function when_a_category_is_deleted_rewrite_is_deleted()
     {
         $rewrite = $this->category->rewrite()->save(factory(Rewrite::class)->make());
@@ -235,15 +222,6 @@ class CategoryTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->products);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->category->products());
-    }
-
-    /** @test */
-    public function page_has_attributables_relation()
-    { 
-        // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->attributables);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->attributables());
     }
 
     /** @test */

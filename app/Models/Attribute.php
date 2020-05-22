@@ -35,15 +35,6 @@ class Attribute extends Model
         ])->using(Attributable::class);
     }
 
-    public function attributables()
-    {
-        return $this->hasMany(
-            Attributable::class,
-            'attribute_id',
-            'id',
-        );
-    }
-
     public function entity_types()
     {
         return $this->belongsToMany(

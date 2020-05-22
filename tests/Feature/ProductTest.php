@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Attributable;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\EAVBoolean;
@@ -197,18 +196,6 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function when_a_product_is_deleted_attributables_relation_is_deleted()
-    {
-        $attributable = $this->product->attributables()->save(factory(Attributable::class)->make());
-
-        $this->product->delete();
-
-        $this->assertDeleted($this->product);
-
-        $this->assertDeleted($attributable);
-    }
-
-    /** @test */
     public function when_a_product_is_deleted_categories_relation_is_detached()
     {
         $category = $this->product->categories()->save(factory(Category::class)->make());
@@ -272,15 +259,6 @@ class ProductTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->product->children);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->product->children());
-    }
-
-    /** @test */
-    public function product_has_attributables_relation()
-    { 
-        // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->product->attributables);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->product->attributables());
     }
 
     /** @test */

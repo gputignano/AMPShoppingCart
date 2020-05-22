@@ -1,1 +1,1 @@
-<textarea name="{{ $name }}[{{ $attribute->id }}]">{{ optional(optional($product->attributables($attribute->id)->first())->value)->value }}</textarea>
+<textarea name="{{ $name }}[{{ $attribute->id }}]">{{ optional(optional(optional($product->attributes()->where('id', $attribute->id)->first())->attributable)->value)->value }}</textarea>
