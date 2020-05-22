@@ -93,7 +93,7 @@ class ProductsController extends Controller
                 $query->where('value', 'configurable');
             }
         )->
-        pluck('entity_id');
+        pluck('attributable_id');
 
         return view('admin.product.' . $product->product_type . '.edit', compact('product', 'eavs'));
     }

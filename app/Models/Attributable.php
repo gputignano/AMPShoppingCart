@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class Attributable extends Pivot
 {
     protected $fillable = [
-        'entity_id', 'attribute_id', 'value_type', 'value_id',
+        'attributable_id', 'attribute_id', 'value_type', 'value_id',
     ];
 
     public $timestamps = false;
@@ -17,7 +17,7 @@ class Attributable extends Pivot
     {
         return $this->belongsTo(
             BaseEntity::class,
-            'entity_id',
+            'attributable_id',
             'id',
             'entity',
         );

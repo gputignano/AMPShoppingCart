@@ -25,7 +25,7 @@ class Attribute extends Model
             Product::class,
             'eavs',
             'attribute_id',
-            'entity_id',
+            'attributable_id',
             'id',
             'id',
             'products',

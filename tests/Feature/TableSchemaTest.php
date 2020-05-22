@@ -202,7 +202,7 @@ class TableSchemaTest extends TestCase
     {
         $this->assertTrue(
             Schema::hasColumns('attributable', $fields = [
-                'entity_id',
+                'attributable_id',
                 'attribute_id',
                 'value_type',
                 'value_id',

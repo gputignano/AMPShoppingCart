@@ -15,7 +15,7 @@ $factory->define(Attributable::class, function (Faker $faker) {
     $value = factory($attribute->type)->create();
 
     return [
-        'entity_id' => $entity->id,
+        'attributable_id' => $entity->id,
 
         'attribute_id' => $attribute,
 

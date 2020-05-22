@@ -87,7 +87,7 @@ class BaseEntity extends Model
         return $this->belongsToMany(
             Attribute::class,
             'attributable',
-            'entity_id',
+            'attributable_id',
             'attribute_id',
             'id',
             'id',
@@ -121,7 +121,7 @@ class BaseEntity extends Model
     {
         return $this->hasMany(
             Attributable::class,
-            'entity_id',
+            'attributable_id',
             'id',
         )
         ->when($attribute_id, function ($query, $attribute_id) {
