@@ -17,7 +17,7 @@ class EAVValue extends Model
     public function eav()
     {
         return $this->morphOne(
-            EAV::class,
+            Attributable::class,
             'value',
             'value_type',
             'value_id',

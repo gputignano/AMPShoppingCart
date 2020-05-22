@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\Category;
 use App\Models\EAV;
 use App\Models\Product;
@@ -184,7 +185,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function when_a_category_is_deleted_eavs_is_deleted()
     {
-        $eav = $this->category->eavs()->save(factory(EAV::class)->make());
+        $eav = $this->category->eavs()->save(factory(Attributable::class)->make());
 
         $this->category->delete();
 

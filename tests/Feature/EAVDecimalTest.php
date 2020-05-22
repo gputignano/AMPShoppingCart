@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\EAV;
 use App\Models\EAVDecimal;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -151,7 +152,7 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function when_an_eav_decimal_is_deleted_eav_relation_is_updated()
     {
-        $eav = $this->eavDecimal->eav()->save(factory(EAV::class)->make());
+        $eav = $this->eavDecimal->eav()->save(factory(Attributable::class)->make());
 
         $this->eavDecimal->delete();
 
@@ -167,10 +168,10 @@ class EAVDecimalTest extends TestCase
     /** @test */
     public function eav_decimal_has_eav_relation()
     {
-        $this->eavDecimal->eav()->save(factory(EAV::class)->make());
+        $this->eavDecimal->eav()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavDecimal->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavDecimal->eav);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavDecimal->eav());
     }

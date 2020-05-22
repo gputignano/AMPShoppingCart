@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\EAV;
+use App\Models\Attributable;
 use App\Models\EAVString;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -151,7 +151,7 @@ class EAVStringTest extends TestCase
     /** @test */
     public function when_an_eav_string_is_deleted_eav_relation_is_updated()
     {
-        $eav = $this->eavString->eav()->save(factory(EAV::class)->make());
+        $eav = $this->eavString->eav()->save(factory(Attributable::class)->make());
 
         $this->eavString->delete();
 
@@ -167,10 +167,10 @@ class EAVStringTest extends TestCase
     /** @test */
     public function eav_string_has_eav_relation()
     {
-        $this->eavString->eav()->save(factory(EAV::class)->make());
+        $this->eavString->eav()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavString->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavString->eav);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavString->eav());
     }

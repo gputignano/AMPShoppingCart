@@ -32,13 +32,13 @@ class Attribute extends Model
         )->as('eav')->withPivot([
             'value_type',
             'value_id',
-        ])->using(EAV::class);
+        ])->using(Attributable::class);
     }
 
     public function eavs()
     {
         return $this->hasMany(
-            EAV::class,
+            Attributable::class,
             'attribute_id',
             'id',
         );

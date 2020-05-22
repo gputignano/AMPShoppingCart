@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\EAV;
 use App\Models\EAVInteger;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -151,7 +152,7 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function when_an_eav_integer_is_deleted_eav_relation_is_updated()
     {
-        $eav = $this->eavInteger->eav()->save(factory(EAV::class)->make());
+        $eav = $this->eavInteger->eav()->save(factory(Attributable::class)->make());
 
         $this->eavInteger->delete();
 
@@ -167,10 +168,10 @@ class EAVIntegerTest extends TestCase
     /** @test */
     public function eav_integer_has_eav_relation()
     {
-        $this->eavInteger->eav()->save(factory(EAV::class)->make());
+        $this->eavInteger->eav()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavInteger->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavInteger->eav);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavInteger->eav());
     }

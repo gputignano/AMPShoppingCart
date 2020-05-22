@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
-use App\Models\Attribute;
-use App\Models\EAV;
+use App\Models\Attributable;
 use App\Models\EAVString;
 use App\Models\EntityType;
 use App\Models\Product;
@@ -86,7 +85,7 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         // RETURNS EAVS THAT HAVE CONFIGURABLE VALUE
-        $eavs = EAV::
+        $eavs = Attributable::
             whereHasMorph(
             'value',
             [EAVString::class,],

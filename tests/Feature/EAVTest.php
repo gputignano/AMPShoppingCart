@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\Attribute;
 use App\Models\BaseEntity;
 use App\Models\EAV;
@@ -27,7 +28,7 @@ class EAVTest extends TestCase
 
         $this->seed('InstallationTableSeeder');
 
-        $this->eav = factory(EAV::class)->create();
+        $this->eav = factory(Attributable::class)->create();
 
         $this->entity = factory(BaseEntity::class)->create();
 

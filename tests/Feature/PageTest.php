@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\EAV;
 use App\Models\Page;
 use App\Models\Rewrite;
@@ -171,7 +172,7 @@ class PageTest extends TestCase
     /** @test */
     public function when_a_page_is_deleted_eavs_is_deleted()
     {
-        $eav = $this->page->eavs()->save(factory(EAV::class)->make());
+        $eav = $this->page->eavs()->save(factory(Attributable::class)->make());
 
         $this->page->delete();
 

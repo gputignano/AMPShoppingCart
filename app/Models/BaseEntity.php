@@ -86,7 +86,7 @@ class BaseEntity extends Model
     {
         return $this->belongsToMany(
             Attribute::class,
-            'eavs',
+            'attributable',
             'entity_id',
             'attribute_id',
             'id',
@@ -95,7 +95,7 @@ class BaseEntity extends Model
         )->as('eav')->withPivot([
             'value_type',
             'value_id',
-        ])->using(EAV::class);
+        ])->using(Attributable::class);
     }
 
     public function parent()
@@ -120,7 +120,7 @@ class BaseEntity extends Model
     public function eavs($attribute_id = null)
     {
         return $this->hasMany(
-            EAV::class,
+            Attributable::class,
             'entity_id',
             'id',
         )

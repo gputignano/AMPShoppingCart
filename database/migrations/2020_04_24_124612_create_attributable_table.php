@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEavsTable extends Migration
+class CreateAttributableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEavsTable extends Migration
      */
     public function up()
     {
-        Schema::create('eavs', function (Blueprint $table) {
+        Schema::create('attributable', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->unsignedBigInteger('entity_id');
             $table->unsignedBigInteger('attribute_id');
@@ -31,6 +31,6 @@ class CreateEavsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eavs');
+        Schema::dropIfExists('attributable');
     }
 }

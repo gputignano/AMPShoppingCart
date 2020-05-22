@@ -198,10 +198,10 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function eavs_table_has_expected_columns()
+    public function attributable_table_has_expected_columns()
     {
         $this->assertTrue(
-            Schema::hasColumns('eavs', $fields = [
+            Schema::hasColumns('attributable', $fields = [
                 'entity_id',
                 'attribute_id',
                 'value_type',
@@ -209,7 +209,7 @@ class TableSchemaTest extends TestCase
             ])
         );
 
-        $this->assertCount(count($fields), Schema::getColumnListing('eavs'));
+        $this->assertCount(count($fields), Schema::getColumnListing('attributable'));
     }
 
     /** @test */

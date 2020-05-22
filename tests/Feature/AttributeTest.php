@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\Attribute;
-use App\Models\EAV;
 use App\Models\EntityType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -241,7 +241,7 @@ class AttributeTest extends TestCase
     /** @test */
     public function when_an_attribute_is_deleted_eavs_is_deleted()
     {
-        $eav = $this->attribute->eavs()->save(factory(EAV::class)->make());
+        $eav = $this->attribute->eavs()->save(factory(Attributable::class)->make());
 
         $this->attribute->delete();
 

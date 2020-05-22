@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\EAV;
 use App\Models\EAVBoolean;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,10 +32,10 @@ class EAVBooleanTest extends TestCase
     /** @test */
     public function eav_boolean_has_eav_relation()
     {
-        $this->eavBoolean->eav()->save(factory(EAV::class)->make());
+        $this->eavBoolean->eav()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\EAV::class, $this->eavBoolean->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavBoolean->eav);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavBoolean->eav());
     }

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attributable;
 use App\Models\Attribute;
 use App\Models\EAVString;
 use App\Models\Category;
-use App\Models\EAV;
 use App\Models\EAVBoolean;
 use App\Models\EAVDecimal;
 use App\Models\EAVInteger;
@@ -199,7 +199,7 @@ class ProductTest extends TestCase
     /** @test */
     public function when_a_product_is_deleted_eavs_relation_is_deleted()
     {
-        $eav = $this->product->eavs()->save(factory(Eav::class)->make());
+        $eav = $this->product->eavs()->save(factory(Attributable::class)->make());
 
         $this->product->delete();
 
