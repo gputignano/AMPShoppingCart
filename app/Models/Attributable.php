@@ -43,12 +43,12 @@ class Attributable extends Pivot
         );
     }
 
-    protected static function booted()
-    {
-        parent::booted();
+    // protected static function booted()
+    // {
+    //     parent::booted();
 
-        static::deleting(function ($eav) {
-            if ($eav->attribute->type::$hasDefaultValues) return;
-        });
-    }
+    //     static::deleting(function ($attributable) {
+    //         if ($attributable->attribute->type::$hasDefaultValues) return;
+    //     });
+    // }
 }

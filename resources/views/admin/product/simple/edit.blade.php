@@ -38,7 +38,7 @@
                             <select name="parent_id">
                                 <option value="">{{ __('------') }}</option>
                 
-                                @foreach (App\Models\Product::whereIn('id', $eavs)->get() as $parent)
+                                @foreach (App\Models\Product::whereIn('id', $attributables)->get() as $parent)
                                     <option value="{{ $parent->id }}" {{ $product->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                                 @endforeach
                             </select>

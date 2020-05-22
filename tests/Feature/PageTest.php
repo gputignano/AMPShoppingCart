@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Attributable;
-use App\Models\EAV;
 use App\Models\Page;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -170,15 +169,15 @@ class PageTest extends TestCase
     }
 
     /** @test */
-    public function when_a_page_is_deleted_eavs_is_deleted()
+    public function when_a_page_is_deleted_attributables_is_deleted()
     {
-        $eav = $this->page->eavs()->save(factory(Attributable::class)->make());
+        $attributable = $this->page->attributables()->save(factory(Attributable::class)->make());
 
         $this->page->delete();
 
         $this->assertDeleted($this->page);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /** @test */
@@ -217,12 +216,12 @@ class PageTest extends TestCase
     }
 
     /** @test */
-    public function page_has_eavs_relation()
+    public function page_has_attributables_relation()
     { 
         // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->page->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->page->attributables);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->page->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->page->attributables());
     }
 
     /** @test */

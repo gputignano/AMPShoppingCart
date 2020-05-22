@@ -124,12 +124,12 @@
 
                                 <ul>
                                     {{-- THE QUERY RETURNS EAVS WHICH ATTRIBUTES ARE DEFINED IN PARENT CONFIGURABLE PRODUCT --}}
-                                    @foreach (App\Models\EAV::whereHas('attribute', function ($query) use ($product) {
-                                        $query->whereIn('id', json_decode(App\Models\EAVString::whereHas('eav', function ($query) use ($product) {
+                                    @foreach (App\Models\Attributable::whereHas('attribute', function ($query) use ($product) {
+                                        $query->whereIn('id', json_decode(App\Models\EAVString::whereHas('attributable', function ($query) use ($product) {
                                             $query->where('attribute_id', 2)->where('entity_id', $product->id);
                                         })->first()->value));
-                                    })->get() as $eav)
-                                        <li>{{ $eav->attribute->label }}: {{ $eav->value->value }}</li>
+                                    })->get() as $attributable)
+                                        <li>{{ $attributable->attribute->label }}: {{ $attributable->value->value }}</li>
                                     @endforeach
                                 </ul>
                             </li>

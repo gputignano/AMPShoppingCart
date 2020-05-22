@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeFormRequest;
 use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
-use App\Models\EAVBoolean;
-use Illuminate\Support\Facades\Log;
 
 class AttributesController extends Controller
 {

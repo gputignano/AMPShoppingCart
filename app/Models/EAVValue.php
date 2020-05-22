@@ -14,7 +14,7 @@ class EAVValue extends Model
 
     public static $hasDefaultValues = false;
 
-    public function eav()
+    public function attributable()
     {
         return $this->morphOne(
             Attributable::class,
@@ -44,7 +44,7 @@ class EAVValue extends Model
         parent::booted();
 
         static::deleting(function ($value) {
-            $value->eav()->delete();
+            $value->attributable()->delete();
         });
     }
 
@@ -53,7 +53,7 @@ class EAVValue extends Model
         if ($attribute->type::$hasDefaultValues) return $value;
 
         return self::updateOrCreate(
-            ['id' => optional(optional($product->eavs($attribute->id)->first())->value)->id,],
+            ['id' => optional(optional($product->attributables($attribute->id)->first())->value)->id,],
             ['value' => $value,],
         )->id;
     }

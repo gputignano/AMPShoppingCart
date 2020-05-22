@@ -150,15 +150,15 @@ class EAVDecimalTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_decimal_is_deleted_eav_relation_is_updated()
+    public function when_an_eav_decimal_is_deleted_attributable_relation_is_updated()
     {
-        $eav = $this->eavDecimal->eav()->save(factory(Attributable::class)->make());
+        $attributable = $this->eavDecimal->attributable()->save(factory(Attributable::class)->make());
 
         $this->eavDecimal->delete();
 
         $this->assertDeleted($this->eavDecimal);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /**
@@ -166,14 +166,14 @@ class EAVDecimalTest extends TestCase
      */
 
     /** @test */
-    public function eav_decimal_has_eav_relation()
+    public function eav_decimal_has_attributable_relation()
     {
-        $this->eavDecimal->eav()->save(factory(Attributable::class)->make());
+        $this->eavDecimal->attributable()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavDecimal->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavDecimal->attributable);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavDecimal->eav());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavDecimal->attributable());
     }
 
     /** @test */

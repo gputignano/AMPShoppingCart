@@ -150,15 +150,15 @@ class EAVIntegerTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_integer_is_deleted_eav_relation_is_updated()
+    public function when_an_eav_integer_is_deleted_attributable_relation_is_updated()
     {
-        $eav = $this->eavInteger->eav()->save(factory(Attributable::class)->make());
+        $attributable = $this->eavInteger->attributable()->save(factory(Attributable::class)->make());
 
         $this->eavInteger->delete();
 
         $this->assertDeleted($this->eavInteger);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /**
@@ -166,14 +166,14 @@ class EAVIntegerTest extends TestCase
      */
 
     /** @test */
-    public function eav_integer_has_eav_relation()
+    public function eav_integer_has_attributable_relation()
     {
-        $this->eavInteger->eav()->save(factory(Attributable::class)->make());
+        $this->eavInteger->attributable()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavInteger->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavInteger->attributable);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavInteger->eav());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavInteger->attributable());
     }
 
     /** @test */

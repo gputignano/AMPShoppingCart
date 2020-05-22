@@ -30,14 +30,14 @@ class EAVBooleanTest extends TestCase
      */
 
     /** @test */
-    public function eav_boolean_has_eav_relation()
+    public function eav_boolean_has_attributable_relation()
     {
-        $this->eavBoolean->eav()->save(factory(Attributable::class)->make());
+        $this->eavBoolean->attributable()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavBoolean->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavBoolean->attributable);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavBoolean->eav());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavBoolean->attributable());
     }
 
     /** @test */

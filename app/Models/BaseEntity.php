@@ -18,7 +18,7 @@ class BaseEntity extends Model
 
     public function __get($key)
     {
-        return $this->getAttribute($key) ?? optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->eav)->value)->value;
+        return $this->getAttribute($key) ?? optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->attributable)->value)->value;
     }
 
     public function __set($key, $value)
@@ -46,7 +46,7 @@ class BaseEntity extends Model
                 // IF EAV* HAS NOT DEFAULT VALUES I NEED TO REMOVE THE VALUE
                 if (! $attribute->type::$hasDefaultValues)
                 {
-                    $this->attributes()->where('code', $key)->first()->eav->value->delete();
+                    $this->attributes()->where('code', $key)->first()->attributable->value->delete();
                 }
 
                 $this->attributes()->detach($attribute->id);
@@ -61,7 +61,7 @@ class BaseEntity extends Model
                             'value_id' => $value,
                         ]);
                 } else {
-                    $this->attributes()->where('code', $key)->first()->eav->value->update(['value' => $value]);
+                    $this->attributes()->where('code', $key)->first()->attributable->value->update(['value' => $value]);
                 }
             } else { // CREATE
                 if ($attribute->type::$hasDefaultValues)
@@ -92,7 +92,7 @@ class BaseEntity extends Model
             'id',
             'id',
             'attributes,'
-        )->as('eav')->withPivot([
+        )->as('attributable')->withPivot([
             'value_type',
             'value_id',
         ])->using(Attributable::class);
@@ -117,7 +117,7 @@ class BaseEntity extends Model
         );
     }
 
-    public function eavs($attribute_id = null)
+    public function attributables($attribute_id = null)
     {
         return $this->hasMany(
             Attributable::class,

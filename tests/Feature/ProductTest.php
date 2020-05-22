@@ -4,12 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\Attributable;
 use App\Models\Attribute;
-use App\Models\EAVString;
 use App\Models\Category;
 use App\Models\EAVBoolean;
 use App\Models\EAVDecimal;
 use App\Models\EAVInteger;
 use App\Models\EAVSelect;
+use App\Models\EAVString;
 use App\Models\EAVText;
 use App\Models\Product;
 use App\Models\Rewrite;
@@ -197,15 +197,15 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function when_a_product_is_deleted_eavs_relation_is_deleted()
+    public function when_a_product_is_deleted_attributables_relation_is_deleted()
     {
-        $eav = $this->product->eavs()->save(factory(Attributable::class)->make());
+        $attributable = $this->product->attributables()->save(factory(Attributable::class)->make());
 
         $this->product->delete();
 
         $this->assertDeleted($this->product);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /** @test */
@@ -247,7 +247,7 @@ class ProductTest extends TestCase
         }
 
         foreach ($this->product->refresh()->attributes as $attribute) {
-            $this->assertEquals($attribute->eav->value->value, $this->product->{$attribute->code});
+            $this->assertEquals($attribute->attributable->value->value, $this->product->{$attribute->code});
         }
     }
     
@@ -275,12 +275,12 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function product_has_eavs_relation()
+    public function product_has_attributables_relation()
     { 
         // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->product->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->product->attributables);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->product->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->product->attributables());
     }
 
     /** @test */

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Attributable;
-use App\Models\EAV;
 use App\Models\EAVText;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -150,15 +149,15 @@ class EAVTextTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_text_is_deleted_eav_relation_is_updated()
+    public function when_an_eav_text_is_deleted_attributable_relation_is_updated()
     {
-        $eav = $this->eavText->eav()->save(factory(Attributable::class)->make());
+        $attributable = $this->eavText->attributable()->save(factory(Attributable::class)->make());
 
         $this->eavText->delete();
 
         $this->assertDeleted($this->eavText);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /**
@@ -166,14 +165,14 @@ class EAVTextTest extends TestCase
      */
 
     /** @test */
-    public function eav_text_has_eav_relation()
+    public function eav_text_has_attributable_relation()
     {
-        $this->eavText->eav()->save(factory(Attributable::class)->make());
+        $this->eavText->attributable()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavText->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavText->attributable);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavText->eav());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavText->attributable());
     }
 
     /** @test */

@@ -84,8 +84,8 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        // RETURNS EAVS THAT HAVE CONFIGURABLE VALUE
-        $eavs = Attributable::
+        // RETURNS ATTRIBUTABLES THAT HAVE CONFIGURABLE VALUE
+        $attributables = Attributable::
             whereHasMorph(
             'value',
             [EAVString::class,],
@@ -95,7 +95,7 @@ class ProductsController extends Controller
         )->
         pluck('attributable_id');
 
-        return view('admin.product.' . $product->product_type . '.edit', compact('product', 'eavs'));
+        return view('admin.product.' . $product->product_type . '.edit', compact('product', 'attributables'));
     }
 
     /**

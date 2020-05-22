@@ -239,15 +239,15 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_eavs_is_deleted()
+    public function when_an_attribute_is_deleted_attributables_is_deleted()
     {
-        $eav = $this->attribute->eavs()->save(factory(Attributable::class)->make());
+        $attributable = $this->attribute->attributables()->save(factory(Attributable::class)->make());
 
         $this->attribute->delete();
 
         $this->assertDeleted($this->attribute);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /** @test */
@@ -283,12 +283,12 @@ class AttributeTest extends TestCase
      */
 
     /** @test */
-    public function attribute_has_eavs_relation()
+    public function attribute_has_attributables_relation()
     {
         // One to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->attributables);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->attribute->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->attribute->attributables());
     }
 
     /** @test */

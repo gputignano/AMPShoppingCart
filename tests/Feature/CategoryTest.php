@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Attributable;
 use App\Models\Category;
-use App\Models\EAV;
 use App\Models\Product;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -183,15 +182,15 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function when_a_category_is_deleted_eavs_is_deleted()
+    public function when_a_category_is_deleted_attributables_is_deleted()
     {
-        $eav = $this->category->eavs()->save(factory(Attributable::class)->make());
+        $attributable = $this->category->attributables()->save(factory(Attributable::class)->make());
 
         $this->category->delete();
 
         $this->assertDeleted($this->category);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /** @test */
@@ -239,12 +238,12 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function page_has_eavs_relation()
+    public function page_has_attributables_relation()
     { 
         // One to Many Polymorphic
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->eavs);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->attributables);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->eavs());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->attributables());
     }
 
     /** @test */

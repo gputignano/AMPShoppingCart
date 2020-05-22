@@ -149,15 +149,15 @@ class EAVStringTest extends TestCase
     }
 
     /** @test */
-    public function when_an_eav_string_is_deleted_eav_relation_is_updated()
+    public function when_an_eav_string_is_deleted_attributable_relation_is_updated()
     {
-        $eav = $this->eavString->eav()->save(factory(Attributable::class)->make());
+        $attributable = $this->eavString->attributable()->save(factory(Attributable::class)->make());
 
         $this->eavString->delete();
 
         $this->assertDeleted($this->eavString);
 
-        $this->assertDeleted($eav);
+        $this->assertDeleted($attributable);
     }
 
     /**
@@ -165,14 +165,14 @@ class EAVStringTest extends TestCase
      */
 
     /** @test */
-    public function eav_string_has_eav_relation()
+    public function eav_string_has_attributable_relation()
     {
-        $this->eavString->eav()->save(factory(Attributable::class)->make());
+        $this->eavString->attributable()->save(factory(Attributable::class)->make());
 
         // One to One Polymorphic
-        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavString->eav);
+        $this->assertInstanceOf(\App\Models\Attributable::class, $this->eavString->attributable);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavString->eav());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->eavString->attributable());
     }
 
     /** @test */

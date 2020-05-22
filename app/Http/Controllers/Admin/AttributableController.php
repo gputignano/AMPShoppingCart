@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Attribute;
-use App\Models\EAV;
+use App\Models\Attributable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
-class EAVsController extends Controller
+class AttributableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,20 +36,20 @@ class EAVsController extends Controller
      */
     public function store(Request $request)
     {
-        $eav = EAV::create($request->all());
+        $attributable = Attributable::create($request->all());
 
         return response()->json([
-            'created' => isset($eav),
+            'created' => isset($attributable),
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EAV  $eav
+     * @param  \App\Models\Attributable  $attributable
      * @return \Illuminate\Http\Response
      */
-    public function show(EAV $eav)
+    public function show(Attributable $attributable)
     {
         //
     }
@@ -59,10 +57,10 @@ class EAVsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\EAV  $eav
+     * @param  \App\Models\Attributable  $attributable
      * @return \Illuminate\Http\Response
      */
-    public function edit(EAV $eav)
+    public function edit(Attributable $attributable)
     {
         //
     }
@@ -71,12 +69,12 @@ class EAVsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EAV  $eav
+     * @param  \App\Models\Attributable  $attributable
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EAV $eav)
+    public function update(Request $request, Attributable $attributable)
     {
-        $updated = $eav->update($request->all());
+        $updated = $attributable->update($request->all());
 
         return response()->json([
             'updated' => $updated,
@@ -86,12 +84,12 @@ class EAVsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EAV  $eav
+     * @param  \App\Models\Attributable  $attributable
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EAV $eav)
+    public function destroy(Attributable $attributable)
     {
-        $deleted = $eav->delete();
+        $deleted = $attributable->delete();
 
         return response()->json([
             'deleted' => $deleted,

@@ -23,19 +23,19 @@ class Attribute extends Model
     {
         return $this->belongsToMany(
             Product::class,
-            'eavs',
+            'attributable',
             'attribute_id',
             'attributable_id',
             'id',
             'id',
             'products',
-        )->as('eav')->withPivot([
+        )->as('attributable')->withPivot([
             'value_type',
             'value_id',
         ])->using(Attributable::class);
     }
 
-    public function eavs()
+    public function attributables()
     {
         return $this->hasMany(
             Attributable::class,
