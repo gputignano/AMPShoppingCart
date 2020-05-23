@@ -32,18 +32,6 @@
                             <textarea name="description" cols="30" rows="10">{{ $product->description }}</textarea>
                         </fieldset>
 
-                        <fieldset>
-                            <label for="parent_id">{{ __('Parent ID') }}</label>
-                
-                            <select name="parent_id">
-                                <option value="">{{ __('------') }}</option>
-                
-                                @foreach (App\Models\Product::whereIn('id', $attributables)->get() as $parent)
-                                    <option value="{{ $parent->id }}" {{ $product->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
-                                @endforeach
-                            </select>
-                        </fieldset>
-                
                         <input type="submit" value="{{ __('Update') }}">
                 
                         <div submitting>
