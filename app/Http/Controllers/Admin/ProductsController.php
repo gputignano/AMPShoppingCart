@@ -52,12 +52,6 @@ class ProductsController extends Controller
 
         $product->product_type = $request->product_type;
 
-        // If present set attribute_variant attribute
-        if (null != $request->input('attribute_variants'))
-        {
-            $product->attribute_variant = json_encode($request->input('attribute_variants'));
-        }
-
         DB::commit();
 
         return response()->json([

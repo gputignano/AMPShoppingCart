@@ -35,19 +35,6 @@
             </select>
         </fieldset>
 
-        <fieldset>
-            <legend>{{ __('Select Attribute Variants') }}</legend>
-
-            <ul>
-                {{-- Gets attribute from Product EntityType where is_system is false --}}
-                @foreach (App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute)
-                    <label for="attribute_variants[{{ $attribute->id }}]">
-                        <li><input type="checkbox" name="attribute_variants[]" value="{{ $attribute->id }}"> {{ $attribute->label }}</li>
-                    </label>
-                @endforeach
-            </ul>
-        </fieldset>
-
         <input type="submit" value="{{ __('Create') }}">
 
         <div submitting>

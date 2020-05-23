@@ -25,17 +25,8 @@ class InstallationTableSeeder extends Seeder
             'is_system' => true,
         ]);
 
-        // SEEDS ATTRIBUTE_VARIANT ATTRIBUTES
-        $variant_attribute = $attribute_variant = factory(App\Models\Attribute::class)->create([
-            'label' => $label = 'Attribute Variant',
-            'code' => Str::snake($label),
-            'type' => App\Models\EAVString::class,
-            'is_system' => true,
-        ]);
-
         App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->sync([
             $product_type->id,
-            $variant_attribute->id,
         ]);
 
         // SEEDS PRODUCT TYPE ATTRIBUTES

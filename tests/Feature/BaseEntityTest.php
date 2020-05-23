@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attribute;
 use App\Models\BaseEntity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -30,7 +31,7 @@ class BaseEntityTest extends TestCase
     /** @test */
     public function when_an_entity_is_deleted_attributable_is_deleted()
     {
-        $this->baseEntity->attributes()->attach(factory(BaseEntity::class)->create());
+        $this->baseEntity->attributes()->attach(factory(Attribute::class)->create());
 
         $this->baseEntity->delete();
 
