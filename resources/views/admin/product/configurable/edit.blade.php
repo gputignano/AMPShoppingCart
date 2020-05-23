@@ -64,13 +64,13 @@
             <h2>{{ __('Attributes') }}</h2>
 
             <div>
-                <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+                <form method="post" action-xhr="{{ route('admin.products.update.attributes', $product) }}">
                     @csrf
                     @method('patch')
 
                     <ul>
-                        @if (App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes->count())
-                            @foreach (App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes as $attribute)
+                        @if (App\Models\Attribute::where('is_system', false)->count())
+                            @foreach (App\Models\Attribute::where('is_system', false)->get() as $attribute)
                                 <li>
                                     <label for="">{{ $attribute->label }}</label>
 
