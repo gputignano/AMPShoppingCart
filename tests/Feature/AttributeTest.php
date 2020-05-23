@@ -78,7 +78,6 @@ class AttributeTest extends TestCase
     /** @test */
     public function an_attribute_can_be_created()
     {
-        $this->withoutExceptionHandling();
         $response = $this->postJson(route('admin.attributes.store'), [
             'label' => $label = $this->faker->unique()->word,
             'code' => Str::slug($label),

@@ -17,6 +17,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::view('/', 'admin.home')->name('home');
 
     Route::resource('attributes', 'Admin\AttributesController');
+    Route::resource('attributeSets', 'Admin\AttributeSetsController');
     Route::resource('categories', 'Admin\CategoriesController');
     Route::resource('eavDecimals', 'Admin\EAVDecimalsController');
     Route::resource('eavIntegers', 'Admin\EAVIntegersController');

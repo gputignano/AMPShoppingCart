@@ -63,6 +63,18 @@
                         </div>
                     </li>
                     <li>
+                        <h4 amp-nested-submenu-open>{{ __('Attribute Sets') }}</h4>
+                        <div amp-nested-submenu>
+                            <ul>
+                                <li>
+                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
+                                </li>
+                                <li><a href="{{ route('admin.attributeSets.index') }}">{{ __('All Attribute Sets') }}</a></li>
+                                <li><a href="{{ route('admin.attributeSets.create') }}">{{ __('Create Attribute Set') }}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <h4 amp-nested-submenu-open>{{ __('EAVDecimals') }}</h4>
                         <div amp-nested-submenu>
                             <ul>
@@ -207,6 +219,15 @@
                                 <ul>
                                     <li><a href="{{ route('admin.attributes.index') }}">{{ __('All Attributes') }}</a></li>
                                     <li><a href="{{ route('admin.attributes.create') }}">{{ __('Create Attribute') }}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <span role="button">{{ __('Attribute Sets') }}</span>
+                            <div role="dialog">
+                                <ul>
+                                    <li><a href="{{ route('admin.attributeSets.index') }}">{{ __('All Attribute Sets') }}</a></li>
+                                    <li><a href="{{ route('admin.attributeSets.create') }}">{{ __('Create Attribute Set') }}</a></li>
                                 </ul>
                             </div>
                         </li>
