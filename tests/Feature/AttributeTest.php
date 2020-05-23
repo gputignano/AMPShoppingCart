@@ -283,6 +283,15 @@ class AttributeTest extends TestCase
      */
 
     /** @test */
+    public function attribute_has_attribute_sets_relation()
+    {
+        // Many to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->attribute_sets);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attribute->attribute_sets());
+    }
+
+    /** @test */
     public function attribute_has_entity_types_relation()
     {
         // Many to Many

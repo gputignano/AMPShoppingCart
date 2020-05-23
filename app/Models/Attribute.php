@@ -19,6 +19,19 @@ class Attribute extends Model
         $this->attributes['code'] = Str::slug($label);
     }
 
+    public function attribute_sets()
+    {
+        return $this->belongsToMany(
+            AttributeSet::class,
+            'attribute_attribute_set',
+            'attribute_id',
+            'attribute_set_id',
+            'id',
+            'id',
+            'attribute_sets',
+        );
+    }
+
     public function products()
     {
         return $this->belongsToMany(
