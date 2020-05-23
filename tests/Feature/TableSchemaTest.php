@@ -154,7 +154,6 @@ class TableSchemaTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('entities', $fields = [
                 'id',
-                'parent_id',
                 'name',
                 'description',
                 'type',

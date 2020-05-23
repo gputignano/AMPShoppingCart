@@ -22,7 +22,6 @@ class StorePageFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'present',
             'name' => 'required',
             'description' => 'sometimes',
         ];

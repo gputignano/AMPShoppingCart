@@ -11,7 +11,7 @@ class BaseEntity extends Model
     public $table = 'entities';
 
     protected $fillable = [
-        'parent_id', 'name', 'description', 'type',
+        'name', 'description', 'type',
     ];
 
     public $timestamps = false;
@@ -96,25 +96,6 @@ class BaseEntity extends Model
             'value_type',
             'value_id',
         ])->using(Attributable::class);
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(
-            $this,
-            'parent_id',
-            'id',
-            'parent',
-        );
-    }
-
-    public function children()
-    {
-        return $this->hasMany(
-            $this,
-            'parent_id',
-            'id',
-        );
     }
 
     public function rewrite()

@@ -54,6 +54,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function a_user_can_view_category_show()
     {
+        $this->withoutExceptionHandling();
         $response = $this->get(route('admin.categories.show', $this->category));
 
         $response->assertStatus(200);
@@ -113,7 +114,6 @@ class CategoryTest extends TestCase
     public function a_category_can_be_updated()
     {
         $response = $this->patchJson(route('admin.categories.update', $this->category), [
-            'parent_id' => '',
             'name' => $this->faker->sentence,
         ]);
 
@@ -157,18 +157,6 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function when_a_parent_category_is_deleted_children_is_deleted()
-    {
-        $children = $this->category->children()->save(factory(Category::class)->make());
-
-        $this->category->delete();
-
-        $this->assertDeleted($this->category);
-
-        $this->assertDeleted($children);
-    }
-
-    /** @test */
     public function when_a_category_is_deleted_products_relation_is_detached()
     {
         $product = $this->category->products()->save(factory(Product::class)->make());
@@ -195,25 +183,6 @@ class CategoryTest extends TestCase
     /**
      * RELATIONS
      */
-
-    /** @test */
-    public function category_has_parent_relation()
-    {
-        // Many to One
-        $category = factory(Category::class)->create(['parent_id' => $this->category->id]);
-        $this->assertInstanceOf(Category::class, $category->parent);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->category->parent());
-    }
-
-    /** @test */
-    public function category_has_children_relation()
-    {
-        // One to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->category->children);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->category->children());
-    }
 
     /** @test */
     public function category_has_products_relation()

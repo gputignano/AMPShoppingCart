@@ -184,18 +184,6 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function when_a_parent_product_is_deleted_children_relation_is_deleted()
-    {
-        $children = $this->product->children()->save(factory(Product::class)->make());
-
-        $this->product->delete();
-
-        $this->assertDeleted($this->product);
-
-        $this->assertDeleted($children);
-    }
-
-    /** @test */
     public function when_a_product_is_deleted_categories_relation_is_detached()
     {
         $category = $this->product->categories()->save(factory(Category::class)->make());
@@ -241,25 +229,6 @@ class ProductTest extends TestCase
     /**
      * RELATIONS
      */
-
-    /** @test */
-    public function product_has_parent_relation()
-    {
-        // Many to One
-        $product = factory(Product::class)->create(['parent_id' => $this->product->id]);
-        $this->assertInstanceOf(Product::class, $product->parent);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->product->parent());
-    }
-
-    /** @test */
-    public function product_has_children_relation()
-    {
-        // One to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->product->children);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->product->children());
-    }
 
     /** @test */
     public function product_has_categories_relation()

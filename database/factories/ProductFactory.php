@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Product::class, function (Faker $faker) {
     return [
-        'parent_id' => null,
         'name' => $faker->sentence,
         'description' => $faker->paragraph,
         'type' => Product::class,

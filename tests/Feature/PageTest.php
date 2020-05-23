@@ -156,18 +156,6 @@ class PageTest extends TestCase
     }
 
     /** @test */
-    public function when_a_parent_page_is_deleted_children_relation_is_updated()
-    {
-        $children = $this->page->children()->save(factory(Page::class)->make());
-
-        $this->page->delete();
-
-        $this->assertDeleted($this->page);
-
-        $this->assertDeleted($children);
-    }
-
-    /** @test */
     public function when_a_page_is_deleted_rewrite_is_deleted()
     {
         $rewrite = $this->page->rewrite()->save(factory(Rewrite::class)->make());
@@ -182,25 +170,6 @@ class PageTest extends TestCase
     /**
      * RELATIONS
      */
-
-    /** @test */
-    public function page_has_parent_relation()
-    {
-        // Many to One
-        $page = factory(Page::class)->create(['parent_id' => $this->page->id]);
-        $this->assertInstanceOf(Page::class, $page->parent);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->page->parent());
-    }
-
-    /** @test */
-    public function page_has_children_relation()
-    {
-        // One to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->page->children);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $this->page->children());
-    }
 
     /** @test */
     public function page_has_rewrite_relation()
