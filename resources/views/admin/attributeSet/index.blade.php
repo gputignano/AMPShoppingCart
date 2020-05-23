@@ -10,7 +10,7 @@
     <ul>
         @forelse ($attributeSets as $attributeSet)
             <li>
-                <a href="{{ route('admin.attributeSets.show', $attributeSet) }}">{{ $attributeSet->name }}</a>
+                <a href="{{ route('admin.attributeSets.show', $attributeSet) }}">{{ $attributeSet->label }}</a>
             </li>
         @empty
             <li>{{ __('No Attribute Set found!') }}</li>
