@@ -183,4 +183,17 @@ class AttributeSetTest extends TestCase
             'deleted' => true,
         ]);
     }
+
+    /**
+     * RELATIONS
+     */
+
+    /** @test */
+    public function attribute_set_has_attributes_relation()
+    {
+        // Many to Many
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attributeSet->attributes);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attributeSet->attributes());
+    }
 }
