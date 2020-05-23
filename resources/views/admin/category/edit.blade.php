@@ -32,18 +32,6 @@
             <textarea name="description" cols="30" rows="10">{{ $category->description }}</textarea>
         </fieldset>
 
-        <fieldset>
-            <label for="parent_id">{{ __('Parent ID') }}</label>
-
-            <select name="parent_id">
-                <option value="">{{ __('------') }}</option>
-
-                @foreach (App\Models\Category::where('id', '<', $category->id)->get() as $parent)
-                    <option value="{{ $parent->id }}" {{ $category->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
-                @endforeach
-            </select>
-        </fieldset>
-
         @if (App\Models\Product::count())
             <div>
                 <h2>{{ __('Related Products') }}</h2>

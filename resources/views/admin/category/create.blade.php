@@ -16,18 +16,6 @@
         @csrf
 
         <fieldset>
-            <label for="parent_id">{{ __('Parend ID') }}</label>
-
-            <select name="parent_id">
-                <option value="">{{ __('------') }}</option>
-
-                @foreach (\App\Models\Category::all() as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </fieldset>
-
-        <fieldset>
             <label for="name">{{ __('Name') }}</label>
             <input type="text" name="name">
         </fieldset>
