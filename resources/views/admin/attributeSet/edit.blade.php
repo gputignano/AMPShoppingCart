@@ -47,6 +47,49 @@
         </div>
     </form>
 
+    <amp-accordion id="attributeSets" expand-single-section animate>
+        <section>
+            <h2>{{ __('Attribute Sets') }}</h2>
+
+            <div>
+                <form method="post" action-xhr="{{ route('admin.attributeSets.update', $attributeSet) }}">
+                    @csrf
+                    @method('patch')
+
+                        <ul>
+                            @foreach (\App\Models\Attribute::all() as $attribute)
+                                <li><input type="checkbox" name="attributes[]" value="{{ $attribute->id }}" {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}>{{ $attribute->label }}</li>
+                            @endforeach
+                        </ul>
+
+                        <input type="submit" value="{{ __('Update') }}">
+
+                    <div submitting>
+                        <template type="amp-mustache">
+                            {{ __('Submitting...') }}
+                        </template>
+                    </div>
+
+                    <div submit-success>
+                        <template type="amp-mustache">
+                            {{ __('Attribute Sets updated successfully!') }}
+                        </template>
+                    </div>
+
+                    <div submit-error>
+                        <template type="amp-mustache">
+                            <ul>
+                                @{{#errors}}
+                                <li><strong>@{{name}}</strong>: @{{message}}</li>
+                                @{{/errors}}
+                            </ul>
+                        </template>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </amp-accordion>
+
     <form action-xhr="{{ route('admin.attributes.destroy', $attributeSet) }}" method="post">
         @csrf
         @method('delete')

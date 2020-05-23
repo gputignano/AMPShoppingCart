@@ -19,8 +19,8 @@ class CreateAttributeAttributeSetTable extends Migration
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('attribute_set_id');
 
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('attribute_set_id')->references('id')->on('attribute_sets')->onDelete('cascade');
+            // $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            // $table->foreign('attribute_set_id')->references('id')->on('attribute_sets')->onDelete('cascade');
         });
     }
 

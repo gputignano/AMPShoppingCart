@@ -78,10 +78,18 @@ class AttributeSetsController extends Controller
      */
     public function update(UpdateAttributeSetFormRequest $request, AttributeSet $attributeSet)
     {
-        $updated = $attributeSet->update($request->validated());
+        if ($request->has('label')) {
+            $updated = $attributeSet->update($request->validated());
+
+            return response()->json([
+                'updated' => $updated,
+            ])->header('AMP-Redirect-To', route('admin.attributeSets.edit', $attributeSet));
+        }
+
+        $attributeSet->attributes()->sync($request->input('attributes'));
 
         return response()->json([
-            'updated' => $updated,
+            'updated' => 'ok',
         ])->header('AMP-Redirect-To', route('admin.attributeSets.edit', $attributeSet));
     }
 

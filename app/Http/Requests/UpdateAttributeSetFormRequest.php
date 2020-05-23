@@ -24,11 +24,8 @@ class UpdateAttributeSetFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required|unique:attribute_sets,label,' . $this->attributeSet->id,
-            // 'label' => [
-            //     'required',
-            //     Rule::uniqyue('attribute_sets')->ignore($this->attributeSet->id),
-            // ],
+            'label' => 'sometimes|unique:attribute_sets,label,' . $this->attributeSet->id,
+            'attributes' => 'sometimes|array',
         ];
     }
 }
