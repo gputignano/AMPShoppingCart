@@ -83,6 +83,8 @@ class AttributesController extends Controller
 
         $attribute->entity_types()->sync($request->entity_types);
 
+        $attribute->attribute_sets()->sync($request->attribute_sets);
+
         if (null != $request->input('value'))
         {
             $a = $attribute->values()->save($attribute->type::create([

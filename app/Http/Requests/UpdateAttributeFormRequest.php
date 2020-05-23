@@ -24,11 +24,10 @@ class UpdateAttributeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required|unique:attributes,label,' . $this->attribute->id,
-            // 'type' => [
-            //     'required',
-            //     Rule::in(['App\Models\EAVBoolean', 'App\Models\EAVDecimal', 'App\Models\EAVInteger', 'App\Models\EAVString', 'App\Models\EAVText']),
-            // ],
+            'label' => 'sometimes|required|unique:attributes,label,' . $this->attribute->id,
+            'value' => 'sometimes|required',
+            'entity_types' => 'sometimes|array',
+            'attribute_sets' => 'sometimes|array',
         ];
     }
 }

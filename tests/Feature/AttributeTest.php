@@ -183,28 +183,28 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    public function label_is_required_when_updating_a_new_attribute()
-    {
-        $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
-            // 'label' => $this->faker->unique()->word,
-            'type' => $this->faker->randomElement([
-                \App\Models\EAVBoolean::class,
-                \App\Models\EAVDecimal::class,
-                \App\Models\EAVInteger::class,
-                \App\Models\EAVString::class,
-                \App\Models\EAVText::class,
-            ]),
-        ]);
+    // public function label_is_required_when_updating_a_new_attribute()
+    // {
+    //     $response = $this->patchJson(route('admin.attributes.update', $this->attribute), [
+    //         // 'label' => $this->faker->unique()->word,
+    //         'type' => $this->faker->randomElement([
+    //             \App\Models\EAVBoolean::class,
+    //             \App\Models\EAVDecimal::class,
+    //             \App\Models\EAVInteger::class,
+    //             \App\Models\EAVString::class,
+    //             \App\Models\EAVText::class,
+    //         ]),
+    //     ]);
 
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'label',
-                    'message' => ['The label field is required.'],
-                ],
-            ]
-        ]);
-    }
+    //     $response->assertExactJson([
+    //         'errors' => [
+    //             [
+    //                 'name' => 'label',
+    //                 'message' => ['The label field is required.'],
+    //             ],
+    //         ]
+    //     ]);
+    // }
 
     /** @test */
     // public function type_is_required_when_updating_a_new_attribute()
