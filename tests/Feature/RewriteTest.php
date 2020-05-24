@@ -80,7 +80,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create()->id,
         ]);
 
@@ -100,7 +99,6 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -123,7 +121,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -146,7 +143,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -161,29 +157,6 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
-    public function template_is_required_when_creating_rewrite()
-    {
-        $meta_title = $this->faker->sentence;
-
-        $response = $this->postJson(route('admin.rewrites.store'), [
-            'slug' => Str::slug($meta_title),
-            'meta_title' => $meta_title,
-            'meta_description' => $this->faker->text,
-            // 'template' => $this->faker->word,
-            'entity_id' => factory(BaseEntity::class)->create(),
-        ]);
-
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'template',
-                    'message' => ['The template field is required.'],
-                ],
-            ]
-        ]);
-    }
-
-    /** @test */
     public function entity_id_is_required_when_creating_rewrite()
     {
         $meta_title = $this->faker->sentence;
@@ -192,7 +165,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             // 'entity_id' => factory(Entity::class)->create(),
         ]);
 
@@ -215,7 +187,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create()->id,
         ]);
 
@@ -235,7 +206,6 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -258,7 +228,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -281,7 +250,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -296,29 +264,6 @@ class RewriteTest extends TestCase
     }
 
     /** @test */
-    public function template_is_required_when_updating_rewrite()
-    {
-        $meta_title = $this->faker->sentence;
-
-        $response = $this->patchJson(route('admin.rewrites.update', $this->rewrite), [
-            'slug' => Str::slug($meta_title),
-            'meta_title' => $meta_title,
-            'meta_description' => $this->faker->text,
-            // 'template' => $this->faker->word,
-            'entity_id' => factory(BaseEntity::class)->create(),
-        ]);
-
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'template',
-                    'message' => ['The template field is required.'],
-                ],
-            ]
-        ]);
-    }
-
-    /** @test */
     public function entity_id_is_required_when_updating_rewrite()
     {
         $meta_title = $this->faker->sentence;
@@ -327,7 +272,6 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'template' => $this->faker->word,
             // 'entity_id' => factory(Entity::class)->create(),
         ]);
 

@@ -117,7 +117,6 @@ class ProductsController extends Controller
                     'meta_title' => $request->meta['meta_title'],
                     'meta_description' => $request->meta['meta_description'],
                     'meta_robots' => $request->meta['meta_robots'],
-                    'template' => 'aaa',
                     'entity_id' => $product->id,
                 ],
             );

@@ -14,7 +14,6 @@ $factory->define(Rewrite::class, function (Faker $faker) {
         'slug' => Str::slug($title),
         'meta_title' => $title,
         'meta_description' => $faker->sentence,
-        'template' => $faker->word,
         'entity_id' => factory(BaseEntity::class)->create(),
     ];
 });
