@@ -4,6 +4,19 @@ namespace App\Models;
 
 class Product extends BaseEntity
 {
+    public function attribute_sets()
+    {
+        return $this->belongsToMany(
+            AttributeSet::class,
+            'attribute_set_product',
+            'product_id',
+            'attribute_set_id',
+            'id',
+            'id',
+            'attribute_sets',
+        );
+    }
+
     public function categories()
     {
         return $this->belongsToMany(

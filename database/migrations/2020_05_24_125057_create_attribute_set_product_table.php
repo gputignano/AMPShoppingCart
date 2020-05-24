@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEntitiesTable extends Migration
+class CreateAttributeSetProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateEntitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('entities', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('type')->index();
+        Schema::create('attribute_set_product', function (Blueprint $table) {
+            $table->unsignedBigInteger('attribute_set_id');
+            $table->unsignedBigInteger('product_id');
         });
     }
 
@@ -30,6 +26,6 @@ class CreateEntitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entities');
+        Schema::dropIfExists('attribute_set_product');
     }
 }

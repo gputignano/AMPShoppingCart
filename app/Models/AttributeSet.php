@@ -24,4 +24,17 @@ class AttributeSet extends Model
             'attributes',
         );
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(
+            Product::class,
+            'attribute_set_product',
+            'attribute_set_id',
+            'product_id',
+            'id',
+            'id',
+            'products',
+        );
+    }
 }

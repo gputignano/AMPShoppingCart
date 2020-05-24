@@ -20,10 +20,10 @@
             <input type="text" name="name">
         </fieldset>
 
-        <fieldset>
+        {{-- <fieldset>
             <label for="description">{{ __('Description') }}</label>
             <textarea name="description" cols="30" rows="10"></textarea>
-        </fieldset>
+        </fieldset> --}}
 
         <fieldset>
             <label for="product_type">{{ __('Product Type') }}</label>
@@ -31,6 +31,16 @@
             <select name="product_type">
                 @foreach (App\Models\Attribute::find(1)->values as $value)
                     <option value="{{ $value->id }}">{{ $value->value }}</option>
+                @endforeach
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <label for="attribute_set">{{ __('Attribute Set') }}</label>
+
+            <select name="attribute_set">
+                @foreach (App\Models\AttributeSet::all() as $attribute_set)
+                    <option value="{{ $attribute_set->id }}">{{ $attribute_set->label }}</option>
                 @endforeach
             </select>
         </fieldset>

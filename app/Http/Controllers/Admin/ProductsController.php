@@ -51,6 +51,7 @@ class ProductsController extends Controller
         $product = Product::create($request->validated('name'));
 
         $product->product_type = $request->product_type;
+        $product->attribute_sets()->attach($request->product_type);
 
         DB::commit();
 
@@ -112,8 +113,8 @@ class ProductsController extends Controller
     public function updateAttributes(Request $request, Product $product)
     {
         // UPDATES PRODUCT'S ATTRIBUTES
-        foreach (EntityType::where('label', Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute) {
-
+        // foreach (EntityType::where('label', Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute) {
+        foreach ($product->attribute_sets()->first()->attributes as $attribute) {
             $value = $request->input('attributes')[$attribute->id] ?? null;
 
             $product->{$attribute->label} = $request->input('attributes')[$attribute->id] ?? null;

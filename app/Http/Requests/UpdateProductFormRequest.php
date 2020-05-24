@@ -23,8 +23,7 @@ class UpdateProductFormRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required',
-            'description' => 'sometimes',
-            'parent_id' => 'sometimes|present',
+            'description' => 'sometimes|required',
         ];
     }
 }

@@ -31,6 +31,8 @@ class ProductTest extends TestCase
 
         $this->product = factory(Product::class)->create();
 
+        $this->product->attribute_sets()->attach(1);
+
         $this->product->rewrite()->save(factory(Rewrite::class)->make());
     }
 
@@ -74,6 +76,7 @@ class ProductTest extends TestCase
     /** @test */
     public function a_user_can_view_product_simple_edit()
     {
+        $this->withoutExceptionHandling();
         $this->product->attributes()->attach(1, ['value_type' => EAVSelect::class, 'value_id' => 1]);
 
         $response = $this->get(route('admin.products.edit', $this->product));
@@ -103,10 +106,9 @@ class ProductTest extends TestCase
     public function a_product_can_be_created()
     {
         $response = $this->postJson(route('admin.products.store'), [
-            'parent_id' => '',
             'name' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'product_type' => 'simple',
+            'product_type' => 1,
+            'attribute_set' => 1,
         ]);
 
         $response->assertStatus(200);
@@ -117,29 +119,9 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function name_is_required_when_creating_a_new_product()
-    {
-        $response = $this->postJson(route('admin.products.store'), [
-            'parent_id' => '',
-            // 'name' => $this->faker->sentence,
-            'product_type' => $this->faker->word,
-        ]);
-
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'name',
-                    'message' => ['The name field is required.'],
-                ],
-            ]
-        ]);
-    }
-
-    /** @test */
     public function a_product_can_be_updated()
     {
         $response = $this->patchJson(route('admin.products.update', $this->product), [
-            'parent_id' => null,
             'name' => $this->faker->sentence,
         ]);
 
@@ -155,7 +137,6 @@ class ProductTest extends TestCase
     // public function name_is_required_when_updating_a_new_product()
     // {
     //     $response = $this->patchJson(route('admin.products.update', $this->product), [
-    //         'parent_id' => null,
     //         // 'name' => $this->faker->sentence,
     //     ]);
 

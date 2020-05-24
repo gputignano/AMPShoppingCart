@@ -17,9 +17,22 @@ class InstallationTableSeeder extends Seeder
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Page::class,]);
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Product::class,]);
 
-        // SEEDS PRODUCT_TYPE ATTRIBUTES
-        $product_type = $attribute = factory(App\Models\Attribute::class)->create([
+        // SEEDS ATTRIBUTES
+        $product_type = factory(App\Models\Attribute::class)->create([
             'label' => $label = 'Product Type',
+            'code' => Str::snake($label),
+            'type' => App\Models\EAVSelect::class,
+            'is_system' => true,
+        ]);
+
+        // SEEDS PRODUCT TYPE ATTRIBUTES
+        $product_type->values()->saveMany([
+            $product_type->type::create(['value' => 'simple']),
+            $product_type->type::create(['value' => 'configurable']),
+        ]);
+
+        $attribute_set = factory(App\Models\Attribute::class)->create([
+            'label' => $label = 'Attribute Set',
             'code' => Str::snake($label),
             'type' => App\Models\EAVSelect::class,
             'is_system' => true,
@@ -29,10 +42,8 @@ class InstallationTableSeeder extends Seeder
             $product_type->id,
         ]);
 
-        // SEEDS PRODUCT TYPE ATTRIBUTES
-        $attribute->values()->saveMany([
-            $attribute->type::create(['value' => 'simple']),
-            $attribute->type::create(['value' => 'configurable']),
+        factory(App\Models\AttributeSet::class)->create([
+            'label' => 'Default',
         ]);
     }
 }

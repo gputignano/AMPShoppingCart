@@ -69,17 +69,16 @@
                         @method('patch')
 
                         <ul>
-                            @if (App\Models\Attribute::where('is_system', false)->count())
-                                @foreach (App\Models\Attribute::where('is_system', false)->get() as $attribute)
-                                    <li>
-                                        <label for="">{{ $attribute->label }}</label>
-    
-                                        @include('admin.input.' . class_basename($attribute->type), ['name' => 'attributes','product' => $product, 'attribute' => $attribute])
-                                    </li>
-                                @endforeach
-                            @else
+                            @forelse ($product->attribute_sets()->first()->attributes as $attribute)
+                                <li>
+                                    <label for="">{{ $attribute->label }}</label>
+
+                                    @include('admin.input.' . class_basename($attribute->type), ['name' => 'attributes','product' => $product, 'attribute' => $attribute])
+                                </li>
+                            @empty
                                 <li>{!! __('No attribute found! <a href="' . route('admin.attributes.create') . ' ">Create a new one</a>') !!}</li>
-                            @endif
+                            @endforelse
+                            
                         </ul>
 
                         <input type="submit" value="{{ __('Update') }}">
