@@ -7,12 +7,13 @@ use App\Http\Requests\StoreProductFormRequest;
 use App\Http\Requests\UpdateProductFormRequest;
 use App\Models\Attributable;
 use App\Models\EAVString;
-use App\Models\EntityType;
 use App\Models\Product;
+use App\Models\Rewrite;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ProductsController extends Controller
 {
@@ -104,6 +105,23 @@ class ProductsController extends Controller
     {
         // UPDATES PRODUCT FIELS
         $updated = $product->update($request->validated());
+
+        if ($request->has('meta'))
+        {
+            $rewrite = Rewrite::updateOrCreate(
+                [
+                    'entity_id' => $product->id,
+                ],
+                [
+                    'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
+                    'meta_title' => $request->meta['meta_title'],
+                    'meta_description' => $request->meta['meta_description'],
+                    'meta_robots' => $request->meta['meta_robots'],
+                    'template' => 'aaa',
+                    'entity_id' => $product->id,
+                ],
+            );
+        }
 
         return response()->json([
             'updated' => $updated,

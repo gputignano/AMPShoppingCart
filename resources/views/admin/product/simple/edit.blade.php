@@ -59,6 +59,62 @@
                 </div>
             </section>
 
+            {{-- META --}}
+            <section>
+                <h2>{{ __('Meta Data') }}</h2>
+
+                <div>
+                    <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+                        @csrf
+                        @method('patch')
+
+                        <fieldset>
+                            <label for="meta[slug]">{{ __('Slug') }}</label>
+                            <input type="text" name="meta[slug]" value="{{ $product->rewrite->slug ?? '' }}">
+                        </fieldset>
+
+                        <fieldset>
+                            <label for="meta[meta_title]">{{ __('Meta Title') }}</label>
+                            <input type="text" name="meta[meta_title]" value="{{ $product->rewrite->meta_title ?? '' }}">
+                        </fieldset>
+
+                        <fieldset>
+                            <label for="meta[meta_description]">{{ __('Meta Description') }}</label>
+                            <textarea name="meta[meta_description]"  cols="30" rows="3">{{ $product->rewrite->meta_description ?? '' }}</textarea>
+                        </fieldset>
+
+                        <fieldset>
+                            <label for="meta[meta_robots]">{{ __('Meta Robots') }}</label>
+                            <input type="text" name="meta[meta_robots]" value="{{ $product->rewrite->meta_robots ?? '' }}">
+                        </fieldset>
+
+                        <input type="submit" value="{{ __('Update') }}">
+                
+                        <div submitting>
+                            <template type="amp-mustache">
+                                {{ __('Submitting...') }}
+                            </template>
+                        </div>
+                
+                        <div submit-success>
+                            <template type="amp-mustache">
+                                {{ __('Product updated successfully!') }}
+                            </template>
+                        </div>
+                
+                        <div submit-error>
+                            <template type="amp-mustache">
+                                <ul>
+                                    @{{#errors}}
+                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
+                                    @{{/errors}}
+                                </ul>
+                            </template>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
             {{-- ADD ATTRIBUTES --}}
             <section>
                 <h2>{{ __('Attributes') }}</h2>
@@ -78,7 +134,6 @@
                             @empty
                                 <li>{!! __('No attribute found! <a href="' . route('admin.attributes.create') . ' ">Create a new one</a>') !!}</li>
                             @endforelse
-                            
                         </ul>
 
                         <input type="submit" value="{{ __('Update') }}">
