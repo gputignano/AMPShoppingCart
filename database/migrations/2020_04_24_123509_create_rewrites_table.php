@@ -20,7 +20,6 @@ class CreateRewritesTable extends Migration
             $table->string('meta_title');
             $table->text('meta_description');
             $table->text('meta_robots')->nullable();
-            $table->boolean('enabled')->default(false);
             $table->unsignedBigInteger('entity_id');
 
             $table->foreign('entity_id')->references('id')->on('entities')->onDelete('cascade');

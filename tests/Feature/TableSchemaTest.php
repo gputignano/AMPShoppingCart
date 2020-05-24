@@ -186,7 +186,6 @@ class TableSchemaTest extends TestCase
                 'meta_title',
                 'meta_description',
                 'meta_robots',
-                'enabled',
                 'entity_id',
             ])
         );
