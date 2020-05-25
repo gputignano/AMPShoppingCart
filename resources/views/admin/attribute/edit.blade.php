@@ -17,69 +17,49 @@
         @csrf
         @method('patch')
 
-        <fieldset>
-            <label for="label">{{ __('Label') }}</label>
-            <input type="text" name="label" value="{{ $attribute->label }}">
-        </fieldset>
 
-        <fieldset disabled>
-            <label for="code">{{ __('Code') }}</label>
-            <input type="text" name="code" value="{{ $attribute->code }}">
-        </fieldset>
-
-        <fieldset>
-            <label for="type">{{ __('Type') }}</label>
-            <select name="type" disabled>
-                <option value="0">{{ __('--select--') }}</option>
-                @foreach ([
-                    App\Models\EAVBoolean::class,
-                    App\Models\EAVDecimal::class,
-                    App\Models\EAVInteger::class,
-                    App\Models\EAVSelect::class,
-                    App\Models\EAVString::class,
-                    App\Models\EAVText::class,
-                ] as $type)
-                    <option value="{{ $type }}" {{ $attribute->type == $type ? 'selected' : '' }}>{{ $type }}</option>
-                @endforeach
-            </select>
-        </fieldset>
-
-        <input type="submit" value="{{ __('Update') }}">
-
-        <div submitting>
-            <template type="amp-mustache">
-                {{ __('Submitting...') }}
-            </template>
-        </div>
-
-        <div submit-success>
-            <template type="amp-mustache">
-                {{ __('User updated successfully!') }}
-            </template>
-        </div>
-
-        <div submit-error>
-            <template type="amp-mustache">
-                <ul>
-                    @{{#errors}}
-                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                    @{{/errors}}
-                </ul>
-            </template>
-        </div>
-    </form>
-
-    {{-- ATTRIBUTE VALUES --}}
-    <amp-accordion id="attributes" expand-single-section animate>
-        @if ($attribute->type::$hasDefaultValues)
+        {{-- ATTRIBUTE VALUES --}}
+        <amp-accordion id="attributes" expand-single-section animate>
             <section>
-                <h2>{{ __('Attribute Values') }}</h2>
+                <h2>{{ __('Default Attributes') }}</h2>
 
                 <div>
-                    <form method="post" action-xhr="{{ route('admin.attributes.update', $attribute) }}">
-                        @csrf
-                        @method('patch')
+                    <fieldset>
+                        <label for="label">{{ __('Label') }}</label>
+                        <input type="text" name="label" value="{{ $attribute->label }}">
+                    </fieldset>
+        
+                    <fieldset disabled>
+                        <label for="code">{{ __('Code') }}</label>
+                        <input type="text" name="code" value="{{ $attribute->code }}">
+                    </fieldset>
+        
+                    <fieldset>
+                        <label for="type">{{ __('Type') }}</label>
+                        <select name="type" disabled>
+                            <option value="0">{{ __('--select--') }}</option>
+                            @foreach ([
+                                App\Models\EAVBoolean::class,
+                                App\Models\EAVDecimal::class,
+                                App\Models\EAVInteger::class,
+                                App\Models\EAVSelect::class,
+                                App\Models\EAVString::class,
+                                App\Models\EAVText::class,
+                            ] as $type)
+                                <option value="{{ $type }}" {{ $attribute->type == $type ? 'selected' : '' }}>{{ $type }}</option>
+                            @endforeach
+                        </select>
+                    </fieldset>
+        
+                    <input type="submit" value="{{ __('Update') }}">
+                </div>
+            </section>
 
+            @if ($attribute->type::$hasDefaultValues)
+                <section>
+                    <h2>{{ __('Attribute Values') }}</h2>
+
+                    <div>
                         <ul>
                             @forelse ($attribute->values as $value)
                                 <li>{{ $value->value }}</li>
@@ -96,119 +76,65 @@
                         @endif
 
                         <input type="submit" value="{{ __('Update') }}">
+                    </div>
+                </section>
+            @endif
 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
+            {{-- ENTITY TYPES --}}
+            @if (\App\Models\EntityType::count())
+                <section>
+                    <h2>{{ __('Entity Types') }}</h2>
 
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Attribute Values updated successfully!') }}
-                            </template>
-                        </div>
-
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        @endif
-
-        {{-- ENTITY TYPES --}}
-        @if (\App\Models\EntityType::count())
-            <section>
-                <h2>{{ __('Entity Types') }}</h2>
-
-                <div>
-                    <form method="post" action-xhr="{{ route('admin.attributes.update', $attribute) }}">
-                        @csrf
-                        @method('patch')
-
+                    <div>
                         <ul>
                             @foreach (\App\Models\EntityType::all() as $entity_type)
                                 <li><input type="checkbox" name="entity_types[]" value="{{ $entity_type->id }}" {{ $attribute->entity_types()->find($entity_type->id) ? 'checked' : '' }}>{{ $entity_type->label }}</li>
                             @endforeach
                         </ul>
                         <input type="submit" value="{{ __('Update') }}">
+                    </div>
+                </section>
+            @endif
 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
+            {{-- ATTRIBUTE SETS --}}
+            @if (\App\Models\AttributeSet::count())
+                <section>
+                    <h2>{{ __('Attribute Sets') }}</h2>
 
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Entity Types updated successfully!') }}
-                            </template>
-                        </div>
-
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        @endif
-
-        {{-- ATTRIBUTE SETS --}}
-        @if (\App\Models\AttributeSet::count())
-            <section>
-                <h2>{{ __('Attribute Sets') }}</h2>
-
-                <div>
-                    <form method="post" action-xhr="{{ route('admin.attributes.update', $attribute) }}">
-                        @csrf
-                        @method('patch')
-
+                    <div>
                         <ul>
                             @foreach (\App\Models\AttributeSet::all() as $attribute_set)
                                 <li><input type="checkbox" name="attribute_sets[]" value="{{ $attribute_set->id }}" {{ $attribute->attribute_sets()->find($attribute_set->id) ? 'checked' : '' }}>{{ $attribute_set->label }}</li>
                             @endforeach
                         </ul>
                         <input type="submit" value="{{ __('Update') }}">
+                    </div>
+                </section>
+            @endif
+        </amp-accordion>
 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
+        <div submitting>
+            <template type="amp-mustache">
+                {{ __('Submitting...') }}
+            </template>
+        </div>
 
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Attribute Sets updated successfully!') }}
-                            </template>
-                        </div>
+        <div submit-success>
+            <template type="amp-mustache">
+                {{ __('Attribute updated successfully!') }}
+            </template>
+        </div>
 
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        @endif
-    </amp-accordion>
+        <div submit-error>
+            <template type="amp-mustache">
+                <ul>
+                    @{{#errors}}
+                    <li><strong>@{{name}}</strong>: @{{message}}</li>
+                    @{{/errors}}
+                </ul>
+            </template>
+        </div>
+    </form>
 
     <form action-xhr="{{ route('admin.attributes.destroy', $attribute) }}" method="post">
         @csrf
