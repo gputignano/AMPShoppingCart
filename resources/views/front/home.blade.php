@@ -27,5 +27,14 @@
             </nav>
         </amp-mega-menu>
     </header>
+
     <h1>{{ __('Home Page') }}</h1>
+
+    <ul>
+        @forelse ($rewrites as $rewrite)
+            <li><a href="">{{ $rewrite->entity->name }}</a></li>
+        @empty
+            <li>{{ __('No Product found.') }}</li>
+        @endforelse
+    </ul>
 @endsection

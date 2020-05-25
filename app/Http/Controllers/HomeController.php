@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Rewrite;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +16,8 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('front.home');
+        $rewrites = Rewrite::all();
+
+        return view('front.home', compact('rewrites'));
     }
 }

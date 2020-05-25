@@ -20,6 +20,6 @@ class Rewrite extends Model
             'entity_id',
             'id',
             'entity',
-        );
+        )->withoutGlobalScopes();
     }
 }
