@@ -81,7 +81,7 @@ class EntityTypesController extends Controller
     {
         $updated = $entityType->update($request->only('label'));
 
-        $entityType->attributes()->syncWithoutDetaching($request->input('attributes'));
+        $entityType->attributes()->sync($request->input('attributes'));
 
         return response()->json([
             'updated' => $updated,

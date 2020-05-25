@@ -23,14 +23,13 @@
             <h2>Attributes</h2>
 
             <ul>
-                @foreach (\App\Models\Attribute::where('is_system', false)->get() as $attribute)
+                @foreach (\App\Models\Attribute::all() as $attribute)
                     <li>
                         <input
                             type="checkbox"
                             name="attributes[]"
                             value="{{ $attribute->id }}"
                             {{ $entityType->attributes()->find($attribute->id) ? 'checked' : '' }}
-                            {{ optional(optional($entityType->attributes()->find($attribute->id))->products())->count() ? 'disabled' : '' }}
                         >
                             {{ $attribute->label }}
                         </li>
