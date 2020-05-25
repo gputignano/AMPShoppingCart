@@ -20,6 +20,32 @@
 
     </head>
     <body>
+        <header>
+            <amp-mega-menu height="30" layout="fixed-height">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{{ route('home') }}">{{ __('Home Page') }}</a>
+                        </li>
+                        @forelse (App\Models\Category::all() as $category)
+                        <li>
+                            <span role="button">{{ $category->name }}</span>
+                            <div role="dialog">
+                                <ul>
+                                    <li>Sub Category 1</li>
+                                    <li>Sub Category 2</li>
+                                    <li>Sub Category 3</li>
+                                </ul>
+                            </div>
+                        </li>
+                        @empty
+                            
+                        @endforelse
+                    </ul>
+                </nav>
+            </amp-mega-menu>
+        </header>
+
         @yield('content', __('Please update me!'))
     </body>
 </html>

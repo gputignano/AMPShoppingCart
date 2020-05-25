@@ -35,3 +35,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('users', 'Admin\UsersController');
     Route::resource('rewrites', 'Admin\RewritesController');
 });
+
+Route::get('{rewrite:slug}', 'FrontController')->where('rewrite', '.*')->name('front');
