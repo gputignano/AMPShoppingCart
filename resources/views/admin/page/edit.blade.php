@@ -17,18 +17,6 @@
         @method('patch')
 
         <fieldset>
-            <label for="parent_id">{{ __('Parent ID') }}</label>
-
-            <select name="parent_id">
-                <option value="">{{ __('------') }}</option>
-
-                @foreach (App\Models\Page::where('id', '<', $page->id)->get() as $parent)
-                    <option value="{{ $parent->id }}" {{ $page->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
-                @endforeach
-            </select>
-        </fieldset>
-
-        <fieldset>
             <label for="name">{{ __('Name') }}</label>
             <input type="text" name="name" value="{{ $page->name }}">
         </fieldset>

@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::whereNull('parent_id')->get();
+        $categories = Category::all();
 
         return view('admin.category.index', compact('categories'));
     }
