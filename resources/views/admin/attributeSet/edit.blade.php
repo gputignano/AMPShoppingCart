@@ -49,7 +49,7 @@
 
     <amp-accordion id="attributeSets" expand-single-section animate>
         <section>
-            <h2>{{ __('Attribute Sets') }}</h2>
+            <h2>{{ __('Attributes') }}</h2>
 
             <div>
                 <form method="post" action-xhr="{{ route('admin.attributeSets.update', $attributeSet) }}">
@@ -57,8 +57,20 @@
                     @method('patch')
 
                         <ul>
-                            @foreach (\App\Models\Attribute::all() as $attribute)
-                                <li><input type="checkbox" name="attributes[]" value="{{ $attribute->id }}" {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}>{{ $attribute->label }}</li>
+                            @foreach (\App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute)
+                                @if ($flag = $attribute->products->count())
+                                    <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
+                                @endif
+                                <li>
+                                    <input
+                                        type="checkbox"
+                                        name="attributes[]"
+                                        value="{{ $attribute->id }}"
+                                        {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}
+                                        {{ $flag ? 'disabled' : '' }}
+                                    >
+                                    {{ $attribute->label }}
+                                </li>
                             @endforeach
                         </ul>
 

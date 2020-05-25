@@ -24,15 +24,24 @@
 
             <ul>
                 @foreach (\App\Models\Attribute::all() as $attribute)
-                    <li>
-                        <input
-                            type="checkbox"
-                            name="attributes[]"
-                            value="{{ $attribute->id }}"
-                            {{ $entityType->attributes()->find($attribute->id) ? 'checked' : '' }}
-                        >
+                    @if ($attribute->is_system)
+                        <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
+                    @else
+                        @if ($flag = ($attribute->products->count() || $attribute->attribute_sets->count() ))
+                            <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
+                        @endif
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                name="attributes[]"
+                                value="{{ $attribute->id }}"
+                                {{ $entityType->attributes()->find($attribute->id) ? 'checked' : '' }}
+                                {{ $flag ? 'disabled' : '' }}
+                            >
                             {{ $attribute->label }}
                         </li>
+                    @endif
                 @endforeach
             </ul>
         @endif

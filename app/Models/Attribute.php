@@ -13,6 +13,10 @@ class Attribute extends Model
 
     public $timestamps = false;
 
+    public $casts = [
+        'is_system' => 'boolean',
+    ];
+
     public function setLabelAttribute($label)
     {
         $this->attributes['label'] = $label;
