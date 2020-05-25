@@ -17,7 +17,7 @@ class InstallationTableSeeder extends Seeder
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Page::class,]);
         factory(App\Models\EntityType::class)->create(['label' => App\Models\Product::class,]);
 
-        // SEEDS ATTRIBUTES
+        // SEEDS PRODUCT_TYPE ATTRIBUTE
         $product_type = factory(App\Models\Attribute::class)->create([
             'label' => $label = 'Product Type',
             'code' => Str::snake($label),
@@ -31,15 +31,31 @@ class InstallationTableSeeder extends Seeder
             $product_type->type::create(['value' => 'configurable']),
         ]);
 
-        $attribute_set = factory(App\Models\Attribute::class)->create([
-            'label' => $label = 'Attribute Set',
+        App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->sync([
+            $product_type->id,
+        ]);
+
+        // $attribute_set = factory(App\Models\Attribute::class)->create([
+        //     'label' => $label = 'Attribute Set',
+        //     'code' => Str::snake($label),
+        //     'type' => App\Models\EAVSelect::class,
+        //     'is_system' => true,
+        // ]);
+
+        // SEEDS PRICE ATTRIBUTE
+        $price = factory(App\Models\Attribute::class)->create([
+            'label' => $label = 'Price',
             'code' => Str::snake($label),
-            'type' => App\Models\EAVSelect::class,
+            'type' => App\Models\EAVDecimal::class,
             'is_system' => true,
         ]);
 
-        App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->sync([
-            $product_type->id,
+        // SEEDS QUANTITY ATTRIBUTE
+        $quantity = factory(App\Models\Attribute::class)->create([
+            'label' => $label = 'Quantity',
+            'code' => Str::snake($label),
+            'type' => App\Models\EAVDecimal::class,
+            'is_system' => true,
         ]);
 
         factory(App\Models\AttributeSet::class)->create([
