@@ -47,7 +47,7 @@ class InstallationTableSeeder extends Seeder
             'label' => $label = 'Price',
             'code' => Str::snake($label),
             'type' => App\Models\EAVDecimal::class,
-            'is_system' => true,
+            'is_system' => false,
         ]);
 
         // SEEDS QUANTITY ATTRIBUTE
@@ -55,7 +55,7 @@ class InstallationTableSeeder extends Seeder
             'label' => $label = 'Quantity',
             'code' => Str::snake($label),
             'type' => App\Models\EAVDecimal::class,
-            'is_system' => true,
+            'is_system' => false,
         ]);
 
         factory(App\Models\AttributeSet::class)->create([
