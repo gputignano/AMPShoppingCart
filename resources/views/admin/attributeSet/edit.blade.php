@@ -102,7 +102,7 @@
         </section>
     </amp-accordion>
 
-    <form action-xhr="{{ route('admin.attributes.destroy', $attributeSet) }}" method="post">
+    <form action-xhr="{{ route('admin.attributeSets.destroy', $attributeSet) }}" method="post">
         @csrf
         @method('delete')
 
