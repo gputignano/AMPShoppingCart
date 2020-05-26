@@ -251,20 +251,6 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    public function when_an_attribute_is_deleted_entity_types_relation_is_detached()
-    {
-        $entityTypes = $this->attribute->entity_types()->save(EntityType::all()->random());
-
-        $this->attribute->delete();
-
-        $this->assertDeleted($this->attribute);
-
-        $this->assertNotNull($entityTypes->fresh());
-
-        $this->assertCount(0, $this->attribute->entity_types);
-    }
-
-    /** @test */
     public function when_an_attribute_is_deleted_values_relation_is_detached()
     {
         $value = $this->attribute->values()->save(factory($this->attribute->type)->make());
@@ -289,15 +275,6 @@ class AttributeTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->attribute_sets);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attribute->attribute_sets());
-    }
-
-    /** @test */
-    public function attribute_has_entity_types_relation()
-    {
-        // Many to Many
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->attribute->entity_types);
-
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->attribute->entity_types());
     }
 
     /** @test */

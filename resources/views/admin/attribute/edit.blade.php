@@ -79,38 +79,6 @@
                     </div>
                 </section>
             @endif
-
-            {{-- ENTITY TYPES --}}
-            @if (\App\Models\EntityType::count())
-                <section>
-                    <h2>{{ __('Entity Types') }}</h2>
-
-                    <div>
-                        <ul>
-                            @foreach (\App\Models\EntityType::all() as $entity_type)
-                                <li><input type="checkbox" name="entity_types[]" value="{{ $entity_type->id }}" {{ $attribute->entity_types()->find($entity_type->id) ? 'checked' : '' }}>{{ $entity_type->label }}</li>
-                            @endforeach
-                        </ul>
-                        <input type="submit" value="{{ __('Update') }}">
-                    </div>
-                </section>
-            @endif
-
-            {{-- ATTRIBUTE SETS --}}
-            @if (\App\Models\AttributeSet::count())
-                <section>
-                    <h2>{{ __('Attribute Sets') }}</h2>
-
-                    <div>
-                        <ul>
-                            @foreach (\App\Models\AttributeSet::all() as $attribute_set)
-                                <li><input type="checkbox" name="attribute_sets[]" value="{{ $attribute_set->id }}" {{ $attribute->attribute_sets()->find($attribute_set->id) ? 'checked' : '' }}>{{ $attribute_set->label }}</li>
-                            @endforeach
-                        </ul>
-                        <input type="submit" value="{{ __('Update') }}">
-                    </div>
-                </section>
-            @endif
         </amp-accordion>
 
         <div submitting>

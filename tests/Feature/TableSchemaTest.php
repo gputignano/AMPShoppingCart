@@ -51,39 +51,13 @@ class TableSchemaTest extends TestCase
             Schema::hasColumns('attribute_sets', $fields = [
                 'id',
                 'label',
+                'parent_id',
             ])
         );
 
         $this->assertCount(count($fields), Schema::getColumnListing('attribute_sets'));
     }
 
-    /** @test */
-    public function entity_types_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('entity_types', $fields = [
-                'id',
-                'label',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('entity_types'));
-    }
-
-
-    /** @test */
-    public function attribute_entity_type_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('attribute_entity_type', $fields = [
-                'attribute_id',
-                'entity_type_id',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('attribute_entity_type'));
-    }
-    
     /** @test */
     public function eav_booleans_table_has_expected_columns()
     {

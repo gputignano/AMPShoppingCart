@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeFormRequest;
 use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class AttributesController extends Controller
 {
@@ -39,9 +41,20 @@ class AttributesController extends Controller
      */
     public function store(StoreAttributeFormRequest $request)
     {
-        $attribute = Attribute::create($request->all());
+        DB::beginTransaction();
 
-        $type = $attribute->type;
+        try {
+
+            $attribute = Attribute::create($request->all());
+            $attribute->attribute_sets()->sync(1);
+
+        } catch (Exception $e) {
+
+            DB::rollBack();
+
+        }
+
+        DB::commit();
 
         return response()->json([
             'created' => true,
@@ -80,10 +93,6 @@ class AttributesController extends Controller
     public function update(UpdateAttributeFormRequest $request, Attribute $attribute)
     {
         $updated = $attribute->update($request->only(['label', 'type']));
-
-        $attribute->entity_types()->sync($request->entity_types);
-
-        $attribute->attribute_sets()->sync($request->attribute_sets);
 
         if (null != $request->input('value'))
         {

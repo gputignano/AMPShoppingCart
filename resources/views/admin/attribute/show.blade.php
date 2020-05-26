@@ -39,19 +39,5 @@
                 </ul>
             </div>
         </section>
-
-        @if ($attribute->entity_types()->count())
-            <section>
-                <h2>{{ __('Entity Types') }}</h2>
-
-                <div>
-                    <ul>
-                        @foreach ($attribute->entity_types as $entity_type)
-                            <li>{{ $entity_type->label }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </section>
-        @endif
     </amp-accordion>
 @endsection

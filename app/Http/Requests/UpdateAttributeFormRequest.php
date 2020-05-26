@@ -26,7 +26,6 @@ class UpdateAttributeFormRequest extends FormRequest
         return [
             'label' => 'sometimes|required|unique:attributes,label,' . $this->attribute->id,
             'value' => 'sometimes|required',
-            'entity_types' => 'sometimes|array',
             'attribute_sets' => 'sometimes|array',
         ];
     }

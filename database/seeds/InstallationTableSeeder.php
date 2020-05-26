@@ -12,10 +12,11 @@ class InstallationTableSeeder extends Seeder
      */
     public function run()
     {
-        // SEEDS ENTITY TYPES
-        factory(App\Models\EntityType::class)->create(['label' => App\Models\Category::class,]);
-        factory(App\Models\EntityType::class)->create(['label' => App\Models\Page::class,]);
-        factory(App\Models\EntityType::class)->create(['label' => App\Models\Product::class,]);
+        // SEEDS ATTRIBUTE SETS
+        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\BaseEntity::class,]);
+        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Category::class, 'parent_id' => 1],);
+        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Page::class, 'parent_id' => 1],);
+        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Product::class, 'parent_id' => 1,]);
 
         // SEEDS PRODUCT_TYPE ATTRIBUTE
         $product_type = factory(App\Models\Attribute::class)->create([
@@ -31,17 +32,6 @@ class InstallationTableSeeder extends Seeder
             $product_type->type::create(['value' => 'configurable']),
         ]);
 
-        App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->sync([
-            $product_type->id,
-        ]);
-
-        // $attribute_set = factory(App\Models\Attribute::class)->create([
-        //     'label' => $label = 'Attribute Set',
-        //     'code' => Str::snake($label),
-        //     'type' => App\Models\EAVSelect::class,
-        //     'is_system' => true,
-        // ]);
-
         // SEEDS PRICE ATTRIBUTE
         $price = factory(App\Models\Attribute::class)->create([
             'label' => $label = 'Price',
@@ -50,16 +40,16 @@ class InstallationTableSeeder extends Seeder
             'is_system' => false,
         ]);
 
+        $price->attribute_sets()->attach(1);
+
         // SEEDS QUANTITY ATTRIBUTE
         $quantity = factory(App\Models\Attribute::class)->create([
             'label' => $label = 'Quantity',
             'code' => Str::snake($label),
-            'type' => App\Models\EAVDecimal::class,
+            'type' => App\Models\EAVInteger::class,
             'is_system' => false,
         ]);
 
-        factory(App\Models\AttributeSet::class)->create([
-            'label' => 'Default',
-        ]);
+        $quantity->attribute_sets()->attach(1);
     }
 }

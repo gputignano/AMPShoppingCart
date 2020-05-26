@@ -12,6 +12,25 @@ class AttributeSet extends Model
 
     public $timestamps = false;
 
+    public function parent()
+    {
+        return $this->belongsTo(
+            $this,
+            'parent_id',
+            'id',
+            'parent',
+        );
+    }
+
+    public function children()
+    {
+        return $this->hasMany(
+            $this,
+            'parent_id',
+            'id',
+        );
+    }
+
     public function attributes()
     {
         return $this->belongsToMany(

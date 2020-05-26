@@ -39,18 +39,6 @@
                         </div>
                     </li>
                     <li>
-                        <h4 amp-nested-submenu-open>{{ __('Entity Types') }}</h4>
-                        <div amp-nested-submenu>
-                            <ul>
-                                <li>
-                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
-                                </li>
-                                <li><a href="{{ route('admin.entityTypes.index') }}">{{ __('All Entity Types') }}</a></li>
-                                <li><a href="{{ route('admin.entityTypes.create') }}">{{ __('Create Entity Type') }}</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
                         <h4 amp-nested-submenu-open>{{ __('Attributes') }}</h4>
                         <div amp-nested-submenu>
                             <ul>
@@ -201,15 +189,6 @@
                                 <ul>
                                     <li><a href="{{ route('admin.users.index') }}">{{ __('All Users') }}</a></li>
                                     <li><a href="{{ route('admin.users.create') }}">{{ __('Create User') }}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <span role="button">{{ __('Entity Type') }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li><a href="{{ route('admin.entityTypes.index') }}">{{ __('All Entity Types') }}</a></li>
-                                    <li><a href="{{ route('admin.entityTypes.create') }}">{{ __('Create Entity Type') }}</a></li>
                                 </ul>
                             </div>
                         </li>

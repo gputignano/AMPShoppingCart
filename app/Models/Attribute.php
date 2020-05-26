@@ -52,19 +52,6 @@ class Attribute extends Model
         ])->using(Attributable::class);
     }
 
-    public function entity_types()
-    {
-        return $this->belongsToMany(
-            EntityType::class,
-            'attribute_entity_type',
-            'attribute_id',
-            'entity_type_id',
-            'id',
-            'id',
-            'entity_types',
-        );
-    }
-
     public function values()
     {
         return $this->morphedByMany(

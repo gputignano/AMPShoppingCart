@@ -25,7 +25,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('eavIntegers', 'Admin\EAVIntegersController');
     Route::resource('eavStrings', 'Admin\EAVStringsController');
     Route::resource('eavTexts', 'Admin\EAVTextsController');
-    Route::resource('entityTypes', 'Admin\EntityTypesController');
     Route::resource('orders', 'Admin\OrdersController');
     Route::resource('orderDetails', 'Admin\OrderDetailsController');
     Route::resource('pages', 'Admin\PagesController');

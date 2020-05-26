@@ -57,8 +57,8 @@
                     @method('patch')
 
                         <ul>
-                            @foreach (\App\Models\EntityType::where('label', App\Models\Product::class)->first()->attributes()->where('is_system', false)->get() as $attribute)
-                                @if ($flag = $attribute->products->count())
+                            @foreach (($attributeSet->parent ? $attributeSet->parent->attributes : App\Models\Attribute::where('is_system', false)->get()) as $attribute)
+                                @if ($attribute->products->count())
                                     <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
                                 @endif
                                 <li>
@@ -67,7 +67,7 @@
                                         name="attributes[]"
                                         value="{{ $attribute->id }}"
                                         {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}
-                                        {{ $flag ? 'disabled' : '' }}
+                                        {{ $attribute->products->count() || $attribute->attribute_sets()->where('id', '>', $attributeSet->id)->count() ? 'disabled' : '' }}
                                     >
                                     {{ $attribute->label }}
                                 </li>

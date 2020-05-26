@@ -18,6 +18,9 @@ class CreateAttributeSetsTable extends Migration
 
             $table->id();
             $table->string('label')->unique();
+            $table->unsignedBigInteger('parent_id')->nullable();
+
+            $table->foreign('parent_id')->references('id')->on('attribute_sets')->onDelete('cascade');
         });
     }
 
