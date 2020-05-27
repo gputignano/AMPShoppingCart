@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAttributeSetFormRequest;
 use App\Http\Requests\UpdateAttributeSetFormRequest;
 use App\Models\AttributeSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AttributeSetsController extends Controller
 {
@@ -40,7 +41,7 @@ class AttributeSetsController extends Controller
      */
     public function store(StoreAttributeSetFormRequest $request)
     {
-        $attributeSet = AttributeSet::create($request->validated());
+        $attributeSet = AttributeSet::create(array_merge(['parent_id' => $request->attribute_set], $request->validated()));
 
         return response()->json([
             'created' => true,

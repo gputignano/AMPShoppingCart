@@ -16,6 +16,9 @@ class CreateAttributeSetProductTable extends Migration
         Schema::create('attribute_set_product', function (Blueprint $table) {
             $table->unsignedBigInteger('attribute_set_id');
             $table->unsignedBigInteger('product_id');
+
+            $table->foreign('attribute_set_id')->references('id')->on('attribute_sets')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('entities')->onDelete('cascade');
         });
     }
 
