@@ -23,6 +23,13 @@ class Attribute extends Model
         $this->attributes['code'] = Str::slug($label);
     }
 
+    // SCOPES
+    public function scopeIsSystem($query, $flag)
+    {
+        return $query->where('is_system', $flag);
+    }
+
+    // RELATIONS
     public function attribute_sets()
     {
         return $this->belongsToMany(

@@ -57,7 +57,7 @@
                     @method('patch')
 
                         <ul>
-                            @foreach (($attributeSet->parent ? $attributeSet->parent->attributes : App\Models\Attribute::where('is_system', false)->get()) as $attribute)
+                            @foreach (($attributeSet->parent ? $attributeSet->parent->attributes : App\Models\Attribute::isSystem(false)->get()) as $attribute)
                                 @if ($attribute->products->count())
                                     <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
                                 @endif
