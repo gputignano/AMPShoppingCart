@@ -199,6 +199,6 @@ class CategoryTest extends TestCase
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->category->rewrite);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasOne::class, $this->category->rewrite());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->category->rewrite());
     }
 }

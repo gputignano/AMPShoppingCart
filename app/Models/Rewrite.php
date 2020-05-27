@@ -8,18 +8,25 @@ use Illuminate\Support\Str;
 class Rewrite extends Model
 {
     protected $fillable = [
-        'slug', 'meta_title', 'meta_description', 'meta_robots', 'entity_id',
+        'slug', 'meta_title', 'meta_description', 'meta_robots', 'entity_type', 'entity_id',
     ];
 
     public $timestamps = false;
 
     public function entity()
     {
-        return $this->belongsTo(
-            BaseEntity::class,
+        // return $this->belongsTo(
+        //     BaseEntity::class,
+        //     'entity_id',
+        //     'id',
+        //     'entity',
+        // )->withoutGlobalScopes();
+
+        return $this->morphTo(
+            'entity',
+            'entity_type',
             'entity_id',
             'id',
-            'entity',
-        )->withoutGlobalScopes();
+        );
     }
 }

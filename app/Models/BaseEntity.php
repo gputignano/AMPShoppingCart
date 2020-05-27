@@ -100,8 +100,16 @@ class BaseEntity extends Model
 
     public function rewrite()
     {
-        return $this->hasOne(
+        // return $this->hasOne(
+        //     Rewrite::class,
+        //     'entity_id',
+        //     'id',
+        // );
+
+        return $this->morphOne(
             Rewrite::class,
+            'rewrite',
+            'entity_type',
             'entity_id',
             'id',
         );
@@ -115,6 +123,10 @@ class BaseEntity extends Model
             $entity->forceFill([
                 'type' => static::class,
             ]);
+        });
+
+        static::deleting(function ($entity) {
+            $entity->rewrite()->delete();
         });
 
         static::addGlobalScope('type', function (Builder $builder) {

@@ -25,6 +25,7 @@ class StoreRewriteFormRequest extends FormRequest
             'slug' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
+            'entity_type' => 'required',
             'entity_id' => 'required',
         ];
     }

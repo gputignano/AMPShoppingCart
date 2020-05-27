@@ -80,6 +80,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'entity_type' => BaseEntity::class,
             'entity_id' => factory(BaseEntity::class)->create()->id,
         ]);
 
@@ -99,6 +100,7 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'entity_type' => BaseEntity::class,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -121,6 +123,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'entity_type' => BaseEntity::class,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -143,6 +146,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
+            'entity_type' => BaseEntity::class,
             'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
@@ -165,7 +169,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            // 'entity_id' => factory(Entity::class)->create(),
+            'entity_type' => BaseEntity::class,
+            // 'entity_id' => factory(BaseEntity::class)->create(),
         ]);
 
         $response->assertExactJson([

@@ -226,6 +226,6 @@ class ProductTest extends TestCase
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->product->rewrite);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasOne::class, $this->product->rewrite());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->product->rewrite());
     }
 }

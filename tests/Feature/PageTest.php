@@ -177,6 +177,6 @@ class PageTest extends TestCase
         // One to One Polymorphic
         $this->assertInstanceOf(Rewrite::class, $this->page->rewrite);
 
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasOne::class, $this->page->rewrite());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphOne::class, $this->page->rewrite());
     }
 }
