@@ -1,7 +1,7 @@
 @extends('front.layouts.main')
 
 @section('content')
-    <h1>{{ __('Page') }}</h1>
+    <h1>{{ $entity->name }}</h1>
 
-    {{ $entity }}
+    <div>{!! $entity->description !!}</div>
 @endsection

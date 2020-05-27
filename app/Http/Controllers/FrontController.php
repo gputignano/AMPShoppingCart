@@ -14,22 +14,9 @@ class FrontController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function home(Request $request)
+    public function __invoke(Rewrite $rewrite)
     {
-        $products = Product::has('rewrite')->get();
-
-        return view('front.home', compact('products'));
-    }
-
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function front(Rewrite $rewrite)
-    {
-        return view('front.' . basename($rewrite->entity->type), [
+        return view('front.' . basename($rewrite->entity->type, 'App\\Models\\'), [
             'rewrite' => $rewrite,
             'entity' => $rewrite->entity,
         ]);

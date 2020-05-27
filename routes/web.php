@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'FrontController@home')->name('home');
-
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::view('/', 'admin.home')->name('home');
 
@@ -35,4 +33,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('rewrites', 'Admin\RewritesController');
 });
 
-Route::get('{rewrite:slug}', 'FrontController@front')->where('rewrite', '.*')->name('front');
+Route::get('{rewrite:slug}', 'FrontController')->defaults('rewrite', 'home')->where('rewrite', '.*')->name('front');
+
