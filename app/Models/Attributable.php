@@ -16,7 +16,7 @@ class Attributable extends Pivot
     public function entity()
     {
         return $this->belongsTo(
-            BaseEntity::class,
+            Entity::class,
             'attributable_id',
             'id',
             'entity',

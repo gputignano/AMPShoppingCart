@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\BaseEntity;
+use App\Models\Entity;
 use App\Models\Rewrite;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -14,7 +14,7 @@ $factory->define(Rewrite::class, function (Faker $faker) {
         'slug' => Str::slug($title),
         'meta_title' => $title,
         'meta_description' => $faker->sentence,
-        'entity_type' => BaseEntity::class,
-        'entity_id' => factory(BaseEntity::class)->create(),
+        'entity_type' => Entity::class,
+        'entity_id' => factory(Entity::class)->create(),
     ];
 });

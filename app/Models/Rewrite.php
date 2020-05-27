@@ -15,13 +15,6 @@ class Rewrite extends Model
 
     public function entity()
     {
-        // return $this->belongsTo(
-        //     BaseEntity::class,
-        //     'entity_id',
-        //     'id',
-        //     'entity',
-        // )->withoutGlobalScopes();
-
         return $this->morphTo(
             'entity',
             'entity_type',

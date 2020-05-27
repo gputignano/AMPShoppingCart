@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Product extends BaseEntity
+class Product extends Entity
 {
     public function attribute_sets()
     {

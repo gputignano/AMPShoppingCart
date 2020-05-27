@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Page extends BaseEntity
+class Page extends Entity
 {
     //
 }

@@ -3,16 +3,16 @@
 namespace Tests\Feature;
 
 use App\Models\Attribute;
-use App\Models\BaseEntity;
+use App\Models\Entity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class BaseEntityTest extends TestCase
+class EntityTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $baseEntity;
+    protected $entity;
 
     protected function setUp(): void
     {
@@ -20,7 +20,7 @@ class BaseEntityTest extends TestCase
 
         $this->seed('InstallationTableSeeder');
 
-        $this->baseEntity = factory(BaseEntity::class)->create();
+        $this->entity = factory(Entity::class)->create();
     }
 
     /**
@@ -31,12 +31,12 @@ class BaseEntityTest extends TestCase
     /** @test */
     public function when_an_entity_is_deleted_attributable_is_deleted()
     {
-        $this->baseEntity->attributes()->attach(factory(Attribute::class)->create());
+        $this->entity->attributes()->attach(factory(Attribute::class)->create());
 
-        $this->baseEntity->delete();
+        $this->entity->delete();
 
-        $this->assertDeleted($this->baseEntity);
+        $this->assertDeleted($this->entity);
 
-        $this->assertCount(0, $this->baseEntity->attributes);
+        $this->assertCount(0, $this->entity->attributes);
     }
 }

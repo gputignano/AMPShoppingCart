@@ -2,13 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\BaseEntity;
+use App\Models\Entity;
 use Faker\Generator as Faker;
 
-$factory->define(BaseEntity::class, function (Faker $faker) {
+$factory->define(Entity::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
         'description' => $faker->paragraph,
-        'type' => BaseEntity::class,
+        'type' => Entity::class,
     ];
 });

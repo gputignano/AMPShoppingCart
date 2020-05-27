@@ -49,7 +49,7 @@
         <fieldset>
             <label for="rewritable_id">{{ __('Rewritable') }}</label>
             <select name="rewritable_id">
-                @foreach (App\Models\BaseEntity::all() as $entity)
+                @foreach (App\Models\Entity::all() as $entity)
                     <option value="{{ $entity->id }}" {{ $entity->id == $rewrite->id ? 'selected' : '' }}>{{ $entity->name }}</option>
                 @endforeach
             </select>

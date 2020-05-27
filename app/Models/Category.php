@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Category extends BaseEntity
+class Category extends Entity
 {
     public function products()
     {

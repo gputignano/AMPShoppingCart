@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\BaseEntity;
+use App\Models\Entity;
 use App\Models\Rewrite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -80,8 +80,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_type' => BaseEntity::class,
-            'entity_id' => factory(BaseEntity::class)->create()->id,
+            'entity_type' => Entity::class,
+            'entity_id' => factory(Entity::class)->create()->id,
         ]);
 
         $response->assertStatus(200);
@@ -100,8 +100,8 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_type' => BaseEntity::class,
-            'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_type' => Entity::class,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -123,8 +123,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_type' => BaseEntity::class,
-            'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_type' => Entity::class,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -146,8 +146,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
-            'entity_type' => BaseEntity::class,
-            'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_type' => Entity::class,
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -169,8 +169,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_type' => BaseEntity::class,
-            // 'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_type' => Entity::class,
+            // 'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -192,7 +192,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_id' => factory(BaseEntity::class)->create()->id,
+            'entity_id' => factory(Entity::class)->create()->id,
         ]);
 
         $response->assertStatus(200);
@@ -211,7 +211,7 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -233,7 +233,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -255,7 +255,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
-            'entity_id' => factory(BaseEntity::class)->create(),
+            'entity_id' => factory(Entity::class)->create(),
         ]);
 
         $response->assertExactJson([
@@ -312,7 +312,7 @@ class RewriteTest extends TestCase
     public function rewrite_has_entity_relation()
     {
         // One to One Polymorphic
-        $this->assertInstanceOf(BaseEntity::class, $this->rewrite->entity);
+        $this->assertInstanceOf(Entity::class, $this->rewrite->entity);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->rewrite->entity());
     }
