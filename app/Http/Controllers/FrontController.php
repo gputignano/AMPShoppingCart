@@ -31,7 +31,7 @@ class FrontController extends Controller
     {
         return view('front.' . basename($rewrite->entity->type), [
             'rewrite' => $rewrite,
-            'entity' => $rewrite->entity->type::find($rewrite->id),
+            'entity' => $rewrite->entity,
         ]);
     }
 }
