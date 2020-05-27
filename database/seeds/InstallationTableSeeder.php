@@ -12,8 +12,12 @@ class InstallationTableSeeder extends Seeder
      */
     public function run()
     {
+        // SEED HOME PAGE
+        $home = factory(App\Models\Page::class)->create(['name' => 'Home Page', 'description' => 'Home Page Description']);
+        $home->rewrite()->create(['slug' => 'home', 'meta_title' => 'Home Page', 'meta_description' => 'Meta']);
+
         // SEEDS ATTRIBUTE SETS
-        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\BaseEntity::class,]);
+        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Entity::class,]);
         factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Category::class, 'parent_id' => 1],);
         factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Page::class, 'parent_id' => 1],);
         factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Product::class, 'parent_id' => 1,]);
