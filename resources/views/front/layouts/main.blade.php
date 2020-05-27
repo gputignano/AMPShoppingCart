@@ -2,6 +2,7 @@
 <html amp lang="en">
     <head>
         <meta charset="utf-8">
+        <link rel="preconnect" href="https://cdn.ampproject.org">
         <script async src="https://cdn.ampproject.org/v0.js"></script>
         <title>{{ $rewrite->meta_title }}</title>
         <meta name="description" content="{{ $rewrite->meta_description }}">
