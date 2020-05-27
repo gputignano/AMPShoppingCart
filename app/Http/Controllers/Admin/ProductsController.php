@@ -132,9 +132,7 @@ class ProductsController extends Controller
     {
         // UPDATES PRODUCT'S ATTRIBUTES
         foreach ($product->attribute_sets()->first()->attributes as $attribute) {
-            $value = $request->input('attributes')[$attribute->id] ?? null;
-
-            $product->{$attribute->label} = $request->input('attributes')[$attribute->id] ?? null;
+            $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
         }
 
         return response()->json([
