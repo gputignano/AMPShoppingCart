@@ -20,6 +20,7 @@ class CreateAttributesTable extends Migration
             $table->string('code')->unique();
             $table->string('type');
             $table->boolean('is_system')->default(false);
+            $table->boolean('is_visible_on_front')->default(false);
         });
     }
 

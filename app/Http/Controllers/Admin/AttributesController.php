@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AttributesController extends Controller
 {
@@ -92,7 +93,7 @@ class AttributesController extends Controller
      */
     public function update(UpdateAttributeFormRequest $request, Attribute $attribute)
     {
-        $updated = $attribute->update($request->only(['label', 'type']));
+        $updated = $attribute->update($request->only(['label', 'is_system', 'is_visible_on_front']));
 
         if (null != $request->input('value'))
         {

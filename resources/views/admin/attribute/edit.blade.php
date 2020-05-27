@@ -34,23 +34,21 @@
                         <input type="text" name="code" value="{{ $attribute->code }}">
                     </fieldset>
         
-                    <fieldset>
+                    <fieldset disabled>
                         <label for="type">{{ __('Type') }}</label>
-                        <select name="type" disabled>
-                            <option value="0">{{ __('--select--') }}</option>
-                            @foreach ([
-                                App\Models\EAVBoolean::class,
-                                App\Models\EAVDecimal::class,
-                                App\Models\EAVInteger::class,
-                                App\Models\EAVSelect::class,
-                                App\Models\EAVString::class,
-                                App\Models\EAVText::class,
-                            ] as $type)
-                                <option value="{{ $type }}" {{ $attribute->type == $type ? 'selected' : '' }}>{{ $type }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="type" value="{{ class_basename($attribute->type) }}">
+                    </fieldset>
+
+                    <fieldset>
+                        <label for="is_system">{{ __('Is System') }}</label>
+                        <input type="checkbox" name="is_system" {{ $attribute->checked($attribute, 'is_system') }}>
                     </fieldset>
         
+                    <fieldset>
+                        <label for="is_visible_on_front">{{ __('Is Visible on Front') }}</label>
+                        <input type="checkbox" name="is_visible_on_front" {{ $attribute->checked($attribute, 'is_visible_on_front') }}>
+                    </fieldset>
+
                     <input type="submit" value="{{ __('Update') }}">
                 </div>
             </section>

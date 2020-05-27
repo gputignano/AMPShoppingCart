@@ -38,6 +38,7 @@ class TableSchemaTest extends TestCase
                 'code',
                 'type',
                 'is_system',
+                'is_visible_on_front',
             ])
         );
 

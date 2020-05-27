@@ -8,13 +8,14 @@ use Illuminate\Support\Str;
 class Attribute extends Model
 {
     protected $fillable = [
-        'label', 'code', 'type',
+        'label', 'code', 'type', 'is_system', 'is_visible_on_front',
     ];
 
     public $timestamps = false;
 
     public $casts = [
         'is_system' => 'boolean',
+        'is_visible_on_front' => 'boolean',
     ];
 
     public function setLabelAttribute($label)
@@ -23,10 +24,20 @@ class Attribute extends Model
         $this->attributes['code'] = Str::slug($label);
     }
 
+    public function checked($attribute, $field)
+    {
+        return $attribute->$field ? 'checked' : '';
+    }
+
     // SCOPES
     public function scopeIsSystem($query, $flag)
     {
         return $query->where('is_system', $flag);
+    }
+
+    public function scopeIsVisibleOnFront($query, $flag)
+    {
+        return $query->where('is_visible_on_front', $flag);
     }
 
     // RELATIONS
