@@ -40,7 +40,8 @@ class UpdateAttributeFormRequest extends FormRequest
             'label' => 'sometimes|required|unique:attributes,label,' . $this->attribute->id,
             'is_system' => 'sometimes|boolean',
             'is_visible_on_front' => 'sometimes|boolean',
-            'value' => 'sometimes',
+
+            'value' => 'sometimes|required',
         ];
     }
 }

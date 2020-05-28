@@ -42,7 +42,7 @@ class AttributesController extends Controller
      */
     public function store(StoreAttributeFormRequest $request)
     {
-        $attribute = Attribute::create($request->all());
+        $attribute = Attribute::create($request->validated());
 
         return response()->json([
             'created' => true,
