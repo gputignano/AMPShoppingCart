@@ -11,14 +11,12 @@
         <thead>
             <th>{{ __('ID') }}</th>
             <td>{{ __('Name') }}</td>
-            <th>{{ __('Parent') }}</th>
         </thead>
 
         @forelse ($pages as $page)
             <tr>
                 <td>{{ $page->id }}</td>
-                <td><a href="{{ route('admin.pages.show', $page) }}">{{ $page->name }}</a></td>
-                <td>{{ optional($page->parent)->name }}</td>
+                <td><a href="{{ route('admin.pages.edit', $page) }}">{{ $page->name }}</a></td>
             </tr>
         @empty
             <tr>
