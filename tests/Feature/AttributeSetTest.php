@@ -49,18 +49,6 @@ class AttributeSetTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_attribute_set_show()
-    {
-        $response = $this->get(route('admin.attributeSets.show', $this->attributeSet));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.attributeSet.show');
-
-        $response->assertSee('<h1>Show Attribute Set</h1>', false);
-    }
-
-    /** @test */
     public function a_user_can_view_attribute_set_edit()
     {
         $response = $this->get(route('admin.attributeSets.edit', $this->attributeSet));

@@ -52,18 +52,6 @@ class AttributeTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_attribute_show()
-    {
-        $response = $this->get(route('admin.attributes.show', $this->attribute));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.attribute.show');
-
-        $response->assertSee('<h1>Show Attribute</h1>', false);
-    }
-
-    /** @test */
     public function a_user_can_view_attribute_edit()
     {
         $response = $this->get(route('admin.attributes.edit', $this->attribute));

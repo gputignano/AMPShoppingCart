@@ -11,93 +11,54 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Edit Attribute Set') }}</h1>
-
-    <form method="post" action-xhr="{{ route('admin.attributeSets.update', $attributeSet) }}">
-        @csrf
-        @method('patch')
-
-        <fieldset>
-            <label for="label">{{ __('Label') }}</label>
-            <input type="text" name="label" value="{{ $attributeSet->label }}">
-        </fieldset>
-
-        <input type="submit" value="{{ __('Update') }}">
-
-        <div submitting>
-            <template type="amp-mustache">
-                {{ __('Submitting...') }}
-            </template>
-        </div>
-
-        <div submit-success>
-            <template type="amp-mustache">
-                {{ __('Attribute Set updated successfully!') }}
-            </template>
-        </div>
-
-        <div submit-error>
-            <template type="amp-mustache">
-                <ul>
-                    @{{#errors}}
-                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                    @{{/errors}}
-                </ul>
-            </template>
-        </div>
-    </form>
-
     <amp-accordion id="attributeSets" expand-single-section animate>
+        <section>
+            <h2>{{ __('Default Attributes') }}</h2>
+
+            <form method="post" action-xhr="{{ route('admin.attributeSets.update', $attributeSet) }}">
+                @csrf
+                @method('patch')
+        
+                <fieldset>
+                    <label for="label">{{ __('Label') }}</label>
+                    <input type="text" name="label" value="{{ $attributeSet->label }}">
+                </fieldset>
+        
+                <input type="submit" value="{{ __('Update') }}">
+        
+                @include('admin.inc.response')
+            </form>
+        </section>
+
         <section>
             <h2>{{ __('Attributes') }}</h2>
 
-            <div>
-                <form method="post" action-xhr="{{ route('admin.attributeSets.update', $attributeSet) }}">
-                    @csrf
-                    @method('patch')
+            <form method="post" action-xhr="{{ route('admin.attributeSets.update', $attributeSet) }}">
+                @csrf
+                @method('patch')
 
-                        <ul>
-                            @foreach (App\Models\Attribute::isSystem(false)->get() as $attribute)
-                                @if ($attribute->products->count())
-                                    <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
-                                @endif
-                                <li>
-                                    <input
-                                        type="checkbox"
-                                        name="attributes[]"
-                                        value="{{ $attribute->id }}"
-                                        {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}
-                                    >
-                                    {{ $attribute->label }}
-                                </li>
-                            @endforeach
-                        </ul>
+                <ul>
+                    @foreach (App\Models\Attribute::isSystem(false)->get() as $attribute)
+                        @if ($attribute->products->count())
+                            <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
+                        @endif
+                        <li>
+                            <input
+                                type="checkbox"
+                                name="attributes[]"
+                                value="{{ $attribute->id }}"
+                                {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}
+                                {{ $attributeSet->attributes()->find($attribute->id) && $attribute->products->count() ? 'disabled' : '' }}
+                            >
+                            {{ $attribute->label }}
+                        </li>
+                    @endforeach
+                </ul>
 
-                        <input type="submit" value="{{ __('Update') }}">
+                <input type="submit" value="{{ __('Update') }}">
 
-                    <div submitting>
-                        <template type="amp-mustache">
-                            {{ __('Submitting...') }}
-                        </template>
-                    </div>
-
-                    <div submit-success>
-                        <template type="amp-mustache">
-                            {{ __('Attribute Sets updated successfully!') }}
-                        </template>
-                    </div>
-
-                    <div submit-error>
-                        <template type="amp-mustache">
-                            <ul>
-                                @{{#errors}}
-                                <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                @{{/errors}}
-                            </ul>
-                        </template>
-                    </div>
-                </form>
-            </div>
+                @include('admin.inc.response')
+            </form>
         </section>
     </amp-accordion>
 
@@ -105,6 +66,6 @@
         @csrf
         @method('delete')
 
-        <input type="submit" value="{{ __('Delete') }}">
+        <input type="submit" value="{{ __('Delete') }}" {{ $attributeSet->products->count() ? 'disabled' : '' }}>
     </form>
 @endsection
