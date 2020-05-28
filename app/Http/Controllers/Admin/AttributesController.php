@@ -42,20 +42,7 @@ class AttributesController extends Controller
      */
     public function store(StoreAttributeFormRequest $request)
     {
-        DB::beginTransaction();
-
-        try {
-
-            $attribute = Attribute::create($request->all());
-            $attribute->attribute_sets()->sync(1);
-
-        } catch (Exception $e) {
-
-            DB::rollBack();
-
-        }
-
-        DB::commit();
+        $attribute = Attribute::create($request->all());
 
         return response()->json([
             'created' => true,

@@ -57,7 +57,7 @@
                     @method('patch')
 
                         <ul>
-                            @foreach (($attributeSet->parent ? $attributeSet->parent->attributes : App\Models\Attribute::isSystem(false)->get()) as $attribute)
+                            @foreach (App\Models\Attribute::isSystem(false)->get() as $attribute)
                                 @if ($attribute->products->count())
                                     <input type="hidden" name="attributes[]" value="{{ $attribute->id }}">
                                 @endif
@@ -67,7 +67,6 @@
                                         name="attributes[]"
                                         value="{{ $attribute->id }}"
                                         {{ $attributeSet->attributes()->find($attribute->id) ? 'checked' : '' }}
-                                        {{ $attribute->products->count() || $attribute->attribute_sets()->where('id', '>', $attributeSet->id)->count() ? 'disabled' : '' }}
                                     >
                                     {{ $attribute->label }}
                                 </li>

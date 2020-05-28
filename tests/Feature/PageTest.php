@@ -124,22 +124,22 @@ class PageTest extends TestCase
     }
 
     /** @test */
-    public function name_is_required_when_updating_a_new_page()
-    {
-        $response = $this->patchJson(route('admin.pages.update', $this->page), [
-            'parent_id' => '',
-            // 'name' => $this->faker->sentence,
-        ]);
+    // public function name_is_required_when_updating_a_new_page()
+    // {
+    //     $response = $this->patchJson(route('admin.pages.update', $this->page), [
+    //         'parent_id' => '',
+    //         // 'name' => $this->faker->sentence,
+    //     ]);
 
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'name',
-                    'message' => ['The name field is required.'],
-                ],
-            ]
-        ]);
-    }
+    //     $response->assertExactJson([
+    //         'errors' => [
+    //             [
+    //                 'name' => 'name',
+    //                 'message' => ['The name field is required.'],
+    //             ],
+    //         ]
+    //     ]);
+    // }
 
     /** @test */
     public function a_page_can_be_deleted()

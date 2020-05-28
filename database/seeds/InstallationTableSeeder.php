@@ -12,17 +12,11 @@ class InstallationTableSeeder extends Seeder
      */
     public function run()
     {
-        // SEED HOME PAGE
+        // Create Home Page and rewrite
         $home = factory(App\Models\Page::class)->create(['name' => 'Home Page', 'description' => 'Home Page Description']);
         $home->rewrite()->create(['slug' => 'home', 'meta_title' => 'Home Page', 'meta_description' => 'Meta']);
 
-        // SEEDS ATTRIBUTE SETS
-        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Entity::class,]);
-        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Category::class, 'parent_id' => 1],);
-        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Page::class, 'parent_id' => 1],);
-        factory(App\Models\AttributeSet::class)->create(['label' => App\Models\Product::class, 'parent_id' => 1,]);
-
-        // SEEDS PRODUCT_TYPE ATTRIBUTE
+        // Create Product Type attribute
         $product_type = factory(App\Models\Attribute::class)->create([
             'label' => $label = 'Product Type',
             'code' => Str::snake($label),
@@ -30,30 +24,18 @@ class InstallationTableSeeder extends Seeder
             'is_system' => true,
         ]);
 
-        // SEEDS PRODUCT TYPE ATTRIBUTES
+        // Create default values for Attribute Tupe attribute
         $product_type->values()->saveMany([
             $product_type->type::create(['value' => 'simple']),
             $product_type->type::create(['value' => 'configurable']),
         ]);
 
-        // SEEDS PRICE ATTRIBUTE
-        $price = factory(App\Models\Attribute::class)->create([
-            'label' => $label = 'Price',
+        // Create Template attribute
+        $product_type = factory(App\Models\Attribute::class)->create([
+            'label' => $label = 'Template',
             'code' => Str::snake($label),
-            'type' => App\Models\EAVDecimal::class,
-            'is_system' => false,
+            'type' => App\Models\EAVString::class,
+            'is_system' => true,
         ]);
-
-        $price->attribute_sets()->attach(1);
-
-        // SEEDS QUANTITY ATTRIBUTE
-        $quantity = factory(App\Models\Attribute::class)->create([
-            'label' => $label = 'Quantity',
-            'code' => Str::snake($label),
-            'type' => App\Models\EAVInteger::class,
-            'is_system' => false,
-        ]);
-
-        $quantity->attribute_sets()->attach(1);
     }
 }

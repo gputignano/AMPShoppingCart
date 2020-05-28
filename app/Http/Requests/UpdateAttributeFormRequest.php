@@ -38,9 +38,9 @@ class UpdateAttributeFormRequest extends FormRequest
     {
         return [
             'label' => 'sometimes|required|unique:attributes,label,' . $this->attribute->id,
-            'is_system' => 'boolean',
-            'is_visible_on_front' => 'boolean',
-            'value' => 'sometimes|required',
+            'is_system' => 'sometimes|boolean',
+            'is_visible_on_front' => 'sometimes|boolean',
+            'value' => 'sometimes',
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AttributeSet extends Model
 {
     protected $fillable = [
-        'label', 'parent_id',
+        'label',
     ];
 
     public $timestamps = false;

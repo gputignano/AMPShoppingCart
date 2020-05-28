@@ -20,18 +20,6 @@
             <input type="text" name="label" id="label">
         </fieldset>
 
-        <fieldset>
-            <label for="attribute_set">{{ __('Attribute Set') }}</label>
-
-            <select name="attribute_set">
-                @forelse (App\Models\AttributeSet::all() as $attribute_set)
-                    <option value="{{ $attribute_set->id }}">{{ $attribute_set->label }}</option>
-                @empty
-                    <option value="" disabled><----/option>
-                @endforelse
-            </select>
-        </fieldset>
-
         <input type="submit" value="{{ __('Create') }}">
 
         <div submitting>

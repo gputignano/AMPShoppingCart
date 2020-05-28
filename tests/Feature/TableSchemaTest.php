@@ -52,7 +52,6 @@ class TableSchemaTest extends TestCase
             Schema::hasColumns('attribute_sets', $fields = [
                 'id',
                 'label',
-                'parent_id',
             ])
         );
 

@@ -84,7 +84,7 @@ class Entity extends Model
 
     public function __isset($key) : bool
     {
-        return optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->attributable)->value)->value ? true : false;
+        return $this->getAttribute($key) || optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->attributable)->value)->value ? true : false;
     }
 
     public function getTemplate() : string

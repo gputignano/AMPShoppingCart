@@ -22,8 +22,14 @@ class UpdatePageFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'sometimes',
+            'name' => 'sometimes|required',
+            'description' => 'sometimes|required',
+
+            'templete' => 'sometimes|required',
+
+            'meta' => 'sometimes|array',
+            'meta.meta_title' => 'required_with:meta',
+            'meta.meta_description' => 'required_with:meta',
         ];
     }
 }

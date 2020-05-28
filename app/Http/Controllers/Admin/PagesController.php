@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePageFormRequest;
 use App\Http\Requests\UpdatePageFormRequest;
 use App\Models\Page;
+use App\Models\Rewrite;
+use Illuminate\Support\Str;
 
 class PagesController extends Controller
 {
@@ -78,6 +80,28 @@ class PagesController extends Controller
     public function update(UpdatePageFormRequest $request, Page $page)
     {
         $updated = $page->update($request->validated());
+
+        if ($request->has('template'))
+        {
+            $page->template = $request->template;
+        }
+
+        if ($request->has('meta'))
+        {
+            $rewrite = Rewrite::updateOrCreate(
+                [
+                    'entity_id' => $page->id,
+                ],
+                [
+                    'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
+                    'meta_title' => $request->meta['meta_title'],
+                    'meta_description' => $request->meta['meta_description'],
+                    'meta_robots' => $request->meta['meta_robots'],
+                    'entity_type' => get_class($page),
+                    'entity_id' => $page->id,
+                ],
+            );
+        }
 
         return response()->json([
             'updated' => $updated,

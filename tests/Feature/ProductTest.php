@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Attribute;
+use App\Models\AttributeSet;
 use App\Models\Category;
 use App\Models\EAVBoolean;
 use App\Models\EAVDecimal;
@@ -31,8 +32,6 @@ class ProductTest extends TestCase
 
         $this->product = factory(Product::class)->create();
 
-        $this->product->attribute_sets()->attach(1);
-
         $this->product->rewrite()->save(factory(Rewrite::class)->make());
     }
 
@@ -40,6 +39,7 @@ class ProductTest extends TestCase
     public function a_user_can_view_product_index()
     {
         $this->product->attributes()->attach(1, ['value_type' => EAVSelect::class, 'value_id' => 1]);
+
         $response = $this->get(route('admin.products.index'));
 
         $response->assertStatus(200);
@@ -76,8 +76,11 @@ class ProductTest extends TestCase
     /** @test */
     public function a_user_can_view_product_simple_edit()
     {
-        $this->withoutExceptionHandling();
         $this->product->attributes()->attach(1, ['value_type' => EAVSelect::class, 'value_id' => 1]);
+
+        factory(AttributeSet::class)->create();
+
+        $this->product->attribute_sets()->attach(1);
 
         $response = $this->get(route('admin.products.edit', $this->product));
 
@@ -105,6 +108,8 @@ class ProductTest extends TestCase
     /** @test */
     public function a_product_can_be_created()
     {
+        factory(AttributeSet::class)->create();
+
         $response = $this->postJson(route('admin.products.store'), [
             'name' => $this->faker->sentence,
             'product_type' => 1,
