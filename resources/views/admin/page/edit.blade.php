@@ -67,22 +67,22 @@
         
                     <fieldset>
                         <label for="meta[slug]">{{ __('Slug') }}</label>
-                        <input type="text" name="meta[slug]" value="{{ $page->rewrite->slug }}">
+                        <input type="text" name="meta[slug]" value="{{ $page->rewrite->slug ?? null }}">
                     </fieldset>
         
                     <fieldset>
                         <label for="meta[meta_title]">{{ __('Meta Title') }}</label>
-                        <input type="text" name="meta[meta_title]" value="{{ $page->rewrite->meta_title }}">
+                        <input type="text" name="meta[meta_title]" value="{{ $page->rewrite->meta_title ?? null }}">
                     </fieldset>
         
                     <fieldset>
                         <label for="meta[meta_description]">{{ __('Meta Description') }}</label>
-                        <textarea name="meta[meta_description]"  cols="30" rows="3">{{ $page->rewrite->meta_description }}</textarea>
+                        <textarea name="meta[meta_description]"  cols="30" rows="3">{{ $page->rewrite->meta_description ?? null }}</textarea>
                     </fieldset>
         
                     <fieldset>
                         <label for="meta[meta_robots]">{{ __('Meta Robots') }}</label>
-                        <input type="text" name="meta[meta_robots]" value="{{ $page->rewrite->meta_robots }}">
+                        <input type="text" name="meta[meta_robots]" value="{{ $page->rewrite->meta_robots ?? null }}">
                     </fieldset>
         
                     <input type="submit" value="{{ __('Update') }}">

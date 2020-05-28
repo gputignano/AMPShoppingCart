@@ -11,7 +11,7 @@ class Entity extends Model
     public $table = 'entities';
 
     protected $fillable = [
-        'name', 'description', 'type',
+        'parent_id', 'name', 'description', 'type',
     ];
 
     public $timestamps = false;
@@ -117,6 +117,25 @@ class Entity extends Model
             'entity_type',
             'entity_id',
             'id',
+        );
+    }
+
+    public function children()
+    {
+        return $this->hasMany(
+            $this,
+            'parent_id',
+            'id',
+        );
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(
+            $this,
+            'parent_id',
+            'id',
+            'parent',
         );
     }
 

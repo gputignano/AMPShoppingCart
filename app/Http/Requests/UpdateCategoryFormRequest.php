@@ -22,9 +22,13 @@ class UpdateCategoryFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'sometimes|required',
             'description' => 'sometimes',
-            'products' => 'sometimes|required|array',
+            'parent_id' => 'sometimes',
+
+            'meta' => 'sometimes|array',
+            'meta.meta_title' => 'required_with:meta',
+            'meta.meta_description' => 'required_with:meta',
         ];
     }
 }

@@ -17,9 +17,12 @@ class CreateEntitiesTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('type')->index();
+
+            $table->foreign('parent_id')->references('id')->on('entities')->onDelete('cascade');
         });
     }
 

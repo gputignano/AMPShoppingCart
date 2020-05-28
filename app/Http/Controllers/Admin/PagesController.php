@@ -93,7 +93,7 @@ class PagesController extends Controller
                     'entity_id' => $page->id,
                 ],
                 [
-                    'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
+                    'slug' => $request->meta['slug'] ?? Str::slug($request->meta['meta_title']),
                     'meta_title' => $request->meta['meta_title'],
                     'meta_description' => $request->meta['meta_description'],
                     'meta_robots' => $request->meta['meta_robots'],

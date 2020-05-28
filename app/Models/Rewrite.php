@@ -13,6 +13,19 @@ class Rewrite extends Model
 
     public $timestamps = false;
 
+    public function getLastSlugAttribute()
+    {
+        return Str::afterLast($this->slug, '/');
+    }
+
+    public function setSlugAttribute($slug)
+    {
+        $parent_slug = $this->entity->parent->rewrite->slug ?? '';
+
+        $this->attributes['slug'] = $parent_slug ? $parent_slug . '/' . $slug : $slug;
+    }
+
+    // RELATIONS
     public function entity()
     {
         return $this->morphTo(
@@ -21,5 +34,18 @@ class Rewrite extends Model
             'entity_id',
             'id',
         );
+    }
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::saved(function ($rewrite) {
+            foreach (optional($rewrite->entity)->children as $children) {
+                if ($children->rewrite) $children->rewrite->update([
+                    'slug' => $children->rewrite->last_slug,
+                ]);
+            }
+        });
     }
 }
