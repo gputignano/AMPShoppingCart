@@ -82,6 +82,17 @@ class Entity extends Model
         }
     }
 
+    public function __isset($key) : bool
+    {
+        return optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->attributable)->value)->value ? true : false;
+    }
+
+    public function getTemplate() : string
+    {
+        return $this->template ?? class_basename($this->type);
+    }
+
+    // RELATIONS
     public function attributes()
     {
         return $this->belongsToMany(
@@ -100,12 +111,6 @@ class Entity extends Model
 
     public function rewrite()
     {
-        // return $this->hasOne(
-        //     Rewrite::class,
-        //     'entity_id',
-        //     'id',
-        // );
-
         return $this->morphOne(
             Rewrite::class,
             'rewrite',
