@@ -16,7 +16,7 @@
     {{-- ATTRIBUTE VALUES --}}
     <amp-accordion id="attributes" expand-single-section animate>
         <section>
-            <h2>{{ __('Default Attributes') }}</h2>
+            <h2>{{ __('General') }}</h2>
 
             <form method="post" action-xhr="{{ route('admin.attributes.update', $attribute) }}">
                 @csrf
