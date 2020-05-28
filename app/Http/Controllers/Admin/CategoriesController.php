@@ -80,17 +80,6 @@ class CategoriesController extends Controller
     {
         $updated = $category->update($request->validated());
 
-        $category->products()->sync($request->input('products'));
-
-        // $others = array_intersect_key(
-        //     $request->validated(),
-        //     $request->except($category->getFillable()),
-        // );
-
-        // foreach ($others as $key => $value) {
-        //     $category->{$key}()->sync($request->input($key));
-        // }
-
         return response()->json([
             'updated' => $updated,
         ])->header('AMP-Redirect-To', route('admin.categories.edit', $category));
