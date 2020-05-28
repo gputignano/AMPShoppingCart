@@ -52,19 +52,6 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_category_show()
-    {
-        $this->withoutExceptionHandling();
-        $response = $this->get(route('admin.categories.show', $this->category));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.category.show');
-
-        $response->assertSee('<h1>' . e($this->category->name) . '</h1>', false);
-    }
-
-    /** @test */
     public function a_user_can_view_category_edit()
     {
         $response = $this->get(route('admin.categories.edit', $this->category));
