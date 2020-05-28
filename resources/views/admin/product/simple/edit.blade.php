@@ -34,27 +34,7 @@
 
                         <input type="submit" value="{{ __('Update') }}">
                 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
-                
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Product updated successfully!') }}
-                            </template>
-                        </div>
-                
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
+                        @include('admin.inc.response')
                     </form>
                 </div>
             </section>
@@ -90,27 +70,7 @@
 
                         <input type="submit" value="{{ __('Update') }}">
                 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
-                
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Product updated successfully!') }}
-                            </template>
-                        </div>
-                
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
+                        @include('admin.inc.response')
                     </form>
                 </div>
             </section>
@@ -138,27 +98,7 @@
 
                         <input type="submit" value="{{ __('Update') }}">
 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
-                
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Product updated successfully!') }}
-                            </template>
-                        </div>
-                
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
+                        @include('admin.inc.response')
                     </form>
                 </div>
             </section>
@@ -184,27 +124,7 @@
 
                         <input type="submit" value="{{ __('Update') }}">
 
-                        <div submitting>
-                            <template type="amp-mustache">
-                                {{ __('Submitting...') }}
-                            </template>
-                        </div>
-                
-                        <div submit-success>
-                            <template type="amp-mustache">
-                                {{ __('Product updated successfully!') }}
-                            </template>
-                        </div>
-                
-                        <div submit-error>
-                            <template type="amp-mustache">
-                                <ul>
-                                    @{{#errors}}
-                                    <li><strong>@{{name}}</strong>: @{{message}}</li>
-                                    @{{/errors}}
-                                </ul>
-                            </template>
-                        </div>
+                        @include('admin.inc.response')
                     </form>
                 </div>
             </section>
