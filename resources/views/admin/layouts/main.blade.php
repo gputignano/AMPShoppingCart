@@ -63,54 +63,6 @@
                         </div>
                     </li>
                     <li>
-                        <h4 amp-nested-submenu-open>{{ __('EAVDecimals') }}</h4>
-                        <div amp-nested-submenu>
-                            <ul>
-                                <li>
-                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
-                                </li>
-                                <li><a href="{{ route('admin.eavDecimals.index') }}">{{ __('All EAVDecimals') }}</a></li>
-                                <li><a href="{{ route('admin.eavDecimals.create') }}">{{ __('Create EAVDecimal') }}</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <h4 amp-nested-submenu-open>{{ __('EAVIntegers') }}</h4>
-                        <div amp-nested-submenu>
-                            <ul>
-                                <li>
-                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
-                                </li>
-                                <li><a href="{{ route('admin.eavIntegers.index') }}">{{ __('All EAVIntegers') }}</a></li>
-                                <li><a href="{{ route('admin.eavIntegers.create') }}">{{ __('Create EAVInteger') }}</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <h4 amp-nested-submenu-open>{{ __('EAVStrings') }}</h4>
-                        <div amp-nested-submenu>
-                            <ul>
-                                <li>
-                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
-                                </li>
-                                <li><a href="{{ route('admin.eavStrings.index') }}">{{ __('All EAVStrings') }}</a></li>
-                                <li><a href="{{ route('admin.eavStrings.create') }}">{{ __('Create EAVString') }}</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <h4 amp-nested-submenu-open>{{ __('EAVTexts') }}</h4>
-                        <div amp-nested-submenu>
-                            <ul>
-                                <li>
-                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
-                                </li>
-                                <li><a href="{{ route('admin.eavTexts.index') }}">{{ __('All EAVTexts') }}</a></li>
-                                <li><a href="{{ route('admin.eavTexts.create') }}">{{ __('Create EAVText') }}</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
                         <h4 amp-nested-submenu-open>{{ __('Products') }}</h4>
                         <div amp-nested-submenu>
                             <ul>
@@ -207,42 +159,6 @@
                                 <ul>
                                     <li><a href="{{ route('admin.attributeSets.index') }}">{{ __('All Attribute Sets') }}</a></li>
                                     <li><a href="{{ route('admin.attributeSets.create') }}">{{ __('Create Attribute Set') }}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <span role="button">{{ __('EAVDecimals') }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li><a href="{{ route('admin.eavDecimals.index') }}">{{ __('All EAVDecimals') }}</a></li>
-                                    <li><a href="{{ route('admin.eavDecimals.create') }}">{{ __('Create EAVDecimal') }}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <span role="button">{{ __('EAVIntegers') }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li><a href="{{ route('admin.eavIntegers.index') }}">{{ __('All EAVIntegers') }}</a></li>
-                                    <li><a href="{{ route('admin.eavIntegers.create') }}">{{ __('Create EAVInteger') }}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <span role="button">{{ __('EAVStrings') }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li><a href="{{ route('admin.eavStrings.index') }}">{{ __('All EAVStrings') }}</a></li>
-                                    <li><a href="{{ route('admin.eavStrings.create') }}">{{ __('Create EAVString') }}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <span role="button">{{ __('EAVTexts') }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li><a href="{{ route('admin.eavTexts.index') }}">{{ __('All EAVTexts') }}</a></li>
-                                    <li><a href="{{ route('admin.eavTexts.create') }}">{{ __('Create EAVText') }}</a></li>
                                 </ul>
                             </div>
                         </li>

@@ -19,10 +19,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('attributes', 'Admin\AttributesController');
     Route::resource('attributeSets', 'Admin\AttributeSetsController');
     Route::resource('categories', 'Admin\CategoriesController');
-    Route::resource('eavDecimals', 'Admin\EAVDecimalsController');
-    Route::resource('eavIntegers', 'Admin\EAVIntegersController');
-    Route::resource('eavStrings', 'Admin\EAVStringsController');
-    Route::resource('eavTexts', 'Admin\EAVTextsController');
     Route::resource('orders', 'Admin\OrdersController');
     Route::resource('orderDetails', 'Admin\OrderDetailsController');
     Route::resource('pages', 'Admin\PagesController');
