@@ -51,18 +51,6 @@ class PageTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_page_show()
-    {
-        $response = $this->get(route('admin.pages.show', $this->page));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('admin.page.show', $this->page);
-
-        $response->assertSee('<h1>' . e($this->page->name) . '</h1>', false);
-    }
-
-    /** @test */
     public function a_user_can_view_page_edit()
     {
         $response = $this->get(route('admin.pages.edit', $this->page));
@@ -122,24 +110,6 @@ class PageTest extends TestCase
             'updated' => true,
         ]);
     }
-
-    /** @test */
-    // public function name_is_required_when_updating_a_new_page()
-    // {
-    //     $response = $this->patchJson(route('admin.pages.update', $this->page), [
-    //         'parent_id' => '',
-    //         // 'name' => $this->faker->sentence,
-    //     ]);
-
-    //     $response->assertExactJson([
-    //         'errors' => [
-    //             [
-    //                 'name' => 'name',
-    //                 'message' => ['The name field is required.'],
-    //             ],
-    //         ]
-    //     ]);
-    // }
 
     /** @test */
     public function a_page_can_be_deleted()
