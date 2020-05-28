@@ -34,4 +34,3 @@ Route::prefix('admin')->name('admin.')->group(function() {
 });
 
 Route::get('{rewrite:slug}', 'FrontController')->defaults('rewrite', 'home')->where('rewrite', '.*')->name('front');
-
