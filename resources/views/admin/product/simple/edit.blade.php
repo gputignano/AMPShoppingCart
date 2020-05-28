@@ -13,122 +13,122 @@
 @section('content')
     <h1>{{ __('Edit ') . $product->name }}</h1>
 
-        <amp-accordion id="accordion" expand-single-section animate>
-            <section expanded>
-                <h2>{{ __('General') }}</h2>
+    <amp-accordion id="accordion" expand-single-section animate>
+        <section expanded>
+            <h2>{{ __('General') }}</h2>
 
-                <div>
-                    <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
-                        @csrf
-                        @method('patch')
-                
-                        <fieldset>
-                            <label for="name">{{ __('Name') }}</label>
-                            <input type="text" name="name" value="{{ $product->name }}">
-                        </fieldset>
+            <div>
+                <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+                    @csrf
+                    @method('patch')
+            
+                    <fieldset>
+                        <label for="name">{{ __('Name') }}</label>
+                        <input type="text" name="name" value="{{ $product->name }}">
+                    </fieldset>
 
-                        <fieldset>
-                            <label for="description">{{ __('Description') }}</label>
-                            <textarea name="description" cols="30" rows="10">{{ $product->description }}</textarea>
-                        </fieldset>
+                    <fieldset>
+                        <label for="description">{{ __('Description') }}</label>
+                        <textarea name="description" cols="30" rows="10">{{ $product->description }}</textarea>
+                    </fieldset>
 
-                        <input type="submit" value="{{ __('Update') }}">
-                
-                        @include('admin.inc.response')
-                    </form>
-                </div>
-            </section>
+                    <input type="submit" value="{{ __('Update') }}">
+            
+                    @include('admin.inc.response')
+                </form>
+            </div>
+        </section>
 
-            {{-- META --}}
-            <section>
-                <h2>{{ __('Meta Data') }}</h2>
+        {{-- META --}}
+        <section>
+            <h2>{{ __('Meta Data') }}</h2>
 
-                <div>
-                    <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
-                        @csrf
-                        @method('patch')
+            <div>
+                <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+                    @csrf
+                    @method('patch')
 
-                        <fieldset>
-                            <label for="meta[slug]">{{ __('Slug') }}</label>
-                            <input type="text" name="meta[slug]" value="{{ $product->rewrite->slug ?? null}}">
-                        </fieldset>
+                    <fieldset>
+                        <label for="meta[slug]">{{ __('Slug') }}</label>
+                        <input type="text" name="meta[slug]" value="{{ $product->rewrite->slug ?? null}}">
+                    </fieldset>
 
-                        <fieldset>
-                            <label for="meta[meta_title]">{{ __('Meta Title') }}</label>
-                            <input type="text" name="meta[meta_title]" value="{{ $product->rewrite->meta_title ?? null}}">
-                        </fieldset>
+                    <fieldset>
+                        <label for="meta[meta_title]">{{ __('Meta Title') }}</label>
+                        <input type="text" name="meta[meta_title]" value="{{ $product->rewrite->meta_title ?? null}}">
+                    </fieldset>
 
-                        <fieldset>
-                            <label for="meta[meta_description]">{{ __('Meta Description') }}</label>
-                            <textarea name="meta[meta_description]"  cols="30" rows="3">{{ $product->rewrite->meta_description ?? null }}</textarea>
-                        </fieldset>
+                    <fieldset>
+                        <label for="meta[meta_description]">{{ __('Meta Description') }}</label>
+                        <textarea name="meta[meta_description]"  cols="30" rows="3">{{ $product->rewrite->meta_description ?? null }}</textarea>
+                    </fieldset>
 
-                        <fieldset>
-                            <label for="meta[meta_robots]">{{ __('Meta Robots') }}</label>
-                            <input type="text" name="meta[meta_robots]" value="{{ $product->rewrite->meta_robots ?? null }}">
-                        </fieldset>
+                    <fieldset>
+                        <label for="meta[meta_robots]">{{ __('Meta Robots') }}</label>
+                        <input type="text" name="meta[meta_robots]" value="{{ $product->rewrite->meta_robots ?? null }}">
+                    </fieldset>
 
-                        <input type="submit" value="{{ __('Update') }}">
-                
-                        @include('admin.inc.response')
-                    </form>
-                </div>
-            </section>
+                    <input type="submit" value="{{ __('Update') }}">
+            
+                    @include('admin.inc.response')
+                </form>
+            </div>
+        </section>
 
-            {{-- ADD ATTRIBUTES --}}
-            <section>
-                <h2>{{ __('Attributes') }}</h2>
+        {{-- ADD ATTRIBUTES --}}
+        <section>
+            <h2>{{ __('Attributes') }}</h2>
 
-                <div>
-                    <form method="post" action-xhr="{{ route('admin.products.update.attributes', $product) }}">
-                        @csrf
-                        @method('patch')
+            <div>
+                <form method="post" action-xhr="{{ route('admin.products.update.attributes', $product) }}">
+                    @csrf
+                    @method('patch')
 
-                        <ul>
-                            @forelse ($product->attribute_sets()->first()->attributes as $attribute)
-                                <li>
-                                    <label for="">{{ $attribute->label }}</label>
+                    <ul>
+                        @forelse ($product->attribute_sets()->first()->attributes as $attribute)
+                            <li>
+                                <label for="">{{ $attribute->label }}</label>
 
-                                    @include('admin.input.' . class_basename($attribute->type), ['name' => 'attributes','product' => $product, 'attribute' => $attribute])
-                                </li>
-                            @empty
-                                <li>{!! __('No attribute found! <a href="' . route('admin.attributes.create') . ' ">Create a new one</a>') !!}</li>
-                            @endforelse
-                        </ul>
+                                @include('admin.input.' . class_basename($attribute->type), ['name' => 'attributes','product' => $product, 'attribute' => $attribute])
+                            </li>
+                        @empty
+                            <li>{!! __('No attribute found! <a href="' . route('admin.attributes.create') . ' ">Create a new one</a>') !!}</li>
+                        @endforelse
+                    </ul>
 
-                        <input type="submit" value="{{ __('Update') }}">
+                    <input type="submit" value="{{ __('Update') }}">
 
-                        @include('admin.inc.response')
-                    </form>
-                </div>
-            </section>
+                    @include('admin.inc.response')
+                </form>
+            </div>
+        </section>
 
-            {{-- CATEGORIES --}}
-            <section>
-                <h2>{{ __('Categories') }}</h2>
+        {{-- CATEGORIES --}}
+        <section>
+            <h2>{{ __('Categories') }}</h2>
 
-                <div>
-                    <form method="post" action-xhr="{{ route('admin.products.update.categories', $product) }}">
-                        @csrf
-                        @method('patch')
+            <div>
+                <form method="post" action-xhr="{{ route('admin.products.update.categories', $product) }}">
+                    @csrf
+                    @method('patch')
 
-                        <ul>
-                            @if (App\Models\Category::count())
-                                @foreach (App\Models\Category::all() as $category)
-                                    <li><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $category->products->contains($product->id) ? 'checked' : ''}}> {{ $category->name }}</li>
-                                @endforeach
-                            @else
-                                <li>{!! __('No category found! <a href="' . route('admin.categories.create') . '">Create a new one</a>') !!}</li>
-                            @endif
-                        </ul>
+                    <ul>
+                        @if (App\Models\Category::count())
+                            @foreach (App\Models\Category::all() as $category)
+                                <li><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $category->products->contains($product->id) ? 'checked' : ''}}> {{ $category->name }}</li>
+                            @endforeach
+                        @else
+                            <li>{!! __('No category found! <a href="' . route('admin.categories.create') . '">Create a new one</a>') !!}</li>
+                        @endif
+                    </ul>
 
-                        <input type="submit" value="{{ __('Update') }}">
+                    <input type="submit" value="{{ __('Update') }}">
 
-                        @include('admin.inc.response')
-                    </form>
-                </div>
-            </section>
-        </amp-accordion>
+                    @include('admin.inc.response')
+                </form>
+            </div>
+        </section>
+    </amp-accordion>
 
     <form action-xhr="{{ route('admin.products.destroy', $product) }}" method="post">
         @csrf
