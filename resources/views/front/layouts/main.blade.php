@@ -17,35 +17,26 @@
 
         @section('amp-components')
             {{-- <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script> --}}
-            <script async custom-element="amp-mega-menu" src="https://cdn.ampproject.org/v0/amp-mega-menu-0.1.js"></script>
+            {{-- <script async custom-element="amp-mega-menu" src="https://cdn.ampproject.org/v0/amp-mega-menu-0.1.js"></script> --}}
         @show
 
     </head>
     <body>
         <header>
-            <amp-mega-menu height="30" layout="fixed-height">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="{{ route('front', '/') }}">{{ __('Home Page') }}</a>
-                        </li>
-                        @forelse (App\Models\Category::all() as $category)
-                        <li>
-                            <span role="button">{{ $category->name }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li>Sub Category 1</li>
-                                    <li>Sub Category 2</li>
-                                    <li>Sub Category 3</li>
-                                </ul>
-                            </div>
-                        </li>
-                        @empty
-                            
-                        @endforelse
-                    </ul>
-                </nav>
-            </amp-mega-menu>
+            <nav>
+                <ul class="flex">
+                    <li>
+                        <a href="{{ route('front', '/') }}">{{ __('Home Page') }}</a>
+                    </li>
+                    @forelse (App\Models\Category::has('rewrite')->get() as $category)
+                    <li>
+                        <a href="{{ route('front', $category->rewrite->slug) }}">{{ $category->name }}</a>
+                    </li>
+                    @empty
+                        
+                    @endforelse
+                </ul>
+            </nav>
         </header>
 
         @yield('content', __('Please update me!'))
