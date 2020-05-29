@@ -111,23 +111,23 @@ class CategoryTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function name_is_required_when_updating_a_category()
-    {
-        $response = $this->patchJson(route('admin.categories.update', $this->category), [
-            'parent_id' => '',
-            // 'name' => $this->faker->sentence,
-        ]);
+    // /** @test */
+    // public function name_is_required_when_updating_a_category()
+    // {
+    //     $response = $this->patchJson(route('admin.categories.update', $this->category), [
+    //         'parent_id' => '',
+    //         // 'name' => $this->faker->sentence,
+    //     ]);
 
-        $response->assertExactJson([
-            'errors' => [
-                [
-                    'name' => 'name',
-                    'message' => ['The name field is required.'],
-                ],
-            ]
-        ]);
-    }
+    //     $response->assertExactJson([
+    //         'errors' => [
+    //             [
+    //                 'name' => 'name',
+    //                 'message' => ['The name field is required.'],
+    //             ],
+    //         ]
+    //     ]);
+    // }
 
     /** @test */
     public function a_category_can_be_deleted()
