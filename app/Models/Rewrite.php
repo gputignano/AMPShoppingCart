@@ -41,11 +41,14 @@ class Rewrite extends Model
         parent::booted();
 
         static::saved(function ($rewrite) {
-        //     foreach (optional($rewrite->entity)->children as $children) {
-        //         if ($children->rewrite) $children->rewrite->update([
-        //             'slug' => $children->rewrite->last_slug,
-        //         ]);
-        //     }
+            if (null != $rewrite->entity)
+            {
+                foreach ($rewrite->entity->children as $children) {
+                    if ($children->rewrite) $children->rewrite->update([
+                        'slug' => $children->rewrite->last_slug,
+                    ]);
+                }
+            }
         });
     }
 }
