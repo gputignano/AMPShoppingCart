@@ -312,6 +312,10 @@ class RewriteTest extends TestCase
     public function rewrite_has_entity_relation()
     {
         // One to One Polymorphic
+        factory(Entity::class)->create()->rewrite()->save($this->rewrite);
+
+        $this->rewrite->refresh();
+
         $this->assertInstanceOf(Entity::class, $this->rewrite->entity);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->rewrite->entity());
