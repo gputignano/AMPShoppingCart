@@ -22,9 +22,10 @@ class UpdateCategoryFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required',
-            'description' => 'sometimes',
-            'parent_id' => 'sometimes',
+            'name' => 'required',
+            'description' => 'present',
+
+            'parent_id' => 'present',
         ];
     }
 }

@@ -106,6 +106,14 @@ class ProductsController extends Controller
         // UPDATES PRODUCT FIELS
         $updated = $product->update($request->validated());
 
+        // UPDATES PRODUCT'S ATTRIBUTES
+        foreach ($product->attribute_sets()->first()->attributes as $attribute) {
+            $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
+        }
+
+        // UPDATES CATEGORIES
+        $product->categories()->sync($request->input('categories'));
+
         // if ($request->has('meta'))
         // {
         //     $rewrite = Rewrite::updateOrCreate(
@@ -128,27 +136,27 @@ class ProductsController extends Controller
         ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
     }
 
-    public function updateAttributes(Request $request, Product $product)
-    {
-        // UPDATES PRODUCT'S ATTRIBUTES
-        foreach ($product->attribute_sets()->first()->attributes as $attribute) {
-            $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
-        }
+    // public function updateAttributes(Request $request, Product $product)
+    // {
+    //     // UPDATES PRODUCT'S ATTRIBUTES
+    //     foreach ($product->attribute_sets()->first()->attributes as $attribute) {
+    //         $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
+    //     }
 
-        return response()->json([
-            'updated' => 'OK',
-        ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
-    }
+    //     return response()->json([
+    //         'updated' => 'OK',
+    //     ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
+    // }
 
-    public function updateCategories(Request $request, Product $product)
-    {
-        // UPDATES CATEGORIES
-        $product->categories()->sync($request->input('categories'));
+    // public function updateCategories(Request $request, Product $product)
+    // {
+    //     // UPDATES CATEGORIES
+    //     $product->categories()->sync($request->input('categories'));
 
-        return response()->json([
-            'updated' => 'OK',
-        ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
-    }
+    //     return response()->json([
+    //         'updated' => 'OK',
+    //     ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -13,15 +13,15 @@
 @section('content')
     <h1>{{ __('Edit ') . $category->name }}</h1>
 
-    <amp-accordion id="accordion" expand-single-section animate>
-        <section expanded>
-            <h2>{{ __('General') }}</h2>
+    <form method="post" action-xhr="{{ route('admin.categories.update', $category) }}">
+        @csrf
+        @method('patch')
 
-            <div>
-                <form method="post" action-xhr="{{ route('admin.categories.update', $category) }}">
-                    @csrf
-                    @method('patch')
-            
+        <amp-accordion id="accordion" expand-single-section animate>
+            <section expanded>
+                <h2>{{ __('General') }}</h2>
+
+                <div>
                     <fieldset>
                         <label for="parent_id">{{ __('Parent') }}</label>
                         <select name="parent_id">
@@ -45,12 +45,12 @@
                     </fieldset>
 
                     <input type="submit" value="{{ __('Update') }}">
+                </div>
+            </section>
+        </amp-accordion>
 
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
-    </amp-accordion>
+        @include('admin.inc.response')
+    </form>
 
     <form action-xhr="{{ route('admin.categories.destroy', $category) }}" method="post">
         @csrf

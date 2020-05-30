@@ -13,15 +13,15 @@
 @section('content')
     <h1>{{ __('Edit ') . $page->name }}</h1>
 
-    <amp-accordion id="accordion" expand-single-section animate>
-        <section expanded>
-            <h2>{{ __('General') }}</h2>
+    <form method="post" action-xhr="{{ route('admin.pages.update', $page) }}">
+        @csrf
+        @method('patch')
 
-            <div>
-                <form method="post" action-xhr="{{ route('admin.pages.update', $page) }}">
-                    @csrf
-                    @method('patch')
-            
+        <amp-accordion id="accordion" expand-single-section animate>
+            <section expanded>
+                <h2>{{ __('General') }}</h2>
+
+                <div>
                     <fieldset>
                         <label for="name">{{ __('Name') }}</label>
                         <input type="text" name="name" value="{{ $page->name }}">
@@ -33,32 +33,25 @@
                     </fieldset>
             
                     <input type="submit" value="{{ __('Update') }}">
-            
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
+                </div>
+            </section>
 
-        <section>
-            <h2>{{ __('Design') }}</h2>
+            <section>
+                <h2>{{ __('Design') }}</h2>
 
-            <div>
-                <form method="post" action-xhr="{{ route('admin.pages.update', $page) }}">
-                    @csrf
-                    @method('patch')
-        
+                <div>
                     <fieldset>
                         <label for="template">{{ __('Template') }}</label>
                         <input type="text" name="template" value="{{ $page->template }}">
                     </fieldset>
         
                     <input type="submit" value="{{ __('Update') }}">
+                </div>
+            </section>
+        </amp-accordion>
 
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
-    </amp-accordion>
+        @include('admin.inc.response')
+    </form>
 
     <form action-xhr="{{ route('admin.pages.destroy', $page) }}" method="post">
         @csrf

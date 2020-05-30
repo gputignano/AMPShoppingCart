@@ -23,7 +23,6 @@ class StorePageFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'sometimes',
         ];
     }
 }

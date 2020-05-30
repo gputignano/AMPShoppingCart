@@ -22,10 +22,10 @@ class UpdatePageFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required',
-            'description' => 'sometimes|required',
+            'name' => 'required',
+            'description' => 'present',
 
-            'templete' => 'sometimes|required',
+            'template' => 'present',
         ];
     }
 }

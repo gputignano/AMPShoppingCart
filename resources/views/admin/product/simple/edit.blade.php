@@ -13,15 +13,15 @@
 @section('content')
     <h1>{{ $product->name . ' (' . $product->attribute_sets()->first()->label . ', ' . $product->product_type . ')' }}</h1>
 
-    <amp-accordion id="accordion" expand-single-section animate>
-        <section expanded>
-            <h2>{{ __('General') }}</h2>
+    <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
+        @csrf
+        @method('patch')
 
-            <div>
-                <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
-                    @csrf
-                    @method('patch')
-            
+        <amp-accordion id="accordion" expand-single-section animate>
+            <section expanded>
+                <h2>{{ __('General') }}</h2>
+
+                <div>
                     <fieldset>
                         <label for="name">{{ __('Name') }}</label>
                         <input type="text" name="name" value="{{ $product->name }}">
@@ -33,21 +33,14 @@
                     </fieldset>
 
                     <input type="submit" value="{{ __('Update') }}">
-            
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
+                </div>
+            </section>
 
-        {{-- ADD ATTRIBUTES --}}
-        <section>
-            <h2>{{ __('Attributes') }}</h2>
+            {{-- ADD ATTRIBUTES --}}
+            <section>
+                <h2>{{ __('Attributes') }}</h2>
 
-            <div>
-                <form method="post" action-xhr="{{ route('admin.products.update.attributes', $product) }}">
-                    @csrf
-                    @method('patch')
-
+                <div>
                     <ul>
                         @forelse ($product->attribute_sets()->first()->attributes as $attribute)
                             <li>
@@ -61,21 +54,14 @@
                     </ul>
 
                     <input type="submit" value="{{ __('Update') }}">
+                </div>
+            </section>
 
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
+            {{-- CATEGORIES --}}
+            <section>
+                <h2>{{ __('Categories') }}</h2>
 
-        {{-- CATEGORIES --}}
-        <section>
-            <h2>{{ __('Categories') }}</h2>
-
-            <div>
-                <form method="post" action-xhr="{{ route('admin.products.update.categories', $product) }}">
-                    @csrf
-                    @method('patch')
-
+                <div>
                     <ul>
                         @if (App\Models\Category::count())
                             @foreach (App\Models\Category::all() as $category)
@@ -87,12 +73,12 @@
                     </ul>
 
                     <input type="submit" value="{{ __('Update') }}">
+                </div>
+            </section>
+        </amp-accordion>
 
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
-    </amp-accordion>
+        @include('admin.inc.response')
+    </form>
 
     <form action-xhr="{{ route('admin.products.destroy', $product) }}" method="post">
         @csrf

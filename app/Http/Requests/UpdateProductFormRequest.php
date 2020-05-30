@@ -22,8 +22,8 @@ class UpdateProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required',
-            'description' => 'sometimes|required',
+            'name' => 'required',
+            'description' => 'present',
         ];
     }
 }
