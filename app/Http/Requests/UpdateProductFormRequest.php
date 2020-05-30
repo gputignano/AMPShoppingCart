@@ -24,10 +24,6 @@ class UpdateProductFormRequest extends FormRequest
         return [
             'name' => 'sometimes|required',
             'description' => 'sometimes|required',
-
-            'meta' => 'sometimes|array',
-            'meta.meta_title' => 'required_with:meta',
-            'meta.meta_description' => 'required_with:meta',
         ];
     }
 }

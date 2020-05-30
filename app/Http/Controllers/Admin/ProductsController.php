@@ -106,22 +106,22 @@ class ProductsController extends Controller
         // UPDATES PRODUCT FIELS
         $updated = $product->update($request->validated());
 
-        if ($request->has('meta'))
-        {
-            $rewrite = Rewrite::updateOrCreate(
-                [
-                    'entity_id' => $product->id,
-                ],
-                [
-                    'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
-                    'meta_title' => $request->meta['meta_title'],
-                    'meta_description' => $request->meta['meta_description'],
-                    'meta_robots' => $request->meta['meta_robots'],
-                    'entity_type' => get_class($product),
-                    'entity_id' => $product->id,
-                ],
-            );
-        }
+        // if ($request->has('meta'))
+        // {
+        //     $rewrite = Rewrite::updateOrCreate(
+        //         [
+        //             'entity_id' => $product->id,
+        //         ],
+        //         [
+        //             'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
+        //             'meta_title' => $request->meta['meta_title'],
+        //             'meta_description' => $request->meta['meta_description'],
+        //             'meta_robots' => $request->meta['meta_robots'],
+        //             'entity_type' => get_class($product),
+        //             'entity_id' => $product->id,
+        //         ],
+        //     );
+        // }
 
         return response()->json([
             'updated' => $updated,

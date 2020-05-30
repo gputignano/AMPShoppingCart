@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Edit ') . $product->name }}</h1>
+    <h1>{{ $product->name . ' (' . $product->attribute_sets()->first()->label . ', ' . $product->product_type . ')' }}</h1>
 
     <amp-accordion id="accordion" expand-single-section animate>
         <section expanded>
@@ -30,42 +30,6 @@
                     <fieldset>
                         <label for="description">{{ __('Description') }}</label>
                         <textarea name="description" cols="30" rows="10">{{ $product->description }}</textarea>
-                    </fieldset>
-
-                    <input type="submit" value="{{ __('Update') }}">
-            
-                    @include('admin.inc.response')
-                </form>
-            </div>
-        </section>
-
-        {{-- META --}}
-        <section>
-            <h2>{{ __('Meta Data') }}</h2>
-
-            <div>
-                <form method="post" action-xhr="{{ route('admin.products.update', $product) }}">
-                    @csrf
-                    @method('patch')
-
-                    <fieldset>
-                        <label for="meta[slug]">{{ __('Slug') }}</label>
-                        <input type="text" name="meta[slug]" value="{{ $product->rewrite->slug ?? null}}">
-                    </fieldset>
-
-                    <fieldset>
-                        <label for="meta[meta_title]">{{ __('Meta Title') }}</label>
-                        <input type="text" name="meta[meta_title]" value="{{ $product->rewrite->meta_title ?? null}}">
-                    </fieldset>
-
-                    <fieldset>
-                        <label for="meta[meta_description]">{{ __('Meta Description') }}</label>
-                        <textarea name="meta[meta_description]"  cols="30" rows="3">{{ $product->rewrite->meta_description ?? null }}</textarea>
-                    </fieldset>
-
-                    <fieldset>
-                        <label for="meta[meta_robots]">{{ __('Meta Robots') }}</label>
-                        <input type="text" name="meta[meta_robots]" value="{{ $product->rewrite->meta_robots ?? null }}">
                     </fieldset>
 
                     <input type="submit" value="{{ __('Update') }}">
