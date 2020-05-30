@@ -21,6 +21,7 @@ class CreateRewritesTable extends Migration
             $table->text('meta_description');
             $table->text('meta_robots')->nullable();
             $table->nullableMorphs('entity');
+            $table->boolean('is_active')->default(false);
         });
     }
 

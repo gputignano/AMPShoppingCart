@@ -8,10 +8,14 @@ use Illuminate\Support\Str;
 class Rewrite extends Model
 {
     protected $fillable = [
-        'slug', 'meta_title', 'meta_description', 'meta_robots', 'entity_type', 'entity_id',
+        'slug', 'meta_title', 'meta_description', 'meta_robots', 'entity_type', 'entity_id', 'is_active',
     ];
 
     public $timestamps = false;
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     public function getLastSlugAttribute()
     {

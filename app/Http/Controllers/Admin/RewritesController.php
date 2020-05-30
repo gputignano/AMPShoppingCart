@@ -77,6 +77,7 @@ class RewritesController extends Controller
      */
     public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
+        logger($request->validated());
         $updated = $rewrite->update($request->validated());
 
         return response()->json([

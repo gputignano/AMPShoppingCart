@@ -37,19 +37,14 @@
         </fieldset>
 
         <fieldset>
-            <label for="template">{{ __('Template') }}</label>
-            <input type="text" name="template" value="{{ $rewrite->templete }}">
+            <label for="is_active">{{ __('Is Active') }}</label>
+            <input type="checkbox" name="is_active" {{ $rewrite->is_active ? 'checked' : '' }}>
         </fieldset>
 
         <fieldset>
-            <label for="enabled">{{ __('Enabled') }}</label>
-            <input type="checkbox" name="enabled" {{ $rewrite->enabled ? 'checked' : '' }}>
-        </fieldset>
-
-        <fieldset>
-            <label for="rewritable_id">{{ __('Rewritable') }}</label>
-            <select name="rewritable_id">
-                @foreach (App\Models\Entity::all() as $entity)
+            <label for="rewritable_id">{{ __('Entity') }}</label>
+            <select name="entity_id">
+                @foreach (App\Models\Entity::withoutGlobalScopes()->get() as $entity)
                     <option value="{{ $entity->id }}" {{ $entity->id == $rewrite->id ? 'selected' : '' }}>{{ $entity->name }}</option>
                 @endforeach
             </select>

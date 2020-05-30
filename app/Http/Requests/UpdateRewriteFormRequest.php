@@ -15,6 +15,18 @@ class UpdateRewriteFormRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'is_active' => $this->is_active ? true : false,
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -25,7 +37,9 @@ class UpdateRewriteFormRequest extends FormRequest
             'slug' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
+            'meta_robots' => 'present',
             'entity_id' => 'required',
+            'is_active' => 'boolean',
         ];
     }
 }

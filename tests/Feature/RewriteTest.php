@@ -20,7 +20,9 @@ class RewriteTest extends TestCase
     {
         parent::setUp();
 
-        $this->rewrite = factory(Rewrite::class)->create();
+        $entity = factory(Entity::class)->create();
+
+        $this->rewrite = $entity->rewrite()->save(factory(Rewrite::class)->create());
     }
 
     /** @test */
@@ -100,6 +102,7 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
             'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create(),
         ]);
@@ -123,6 +126,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
             'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create(),
         ]);
@@ -146,6 +150,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
+            'meta_robots' => null,
             'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create(),
         ]);
@@ -169,6 +174,7 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
             'entity_type' => Entity::class,
             // 'entity_id' => factory(Entity::class)->create(),
         ]);
@@ -192,6 +198,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
+            'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create()->id,
         ]);
 
@@ -211,6 +219,8 @@ class RewriteTest extends TestCase
             // 'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
+            'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create(),
         ]);
 
@@ -233,6 +243,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             // 'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
+            'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create(),
         ]);
 
@@ -255,6 +267,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             // 'meta_description' => $this->faker->text,
+            'meta_robots' => null,
+            'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create(),
         ]);
 
@@ -277,6 +291,8 @@ class RewriteTest extends TestCase
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
+            'meta_robots' => null,
+            'entity_type' => Entity::class,
             // 'entity_id' => factory(Entity::class)->create(),
         ]);
 
@@ -311,12 +327,7 @@ class RewriteTest extends TestCase
     /** @test */
     public function rewrite_has_entity_relation()
     {
-        // One to One Polymorphic
-        factory(Entity::class)->create()->rewrite()->save($this->rewrite);
-
-        $this->rewrite->refresh();
-
-        $this->assertInstanceOf(Entity::class, $this->rewrite->entity);
+        $this->assertInstanceOf(Entity::class, $this->rewrite->entity()->withoutGlobalScopes()->first());
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->rewrite->entity());
     }
