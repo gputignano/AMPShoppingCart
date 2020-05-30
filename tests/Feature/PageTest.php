@@ -100,8 +100,9 @@ class PageTest extends TestCase
     public function a_page_can_be_updated()
     {
         $response = $this->patch(route('admin.pages.update', $this->page), [
-            'parent_id' => '',
             'name' => $this->faker->sentence,
+            'description' => null,
+            'template' => null,
         ]);
 
         $response->assertStatus(200);

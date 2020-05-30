@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRewriteFormRequest;
 use App\Http\Requests\UpdateRewriteFormRequest;
+use App\Models\Category;
+use App\Models\Entity;
 use App\Models\Rewrite;
 
 class RewritesController extends Controller
@@ -39,7 +41,11 @@ class RewritesController extends Controller
      */
     public function store(StoreRewriteFormRequest $request)
     {
-        $rewrite = Rewrite::create($request->validated());
+        $entity = Entity::withoutGlobalScopes()->find($request->entity_id);
+
+        $rewrite = Rewrite::create(array_merge([
+            'entity_type' => $entity->type,
+        ], $request->validated()));
 
         return response()->json([
             'created' => isset($rewrite),
@@ -77,8 +83,11 @@ class RewritesController extends Controller
      */
     public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
-        logger($request->validated());
-        $updated = $rewrite->update($request->validated());
+        $entity = Entity::withoutGlobalScopes()->find($request->entity_id);
+
+        $updated = $rewrite->update(array_merge([
+            'entity_type' => $entity->type,
+        ], $request->validated()));
 
         return response()->json([
             'updated' => $updated,

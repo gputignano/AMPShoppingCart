@@ -107,12 +107,18 @@ class ProductsController extends Controller
         $updated = $product->update($request->validated());
 
         // UPDATES PRODUCT'S ATTRIBUTES
-        foreach ($product->attribute_sets()->first()->attributes as $attribute) {
-            $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
+        if ($request->has('attribute_sets'))
+        {
+            foreach ($product->attribute_sets()->first()->attributes as $attribute) {
+                $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
+            }
         }
 
         // UPDATES CATEGORIES
-        $product->categories()->sync($request->input('categories'));
+        if ($request->has('categories'))
+        {
+            $product->categories()->sync($request->input('categories'));
+        }
 
         // if ($request->has('meta'))
         // {

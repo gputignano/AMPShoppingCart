@@ -102,6 +102,8 @@ class CategoryTest extends TestCase
     {
         $response = $this->patchJson(route('admin.categories.update', $this->category), [
             'name' => $this->faker->sentence,
+            'description' => null,
+            'parent_id' => null,
         ]);
 
         $response->assertStatus(200);

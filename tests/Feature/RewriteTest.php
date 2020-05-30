@@ -77,13 +77,16 @@ class RewriteTest extends TestCase
     public function a_rewrite_can_be_created()
     {
         $meta_title = $this->faker->sentence;
+        
 
         $response = $this->postJson(route('admin.rewrites.store'), [
             'slug' => Str::slug($meta_title),
             'meta_title' => $meta_title,
             'meta_description' => $this->faker->text,
-            'entity_type' => Entity::class,
+            'meta_robots' => 'present',
+            // 'entity_type' => Entity::class,
             'entity_id' => factory(Entity::class)->create()->id,
+            'is_active' => null,
         ]);
 
         $response->assertStatus(200);

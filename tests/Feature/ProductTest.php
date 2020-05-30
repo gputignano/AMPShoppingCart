@@ -116,6 +116,7 @@ class ProductTest extends TestCase
     {
         $response = $this->patchJson(route('admin.products.update', $this->product), [
             'name' => $this->faker->sentence,
+            'description' => '',
         ]);
 
         $response->assertStatus(200);
