@@ -151,9 +151,5 @@ class Entity extends Model
         static::deleting(function ($entity) {
             $entity->rewrite()->delete();
         });
-
-        // static::addGlobalScope('type', function (Builder $builder) {
-        //     $builder->where('type', self::class);
-        // });
     }
 }
