@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Product extends Entity
 {
     public function attribute_sets()
@@ -36,6 +38,10 @@ class Product extends Entity
 
         static::deleting(function ($entity) {
             $entity->categories()->detach();
+        });
+
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where('type', self::class);
         });
     }
 }

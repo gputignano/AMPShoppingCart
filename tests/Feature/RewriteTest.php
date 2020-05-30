@@ -23,6 +23,8 @@ class RewriteTest extends TestCase
         $entity = factory(Entity::class)->create();
 
         $this->rewrite = $entity->rewrite()->save(factory(Rewrite::class)->create());
+
+        $this->rewrite->refresh();
     }
 
     /** @test */
@@ -330,7 +332,7 @@ class RewriteTest extends TestCase
     /** @test */
     public function rewrite_has_entity_relation()
     {
-        $this->assertInstanceOf(Entity::class, $this->rewrite->entity()->withoutGlobalScopes()->first());
+        $this->assertInstanceOf(Entity::class, $this->rewrite->entity);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->rewrite->entity());
     }

@@ -41,7 +41,7 @@ class RewritesController extends Controller
      */
     public function store(StoreRewriteFormRequest $request)
     {
-        $entity = Entity::withoutGlobalScopes()->find($request->entity_id);
+        $entity = Entity::find($request->entity_id);
 
         $rewrite = Rewrite::create(array_merge([
             'entity_type' => $entity->type,
@@ -83,7 +83,7 @@ class RewritesController extends Controller
      */
     public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
-        $entity = Entity::withoutGlobalScopes()->find($request->entity_id);
+        $entity = Entity::find($request->entity_id);
 
         $updated = $rewrite->update(array_merge([
             'entity_type' => $entity->type,

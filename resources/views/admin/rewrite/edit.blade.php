@@ -44,7 +44,7 @@
         <fieldset>
             <label for="rewritable_id">{{ __('Entity') }}</label>
             <select name="entity_id">
-                @foreach (App\Models\Entity::withoutGlobalScopes()->get() as $entity)
+                @foreach (App\Models\Entity::all() as $entity)
                     <option value="{{ $entity->id }}" {{ $entity->id == $rewrite->entity_id ? 'selected' : '' }}>{{ $entity->name }}</option>
                 @endforeach
             </select>

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
 class Entity extends Model
 {
@@ -154,7 +153,7 @@ class Entity extends Model
         });
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', static::class);
+            $builder->where('type', self::class);
         });
     }
 }
