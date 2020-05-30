@@ -26,10 +26,6 @@ class UpdatePageFormRequest extends FormRequest
             'description' => 'sometimes|required',
 
             'templete' => 'sometimes|required',
-
-            'meta' => 'sometimes|array',
-            'meta.meta_title' => 'required_with:meta',
-            'meta.meta_description' => 'required_with:meta',
         ];
     }
 }
