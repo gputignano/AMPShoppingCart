@@ -6,7 +6,7 @@
 
     <div submit-success>
     <template type="amp-mustache">
-        {{ __('Ppdated successfully!') }}
+        {{ __('Updated successfully!') }}
     </template>
     </div>
 
