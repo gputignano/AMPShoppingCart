@@ -82,22 +82,22 @@ class CategoriesController extends Controller
     {
         $updated = $category->update($request->validated());
 
-        if ($request->has('meta'))
-        {
-            $rewrite = Rewrite::updateOrCreate(
-                [
-                    'entity_id' => $category->id,
-                ],
-                [
-                    'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
-                    'meta_title' => $request->meta['meta_title'],
-                    'meta_description' => $request->meta['meta_description'],
-                    'meta_robots' => $request->meta['meta_robots'],
-                    'entity_type' => get_class($category),
-                    'entity_id' => $category->id,
-                ],
-            );
-        }
+        // if ($request->has('meta'))
+        // {
+        //     $rewrite = Rewrite::updateOrCreate(
+        //         [
+        //             'entity_id' => $category->id,
+        //         ],
+        //         [
+        //             'slug' => $request->meta['slug'] ? $request->meta['slug'] : Str::slug($request->meta['meta_title']),
+        //             'meta_title' => $request->meta['meta_title'],
+        //             'meta_description' => $request->meta['meta_description'],
+        //             'meta_robots' => $request->meta['meta_robots'],
+        //             'entity_type' => get_class($category),
+        //             'entity_id' => $category->id,
+        //         ],
+        //     );
+        // }
 
         return response()->json([
             'updated' => $updated,

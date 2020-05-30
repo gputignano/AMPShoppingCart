@@ -25,10 +25,6 @@ class UpdateCategoryFormRequest extends FormRequest
             'name' => 'sometimes|required',
             'description' => 'sometimes',
             'parent_id' => 'sometimes',
-
-            'meta' => 'sometimes|array',
-            'meta.meta_title' => 'required_with:meta',
-            'meta.meta_description' => 'required_with:meta',
         ];
     }
 }
