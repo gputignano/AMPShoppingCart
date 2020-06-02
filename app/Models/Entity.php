@@ -91,6 +91,11 @@ class Entity extends Model
         return $this->template ?? class_basename($this->type);
     }
 
+    public function scopeWithRewrite($query)
+    {
+        return $query->has('rewrite');
+    }
+
     // RELATIONS
     public function attributes()
     {
