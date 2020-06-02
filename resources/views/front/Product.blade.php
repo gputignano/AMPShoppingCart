@@ -1,5 +1,9 @@
 @extends('front.layouts.main')
 
+@section('amp-components')
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+@endsection
+
 @section('content')
     <h1>{{ $entity->name }}</h1>
 
