@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
-use App\Models\Product;
+use App\Http\Controllers\Controller;
 use App\Models\Rewrite;
-use Illuminate\Support\Facades\Request;
 
 class FrontController extends Controller
 {
