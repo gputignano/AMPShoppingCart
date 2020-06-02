@@ -24,6 +24,9 @@ class UpdateProductFormRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'present',
+
+            'attributes' => 'present',
+            'categories' => 'present',
         ];
     }
 }

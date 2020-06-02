@@ -23,8 +23,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('orderDetails', 'Admin\OrderDetailsController');
     Route::resource('pages', 'Admin\PagesController');
     Route::resource('products', 'Admin\ProductsController');
-    Route::patch('products/{product}/attributes', 'Admin\ProductsController@updateAttributes')->name('products.update.attributes');
-    Route::patch('products/{product}/categories', 'Admin\ProductsController@updateCategories')->name('products.update.categories');
     Route::resource('users', 'Admin\UsersController');
     Route::resource('rewrites', 'Admin\RewritesController');
 });
