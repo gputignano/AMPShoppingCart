@@ -27,4 +27,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('rewrites', 'Admin\RewritesController');
 });
 
+// FRONT
+Route::resource('cart', 'Front\CartController');
 Route::get('{rewrite:slug}', 'Front\FrontController')->defaults('rewrite', 'home')->where('rewrite', '.*')->name('front');
