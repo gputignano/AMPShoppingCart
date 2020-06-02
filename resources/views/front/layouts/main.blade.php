@@ -24,12 +24,12 @@
     <body>
         <header>
             <nav>
-                <ul class="flex">
-                    <li>
+                <ul class="flex list-reset">
+                    <li class="inline-block mr1">
                         <a href="{{ route('front', '/') }}">{{ __('Home Page') }}</a>
                     </li>
                     @forelse (App\Models\Category::has('rewrite')->get() as $category)
-                    <li>
+                    <li class="inline-block mr1">
                         <a href="{{ route('front', $category->rewrite->slug) }}">{{ $category->name }}</a>
                     </li>
                     @empty
