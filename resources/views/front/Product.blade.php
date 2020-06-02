@@ -19,8 +19,8 @@
         <input type="hidden" name="price" value="{{ $entity->price }}">
         <input type="submit" value="{{ __('Add to Cart') }}">
 
-        <div submitting>
-            SUBMITTING
+        <div submit-error>
+            ERROR!
         </div>
     </form>
 

@@ -28,5 +28,10 @@ Route::prefix('admin')->name('admin.')->group(function() {
 });
 
 // FRONT
-Route::resource('cart', 'Front\CartController');
+Route::prefix('cart')->name('cart.')->group(function() {
+    Route::get('/', 'Front\CartController@index')->name('index');
+    Route::post('/', 'Front\CartController@store')->name('store');
+    Route::delete('{id}', 'Front\CartController@destroy')->name('destroy');
+});
+
 Route::get('{rewrite:slug}', 'Front\FrontController')->defaults('rewrite', 'home')->where('rewrite', '.*')->name('front');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -14,7 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        return view('front.cart.index');
     }
 
     /**
@@ -35,7 +36,18 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        \Cart::add([
+            'id' => $request->id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'quantity' => 1,
+            'attributes' => [],
+            'associatedModel' => Product::class,
+        ]);
+
+        return response()->json([
+            //
+        ])->header('AMP-Redirect-To', route('cart.index'));
     }
 
     /**
@@ -80,6 +92,10 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \Cart::remove($id);
+
+        return response()->json([
+            //
+        ])->header('AMP-Redirect-To', route('cart.index'));
     }
 }
