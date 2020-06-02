@@ -11,6 +11,19 @@
 
     <div>{{ __('Quantity: ') . $entity->quantity }}</div>
 
+    <form action-xhr="{{ route('cart.store') }}" method="post">
+        @csrf
+
+        <input type="hidden" name="id" value="{{ $entity->id }}">
+        <input type="hidden" name="name" value="{{ $entity->name }}">
+        <input type="hidden" name="price" value="{{ $entity->price }}">
+        <input type="submit" value="{{ __('Add to Cart') }}">
+
+        <div submitting>
+            SUBMITTING
+        </div>
+    </form>
+
     <h2>{{ __('Description') }}</h2>
     <div>{{ $entity->description }}</div>
 
