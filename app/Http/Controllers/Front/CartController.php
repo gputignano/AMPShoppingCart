@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 
 class CartController extends Controller
 {
@@ -36,7 +37,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        \Cart::add([
+        Cart::add([
             'id' => $request->id,
             'name' => $request->name,
             'price' => $request->price,
@@ -92,7 +93,7 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        \Cart::remove($id);
+        Cart::remove($id);
 
         return response()->json([
             //
