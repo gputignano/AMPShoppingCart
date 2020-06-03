@@ -22,27 +22,16 @@
 
     </head>
     <body>
-        <header>
-            <nav>
-                <ul class="flex list-reset">
-                    <li class="inline-block mr1">
-                        <a href="{{ route('front', '/') }}">{{ __('Home Page') }}</a>
-                    </li>
-                    @forelse (App\Models\Category::has('rewrite')->get() as $category)
-                    <li class="inline-block mr1">
-                        <a href="{{ route('front', $category->rewrite->slug) }}">{{ $category->name }}</a>
-                    </li>
-                    @empty
-                        
-                    @endforelse
+        <div class="container m1">
 
-                    <li class="inline-block mr1">
-                        <a href="{{ route('cart.index') }}">{{ __('Cart') }}</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+            <div>
+                @include('front.layouts.inc.header')
+            </div>
+    
+            <div>
+                @yield('content', __('Please update me!'))
+            </div>
 
-        @yield('content', __('Please update me!'))
+        </div>
     </body>
 </html>
