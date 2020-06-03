@@ -89,6 +89,47 @@
     body {
         font-family:roboto;
     }
+    .hamburger{
+        /* font-size: 1.5em; */
+        /* display:block;
+        cursor: pointer; */
+        /* position: fixed; */
+        /* top: 0; */
+        /* right: 0; */
+        /* width: 20px;
+        height: 20px; */
+        /* background: #03A9F4; */
+        /* z-index: 1; */
+    }
+    header {
+        /* background: #9C27B0; */
+        /* height: 100px; */
+    }
+    article {
+        /* background: #FFD54F */
+    }
+    nav {
+        margin: 0px;
+    }
+    aside {
+        display: none;
+    }
+    ul.nav-container {
+        display: block;
+        padding: 0;
+        /* background: #4CAF50; */
+        margin: 0px;
+        width: 300px;
+    }
+    ul.nav-container > * {
+        height: 30px;
+        display: block;
+        border-bottom: 1px solid #EEE;
+        padding: 2px;
+    }
+    .selected {
+        background: #FF9800;
+    }
     @media(min-width:320px) {
         /*  */
     }
@@ -98,8 +139,26 @@
     @media(min-width:425px) {
         /*  */
     }
-    @media(min-width:768px) {
-        /*  */
+    @media(min-width:769px) {
+        /* overflow: scroll MUST BE on the `toolbar` */
+        nav[toolbar] {
+            max-height: calc(100vh - 100px);
+            overflow: auto;
+        }
+        .hamburger {
+            display: none;
+        }
+        main {
+            display: flex;
+            flex-direction: row;
+        }
+        aside {
+            display: flex;
+            flex-direction: column;
+        }
+        article {
+            flex: 1
+        }
     }
     @media(min-width:1024px) {
         /*  */

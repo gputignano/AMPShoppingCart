@@ -12,26 +12,46 @@
         {{-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto"> --}}
 
         @section('amp-custom-style')
-            @include('admin.layouts.styles')
+            @include('front.layouts.styles')
         @show
 
         @section('amp-components')
-            {{-- <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script> --}}
+            <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
             {{-- <script async custom-element="amp-mega-menu" src="https://cdn.ampproject.org/v0/amp-mega-menu-0.1.js"></script> --}}
         @show
 
     </head>
     <body>
-        <div class="container m1">
+        {{-- https://github.com/ampproject/amphtml/blob/master/examples/amp-sidebar-autoscroll.amp.html --}}
+        <amp-sidebar id="sidebar" layout="nodisplay">
+            <nav toolbar="(min-width: 767px)" toolbar-target="desktop-sidebar">
+                <ul class="nav-container">
+                    <li><a href="{{ route('front', '/') }}">{{ __('Home Page') }}</a></li>
 
-            <div>
-                @include('front.layouts.inc.header')
-            </div>
-    
-            <div>
+                    @foreach (App\Models\Category::has('rewrite')->get() as $category)
+                    <li>
+                        <a href="{{ route('front', $category->rewrite->slug) }}">{{ $category->name }}</a>
+                    </li>
+                    @endforeach
+        
+                    <li>
+                        <a href="{{ route('cart.index') }}">{{ __('Cart') }}</a>
+                    </li>
+                </ul>
+            </nav>
+        </amp-sidebar>
+        
+        <header class="flex">
+            <button class="hamburger mr1" on='tap:sidebar.toggle' aria-label="Click to open sidebar">=</button>
+            <h2 class="m0">Header</h2>
+        </header>
+        
+        <main>
+            <article>
                 @yield('content', __('Please update me!'))
-            </div>
+            </article>
 
-        </div>
+            <aside id="desktop-sidebar"></aside>
+        </main>
     </body>
 </html>

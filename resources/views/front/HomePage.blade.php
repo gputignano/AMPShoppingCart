@@ -1,5 +1,10 @@
 @extends('front.layouts.main')
 
+@section('amp-components')
+    @parent
+
+@endsection
+
 @section('content')
     <h1>{{ __('Home Page') }}</h1>
 
