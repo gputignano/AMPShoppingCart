@@ -7,8 +7,8 @@
 @section('content')
     <h1>{{ $entity->name }}</h1>
 
-    <div class="md-flex">
-        <div class="md-col-6">
+    <div class="flex flex-wrap">
+        <div class="col-12 md-col-6">
             <amp-img
                 alt="{{ __('Image Alt') }}"
                 src="https://picsum.photos/320"
@@ -18,29 +18,31 @@
             ></amp-img>
         </div>
 
-        <div class="md-col-6">
+        <div class="col-12 md-col-6">
             <div>
-                {{ __('Price: ') . $entity->price }}
-            </div>
-        
-            <div>
-                {{ __('Quantity: ') . $entity->quantity }}
-            </div>
-
-            <div>
-                <form action-xhr="{{ route('cart.store') }}" method="post">
-                    @csrf
+                <div>
+                    {{ __('Price: ') . $entity->price }}
+                </div>
             
-                    <input type="hidden" name="id" value="{{ $entity->id }}">
-                    <input type="hidden" name="name" value="{{ $entity->name }}">
-                    <input type="hidden" name="price" value="{{ $entity->price }}">
-            
-                    <input type="submit" value="{{ __('Add to Cart') }}" class="btn btn-primary bg-orange col-12 md-col-6">
-            
-                    <div submit-error>
-                        ERROR!
-                    </div>
-                </form>
+                <div>
+                    {{ __('Quantity: ') . $entity->quantity }}
+                </div>
+    
+                <div>
+                    <form action-xhr="{{ route('cart.store') }}" method="post">
+                        @csrf
+                
+                        <input type="hidden" name="id" value="{{ $entity->id }}">
+                        <input type="hidden" name="name" value="{{ $entity->name }}">
+                        <input type="hidden" name="price" value="{{ $entity->price }}">
+                
+                        <input type="submit" value="{{ __('Add to Cart') }}" class="btn btn-outline orange col-12 md-col-6">
+                
+                        <div submit-error>
+                            ERROR!
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
