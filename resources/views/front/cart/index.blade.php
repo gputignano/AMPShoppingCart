@@ -1,6 +1,12 @@
-@extends('front.layouts.cart')
+@extends('front.layouts.main')
+
+@section('meta_title', __('Shopping Cart'))
+
+@section('meta_description', __('Shopping Cart'))
 
 @section('amp-components')
+    @parent
+
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
 @endsection
 
