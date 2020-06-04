@@ -152,6 +152,54 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
+    public function categories_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('categories', $fields = [
+                'id',
+                'parent_id',
+                'name',
+                'description',
+                'type',
+            ])
+        );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('categories'));
+    }
+
+    /** @test */
+    public function pages_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('pages', $fields = [
+                'id',
+                'parent_id',
+                'name',
+                'description',
+                'type',
+            ])
+        );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('pages'));
+    }
+
+    /** @test */
+    public function products_table_has_expected_columns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('products', $fields = [
+                'id',
+                'parent_id',
+                'name',
+                'description',
+                'type',
+            ])
+        );
+
+        $this->assertCount(count($fields), Schema::getColumnListing('products'));
+    }
+
+    /** @test */
     public function rewrites_table_has_expected_columns()
     {
         $this->assertTrue(
