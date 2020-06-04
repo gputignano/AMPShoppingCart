@@ -26,9 +26,5 @@ class Category extends Entity
         static::deleting(function ($entity) {
             $entity->products()->detach();
         });
-
-        static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', self::class);
-        });
     }
 }

@@ -20,7 +20,7 @@ class CreateAttributableTable extends Migration
             $table->unsignedBigInteger('attribute_id');
             $table->nullableMorphs('value');
 
-            $table->foreign('attributable_id')->references('id')->on('entities')->onDelete('cascade');
+            $table->foreign('attributable_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
         });
     }

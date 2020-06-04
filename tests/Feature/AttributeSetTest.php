@@ -26,7 +26,6 @@ class AttributeSetTest extends TestCase
     /** @test */
     public function a_user_can_view_attribute_set_index()
     {
-        $this->withoutExceptionHandling();
         $response = $this->get(route('admin.attributeSets.index'));
 
         $response->assertStatus(200);
@@ -51,7 +50,6 @@ class AttributeSetTest extends TestCase
     /** @test */
     public function a_user_can_view_attribute_set_edit()
     {
-        $this->withoutExceptionHandling();
         $response = $this->get(route('admin.attributeSets.edit', $this->attributeSet));
 
         $response->assertStatus(200);
@@ -162,6 +160,7 @@ class AttributeSetTest extends TestCase
     /** @test */
     public function an_attribute_set_can_be_deleted()
     {
+        $this->withoutExceptionHandling();
         $response = $this->deleteJson(route('admin.attributeSets.destroy', $this->attributeSet), [
             //
         ]);

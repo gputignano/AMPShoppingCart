@@ -136,22 +136,6 @@ class TableSchemaTest extends TestCase
     }
 
     /** @test */
-    public function entities_table_has_expected_columns()
-    {
-        $this->assertTrue(
-            Schema::hasColumns('entities', $fields = [
-                'id',
-                'parent_id',
-                'name',
-                'description',
-                'type',
-            ])
-        );
-
-        $this->assertCount(count($fields), Schema::getColumnListing('entities'));
-    }
-
-    /** @test */
     public function categories_table_has_expected_columns()
     {
         $this->assertTrue(
@@ -160,7 +144,6 @@ class TableSchemaTest extends TestCase
                 'parent_id',
                 'name',
                 'description',
-                'type',
             ])
         );
 
@@ -176,7 +159,6 @@ class TableSchemaTest extends TestCase
                 'parent_id',
                 'name',
                 'description',
-                'type',
             ])
         );
 
@@ -192,7 +174,6 @@ class TableSchemaTest extends TestCase
                 'parent_id',
                 'name',
                 'description',
-                'type',
             ])
         );
 

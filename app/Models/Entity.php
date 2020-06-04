@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Entity extends Model
 {
-    public $table = 'entities';
+    // public $table = 'entities';
 
     protected $fillable = [
-        'parent_id', 'name', 'description', 'type',
+        'parent_id', 'name', 'description',
     ];
 
     public $timestamps = false;
@@ -147,11 +147,11 @@ class Entity extends Model
     {
         parent::booted();
 
-        static::creating(function ($entity) {
-            $entity->forceFill([
-                'type' => static::class,
-            ]);
-        });
+        // static::creating(function ($entity) {
+        //     $entity->forceFill([
+        //         'type' => static::class,
+        //     ]);
+        // });
 
         static::deleting(function ($entity) {
             $entity->rewrite()->delete();

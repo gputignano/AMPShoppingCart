@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRewriteFormRequest;
 use App\Http\Requests\UpdateRewriteFormRequest;
-use App\Models\Category;
-use App\Models\Entity;
+use App\Models\Product;
 use App\Models\Rewrite;
 
 class RewritesController extends Controller
@@ -41,7 +40,7 @@ class RewritesController extends Controller
      */
     public function store(StoreRewriteFormRequest $request)
     {
-        $entity = Entity::find($request->entity_id);
+        $entity = Product::find($request->entity_id);
 
         $rewrite = Rewrite::create(array_merge([
             'entity_type' => $entity->type,
@@ -83,7 +82,7 @@ class RewritesController extends Controller
      */
     public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
-        $entity = Entity::find($request->entity_id);
+        $entity = Product::find($request->entity_id);
 
         $updated = $rewrite->update(array_merge([
             'entity_type' => $entity->type,

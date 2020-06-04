@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Attributable;
 use App\Models\Attribute;
-use App\Models\Entity;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -28,7 +28,7 @@ class EAVTest extends TestCase
 
         $this->eav = factory(Attributable::class)->create();
 
-        $this->entity = factory(Entity::class)->create();
+        $this->entity = factory(Product::class)->create();
 
         $this->attribute = factory(Attribute::class)->create();
 
@@ -43,7 +43,7 @@ class EAVTest extends TestCase
     public function eav_has_entity_relation()
     {
         // One to One Polymorphic
-        $this->assertInstanceOf(Entity::class, $this->eav->entity);
+        $this->assertInstanceOf(Product::class, $this->eav->entity);
 
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class, $this->eav->entity());
     }

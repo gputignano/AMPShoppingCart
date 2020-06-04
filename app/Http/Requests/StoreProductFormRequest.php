@@ -23,8 +23,8 @@ class StoreProductFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'product_type' => 'required',
-            'attribute_set' => 'required',
+            // 'product_type' => 'required',
+            // 'attribute_set' => 'required',
         ];
     }
 }

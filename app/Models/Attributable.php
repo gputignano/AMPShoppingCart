@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Support\Facades\Log;
 
 class Attributable extends Pivot
 {
@@ -16,7 +15,7 @@ class Attributable extends Pivot
     public function entity()
     {
         return $this->belongsTo(
-            Entity::class,
+            Product::class,
             'attributable_id',
             'id',
             'entity',
@@ -42,13 +41,4 @@ class Attributable extends Pivot
             'id',
         );
     }
-
-    // protected static function booted()
-    // {
-    //     parent::booted();
-
-    //     static::deleting(function ($attributable) {
-    //         if ($attributable->attribute->type::$hasDefaultValues) return;
-    //     });
-    // }
 }

@@ -39,9 +39,5 @@ class Product extends Entity
         static::deleting(function ($entity) {
             $entity->categories()->detach();
         });
-
-        static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', self::class);
-        });
     }
 }

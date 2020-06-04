@@ -4,11 +4,11 @@
 
 use App\Models\Attributable;
 use App\Models\Attribute;
-use App\Models\Entity;
+use App\Models\Product;
 use Faker\Generator as Faker;
 
 $factory->define(Attributable::class, function (Faker $faker) {
-    $entity = factory(Entity::class)->create();
+    $entity = factory(Product::class)->create();
 
     $attribute = factory(Attribute::class)->create();
 

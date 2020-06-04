@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeSetFormRequest;
 use App\Http\Requests\UpdateAttributeSetFormRequest;
 use App\Models\AttributeSet;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class AttributeSetsController extends Controller
 {

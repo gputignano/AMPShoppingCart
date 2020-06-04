@@ -51,8 +51,8 @@ class ProductsController extends Controller
 
         $product = Product::create($request->validated('name'));
 
-        $product->product_type = $request->product_type;
-        $product->attribute_sets()->attach($request->attribute_set);
+        // $product->product_type = $request->product_type;
+        // $product->attribute_sets()->attach($request->attribute_set);
 
         DB::commit();
 
