@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('meta_title', __('Edit ' . $category->name))
+@section('meta_title', __('Edit ' . $entity->name))
 
 @section('amp-components')
     @parent
@@ -11,23 +11,23 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('Edit ') . $category->name }}</h1>
+    <h1>{{ __('Edit ') . $entity->name }}</h1>
 
-    <form method="post" action-xhr="{{ route('admin.categories.update', $category) }}">
-        @csrf
-        @method('patch')
+    <amp-accordion id="accordion" expand-single-section animate>
+        <section expanded>
+            <h2>{{ __('General') }}</h2>
 
-        <amp-accordion id="accordion" expand-single-section animate>
-            <section expanded>
-                <h2>{{ __('General') }}</h2>
+            <div>
+                <form method="post" action-xhr="{{ route('admin.categories.update', $entity) }}">
+                    @csrf
+                    @method('patch')
 
-                <div>
                     <fieldset>
                         <label for="parent_id">{{ __('Parent') }}</label>
                         <select name="parent_id">
                             <option value="">{{ __('------') }}</option>
-                            @forelse (App\Models\Category::where('id', '!=', $category->id)->get() as $parent)
-                                <option value="{{ $parent->id }}" {{ $category->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
+                            @forelse (App\Models\Category::where('id', '!=', $entity->id)->get() as $parent)
+                                <option value="{{ $parent->id }}" {{ $entity->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                             @empty
                                 <option value="" disabled>{{ __('No category available') }}</option>
                             @endforelse
@@ -36,23 +36,25 @@
 
                     <fieldset>
                         <label for="name">{{ __('Name') }}</label>
-                        <input type="text" name="name" value="{{ $category->name }}">
+                        <input type="text" name="name" value="{{ $entity->name }}">
                     </fieldset>
             
                     <fieldset>
                         <label for="description">{{ __('Description') }}</label>
-                        <textarea name="description" cols="30" rows="10">{{ $category->description }}</textarea>
+                        <textarea name="description" cols="30" rows="10">{{ $entity->description }}</textarea>
                     </fieldset>
 
                     <input type="submit" value="{{ __('Update') }}">
-                </div>
-            </section>
-        </amp-accordion>
 
-        @include('admin.inc.response')
-    </form>
+                    @include('admin.inc.response')
+                </form>
+            </div>
+        </section>
 
-    <form action-xhr="{{ route('admin.categories.destroy', $category) }}" method="post">
+        @include('admin.rewrite.inc.edit_form')
+    </amp-accordion>
+
+    <form action-xhr="{{ route('admin.categories.destroy', $entity) }}" method="post">
         @csrf
         @method('delete')
 

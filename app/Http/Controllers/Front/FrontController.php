@@ -15,7 +15,7 @@ class FrontController extends Controller
      */
     public function __invoke(Rewrite $rewrite)
     {
-        return view('front.' . $rewrite->entity->getTemplate(), [
+        return view('front.' . class_basename($rewrite->entity), [
             'rewrite' => $rewrite,
             'entity' => $rewrite->entity,
         ]);

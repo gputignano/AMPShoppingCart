@@ -27,14 +27,10 @@ class AttributeSet extends Model
 
     public function products()
     {
-        return $this->belongsToMany(
+        return $this->hasMany(
             Product::class,
-            'attribute_set_product',
             'attribute_set_id',
-            'product_id',
             'id',
-            'id',
-            'products',
         );
     }
 }

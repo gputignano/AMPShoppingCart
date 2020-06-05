@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Entity
 {
-    public function attribute_sets()
+    protected $fillable = [
+        'parent_id', 'name', 'description', 'type', 'attribute_set_id',
+    ];
+
+    public function attribute_set()
     {
-        return $this->belongsToMany(
+        return $this->belongsTo(
             AttributeSet::class,
-            'attribute_set_product',
-            'product_id',
             'attribute_set_id',
             'id',
-            'id',
-            'attribute_sets',
+            'attribute_set',
         );
     }
 
@@ -36,8 +37,14 @@ class Product extends Entity
     {
         parent::booted();
 
-        static::deleting(function ($entity) {
-            $entity->categories()->detach();
-        });
+        // static::creating(function ($entity) {
+        //     $entity->forceFill([
+        //         'type' => static::class,
+        //     ]);
+        // });
+
+        // static::deleting(function ($entity) {
+        //     $entity->categories()->detach();
+        // });
     }
 }

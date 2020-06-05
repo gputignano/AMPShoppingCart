@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeFormRequest;
 use App\Http\Requests\UpdateAttributeFormRequest;
 use App\Models\Attribute;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class AttributesController extends Controller
 {

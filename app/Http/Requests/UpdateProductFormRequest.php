@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class UpdateProductFormRequest extends FormRequest
 {
     /**
@@ -15,6 +17,18 @@ class UpdateProductFormRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'is_active' => $this->is_active ? true : false,
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -22,11 +36,11 @@ class UpdateProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'present',
+            'name' => 'sometimes|required',
+            'description' => 'sometimes',
 
-            'attributes' => 'present',
-            'categories' => 'present',
+            'attributes' => 'sometimes|required',
+            'categories' => 'sometimes|required',
         ];
     }
 }

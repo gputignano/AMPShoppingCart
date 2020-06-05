@@ -34,12 +34,13 @@ class UpdateRewriteFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required',
-            'meta_title' => 'required',
-            'meta_description' => 'required',
-            'meta_robots' => 'present',
+            'slug' => 'required|unique:rewrites,slug,' . $this->slug . ',slug',
+            'meta_title' => 'required_with:slug',
+            'meta_description' => 'required_with:slug',
+            'meta_robots' => 'required_with:slug',
+            'entity_type' => 'required',
             'entity_id' => 'required',
-            'is_active' => 'boolean',
+            'is_active' => 'present',
         ];
     }
 }

@@ -98,7 +98,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    {{-- <li>
                         <h4 amp-nested-submenu-open>{{ __('Rewrites') }}</h4>
                         <div amp-nested-submenu>
                             <ul>
@@ -109,7 +109,7 @@
                                 <li><a href="{{ route('admin.rewrites.create') }}">{{ __('Create Rewrite') }}</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
                     <li>
                         <h4 amp-nested-submenu-open>{{ __('Orders') }}</h4>
                         <div amp-nested-submenu>
@@ -189,7 +189,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li>
+                        {{-- <li>
                             <span role="button">{{ __('Rewrites') }}</span>
                             <div role="dialog">
                                 <ul>
@@ -197,7 +197,7 @@
                                     <li><a href="{{ route('admin.rewrites.create') }}">{{ __('Create Rewrite') }}</a></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
                         <li>
                             <span role="button">{{ __('Orders') }}</span>
                             <div role="dialog">

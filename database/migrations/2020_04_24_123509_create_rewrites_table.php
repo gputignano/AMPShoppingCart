@@ -15,6 +15,7 @@ class CreateRewritesTable extends Migration
     {
         Schema::create('rewrites', function (Blueprint $table) {
             $table->engine = 'InnoDB';
+
             $table->id();
             $table->string('slug');
             $table->string('meta_title');

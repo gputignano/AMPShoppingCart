@@ -20,8 +20,11 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('type');
+            $table->unsignedBigInteger('attribute_set_id');
 
             $table->foreign('parent_id')->references('id')->on('products')->onDelete('cascade');
+            // $table->foreign('attribute_set_id')->references('id')->on('attribute_sets')->onDelete('cascade');
         });
     }
 

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRewriteFormRequest;
 use App\Http\Requests\UpdateRewriteFormRequest;
 use App\Models\Product;
 use App\Models\Rewrite;
+use Illuminate\Support\Facades\Session;
 
 class RewritesController extends Controller
 {
@@ -40,15 +41,11 @@ class RewritesController extends Controller
      */
     public function store(StoreRewriteFormRequest $request)
     {
-        $entity = Product::find($request->entity_id);
-
-        $rewrite = Rewrite::create(array_merge([
-            'entity_type' => $entity->type,
-        ], $request->validated()));
+        $rewrite = Rewrite::create($request->validated());
 
         return response()->json([
             'created' => isset($rewrite),
-        ])->header('AMP-Redirect-To', route('admin.rewrites.edit', $rewrite));
+        ])->header('AMP-Redirect-To', url()->previous());
     }
 
     /**
@@ -82,15 +79,11 @@ class RewritesController extends Controller
      */
     public function update(UpdateRewriteFormRequest $request, Rewrite $rewrite)
     {
-        $entity = Product::find($request->entity_id);
-
-        $updated = $rewrite->update(array_merge([
-            'entity_type' => $entity->type,
-        ], $request->validated()));
+        $updated = $rewrite->update($request->validated());
 
         return response()->json([
             'updated' => $updated,
-        ])->header('AMP-Redirect-To', route('admin.rewrites.edit', $rewrite));
+        ])->header('AMP-Redirect-To', url()->previous());
     }
 
     /**
@@ -105,6 +98,6 @@ class RewritesController extends Controller
 
         return response()->json([
             'deleted' => $deleted,
-        ])->header('AMP-Redirect-To', route('admin.rewrites.index'));
+        ])->header('AMP-Redirect-To', url()->previous());
     }
 }

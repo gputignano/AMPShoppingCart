@@ -174,6 +174,8 @@ class TableSchemaTest extends TestCase
                 'parent_id',
                 'name',
                 'description',
+                'type',
+                'attribute_set_id',
             ])
         );
 

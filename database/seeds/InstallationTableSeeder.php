@@ -24,30 +24,30 @@ class InstallationTableSeeder extends Seeder
         ]);
 
         // Create Product Type attribute
-        $product_type = factory(App\Models\Attribute::class)->create([
-            'label' => $label = 'Product Type',
-            'code' => Str::snake($label),
-            'type' => App\Models\EAVSelect::class,
-            'is_system' => true,
-        ]);
+        // $product_type = factory(App\Models\Attribute::class)->create([
+        //     'label' => $label = 'Product Type',
+        //     'code' => Str::snake($label),
+        //     'type' => App\Models\EAVSelect::class,
+        //     'is_system' => true,
+        // ]);
 
         // Create default values for Attribute Tupe attribute
-        $product_type->values()->saveMany([
-            $product_type->type::create([
-                'value' => 'simple',
-            ]),
-            $product_type->type::create([
-                'value' => 'configurable',
-            ]),
-        ]);
+        // $product_type->values()->saveMany([
+        //     $product_type->type::create([
+        //         'value' => 'simple',
+        //     ]),
+        //     $product_type->type::create([
+        //         'value' => 'configurable',
+        //     ]),
+        // ]);
 
         // Create Template attribute
-        $product_type = factory(App\Models\Attribute::class)->create([
-            'label' => $label = 'Template',
-            'code' => Str::snake($label),
-            'type' => App\Models\EAVString::class,
-            'is_system' => true,
-        ]);
+        // $product_type = factory(App\Models\Attribute::class)->create([
+        //     'label' => $label = 'Template',
+        //     'code' => Str::snake($label),
+        //     'type' => App\Models\EAVString::class,
+        //     'is_system' => true,
+        // ]);
 
         // Create Default Attribute Set
         factory(App\Models\AttributeSet::class)->create([

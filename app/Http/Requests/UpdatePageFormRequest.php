@@ -24,8 +24,6 @@ class UpdatePageFormRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'present',
-
-            'template' => 'present',
         ];
     }
 }

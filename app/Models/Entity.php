@@ -86,11 +86,6 @@ class Entity extends Model
         return $this->getAttribute($key) || optional(optional(optional($this->attributes()->where('code', 'like', $key)->first())->attributable)->value)->value ? true : false;
     }
 
-    public function getTemplate() : string
-    {
-        return $this->template ?? class_basename($this->type);
-    }
-
     public function scopeWithRewrite($query)
     {
         return $query->has('rewrite');
@@ -146,12 +141,6 @@ class Entity extends Model
     protected static function booted()
     {
         parent::booted();
-
-        // static::creating(function ($entity) {
-        //     $entity->forceFill([
-        //         'type' => static::class,
-        //     ]);
-        // });
 
         static::deleting(function ($entity) {
             $entity->rewrite()->delete();

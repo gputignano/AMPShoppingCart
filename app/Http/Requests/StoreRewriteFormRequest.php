@@ -34,10 +34,11 @@ class StoreRewriteFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required',
-            'meta_title' => 'required',
-            'meta_description' => 'required',
+            'slug' => 'required|unique:rewrites',
+            'meta_title' => 'required_with:slug',
+            'meta_description' => 'required_with:slug',
             'meta_robots' => 'present',
+            'entity_type' => 'required',
             'entity_id' => 'required',
             'is_active' => 'present',
         ];

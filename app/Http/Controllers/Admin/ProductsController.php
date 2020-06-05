@@ -47,29 +47,11 @@ class ProductsController extends Controller
      */
     public function store(StoreProductFormRequest $request)
     {
-        DB::beginTransaction();
-
-        $product = Product::create($request->validated('name'));
-
-        // $product->product_type = $request->product_type;
-        // $product->attribute_sets()->attach($request->attribute_set);
-
-        DB::commit();
+        $product = Product::create($request->validated());
 
         return response()->json([
             'created' => isset($product),
         ])->header('AMP-Redirect-To', route('admin.products.edit', $product));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        return view('admin.product.show', compact('product'));
     }
 
     /**
@@ -80,18 +62,9 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        // RETURNS ATTRIBUTABLES THAT HAVE CONFIGURABLE VALUE
-        $attributables = Attributable::
-            whereHasMorph(
-            'value',
-            [EAVString::class,],
-            function (Builder $query) {
-                $query->where('value', 'configurable');
-            }
-        )->
-        pluck('attributable_id');
-
-        return view('admin.product.' . $product->product_type . '.edit', compact('product', 'attributables'));
+        return view('admin.product.edit', [
+            'entity' => $product,
+        ]);
     }
 
     /**
@@ -109,7 +82,7 @@ class ProductsController extends Controller
         // UPDATES PRODUCT'S ATTRIBUTES
         if ($request->has('attributes'))
         {
-            foreach ($product->attribute_sets()->first()->attributes as $attribute) {
+            foreach ($product->attribute_set->attributes as $attribute) {
                 $product->{$attribute->code} = $request->input('attributes')[$attribute->id] ?? null;
             }
         }
