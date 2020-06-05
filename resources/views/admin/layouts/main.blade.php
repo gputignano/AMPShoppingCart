@@ -98,18 +98,6 @@
                             </ul>
                         </div>
                     </li>
-                    {{-- <li>
-                        <h4 amp-nested-submenu-open>{{ __('Rewrites') }}</h4>
-                        <div amp-nested-submenu>
-                            <ul>
-                                <li>
-                                    <h4 amp-nested-submenu-close>{{ __('Back') }}</h4>
-                                </li>
-                                <li><a href="{{ route('admin.rewrites.index') }}">{{ __('All Rewrites') }}</a></li>
-                                <li><a href="{{ route('admin.rewrites.create') }}">{{ __('Create Rewrite') }}</a></li>
-                            </ul>
-                        </div>
-                    </li> --}}
                     <li>
                         <h4 amp-nested-submenu-open>{{ __('Orders') }}</h4>
                         <div amp-nested-submenu>
@@ -189,15 +177,6 @@
                                 </ul>
                             </div>
                         </li>
-                        {{-- <li>
-                            <span role="button">{{ __('Rewrites') }}</span>
-                            <div role="dialog">
-                                <ul>
-                                    <li><a href="{{ route('admin.rewrites.index') }}">{{ __('All Rewrites') }}</a></li>
-                                    <li><a href="{{ route('admin.rewrites.create') }}">{{ __('Create Rewrite') }}</a></li>
-                                </ul>
-                            </div>
-                        </li> --}}
                         <li>
                             <span role="button">{{ __('Orders') }}</span>
                             <div role="dialog">
@@ -212,6 +191,8 @@
             </amp-mega-menu>
         </header>
 
-        @yield('content', __('Please update me!'))
+        <div class="container mx1">
+            @yield('content', __('Please update me!'))
+        </div>
     </body>
 </html>

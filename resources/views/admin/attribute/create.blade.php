@@ -15,19 +15,19 @@
     <form method="post" action-xhr="{{ route('admin.attributes.store') }}">
         @csrf
 
-        <fieldset>
-            <label for="label">{{ __('Label') }}</label>
-            <input type="text" name="label" id="label">
-        </fieldset>
+        <div>
+            <label for="label" class="label">{{ __('Label') }}</label>
+            <input type="text" name="label" class="input m0 p0">
+        </div>
 
-        <fieldset>
-            <label for="code">{{ __('Code') }}</label>
-            <input type="text" name="code" id="label">
-        </fieldset>
+        <div>
+            <label for="code" class="label">{{ __('Code') }}</label>
+            <input type="text" name="code" class="input">
+        </div>
 
-        <fieldset>
-            <label for="type">{{ __('Type') }}</label>
-            <select name="type">
+        <div>
+            <label for="type" class="label">{{ __('Type') }}</label>
+            <select name="type" class="select">
                 <option value="0" selected>{{ ('--select--') }}</option>
                 @foreach ([
                     App\Models\EAVBoolean::class,
@@ -40,9 +40,9 @@
                     <option value="{{ $type }}">{{ $type }}</option>
                 @endforeach
             </select>
-        </fieldset>
+        </div>
 
-        <input type="submit" value="{{ __('Create') }}">
+        <input type="submit" value="{{ __('Create') }}" class="btn btn-primary col-12">
 
         <div submitting>
             <template type="amp-mustache">
