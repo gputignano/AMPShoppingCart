@@ -42,7 +42,7 @@
                         <input type="hidden" name="name" value="{{ $entity->name }}">
                         <input type="hidden" name="price" value="{{ $entity->price }}">
                 
-                        <input type="submit" value="{{ __('Add to Cart') }}" class="btn btn-outline orange col-12 md-col-6">
+                        <input type="submit" value="{{ __('Add to Cart') }}" class="btn btn-primary bg-orange col-12 md-col-6">
                 
                         <div submit-error>
                             ERROR!
