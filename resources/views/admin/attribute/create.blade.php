@@ -17,17 +17,17 @@
 
         <div>
             <label for="label" class="label">{{ __('Label') }}</label>
-            <input type="text" name="label" class="input m0 p0">
+            <input type="text" id="label" name="label" class="input m0 p0">
         </div>
 
         <div>
             <label for="code" class="label">{{ __('Code') }}</label>
-            <input type="text" name="code" class="input">
+            <input type="text" id="code" name="code" class="input">
         </div>
 
         <div>
             <label for="type" class="label">{{ __('Type') }}</label>
-            <select name="type" class="select">
+            <select id="type" name="type" class="select">
                 <option value="0" selected>{{ ('--select--') }}</option>
                 @foreach ([
                     App\Models\EAVBoolean::class,
