@@ -13,8 +13,8 @@
 @section('content')
     <h1>{{ $entity->name }}</h1>
 
-    <div class="flex flex-wrap">
-        <div class="col-12 md-col-6">
+    <div>
+        <div>
             <amp-img
                 alt="{{ __('Image Alt') }}"
                 src="https://picsum.photos/320"
@@ -24,7 +24,7 @@
             ></amp-img>
         </div>
 
-        <div class="col-12 md-col-6">
+        <div>
             <div>
                 <div>
                     {{ __('Price: ') . $entity->price }}
@@ -42,7 +42,7 @@
                         <input type="hidden" name="name" value="{{ $entity->name }}">
                         <input type="hidden" name="price" value="{{ $entity->price }}">
                 
-                        <input type="submit" value="{{ __('Add to Cart') }}" class="btn btn-primary bg-orange col-12 md-col-6">
+                        <input type="submit" value="{{ __('Add to Cart') }}" class="btn btn-primary col-12 btn-big">
                 
                         <div submit-error>
                             ERROR!
